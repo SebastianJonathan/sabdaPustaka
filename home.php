@@ -1,3 +1,6 @@
+<?php
+// $_POST = array();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -12,35 +15,9 @@
 </head>
 
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fix">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img class="hoverable" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.-DIgo2WbCfM8jyCFP5qsFAAAAA%26pid%3DApi&f=1&ipt=f6d86badabdb6537163bb968301426ccc1565bab15485b2a38c1c92b96c30c39&ipo=images" alt="Logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://localhost/searchbar.php">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-
+	<?php
+		include 'navbar.php';
+	?>
 
     <form action="" method="POST" id="search" class="content">
         <div class="rekomendasi-container">
@@ -81,11 +58,11 @@
     <?php
         if (isset($_POST['query'])) {
             $query = $_POST['query'];
+						// echo $query."<br>";
             // Check the selected checkboxes
             $checkbox_judul = isset($_POST['checkbox_judul']);
             $checkbox_narasumber = isset($_POST['checkbox_narasumber']);
             $checkbox_event = isset($_POST['checkbox_event']);
-
 
             // Build the fields array based on the selected checkboxes
             $fields = [];
@@ -103,16 +80,16 @@
             $fields_query = implode(',', $fields);
 
             // Display the selected checkboxes
-            if ($checkbox_judul) {
-                echo "Judul ";
-            }
-            if ($checkbox_narasumber) {
-                echo "Narasumber ";
-            }
-            if ($checkbox_event) {
-                echo "Event ";
-            }
-            echo "<br>";
+            // if ($checkbox_judul) {
+            //     echo "Judul ";
+            // }
+            // if ($checkbox_narasumber) {
+            //     echo "Narasumber ";
+            // }
+            // if ($checkbox_event) {
+            //     echo "Event ";
+            // }
+            // echo "<br>";
             include 'search_result.php';
         }
     ?>
@@ -196,10 +173,6 @@
         function tampilkanRekomendasi(rekomendasi) {
             const rekomendasiList = document.getElementById('rekomendasi-list');
             rekomendasiList.innerHTML = '';
-            console.log("W1");
-            console.log(rekomendasi);
-            console.log(rekomendasi.judul);
-            console.log(rekomendasi.narasumber);
 
             if(rekomendasi.judul.length > 0 ){
                 addSection("JUDUL",'section',rekomendasiList)
@@ -241,7 +214,11 @@
         function updateRekomendasiPosition() {
             const searchInput = document.getElementById('query');
             const rekomendasiDiv = document.getElementById('rekomendasi');
-            const rekomendasiContainer = document.getElementById('rekomendasi-container');
+            // const rekomendasiContainer = document.getElementById('rekomendasi-container');
+						// if (rekomendasiContainer === null) {
+						// 	console.log("rekomendasi container is null");
+						// }
+
 
             const inputRect = searchInput.getBoundingClientRect();
             const inputTop = inputRect.top + window.scrollY;
@@ -250,7 +227,7 @@
 
             rekomendasiDiv.style.width = inputWidth + 'px';
             rekomendasiDiv.style.left = inputRect.left + 'px';
-            rekomendasiContainer.style.top = (inputTop + inputHeight) + 'px';
+            // rekomendasiContainer.style.top = (inputTop + inputHeight) + 'px';
         }
         document.addEventListener('click', function(event) {
             const target = event.target;
@@ -273,156 +250,6 @@
     </script>
 
 
-    <?php
-    if (isset($_GET['query'])) {
-        $query = $_GET['query'];
-        // Check the selected checkboxes
-        $checkbox_judul = isset($_GET['checkbox_judul']);
-        $checkbox_narasumber = isset($_GET['checkbox_narasumber']);
-        $checkbox_event = isset($_GET['checkbox_event']);
-
-        // Build the fields array based on the selected checkboxes
-        $fields = [];
-        if ($checkbox_judul) {
-            $fields[] = 'judul_completion.input';
-        }
-        if ($checkbox_narasumber) {
-            $fields[] = 'narasumber_completion.input';
-        }
-        if ($checkbox_event) {
-            $fields[] = 'event_completion.input';
-        }
-
-        // Prepare the fields for the autocomplete query
-        $fields_query = implode(',', $fields);
-
-        function query($url, $param)
-        {
-            $header = array(
-                'Content-Type: application/json'
-            );
-            $options = array(
-                'http' => array(
-                    'header' => $header,
-                    'method' => 'POST',
-                    'content' => $param
-                )
-            );
-            $context = stream_context_create($options);
-            $response = file_get_contents($url, false, $context);
-            $result = json_decode($response, true);
-
-            return $result;
-        }
-
-        function getYoutubeVideoId($url)
-        {
-            $pattern = '/(?:youtube(?:-nocookie)?\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/';
-            $matches = [];
-            preg_match($pattern, $url, $matches);
-
-            if (isset($matches[1])) {
-                return $matches[1]; // YouTube video ID
-            } else {
-                return null; // Invalid YouTube URL or ID not found
-            }
-        }
-
-        echo '<div class="_cards-container">';
-        echo '<div class="main">';
-        echo '<ul class="_cards">';
-
-        if (isset($_GET['query'])) {
-            $query = $_GET['query'];
-
-            $url = 'http://localhost:9200/pustaka5/_search';
-            $queryValue = $_GET['query'];
-
-            $checkbox_judul = isset($_GET['checkbox_judul']);
-            $checkbox_narasumber = isset($_GET['checkbox_narasumber']);
-            $checkbox_event = isset($_GET['checkbox_event']);
-
-            $mustClause = [];
-
-            if ($checkbox_judul || $checkbox_narasumber || $checkbox_event) {
-                $multiMatch = [
-                    'query' => $queryValue,
-                    'operator' => 'and',
-                    'fuzziness' => 'AUTO'
-                ];
-
-                $fields = [];
-
-                if ($checkbox_judul) {
-                    $fields[] = 'judul_completion.input';
-                }
-                if ($checkbox_narasumber) {
-                    $fields[] = 'narasumber_completion.input';
-                }
-                if ($checkbox_event) {
-                    $fields[] = 'event_completion.input';
-                }
-
-                $multiMatch['fields'] = $fields;
-                $mustClause[] = ['multi_match' => $multiMatch];
-            }
-
-            $query = [
-                'query' => [
-                    'bool' => [
-                        'must' => $mustClause
-                    ]
-                ]
-            ];
-
-            $response = query($url, json_encode($query));
-
-            if (isset($response['hits']['hits'])) {
-                $hits = $response['hits']['hits'];
-                foreach ($hits as $hit) {
-                    $source = $hit['_source'];
-                    $judul = $source['judul'];
-                    $narasumber = $source['narasumber'];
-                    $deskripsi_pendek = $source['deskripsi_pendek'];
-                    $documentId = $hit['_id'];
-
-                    echo '<li class="_cards_item">';
-                    echo '<div class="_card" onclick="window.location.href=\'selected_card.php?document_id=' . $documentId . '\'">';
-                    // echo '<div class="card_image"><img src="https://picsum.photos/500/300/?image=10"></div>';
-                    echo '<div class="_card_image">';
-                    if (isset($source['url_youtube'])) {
-                        $youtubeUrl = $source['url_youtube'];
-                        // Extract the YouTube video ID from the URL
-                        $videoId = getYoutubeVideoId($youtubeUrl);
-                        if ($videoId) {
-                            $thumbnailUrl = "https://img.youtube.com/vi/{$videoId}/hqdefault.jpg";
-                            echo '<img src="' . $thumbnailUrl . '">';
-                        }
-                    }
-                    echo '</div>';
-                    echo '<div class="_card_content">';
-                    echo '<h2 class="_card_title">' . $judul . '</h2>';
-                    echo '<p class="_card_text">' . $narasumber . '</p>';
-                    // echo '<a class="card_link" href="selected_card.php?document_id=' . $documentId . '"></a>';
-                    // echo '<a class="card_link" data-document-id="' . $documentId . '">View Details</a>';
-                    echo '</div>';
-                    echo '</div>';
-                    echo '</li>';
-                }
-                echo '</ul>';
-            } else {
-                echo '</ul>';
-                echo "No results found.";
-            }
-        }
-
-
-
-        echo '</div>';
-        echo '</div>';
-    }
-
-    ?> -->
 
 
     <p>

@@ -36,15 +36,15 @@ echo '<div class="_cards-container">';
 echo '<div class="main">';
 echo '<ul class="_cards">';
 
-if (isset($_GET['query'])) {
-    $query = $_GET['query'];
+if (isset($_POST['query'])) {
+    $query = $_POST['query'];
 
     $url = 'http://localhost:9200/pustaka5/_search';
-    $queryValue = $_GET['query'];
+    $queryValue = $_POST['query'];
 
-    $checkbox_judul = isset($_GET['checkbox_judul']);
-    $checkbox_narasumber = isset($_GET['checkbox_narasumber']);
-    $checkbox_event = isset($_GET['checkbox_event']);
+    $checkbox_judul = isset($_POST['checkbox_judul']);
+    $checkbox_narasumber = isset($_POST['checkbox_narasumber']);
+    $checkbox_event = isset($_POST['checkbox_event']);
 
     $mustClause = [];
 
