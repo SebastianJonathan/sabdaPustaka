@@ -35,7 +35,10 @@
             .then(response => response.json())
             .then(data => {
                 // Process the response data
-                console.log(data);
+                console.log(data.result.data_result);
+                console.log(data.result.unique_narasumber);
+                console.log(data.result.unique_tanggal);
+                console.log(data.result.unique_event);
             })
             .catch(error => {
                 // Handle any errors
