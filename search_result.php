@@ -39,7 +39,7 @@ echo '<ul class="_cards">';
 if (isset($_POST['query'])) {
     $query = $_POST['query'];
 
-    $url = 'http://localhost:9200/pustaka5/_search';
+    $url = 'http://localhost:9200/pustaka6/_search';
     $queryValue = $_POST['query'];
 
     $checkbox_judul = isset($_POST['checkbox_judul']);
