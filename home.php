@@ -103,11 +103,13 @@
 				function fetchRecommendations() {
 					const query = document.getElementById('query').value;
 					const fields = document.getElementById('query').dataset.fields;
+					
+
 
 					fetch(`autocomplete.php?query=${query}&fields=${fields}`)
 						.then(response => response.json())
 						.then(data => {
-							// console.log(data.rekomendasi);
+							console.log(data.rekomendasi);
 							tampilkanRekomendasi(data.rekomendasi);					
 						})
 						.catch(error => {
