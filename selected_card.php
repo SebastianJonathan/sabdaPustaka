@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles3.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="sabdastyle.css">
     <style>
         .container-atas {
             background-color: #FFF;
@@ -92,7 +95,7 @@
     }
 
     // include 'query_function.php';
-    function query($url)
+    function query($url, $param)
     {
         $header = array(
             'Content-Type: application/json'
@@ -112,7 +115,7 @@
         $documentId = $_GET['document_id'];
 
         $url = 'http://localhost:9200/pustaka5/_doc/' . $documentId;
-        $response = query($url);
+        $response = query($url, null);
 
         if (isset($response['_source'])) {
             $source = $response['_source'];
@@ -203,7 +206,51 @@
                 <div class="row">
                     <div class="materi-terkait">
                         <h3>Materi Terkait</h3>
-                        <?php include 'materi_terkait.php'; ?>
+                        <?php
+                        $relatedCacheKey = 'related_documents_' . $documentId;
+
+                        // Check if the related documents are already cached
+                        if (isset($_SESSION[$relatedCacheKey])) {
+                            // Use the cached related documents
+                            $relatedHits = $_SESSION[$relatedCacheKey];
+                        } else {
+                            $relatedUrl = 'http://localhost:9200/pustaka5/_search';
+                            $relatedQuery = [
+                                'size' => 4, // Number of related documents to retrieve
+                                'query' => [
+                                    'function_score' => [
+                                        'query' => [
+                                            'bool' => [
+                                                'must_not' => [
+                                                    ['term' => ['_id' => $documentId]] // Exclude the current document ID from the related results
+                                                ]
+                                            ]
+                                        ],
+                                        'functions' => [
+                                            [
+                                                'random_score' => new \stdClass(), // Randomize the scores
+                                                'weight' => 1
+                                            ]
+                                        ],
+                                        'score_mode' => 'sum',
+                                        'boost_mode' => 'sum'
+                                    ]
+                                ]
+                            ];
+
+                            $relatedResponse = query($relatedUrl, $relatedQuery);
+                            $relatedHits = $relatedResponse['hits']['hits'];
+
+                            // Cache the related documents
+                            $_SESSION[$relatedCacheKey] = $relatedHits;
+                        }
+
+                        foreach ($relatedHits as $relatedHit) {
+                            $relatedSource = $relatedHit['_source'];
+                            $relatedJudul = $relatedSource['judul'];
+                            echo "<p>$relatedJudul</p>";
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
