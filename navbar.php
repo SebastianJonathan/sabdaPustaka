@@ -1,6 +1,3 @@
-<head>
-
-</head>
 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fix">
   <div class="container">
     <a class="navbar-brand" href="#">
