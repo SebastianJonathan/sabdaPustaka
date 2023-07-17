@@ -12,18 +12,18 @@
             //     "size": 10,
             //     "API": "filter"
             // };
-            // const filter = {
-            //     "query": "GoSabda",
-            //     "size": 10,
-            //     "API": "search"
-            // };
             const filter = {
-                "narasumber": ["Yulia Oeniyati"],
-                "event": ["GoSABDA"],
+                "query": "natal",
                 "size": 20,
-                "API": "searchFilter",
-                "query": "GoSabda!"
+                "API": "search"
             };
+            // const filter = {
+            //     "narasumber": ["Yulia Oeniyati"],
+            //     "event": ["GoSABDA"],
+            //     "size": 20,
+            //     "API": "searchFilter",
+            //     "query": "GoSabda!"
+            // };
             const filterJson = JSON.stringify(filter);
             fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
             method: 'POST',
@@ -35,7 +35,10 @@
             .then(response => response.json())
             .then(data => {
                 // Process the response data
-                console.log(data);
+                console.log(data.result.data_result);
+                console.log(data.result.unique_narasumber);
+                console.log(data.result.unique_tanggal);
+                console.log(data.result.unique_event);
             })
             .catch(error => {
                 // Handle any errors
