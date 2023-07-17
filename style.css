@@ -134,6 +134,20 @@ img {
     object-fit: cover;
 }
 
+.filter-sm-btn{
+    width: max-content;
+    background-color: #1e0049;
+    margin-bottom: 7px;
+}
+
+.row-search{
+    margin-bottom: 20px;
+}
+
+.col-konten-head{
+    padding-left: 16px;
+}
+
 @media (max-width: 1200px) {
     ._cards_item {
         flex-basis: calc(33.3333% - 1rem);
@@ -153,12 +167,25 @@ img {
     .details-container {
         flex-basis: 40%;
     }
+
+    .filter-sm-btn{
+        display: none;
+    }
+
+    #col-filter-sm{
+        display: none;
+    }
+
 }
 
 @media (max-width: 768px) {
     ._cards_item {
         flex-basis: calc(50% - 1rem);
     }
+    .col-filter{
+        display: none;
+    }
+
 }
 
 @media (max-width: 480px) {
