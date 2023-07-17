@@ -30,15 +30,15 @@
 							<h5>Filter</h5>
 							<?php include 'filter.php'?>
 							<label for="checkbox_judul" class="form-check-label bigger">
-								<input type="checkbox" class="form-check-input bigger" id="checkbox_judul" name="checkbox_judul" value="judul">
+								<input type="checkbox" class="form-check-input bigger" id="checkbox_judul" name="checkbox_judul" value="judul" onchange="onChangeCheckbox()">
 								Judul
 							</label><br>
 							<label for="checkbox_judul" class="form-check-label bigger">
-								<input type="checkbox" class="form-check-input bigger" id="checkbox_judul" name="checkbox_judul" value="judul">
+								<input type="checkbox" class="form-check-input bigger" id="checkbox_judul" name="checkbox_judul" value="judul" onchange="onChangeCheckbox()">
 								Event
 							</label><br>
 							<label for="checkbox_judul" class="form-check-label bigger">
-								<input type="checkbox" class="form-check-input bigger" id="checkbox_judul" name="checkbox_judul" value="judul">
+								<input type="checkbox" class="form-check-input bigger" id="checkbox_judul" name="checkbox_judul" value="judul" onchange="onChangeCheckbox()">
 								Narasumber
 							</label><br>
 							<label for="checkbox_judul" class="form-check-label bigger">
@@ -138,21 +138,33 @@
 					fetchRecommendations();
 				}
 
-				function fetchRecommendations() {
+				async function fetchRecommendations() {
 					const query = document.getElementById('query').value;
 					const fields = document.getElementById('query').dataset.fields;
-					
 
+					try {
+						const response = await fetch(`autocomplete.php?query=${query}&fields=${fields}`);
+						const data = await response.json();
+						console.log(data.rekomendasi);
+						tampilkanRekomendasi(data.rekomendasi);
+					} catch (error) {
+						console.error('Terjadi kesalahan:', error);
+					}
+				}
 
-					fetch(`autocomplete.php?query=${query}&fields=${fields}`)
-						.then(response => response.json())
-						.then(data => {
-							console.log(data.rekomendasi);
-							tampilkanRekomendasi(data.rekomendasi);					
-						})
-						.catch(error => {
-							console.error('Terjadi kesalahan:', error);
-						});
+				async function fetchRecommendations2() {
+					const query = document.getElementById('query').value;
+					const fields = document.getElementById('query').dataset.fields;
+
+					try {
+						const response = await fetch(`autocomplete.php?query=${query}&fields=${fields}`);
+						const data = await response.json();
+						console.log(data.rekomendasi);
+						tampilkanRekomendasi(data.rekomendasi);
+					} catch (error) {
+						console.error('Terjadi kesalahan:', error);
+					}
+					hideRekomendasi();
 				}
 
 				function addSection(item, className,rekomendasiList){
@@ -241,6 +253,28 @@
 							fetchRecommendations();
 					}
 				});
+
+				function onChangeCheckbox(){
+					const checkbox_judul = document.getElementById('checkbox_judul');
+					const checkbox_narasumber = document.getElementById('checkbox_narasumber');
+					const checkbox_event = document.getElementById('checkbox_event');
+
+					let fields = [];
+
+					if (checkbox_judul.checked) {
+						fields.push('judul_completion.input');
+					}
+					if (checkbox_narasumber.checked) {
+						fields.push('narasumber_completion.input');
+					}
+					if (checkbox_event.checked) {
+						fields.push('event_completion.input');
+					}
+
+					const queryInput = document.getElementById('query');
+					queryInput.dataset.fields = fields.join(',');
+					fetchRecommendations2();
+				}
 
 				window.addEventListener('resize', updateRekomendasiPosition);
 				window.addEventListener('DOMContentLoaded', updateRekomendasiPosition);
