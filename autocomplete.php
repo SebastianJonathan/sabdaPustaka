@@ -1,86 +1,115 @@
 <?php
-function query($url, $param)
-{
-    $header = array(
-        'Content-Type: application/json'
-    );
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $url);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
-    curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $param);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $result = json_decode($response, true);
+    if(strlen($_GET['query']) >= 3){
+        function query($url, $param)
+        {
+            $header = array(
+                'Content-Type: application/json'
+            );
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $param);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            $response = curl_exec($curl);
+            curl_close($curl);
+            $result = json_decode($response, true);
 
-    return $result;
-}
+            return $result;
+        }
 
-$url = 'http://localhost:9200/pustaka5/_search';
-$fields = explode(',', $_GET['fields']);
+        $url = 'http://localhost:9200/pustaka6/_search';
 
-$params = [
-    'size' => 10,
-    'query' => [
-        'bool' => [
-            'must' => [
-                [
-                    'multi_match' => [
-                        'query' => $_GET['query'],
-                        'fields' => $fields,
-                        'operator' => 'and',
-                        'fuzziness' => 'AUTO'
+        $fields = explode(',', $_GET['fields']);
+
+        $params = [
+            'size' => 10,
+            'query' => [
+                'bool' => [
+                    'must' => [
+                        [
+                            'multi_match' => [
+                                'query' => $_GET['query'],
+                                'fields' => $fields,
+                                'operator' => 'and'
+                            ]
+                        ]
                     ]
                 ]
+            ],
+            'highlight' => [
+                'pre_tags' => ['<strong>'],
+                'post_tags' => ['</strong>'],
+                'fields' => array_fill_keys($fields, new \stdClass())
             ]
-        ]
-    ],
-    'highlight' => [
-        'pre_tags' => ['<strong>'],
-        'post_tags' => ['</strong>'],
-        'fields' => array_fill_keys($fields, new \stdClass())
-    ]
-];
-$query = json_encode($params);
-$response = query($url, $query);
-$hits = $response['hits']['hits'];
+        ];
+        $query = json_encode($params);
+        $response = query($url, $query);
+        $hits = $response['hits']['hits'];
 
-// $rekomendasi = array();
+        $rekomendasiTerkaitJudul = array();
+        $rekomendasiUtamaJudul = array();
+        $rekomendasiTerkaitEvent = array();
+        $rekomendasiUtamaEvent = array();
+        $rekomendasiTerkaitNarasumber = array();
+        $rekomendasiUtamaNarasumber = array();
+        $queryy = $_GET['query'];
 
-$rekomendasi = array(
-    'judul' => array(),
-    'narasumber' => array(),
-    'event' => array(),
-  );
+        // Loop through the hits
+        foreach ($hits as $hit) {
+            $source = $hit['_source'];
+            $event = $source['event'];
+            $judul = $source['judul'];
+            $narasumber = $source['narasumber'];
 
-// Loop through the hits
-foreach ($hits as $hit) {
-    $source = $hit['_source'];
-    $event = $source['event'];
-    $judul = $source['judul'];
-    $narasumber = $source['narasumber'];
+            $highlight = $hit['highlight'];
 
-    $highlight = $hit['highlight'];
+            if (isset($highlight['judul_completion.input']) && !in_array($judul, $rekomendasiTerkaitJudul) && !in_array($judul, $rekomendasiUtamaJudul)) {
+                if(strtolower(substr($judul,0,strlen($queryy))) == strtolower($queryy)){
+                    $rekomendasiUtamaJudul[] = $judul;
+                }
+                else{
+                    $rekomendasiTerkaitJudul[] = $judul;
+                }
+            }
+            
+            if (isset($highlight['event_completion.input']) && !in_array($event, $rekomendasiTerkaitEvent) && !in_array($event, $rekomendasiUtamaEvent)) {
+                if(strtolower(substr($event,0,strlen($queryy))) == strtolower($queryy)){
+                    $rekomendasiUtamaEvent[] = $event;
+                }
+                else{
+                    $rekomendasiTerkaitEvent[] = $event;
+                }
+            }
 
-    if (isset($highlight['judul_completion.input']) && !in_array($judul, $rekomendasi)) {
-        // $rekomendasi[] = $judul;
-        $rekomendasi['judul'][] = $judul;
+            if (isset($highlight['narasumber_completion.input'])) {
+                $listNarasumber = explode(", ",$narasumber);
+                foreach($listNarasumber as $namaNarasumber){
+                    if(stripos($namaNarasumber,$_GET['query']) !== false && !in_array($namaNarasumber, $rekomendasiTerkaitNarasumber) && !in_array($namaNarasumber, $rekomendasiUtamaNarasumber)){
+                        if(strtolower(substr($namaNarasumber,0,strlen($queryy))) == strtolower($queryy)){
+                            $rekomendasiUtamaNarasumber[] = $namaNarasumber;
+                        }
+                        else{
+                            $rekomendasiTerkaitNarasumber[] = $namaNarasumber;
+                        }
+                    }
+                }
+            }
+        }   
+        $rekomendasi = [
+            'judul' => array_merge($rekomendasiUtamaJudul,$rekomendasiTerkaitJudul),
+            'event' => array_merge($rekomendasiUtamaEvent,$rekomendasiTerkaitEvent),
+            'narasumber' => array_merge($rekomendasiUtamaNarasumber,$rekomendasiTerkaitNarasumber)
+        ];
+        header('Content-Type: application/json');
+        echo json_encode(['rekomendasi' => $rekomendasi]);
+    }else{
+        $rekomendasi = [
+            'judul' => [],
+            'event' => [],
+            'narasumber' => []
+        ];
+        header('Content-Type: application/json');
+        echo json_encode(['rekomendasi' => $rekomendasi]);
     }
-    
-    if (isset($highlight['event_completion.input']) && !in_array($event, $rekomendasi)) {
-        // $rekomendasi[] = $event;
-        $rekomendasi['event'][] = $event;
-    }
-
-    if (isset($highlight['narasumber_completion.input']) && !in_array($narasumber, $rekomendasi)) {
-        // $rekomendasi[] = $narasumber;
-        $rekomendasi['narasumber'][] = $narasumber;
-    }
-}
-
-// Remove duplicates from recommendations
-
-
-echo json_encode(['rekomendasi' => $rekomendasi]);
 ?>
