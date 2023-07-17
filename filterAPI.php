@@ -15,6 +15,17 @@
 
         return $result;
     }
+    function dateComparison($date1, $date2) {
+        $datetime1 = strtotime($date1);
+        $datetime2 = strtotime($date2);
+        if ($datetime1 < $datetime2) {
+            return -1;
+        } elseif ($datetime1 == $datetime2) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
     function filterMulti($jsonFilter){
         $logFile = 'error.log';
         $result = array();
@@ -64,6 +75,9 @@
     function search($jsonSearch){
         $logFile = 'error.log';
         $result = array();
+        $narasumber = array();
+        $event = array();
+        $tanggal = array();
         $url = 'http://localhost:9200/pustaka6/_search';
         $params = [
             'size' => $jsonSearch["size"],
@@ -96,8 +110,27 @@
                 'deskripsi_pendek' => $source['deskripsi_pendek'],
                 'id' => $hit['_id']
             ];
+            $listNarasumber = explode(", ",$source['narasumber']);
+            foreach($listNarasumber as $namaNarasumber){
+                if(!in_array($namaNarasumber, $narasumber)){
+                    $narasumber[] = $namaNarasumber;
+                }
+            }
+            if(!in_array($source['event'],$event)){
+                $event[] = $source['event'];
+            }
+            if(!in_array($source['tanggal'],$tanggal)){
+                $tanggal[] = $source['tanggal'];
+            }
         }
-        echo json_encode(['result' => $result]);
+        usort($tanggal, "dateComparison");
+        $jsonData = [
+            'data_result' => $result,
+            'unique_narasumber' => $narasumber,
+            'unique_event' => $event,
+            'unique_tanggal' => $tanggal
+        ];
+        echo json_encode(['result' => $jsonData]);
     }
     function searchFilter($jsonSearch){
         $logFile = 'error.log';

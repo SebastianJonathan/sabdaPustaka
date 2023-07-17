@@ -12,18 +12,18 @@
             //     "size": 10,
             //     "API": "filter"
             // };
-            // const filter = {
-            //     "query": "GoSabda",
-            //     "size": 10,
-            //     "API": "search"
-            // };
             const filter = {
-                "narasumber": ["Yulia Oeniyati"],
-                "event": ["GoSABDA"],
+                "query": "natal",
                 "size": 20,
-                "API": "searchFilter",
-                "query": "GoSabda!"
+                "API": "search"
             };
+            // const filter = {
+            //     "narasumber": ["Yulia Oeniyati"],
+            //     "event": ["GoSABDA"],
+            //     "size": 20,
+            //     "API": "searchFilter",
+            //     "query": "GoSabda!"
+            // };
             const filterJson = JSON.stringify(filter);
             fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
             method: 'POST',
