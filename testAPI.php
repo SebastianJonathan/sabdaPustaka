@@ -13,9 +13,10 @@
             //     "API": "filter"
             // };
             const filter = {
-                "query": "natal",
-                "size": 20,
-                "API": "search"
+                "query": "Nikos Septian Kristiyono",
+                "size": 100,
+                "API": "search",
+                "fields": ['judul_completion.input','narasumber_completion.input']
             };
             // const filter = {
             //     "narasumber": ["Yulia Oeniyati"],

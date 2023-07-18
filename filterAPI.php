@@ -74,6 +74,7 @@
     }
     function search($jsonSearch){
         $logFile = 'error.log';
+        $field = $jsonSearch["fields"];
         $result = array();
         $narasumber = array();
         $event = array();
@@ -87,10 +88,9 @@
                         [
                             'multi_match' => [
                                 'query' => $jsonSearch["query"],
-                                'fields' => ['narasumber_completion.input',
-                                'event_completion.input',
-                                'judul_completion.input'],
+                                'fields' => $field,
                                 'operator' => 'and',
+                                'fuzziness' => 'AUTO'
                             ]
                         ]
                     ]
@@ -98,7 +98,6 @@
             ],
         ];
         $query = json_encode($params);
-        error_log($query,3,$logFile);
         $response = query($url, $query);
         $hits = $response['hits']['hits'];
         foreach ($hits as $hit) {
@@ -108,7 +107,8 @@
                 'judul' => $source['judul'],
                 'narasumber' => $source['narasumber'],
                 'deskripsi_pendek' => $source['deskripsi_pendek'],
-                'id' => $hit['_id']
+                'id' => $hit['_id'],
+                'youtube' => $source['url_youtube']
             ];
             $listNarasumber = explode(", ",$source['narasumber']);
             foreach($listNarasumber as $namaNarasumber){
@@ -135,6 +135,7 @@
     function searchFilter($jsonSearch){
         $logFile = 'error.log';
         $result = array();
+        $field = $jsonSearch["fields"];
         $url = 'http://localhost:9200/pustaka6/_search';
         $params = [
             'size' => $jsonSearch["size"],
@@ -144,10 +145,9 @@
                         [
                             'multi_match' => [
                                 'query' => $jsonSearch["query"],
-                                'fields' => ['narasumber_completion.input',
-                                'event_completion.input',
-                                'judul_completion.input'],
-                                'operator' => 'and'
+                                'fields' => $field,
+                                'operator' => 'and',
+                                'fuzziness' => 'AUTO'
                             ]
                         ],
                     ],

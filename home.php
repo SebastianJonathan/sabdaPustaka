@@ -14,12 +14,12 @@
 	<div class="container-fluid">
 		<!-- Row Search Bar -->
 		<div class="row row-search">
-			<form action="" method="POST" id="search" class="content">
-					<div class="rekomendasi-container">
-							<div class="col-md-6 InputContainer">
-									<input placeholder="Search.." id="query" class="query form-control form-input" name="query" type="text" autocomplete="off">
-									<button type="submit" class="search-button">Search</button>
-							</div>
+			<form action="" id="search" class="content">
+				<div class="rekomendasi-container">
+					<div class="col-md-6 InputContainer">
+						<input placeholder="Search.." id="query" class="query form-control form-input" name="query" type="text" autocomplete="off">
+						<button type="button" class="search-button" onclick="getSearchResult()">Search</button>
+						</div>
 							<div id="rekomendasi">
 									<ul id="rekomendasi-list"></ul>
 							</div>
@@ -247,8 +247,8 @@
 					const rekomendasiDiv = document.getElementById('rekomendasi');
 					rekomendasiDiv.style.display = 'none';
 				}
-
-				document.getElementById('search').addEventListener('submit', function() {
+				let query = "";
+				function getSearchResult() {
 					const checkboxJudul = document.getElementById("checkbox_judul");
 					const checkboxEvent = document.getElementById("checkbox_event");
 					const checkboxNarasumber = document.getElementById("checkbox_narasumber");
@@ -257,15 +257,18 @@
 					sessionStorage.setItem("checkboxEvent", checkboxEvent.checked);
 					sessionStorage.setItem("checkboxNarasumber", checkboxNarasumber.checked);
 					sessionStorage.setItem("first",true)
+					fetchSearchResult();
+					
+				};
+				document.getElementById("search").addEventListener("submit", function(event) {
+					event.preventDefault();
+					getSearchResult();
+					hideRekomendasi();
 				});
 
 				function updateRekomendasiPosition() {
 					const searchInput = document.getElementById('query');
 					const rekomendasiDiv = document.getElementById('rekomendasi');
-					// const rekomendasiContainer = document.getElementById('rekomendasi-container');
-					// if (rekomendasiContainer === null) {
-					// 	console.log("rekomendasi container is null");
-					// }
 
 
 					const inputRect = searchInput.getBoundingClientRect();
@@ -354,6 +357,7 @@
 				window.addEventListener('DOMContentLoaded', updateRekomendasiPosition);
 
 				document.getElementById('query').addEventListener('input', fetchRecommendations);
+				document.addEventListener('DOMContentLoaded', getSearchResult);
 			</script>
 		</div>
 		
