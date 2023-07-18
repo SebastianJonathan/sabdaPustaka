@@ -119,8 +119,8 @@
             if(!in_array($source['event'],$event)){
                 $event[] = $source['event'];
             }
-            if(!in_array($source['tanggal'],$tanggal)){
-                $tanggal[] = $source['tanggal'];
+            if(!in_array(substr($source['tanggal'],0,4),$tanggal)){
+                $tanggal[] = substr($source['tanggal'],0,4);
             }
         }
         usort($tanggal, "dateComparison");
@@ -165,7 +165,7 @@
                     if(!empty($jsonSearch["tanggal"])){
                         $listNarasumber = explode(", ",$source['narasumber']);
                         foreach($listNarasumber as $namaNarasumber){
-                            if(in_array($source["event"], $jsonSearch["event"]) and in_array($namaNarasumber, $jsonSearch["narasumber"]) and in_array($source["tanggal"],$jsonSearch["tanggal"])){
+                            if(in_array($source["event"], $jsonSearch["event"]) and in_array($namaNarasumber, $jsonSearch["narasumber"]) and in_array(substr($source["tanggal"],0,4),$jsonSearch["tanggal"])){
                                 $result[] = [
                                     'event' => $source['event'],
                                     'judul' => $source['judul'],
@@ -194,7 +194,7 @@
                 }
                 else{
                     if(!empty($jsonSearch["tanggal"])){
-                        if(in_array($source["event"], $jsonSearch["event"]) and in_array($source["tanggal"], $jsonSearch["tanggal"])){
+                        if(in_array($source["event"], $jsonSearch["event"]) and in_array(substr($source["tanggal"],0,4), $jsonSearch["tanggal"])){
                             $result[] = [
                                 'event' => $source['event'],
                                 'judul' => $source['judul'],
@@ -221,7 +221,7 @@
                 if(!empty($jsonSearch["narasumber"])){
                     $listNarasumber = explode(", ",$source['narasumber']);
                     foreach($listNarasumber as $namaNarasumber){
-                        if(in_array($namaNarasumber, $jsonSearch["narasumber"]) and in_array($source["tanggal"],$jsonSearch["tanggal"])){
+                        if(in_array($namaNarasumber, $jsonSearch["narasumber"]) and in_array(substr($source["tanggal"],0,4),$jsonSearch["tanggal"])){
                             $result[] = [
                                 'event' => $source['event'],
                                 'judul' => $source['judul'],
@@ -233,7 +233,7 @@
                         }
                     }
                 } else{
-                    if(in_array($source["tanggal"],$jsonSearch["tanggal"])){
+                    if(in_array(substr($source["tanggal"],0,4),$jsonSearch["tanggal"])){
                         $result[] = [
                             'event' => $source['event'],
                             'judul' => $source['judul'],
