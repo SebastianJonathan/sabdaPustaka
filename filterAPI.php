@@ -176,17 +176,45 @@
                                 ];
                             }
                         }
+                    }else {
+                        $listNarasumber = explode(", ",$source['narasumber']);
+                        foreach($listNarasumber as $namaNarasumber){
+                            if(in_array($source["event"], $jsonSearch["event"]) and in_array($namaNarasumber, $jsonSearch["narasumber"])){
+                                $result[] = [
+                                    'event' => $source['event'],
+                                    'judul' => $source['judul'],
+                                    'narasumber' => $source['narasumber'],
+                                    'deskripsi_pendek' => $source['deskripsi_pendek'],
+                                    'id' => $hit['_id'],
+                                    'youtube' => $source['url_youtube']
+                                ];
+                            }
+                        }
                     }
-                }else{
-                    if(in_array($source["event"], $jsonSearch["event"]) and in_array($source["tanggal"], $jsonSearch["tanggal"])){
-                        $result[] = [
-                            'event' => $source['event'],
-                            'judul' => $source['judul'],
-                            'narasumber' => $source['narasumber'],
-                            'deskripsi_pendek' => $source['deskripsi_pendek'],
-                            'id' => $hit['_id'],
-                            'youtube' => $source['url_youtube']
-                        ];
+                }
+                else{
+                    if(!empty($jsonSearch["tanggal"])){
+                        if(in_array($source["event"], $jsonSearch["event"]) and in_array($source["tanggal"], $jsonSearch["tanggal"])){
+                            $result[] = [
+                                'event' => $source['event'],
+                                'judul' => $source['judul'],
+                                'narasumber' => $source['narasumber'],
+                                'deskripsi_pendek' => $source['deskripsi_pendek'],
+                                'id' => $hit['_id'],
+                                'youtube' => $source['url_youtube']
+                            ];
+                        }
+                    }else {
+                        if(in_array($source["event"], $jsonSearch["event"])){
+                            $result[] = [
+                                'event' => $source['event'],
+                                'judul' => $source['judul'],
+                                'narasumber' => $source['narasumber'],
+                                'deskripsi_pendek' => $source['deskripsi_pendek'],
+                                'id' => $hit['_id'],
+                                'youtube' => $source['url_youtube']
+                            ];
+                        }
                     }
                 }
             }else if(!empty($jsonSearch["tanggal"])){
