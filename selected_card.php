@@ -126,12 +126,20 @@
             $url_slideshare = $source['url_slideshare'];
             $slideshare_key = getSlideShareKey($url_slideshare);
             $narasumber = $source['narasumber'];
+
             $ringkasan = $source['ringkasan'];
+            $ringkasan = str_replace('*', "<br>", $ringkasan);
+
             $deskripsi_pendek = $source['deskripsi_pendek'];
+            $deskripsi_pendek = str_replace('*', "<br>", $deskripsi_pendek);
+
             $kata_kunci = $source['kata_kunci'];
             $list_pertanyaan = $source['list_pertanyaan'];
-
-            $pertanyaan = explode(', ', $list_pertanyaan);
+            $list_pertanyaan = str_replace('*', "", $list_pertanyaan);
+            $list_pertanyaan = str_replace(', ', "", $list_pertanyaan);
+            
+            $pertanyaan = explode('?', $list_pertanyaan);
+            
             $katakunci = explode(', ', $kata_kunci);
     ?>
 
@@ -195,7 +203,9 @@
                                         <ul>
                                             <?php
                                             foreach ($pertanyaan as $item) {
-                                                echo "<li>" . $item . "</li>";
+                                                if (trim($item) !== '') {
+                                                    echo "<li>" . $item . "?</li>";
+                                                }
                                             }
                                             ?>
                                         </ul>
