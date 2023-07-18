@@ -170,7 +170,8 @@
                                 'judul' => $source['judul'],
                                 'narasumber' => $source['narasumber'],
                                 'deskripsi_pendek' => $source['deskripsi_pendek'],
-                                'id' => $hit['_id']
+                                'id' => $hit['_id'],
+                                'youtube' => $source['url_youtube']
                             ];
                         }
                     }
@@ -181,7 +182,8 @@
                             'judul' => $source['judul'],
                             'narasumber' => $source['narasumber'],
                             'deskripsi_pendek' => $source['deskripsi_pendek'],
-                            'id' => $hit['_id']
+                            'id' => $hit['_id'],
+                            'youtube' => $source['url_youtube']
                         ];
                     }
                 }
@@ -195,7 +197,8 @@
                                 'judul' => $source['judul'],
                                 'narasumber' => $source['narasumber'],
                                 'deskripsi_pendek' => $source['deskripsi_pendek'],
-                                'id' => $hit['_id']
+                                'id' => $hit['_id'],
+                                'youtube' => $source['url_youtube']
                             ];
                         }
                     }
@@ -205,7 +208,8 @@
                         'judul' => $source['judul'],
                         'narasumber' => $source['narasumber'],
                         'deskripsi_pendek' => $source['deskripsi_pendek'],
-                        'id' => $hit['_id']
+                        'id' => $hit['_id'],
+                        'youtube' => $source['url_youtube']
                     ];
                 }
             }
