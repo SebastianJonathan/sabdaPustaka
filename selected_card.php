@@ -179,10 +179,12 @@
                                     <h6>Keywords</h6>
                                     <?php
                                     foreach ($katakunci as $item) {
-                                        $link = 'https://example.com/search?q=' . urlencode($item); // Modify the URL as per your requirements
-                                        echo "<a href=\"$link\" style=\"color: blue;\">$item</a> " . ". ";
+                                        $link = 'javascript:void(0);'; // Set the link to javascript:void(0);
+                                        echo "<a href=\"$link\" class=\"keyword-link\" data-keyword=\"$item\" style=\"color: blue;\">$item</a> " . ". ";
                                     }
                                     ?>
+
+
                                 </div>
                             </div>
                         </div>
@@ -207,60 +209,13 @@
                     <div class="materi-terkait">
                         <h3>Materi Terkait</h3>
                         <?php
-                        $relatedCacheKey = 'related_documents_' . $documentId;
 
-                        // Check if the related documents are already cached
-                        if (isset($_SESSION[$relatedCacheKey])) {
-                            // Use the cached related documents
-                            $relatedHits = $_SESSION[$relatedCacheKey];
-                        } else {
-                            $relatedUrl = 'http://localhost:9200/pustaka5/_search';
-                            $relatedQuery = [
-                                'size' => 4, // Number of related documents to retrieve
-                                'query' => [
-                                    'function_score' => [
-                                        'query' => [
-                                            'bool' => [
-                                                'must_not' => [
-                                                    ['term' => ['_id' => $documentId]] // Exclude the current document ID from the related results
-                                                ]
-                                            ]
-                                        ],
-                                        'functions' => [
-                                            [
-                                                'random_score' => new \stdClass(), // Randomize the scores
-                                                'weight' => 1
-                                            ]
-                                        ],
-                                        'score_mode' => 'sum',
-                                        'boost_mode' => 'sum'
-                                    ]
-                                ]
-                            ];
-
-                            $relatedResponse = query($relatedUrl, $relatedQuery);
-                            $relatedHits = $relatedResponse['hits']['hits'];
-
-                            // Cache the related documents
-                            $_SESSION[$relatedCacheKey] = $relatedHits;
-                        }
-
-                        foreach ($relatedHits as $relatedHit) {
-                            $relatedSource = $relatedHit['_source'];
-                            $relatedJudul = $relatedSource['judul'];
-                            echo "<p>$relatedJudul</p>";
-                        }
                         ?>
                     </div>
                 </div>
             </div>
             <script>
-                // window.addEventListener('DOMContentLoaded', () => {
-                //     const summaryContent = document.querySelector('.summary-content');
-                //     const pertanyaanContent = document.querySelector('#pertanyaan-content');
 
-                //     pertanyaanContent.style.height = `${summaryContent.height}px`;
-                // });
             </script>
     <?php
         } else {
@@ -270,6 +225,30 @@
     ?>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        const keywordLinks = document.querySelectorAll('.keyword-link');
+
+        keywordLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const query = link.dataset.keyword;
+
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = 'related_results.php';
+
+                const keywordInput = document.createElement('input');
+                keywordInput.type = 'hidden';
+                keywordInput.name = 'keyword';
+                keywordInput.value = query;
+
+                form.appendChild(keywordInput);
+
+                document.body.appendChild(form);
+                form.submit();
+            });
+        });
+    </script>
 </body>
 
 <?php
