@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Related Results</title>
-    <!-- Add your CSS stylesheets and other head elements as needed -->
+	<?php
+		include 'header.php';
+	?>
+    <link rel="stylesheet" href="styles3.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="sabdastyle.css">
 </head>
 
 <body>
+    <?php
+        include 'navbar.php';
+    ?>
     <h1>Related Results</h1>
-
-    <div id="judul-container"></div>
-    <div id="narasumber-container"></div>
-
-    <!-- Add your additional HTML content and scripts as needed -->
 
     <?php
     if (isset($_POST['keyword'])) {
@@ -24,6 +23,16 @@
         echo "No keyword provided.";
     }
     ?>
+
+    <div class="_cards-container">
+        <div class="main">
+            <ul class="_cards" id="card_result">
+                <!-- Card results will be dynamically added here -->
+            </ul>
+        </div>
+    </div>
+
+    <!-- Add your additional HTML content and scripts as needed -->
 
     <script>
         // Extract the keyword from the POST data
@@ -35,11 +44,59 @@
                 .then(response => response.json())
                 .then(data => {
                     const hasil = data.hasil;
-                    const juduls = hasil.map(item => item.judul);
-                    const narasumbers = hasil.map(item => item.event); // Update this line to use the correct property for narasumber
 
-                    // Display the results
-                    showResults(juduls, narasumbers);
+                    const cardResultElement = document.getElementById('card_result');
+                    cardResultElement.innerHTML = '';
+
+                    if (hasil.length > 0) {
+                        hasil.forEach(function (item) {
+                            const cardItem = document.createElement('li');
+                            cardItem.className = '_cards_item';
+
+                            const card = document.createElement('div');
+                            card.className = '_card';
+                            card.setAttribute('onclick', `window.location.href='selected_card.php?document_id=${item.id}'`);
+
+                            const cardImage = document.createElement('div');
+                            cardImage.className = '_card_image';
+
+                            if (item.youtube) {
+                                const youtubeUrl = item.youtube;
+                                const videoId = getYoutubeVideoId(youtubeUrl);
+                                if (videoId) {
+                                    const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                                    const thumbnailImg = document.createElement('img');
+                                    thumbnailImg.src = thumbnailUrl;
+                                    cardImage.appendChild(thumbnailImg);
+                                }
+                            }
+
+                            const cardContent = document.createElement('div');
+                            cardContent.className = '_card_content';
+
+                            const cardTitle = document.createElement('h2');
+                            cardTitle.className = '_card_title';
+                            cardTitle.textContent = item.judul;
+
+                            const cardText = document.createElement('p');
+                            cardText.className = '_card_text';
+                            cardText.textContent = item.narasumber;
+
+                            // Append the card content to the card element
+                            card.appendChild(cardImage);
+                            card.appendChild(cardContent);
+
+                            cardContent.appendChild(cardTitle);
+                            cardContent.appendChild(cardText);
+
+                            cardItem.appendChild(card);
+                            cardResultElement.appendChild(cardItem);
+                        });
+                    } else {
+                        const noResults = document.createElement('p');
+                        noResults.textContent = 'No results found.';
+                        cardResultElement.appendChild(noResults);
+                    }
                 })
                 .catch(error => {
                     console.error(error);
@@ -48,15 +105,19 @@
             console.log("No keyword provided.");
         }
 
-        function showResults(juduls, narasumbers) {
-            // Display the results in the page
-            const judulContainer = document.getElementById('judul-container');
-            const narasumberContainer = document.getElementById('narasumber-container');
+        function getYoutubeVideoId(url) {
+            const pattern = /(?:youtube(?:-nocookie)?\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            const matches = url.match(pattern);
 
-            judulContainer.innerHTML = "<h2>Judul:</h2>" + juduls.map(title => "<p>" + title + "</p>").join("");
-            narasumberContainer.innerHTML = "<h2>Narasumber:</h2>" + narasumbers.map(speaker => "<p>" + speaker + "</p>").join("");
+            if (matches && matches[1]) {
+                return matches[1]; // YouTube video ID
+            } else {
+                return null; // Invalid YouTube URL or ID not found
+            }
         }
     </script>
-</body>
+    
+    <?php include 'footer.php';?>
 
+</body>
 </html>
