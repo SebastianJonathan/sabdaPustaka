@@ -153,7 +153,8 @@
                                 <div class="video-wrapper">
                                     <!-- <iframe width="100%" height="315" src="<?php echo $url_youtube; ?>" frameborder="0" allowfullscreen></iframe> -->
                                     <iframe src="<?php echo $url_static ?>" width="100%" height="400px"></iframe>
-                                    <a href="<?php echo $url_slideshare ?>" target="_blank">Link to SlideShare</a>
+                                    <a href="<?php echo $url_slideshare ?>" target="_blank">Link SlideShare</a>
+                                    <a href="<?php echo $url_youtube ?>" target="_blank">Link Presentasi</a>
                                 </div>
                             </div>
                         </div>
@@ -184,7 +185,7 @@
                             <br>
                             <div class="row">
                                 <div class="keyword-content">
-                                    <h6>Keywords</h6>
+                                    <h6>Kata Kunci</h6>
                                     <?php
                                     foreach ($katakunci as $item) {
                                         $link = 'javascript:void(0);'; // Set the link to javascript:void(0);
