@@ -174,7 +174,7 @@
                     titleFFC.id = "ffc-event";
                     filterOpenCanvas.appendChild(titleFFV);
                     filterColumnCanvas.appendChild(titleFFC);
-                    data.result.unique_narasumber.forEach(function (item,index){
+                    data.result.unique_event.forEach(function (item,index){
                         createCheckbox("ffv-e" + index,item);
                         createCheckbox("ffc-e" + index,item);
                     });
@@ -188,7 +188,7 @@
                     titleFFC.id = "ffc-tanggal";
                     filterOpenCanvas.appendChild(titleFFV);
                     filterColumnCanvas.appendChild(titleFFC);
-                    data.result.unique_narasumber.forEach(function (item,index){
+                    data.result.unique_tanggal.forEach(function (item,index){
                         createCheckbox("ffv-t" + index,item);
                         createCheckbox("ffc-t" + index,item);
                     });
