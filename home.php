@@ -65,8 +65,9 @@
 						<div class="col-konten-head">
 							<button class="btn filter-sm-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#filter-sm" aria-controls="filter-sm">Filter</button>
 								<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="filter-sm" aria-labelledby="filter-sm-label">
-									<div class="offcanvas-header">
-										<h5 class="offcanvas-title" id="filter-sm-label">Backdrop with scrolling</h5>
+									<div class="offcanvas-header" style="align-items: end; padding-bottom: 0px;">
+										<div style="height: 80px;"></div> 
+										<h5 class="offcanvas-title" id="filter-sm-label">Filter</h5>
 										<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 									</div>
 									<div class="offcanvas-body" >
@@ -200,28 +201,6 @@
 					// console.log(id + " -- " + fsv_id);
 					// console.log(this.checked);
 					$('#' + fsv_id).prop('checked', is_checked);
-					updateFields();
-				});
-
-				$('.ffv input[type=checkbox]').change(function() {
-					var id = this.id;
-					var is_checked = this.checked;
-					var true_id = id.split("-")[1];
-					var ffc_id = "ffc-"+true_id;
-					console.log(id + " -- " + ffc_id);
-					// console.log(this.checked);
-					$('#' + ffc_id).prop('checked', is_checked);
-					updateFields();
-				});
-
-				$('.ffc input[type=checkbox]').change(function() {
-					var id = this.id;
-					var is_checked = this.checked;
-					var true_id = id.split("-")[1];
-					var ffv_id = "ffv-"+true_id;
-					console.log(id + " -- " + ffv_id);
-					// console.log(this.checked);
-					$('#' + ffv_id).prop('checked', is_checked);
 					updateFields();
 				});
 
