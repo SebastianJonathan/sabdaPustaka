@@ -13,6 +13,40 @@
   </div>
 
   <script>
+    const filterOpenCanvas = document.getElementById("ffv-filter");
+    const filterColumnCanvas = document.getElementById("ffc-filter");
+
+    function createCheckbox(id, nama) {
+        var containerDiv = document.createElement("div");
+        containerDiv.className = "checkbox-container";
+
+        var label = document.createElement("label");
+        label.setAttribute("for", id);
+        label.className = "form-check-label checkbox-label bigger";
+
+        var input = document.createElement("input");
+        input.setAttribute("type", "checkbox");
+        input.className = "form-check-input bigger";
+        input.id = id;
+        input.name = id;
+        input.value = nama;
+        input.onchange = function() {
+            
+        };
+
+        label.appendChild(input);
+
+        label.appendChild(document.createTextNode(nama));
+
+        containerDiv.appendChild(label);
+
+        if (id.substring(0, 3) == "ffv") {
+            filterOpenCanvas.appendChild(containerDiv);
+        } else {
+            filterColumnCanvas.appendChild(containerDiv);
+        }
+    }
+
     function fetchSearchResult() {
         if(document.getElementById('query').value != ""){
             sessionStorage.setItem("query", document.getElementById('query').value);
@@ -110,11 +144,56 @@
                     cardItem.appendChild(card);
                     cardResultElement.appendChild(cardItem);
                 });
-            } else {
-                const noResults = document.createElement('p');
-                noResults.textContent = 'No results found.';
-                cardResultElement.appendChild(noResults);
-            }})
+                } else {
+                    const noResults = document.createElement('p');
+                    noResults.textContent = 'No results found.';
+                    cardResultElement.appendChild(noResults);
+                }
+                filterOpenCanvas.innerHTML = '';
+                filterColumnCanvas.innerHTML = '';
+                if(data.result.unique_narasumber.length > 0){
+                    const titleFFV = document.createElement('h1');
+                    titleFFV.textContent = "Filter Berdasarkan Narasumber";
+                    titleFFV.id = "ffv-narasumber";
+                    const titleFFC = document.createElement('h1');
+                    titleFFC.textContent = "Filter Berdasarkan Narasumber";
+                    titleFFC.id = "ffc-narasumber";
+                    filterOpenCanvas.appendChild(titleFFV);
+                    filterColumnCanvas.appendChild(titleFFC);
+                    data.result.unique_narasumber.forEach(function (item,index){
+                        createCheckbox("ffv-n" + index,item);
+                        createCheckbox("ffc-n" + index,item);
+                    });
+                }
+                if(data.result.unique_event.length > 0){
+                    const titleFFV = document.createElement('h1');
+                    titleFFV.textContent = "Filter Berdasarkan Event";
+                    titleFFV.id = "ffv-event";
+                    const titleFFC = document.createElement('h1');
+                    titleFFC.textContent = "Filter Berdasarkan Event";
+                    titleFFC.id = "ffc-event";
+                    filterOpenCanvas.appendChild(titleFFV);
+                    filterColumnCanvas.appendChild(titleFFC);
+                    data.result.unique_narasumber.forEach(function (item,index){
+                        createCheckbox("ffv-e" + index,item);
+                        createCheckbox("ffc-e" + index,item);
+                    });
+                }
+                if(data.result.unique_tanggal.length > 0){
+                    const titleFFV = document.createElement('h1');
+                    titleFFV.textContent = "Filter Berdasarkan Tanggal";
+                    titleFFV.id = "ffv-tanggal";
+                    const titleFFC = document.createElement('h1');
+                    titleFFC.textContent = "Filter Berdasarkan Tanggal";
+                    titleFFC.id = "ffc-tanggal";
+                    filterOpenCanvas.appendChild(titleFFV);
+                    filterColumnCanvas.appendChild(titleFFC);
+                    data.result.unique_narasumber.forEach(function (item,index){
+                        createCheckbox("ffv-t" + index,item);
+                        createCheckbox("ffc-t" + index,item);
+                    });
+                }
+            })
             .catch(error => {
             // Handle any errors
             console.error(error);
