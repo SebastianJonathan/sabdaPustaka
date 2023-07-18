@@ -205,14 +205,11 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="materi-terkait">
-                        <h3>Materi Terkait</h3>
-                        <?php
-
-                        ?>
-                    </div>
+                <div class="materi-terkait">
+                    <h3>Materi Terkait</h3>
+                    <div id="related-results-container"></div>
                 </div>
+
             </div>
             <script>
 
@@ -248,6 +245,7 @@
                 form.submit();
             });
         });
+        
     </script>
 </body>
 

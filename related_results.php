@@ -10,12 +10,7 @@
 
 <body>
     <h1>Related Results</h1>
-
-    <div id="judul-container"></div>
-    <div id="narasumber-container"></div>
-
-    <!-- Add your additional HTML content and scripts as needed -->
-
+    
     <?php
     if (isset($_POST['keyword'])) {
         $keyword = $_POST['keyword'];
@@ -24,6 +19,11 @@
         echo "No keyword provided.";
     }
     ?>
+
+    <div id="judul-container"></div>
+    <div id="narasumber-container"></div>
+
+    <!-- Add your additional HTML content and scripts as needed -->
 
     <script>
         // Extract the keyword from the POST data
@@ -36,7 +36,7 @@
                 .then(data => {
                     const hasil = data.hasil;
                     const juduls = hasil.map(item => item.judul);
-                    const narasumbers = hasil.map(item => item.event); // Update this line to use the correct property for narasumber
+                    const narasumbers = hasil.map(item => item.narasumber); // Update this line to use the correct property for narasumber
 
                     // Display the results
                     showResults(juduls, narasumbers);
