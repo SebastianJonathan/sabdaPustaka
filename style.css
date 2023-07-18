@@ -140,6 +140,17 @@ img {
     margin-bottom: 7px;
 }
 
+.ffc{
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+.ffv{
+    max-height: 200px;
+    width: 85%;
+    overflow-y: scroll;
+}
+
 .row-search{
     margin-bottom: 20px;
 }
