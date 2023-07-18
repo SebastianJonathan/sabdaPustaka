@@ -137,9 +137,9 @@
             $list_pertanyaan = $source['list_pertanyaan'];
             $list_pertanyaan = str_replace('*', "", $list_pertanyaan);
             $list_pertanyaan = str_replace(', ', "", $list_pertanyaan);
-            
+
             $pertanyaan = explode('?', $list_pertanyaan);
-            
+
             $katakunci = explode(', ', $kata_kunci);
     ?>
 
@@ -255,7 +255,23 @@
                 form.submit();
             });
         });
-        
+
+        function fetchRelatedDocuments() {
+            const documentId = '<?php echo $_GET['document_id']; ?>';
+
+            fetch(`getRelated.php?document_id=${encodeURIComponent(documentId)}`)
+                .then(response => response.text())
+                .then(data => {
+                    const relatedResultsContainer = document.getElementById('related-results-container');
+                    relatedResultsContainer.innerHTML = data;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+
+        // Call the fetchRelatedDocuments function to fetch and display the related document titles
+        fetchRelatedDocuments();
     </script>
 </body>
 
