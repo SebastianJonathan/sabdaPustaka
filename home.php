@@ -145,6 +145,22 @@
 					selectAll();
 				}
 				updateFields();
+				function syncCheckbox(id, isChecked){
+					var split_id = id.split("-");
+					var clan = split_id[0];
+					var true_id = split_id[1];
+
+					if (clan === "ffv"){
+						var ffc_id = "ffc-"+true_id;
+						const ffc_cb = document.getElementById(ffc_id);
+						ffc_cb.checked = isChecked;
+					}else { 
+						// clan === ffc
+						var ffv_id = "ffv-"+true_id;
+						const ffv_cb = document.getElementById(ffv_id);
+						ffv_cb.checked = isChecked;
+					}
+				}
 
 				function selectAll() {
 					document.getElementById('checkbox_judul').checked = true;

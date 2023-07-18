@@ -34,6 +34,7 @@
         input.name = id;
         input.value = nama;
         input.onchange = function() {
+            syncCheckbox(input.id,input.checked);
             if(id.substring(4,5) == "n"){
                 onChangeFilterCheckbox(nama,"narasumber",input.checked);
             }else if(id.substring(4,5) == "e"){
@@ -115,7 +116,8 @@
                 "API": "searchFilter",
                 "fields": fieldSearch,
                 "narasumber": filterNarasumber,
-                "event": filterEvent
+                "event": filterEvent,
+                "tanggal": filterTanggal
             };
 
             // Convert the filter object to JSON
