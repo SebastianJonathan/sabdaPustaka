@@ -27,7 +27,6 @@
     function createCheckbox(id, nama, div_filter) {
         var containerDiv = document.createElement("div");
         containerDiv.className = "checkbox-container";
-
         var label = document.createElement("label");
         label.setAttribute("for", id);
         label.className = "form-check-label checkbox-label bigger";
@@ -40,6 +39,11 @@
         input.value = nama;
         input.onchange = function() {
             syncCheckbox(input.id,input.checked);
+            // const item = {
+            //     key: input.checked,
+            //     val: nama
+            // };
+            // sessionStorage.setItem(id,input.checked);
             if(id.substring(4,5) == "n"){
                 onChangeFilterCheckbox(nama,"narasumber",input.checked);
             }else if(id.substring(4,5) == "e"){
@@ -63,6 +67,17 @@
         // } else {
         //     filterdiv.appendChild(containerDiv);
         // }
+        // const keys2 = Object.keys(sessionStorage);
+        // keys2.forEach((key) => {
+        //     const dataKey2 = JSON.parse(sessionStorage.getItem(key));
+        //     if(sessionStorage.getItem(dataKey2.key).substring(0,3) == "ffc" || sessionStorage.getItem(dataKey2.key).substring(0,3) == "ffv"){
+        //         if(document.getElementById(dataKey2.key).checked == true){
+        //             if(dataKey2.val == nama){
+        //                 input.checked = true;
+        //             }
+        //         }
+        //     }
+        // });
     }
 
     function onChangeFilterCheckbox(value,type,checked){
@@ -135,7 +150,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch('http://localhost/pw5/filterAPI.php', {
+            fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -240,7 +255,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch('http://localhost/pw5/filterAPI.php', {
+            fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -251,7 +266,15 @@
             .then(data => {
                 const cardResultElement = document.getElementById('card_result');
                 cardResultElement.innerHTML = '';
-
+                // const keys = Object.keys(sessionStorage);
+                // keys.forEach((key) => {
+                //     const dataKey = JSON.parse(sessionStorage.getItem(key));
+                //     if(sessionStorage.getItem(dataKey.key).substring(0,3) == "ffc" || sessionStorage.getItem(dataKey.key).substring(0,3) == "ffv"){
+                //         if(document.getElementById(dataKey.key).checked == false){
+                //             sessionStorage.removeItem(keys);
+                //         }
+                //     }
+                // });
                 if (data.result.data_result.length > 0) {
                     data.result.data_result.forEach(function (item) {
                     const cardItem = document.createElement('li');
