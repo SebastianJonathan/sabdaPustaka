@@ -9,12 +9,12 @@
 
 	<div class="container-fluid">
 		<!-- Row Search Bar -->
-		<div class="row row-search">
-			<form action="" id="search" class="content">
+		<div class="row">
+			<form action="" id="search" class="content sect-search">
 				<div class="rekomendasi-container">
-					<div class="col-md-6 InputContainer">
+					<div class="col-md-6 InputContainer" style="background-color: #2f2f2f; ">
 						<input placeholder="Search.." id="query" class="query form-control form-input" name="query" type="text" autocomplete="off">
-						<button type="button" class="search-button" onclick="getSearchResult()">Search</button>
+						<button type="button" class="search-button" onclick="getSearchResult()" style="background-color: #2f2f2f; color: white;">Search</button>
 					</div>
 					<div id="rekomendasi">
 						<ul id="rekomendasi-list"></ul>
@@ -26,13 +26,82 @@
 		<!-- Konten Website -->
 		<div class="row">		
 			<!--COL Search & Filter  -->
-			<div class="col-md-2 col-filter" style="border-right: 1px black solid; padding-right: 5px; padding-left:10px;">
-				<!-- "Search By" Header -->
-				<div class="row">
-					<h5>Search By</h5>
+			<div class="col-md-2 col-filter" style="padding-right: 5px; padding-left:10px;">
+
+				<div class="card sect-cont-sidebar">
+					<!-- <img src="..." class="card-img-top" alt="..."> -->
+					<div class="card-body">
+						<!-- <h5 class="card-title">Search</h5> -->
+						<!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+						
+						<div class="row">
+							<h5 style="margin-bottom: 10px;">Search By</h5>
+						</div>
+						<!-- Search By -->
+						<div class="row fsc">
+							<div class="checkbox-container">
+								<label for="checkbox_judul" class="form-check-label checkbox-label bigger">
+									<input type="checkbox" class="form-check-input bigger cbstyle" id="checkbox_judul" name="checkbox_judul" value="judul" onchange="">
+									Judul
+								</label>
+							</div>
+							<div class="checkbox-container">
+								<label for="checkbox_narasumber" class="form-check-label checkbox-label bigger">
+									<input type="checkbox" class="form-check-input bigger cbstyle" id="checkbox_narasumber" name="checkbox_narasumber" value="narasumber" onchange="">
+									Narasumber
+								</label>
+							</div>
+							<div class="checkbox-container">
+								<label for="checkbox_event" class="form-check-label checkbox-label bigger">
+									<input type="checkbox" class="bigger form-check-input" id="checkbox_event" name="checkbox_event" value="event" onchange="">
+									Event
+								</label>
+							</div>
+							<div class="buttons">
+								<button type="button" class="button" onclick="selectAll()">Select all</button>
+								<button type="button" class="button" onclick="clearSelection()">Clear selection</button>
+							</div>
+						</div>
+						<!--  Filter Narasumber-->
+						<div class="row ffc" style="padding-top:15px; margin-top:10px; border-top: 1px gold solid;" id="ffc-filter-naras">
+						</div>
+						<!-- Filter Event-->
+						<div class="row ffc" style="padding-top:15px; margin-top:10px; border-top: 1px gold solid;" id="ffc-filter-event">
+						</div>
+						<!-- Filter Tanggal -->
+						<div class="row ffc" style="padding-top:15px; margin-top:10px; border-top: 1px gold solid;" id="ffc-filter-tgl">
+						</div>
+
+
+
+
+
+						<!-- <h5 class="card-title">Filter</h5>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item">
+								<div class="row ffc" style="padding-top:15px; margin-top:10px;" id="ffc-filter-naras">
+								</div>
+							</li>
+							<li class="list-group-item">
+								<div class="row ffc" style="padding-top:15px; margin-top:10px;" id="ffc-filter-event">
+								</div>
+							</li>
+							<li class="list-group-item">
+								<div class="row ffc" style="padding-top:15px; margin-top:10px;" id="ffc-filter-tgl">
+								</div>
+							</li>
+						</ul> -->
+
+					</div>
 				</div>
+
+
+				<!-- "Search By" Header -->
+				<!-- <div class="row">
+					<h5>Search By</h5>
+				</div> -->
 				<!-- Search By -->
-				<div class="row fsc">
+				<!-- <div class="row fsc">
 					<div class="checkbox-container">
 						<label for="checkbox_judul" class="form-check-label checkbox-label bigger">
 							<input type="checkbox" class="form-check-input bigger" id="checkbox_judul" name="checkbox_judul" value="judul" onchange="">
@@ -55,23 +124,23 @@
 						<button type="button" class="button" onclick="selectAll()">Select all</button>
 						<button type="button" class="button" onclick="clearSelection()">Clear selection</button>
 					</div>
-				</div>
+				</div> -->
 				<!-- Filter Narasumber-->
-				<div class="row ffc" style="padding-top:15px; margin-top:10px;  border-top: 1px black solid;" id="ffc-filter-naras">
-				</div>
+				<!-- <div class="row ffc" style="padding-top:15px; margin-top:10px;  border-top: 1px black solid;" id="ffc-filter-naras">
+				</div> -->
 				<!-- Filter Event-->
-				<div class="row ffc" style="padding-top:15px; margin-top:10px;  border-top: 1px black solid;" id="ffc-filter-event">
-				</div>
+				<!-- <div class="row ffc" style="padding-top:15px; margin-top:10px;  border-top: 1px black solid;" id="ffc-filter-event">
+				</div> -->
 				<!-- Filter Tanggal -->
-				<div class="row ffc" style="padding-top:15px; margin-top:10px;  border-top: 1px black solid;" id="ffc-filter-tgl">
-				</div>
+				<!-- <div class="row ffc" style="padding-top:15px; margin-top:10px;  border-top: 1px black solid;" id="ffc-filter-tgl">
+				</div> -->
 			</div><!-- COL Search & Filter  -->
 
 			<!-- COL Card -->
 			<div class="col-md-10 col-sm-12">
-				<div class="col-konten-head">
+				<div>
 					<!-- Off-Canvas Sidebar Button -->
-					<button class="btn filter-sm-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#filter-sm" aria-controls="filter-sm">Filter</button>
+					<button class="btn filter-sm-btn sect-konten-head" type="button" data-bs-toggle="offcanvas" data-bs-target="#filter-sm" aria-controls="filter-sm">Filter</button>
 					<!-- Off-Canvas Sidebar-->
 					<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="filter-sm" aria-labelledby="filter-sm-label" style="max-width:300px">
 						<div class="offcanvas-header" style="align-items: end; padding-bottom: 0px;">
@@ -125,13 +194,11 @@
 									openedCanvas.hide();
 								}catch{}
 							}
-
 							window.addEventListener('resize', hideFilterSM);
 						</script>
 					</div>
 					<!-- Search Result Cards-->
 					<div>
-						<h5>Hasil Search</h5>
 						<?php include 'search_result.php'; ?>
 					</div>
 				</div> 

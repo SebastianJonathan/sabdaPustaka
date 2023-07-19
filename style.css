@@ -140,10 +140,48 @@ img {
     margin-bottom: 7px;
 }
 
+.sect-cont-sidebar{
+    /* background: linear-gradient(to right top, #1e0049, #211045, #251c3f, #2a2638, #2f2f2f); */
+    background: linear-gradient(to right top, #211045, #2f2f2f);
+    /* background-color: white; */
+    color: white;
+}
+
 .ffc{
     max-height: 200px;
     overflow-y: scroll;
+    scrollbar-width: 7px;
+    padding-top: 5px;
 }
+
+.ffc::-webkit-scrollbar {
+  width: 7px;
+}
+  
+.ffc::-webkit-scrollbar-track {
+  background: transparent;
+}
+  
+.ffc::-webkit-scrollbar-thumb {
+  background-color: #4C4452;
+  border-radius: 20px;
+  border: 0px transparent;
+  transition: background-color 1s;
+}
+
+.ffc::-webkit-scrollbar-thumb:hover {
+    background-color: #FDF7FF;
+    transition: background-color 1s;
+  }
+  
+
+.cbstyle{
+    color: gold;
+    background-color: gold;
+    accent-color: gold;
+}
+
+
 
 .ffv{
     max-height: 200px;
@@ -151,14 +189,23 @@ img {
     overflow-y: scroll;
 }
 
-.row-search{
+.sect-search{
     margin-bottom: 20px;
 }
 
-.col-konten-head{
+.sect-konten-head{
     padding-left: 16px;
 }
 
+.checkbox-label input[type="checkbox"]:checked {
+    accent-color: gold;
+  }
+
+
+
+.container input:checked ~ .checkmark {
+    background-color: gold;
+  }
 @media (max-width: 1200px) {
     ._cards_item {
         flex-basis: calc(33.3333% - 1rem);
