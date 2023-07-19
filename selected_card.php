@@ -136,7 +136,7 @@
             $kata_kunci = $source['kata_kunci'];
             $list_pertanyaan = $source['list_pertanyaan'];
             $list_pertanyaan = str_replace('*', "", $list_pertanyaan);
-            $list_pertanyaan = str_replace(', ', "", $list_pertanyaan);
+            $list_pertanyaan = str_replace('?, ', "?", $list_pertanyaan);
 
             $pertanyaan = explode('?', $list_pertanyaan);
 

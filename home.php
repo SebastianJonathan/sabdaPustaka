@@ -140,7 +140,7 @@
 			<div class="col-md-10 col-sm-12">
 				<div>
 					<!-- Off-Canvas Sidebar Button -->
-					<button class="btn filter-sm-btn sect-konten-head" type="button" data-bs-toggle="offcanvas" data-bs-target="#filter-sm" aria-controls="filter-sm">Filter</button>
+					<button class="btn filter-sm-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#filter-sm" aria-controls="filter-sm">Filter</button>
 					<!-- Off-Canvas Sidebar-->
 					<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="filter-sm" aria-labelledby="filter-sm-label" style="max-width:300px">
 						<div class="offcanvas-header" style="align-items: end; padding-bottom: 0px;">
