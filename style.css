@@ -137,7 +137,7 @@ img {
     object-fit: cover;
 }
 
-.fs-btn:hover{
+.button:hover{
     background-color: dodgerblue;
 }
 
@@ -165,17 +165,12 @@ img {
 }
 
 .fs-btn{
-	background-color:rgb(17, 91, 140);
+	background-color:#06638F;
 	/* background: linear-gradient(to right top, black, rgb(0, 0, 45), black); */
 	/* background: radial-gradient(#092f68, #114098); */
 	/* border: 1px snow solid; */
 }
 
-.fs-btn:focus{
-	background-color:black;
-	/* background: radial-gradient(#092f68, #114098); */
-	/* border: 1px snow solid; */
-}
 
 .ffv_head, .ffc_head{
 	margin-bottom: 4px;

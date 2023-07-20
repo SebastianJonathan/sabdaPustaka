@@ -179,7 +179,7 @@
 			document.getElementById('fsv-checkbox_event').checked = true;
 		}
 		if (sessionStorage.getItem('checkboxNarasumber') === 'true') {
-			document.getElementById('checkbox_naryrasumber').checked = true;
+			document.getElementById('checkbox_narasumber').checked = true;
 			document.getElementById('fsv-checkbox_narasumber').checked = true;
 		}
 		updateFields();
@@ -290,14 +290,14 @@
 		}
 
 		function goSearch(){
-			window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById("query").value;
+			window.location.href = "http://localhost/pw5/home.php/search/" + document.getElementById("query").value;
 		}
 		async function fetchRecommendations() {
 			const query = document.getElementById('query').value;
 			const fields = document.getElementById('query').dataset.fields;
 
 			try {
-				const response = await fetch(`autocomplete.php?query=${query}&fields=${fields}`);
+				const response = await fetch(`http://localhost/pw5/autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
 				// console.log(data.rekomendasi);
 				tampilkanRekomendasi(data.rekomendasi);
