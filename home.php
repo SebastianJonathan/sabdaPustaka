@@ -14,7 +14,7 @@
 				<div class="rekomendasi-container">
 					<div class="col-md-6 InputContainer" style="background-color: #1e0049; ">
 						<input placeholder="Search.." id="query" class="query form-control form-input" name="query" type="text" autocomplete="off">
-						<button type="button" class="search-button" onclick="getSearchResult()" style="background-color: #1e0049; color: white;">Search</button>
+						<button type="button" class="search-button" onclick="goSearch()" style="background-color: #1e0049; color: white;">Search</button>
 					</div>
 					<div id="rekomendasi">
 						<ul id="rekomendasi-list"></ul>
@@ -179,14 +179,22 @@
 			document.getElementById('fsv-checkbox_event').checked = true;
 		}
 		if (sessionStorage.getItem('checkboxNarasumber') === 'true') {
-			document.getElementById('checkbox_narasumber').checked = true;
+			document.getElementById('checkbox_naryrasumber').checked = true;
 			document.getElementById('fsv-checkbox_narasumber').checked = true;
 		}
-		if(!sessionStorage.getItem('first')){
-			selectAll();
-			fetchNewest();
-		}
 		updateFields();
+
+		function startupAndSearch(){
+			const fullURL = window.location.href;
+			const segments = fullURL.split('/');
+			if(segments[segments.length - 2] == "search"){
+				getSearchResult();
+			}else{
+				selectAll();
+				fetchNewest();
+			}
+		}
+		startupAndSearch()
 
 		function syncCheckbox(id, isChecked){
 			var split_id = id.split("-");
@@ -281,6 +289,9 @@
 			updateFields();
 		}
 
+		function goSearch(){
+			window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById("query").value;
+		}
 		async function fetchRecommendations() {
 			const query = document.getElementById('query').value;
 			const fields = document.getElementById('query').dataset.fields;
@@ -353,7 +364,6 @@
 			rekomendasiDiv.style.display = 'none';
 		}
 
-		let query = "";
 		function getSearchResult() {
 			const checkboxJudul = document.getElementById("checkbox_judul");
 			const checkboxEvent = document.getElementById("checkbox_event");
@@ -368,7 +378,8 @@
 
 		document.getElementById("search").addEventListener("submit", function(event) {
 			event.preventDefault();
-			getSearchResult();
+			goSearch();
+			console.log(search);
 			hideRekomendasi();
 		});
 
@@ -458,20 +469,11 @@
 			queryInput.dataset.fields = fields.join(',');
 			fetchRecommendations2();
 		}
-		function reload(){
-			if(!sessionStorage.getItem('first')){
-				selectAll();
-				fetchNewest();
-			} else{
-				getSearchResult();
-			}
-		}
 
 		window.addEventListener('resize', updateRekomendasiPosition);
 		window.addEventListener('DOMContentLoaded', updateRekomendasiPosition);
 
 		document.getElementById('query').addEventListener('input', fetchRecommendations);
-		document.addEventListener('DOMContentLoaded', reload);
 	</script>
 </body>
 </html>
