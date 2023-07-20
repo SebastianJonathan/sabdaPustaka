@@ -24,7 +24,7 @@
     let filterEvent = [];
     let filterTanggal = [];
 
-    function createCheckbox(id, nama, div_filter) {
+    function createCheckbox(id, nama, div_filter,arr) {
         var containerDiv = document.createElement("div");
         containerDiv.className = "checkbox-container";
         var label = document.createElement("label");
@@ -53,11 +53,14 @@
 
         label.appendChild(input);
 
-        label.appendChild(document.createTextNode(nama));
+        label.appendChild(document.createTextNode(nama + " (" + arr[nama] + ")"     ));
 
         containerDiv.appendChild(label);
 
         div_filter.appendChild(containerDiv);
+        if(nama.substring(0,1) == " "){
+            nama = nama.substring(1);
+        }
         filterNarasumber.forEach(function(val){
             if(val == nama){
                 input.checked = true;
@@ -221,8 +224,8 @@
                     fopen_narasumber.appendChild(titleFFV);
                     fcolumn_narasumber.appendChild(titleFFC);
                     data.result.narasumber.forEach(function (item,index){
-                        createCheckbox("ffv-n" + index,item,fopen_narasumber);
-                        createCheckbox("ffc-n" + index,item,fcolumn_narasumber);
+                        createCheckbox("ffv-n" + index,item,fopen_narasumber,data.result.countNarasumber);
+                        createCheckbox("ffc-n" + index,item,fcolumn_narasumber,data.result.countNarasumber);
                     });
                 }
                 if(data.result.event.length > 0){
@@ -237,8 +240,8 @@
                     fopen_event.appendChild(titleFFV);
                     fcolumn_event.appendChild(titleFFC);
                     data.result.event.forEach(function (item,index){
-                        createCheckbox("ffv-e" + index,item,fopen_event);
-                        createCheckbox("ffc-e" + index,item,fcolumn_event);
+                        createCheckbox("ffv-e" + index,item,fopen_event,data.result.countEvent);
+                        createCheckbox("ffc-e" + index,item,fcolumn_event,data.result.countEvent);
                     });
                 }
                 if(data.result.tahun.length > 0){
@@ -253,8 +256,8 @@
                     fopen_tgl.appendChild(titleFFV);
                     fcolumn_tgl.appendChild(titleFFC);
                     data.result.tahun.forEach(function (item,index){
-                        createCheckbox("ffv-t" + index,item.substring(0,4),fopen_tgl);
-                        createCheckbox("ffc-t" + index,item.substring(0,4),fcolumn_tgl);
+                        createCheckbox("ffv-t" + index,item.substring(0,4),fopen_tgl,data.result.countTahun);
+                        createCheckbox("ffc-t" + index,item.substring(0,4),fcolumn_tgl,data.result.countTahun);
                     });
                 }
             })
@@ -388,8 +391,8 @@
                     fopen_narasumber.appendChild(titleFFV);
                     fcolumn_narasumber.appendChild(titleFFC);
                     data.result.unique_narasumber.forEach(function (item,index){
-                        createCheckbox("ffv-n" + index,item,fopen_narasumber);
-                        createCheckbox("ffc-n" + index,item,fcolumn_narasumber);
+                        createCheckbox("ffv-n" + index,item,fopen_narasumber,data.result.countNarasumber);
+                        createCheckbox("ffc-n" + index,item,fcolumn_narasumber,data.result.countNarasumber);
                     });
                 }
                 if(data.result.unique_event.length > 0){
@@ -404,8 +407,8 @@
                     fopen_event.appendChild(titleFFV);
                     fcolumn_event.appendChild(titleFFC);
                     data.result.unique_event.forEach(function (item,index){
-                        createCheckbox("ffv-e" + index,item,fopen_event);
-                        createCheckbox("ffc-e" + index,item,fcolumn_event);
+                        createCheckbox("ffv-e" + index,item,fopen_event,data.result.countEvent);
+                        createCheckbox("ffc-e" + index,item,fcolumn_event,data.result.countEvent);
                     });
                 }
                 if(data.result.unique_tanggal.length > 0){
@@ -420,8 +423,8 @@
                     fopen_tgl.appendChild(titleFFV);
                     fcolumn_tgl.appendChild(titleFFC);
                     data.result.unique_tanggal.forEach(function (item,index){
-                        createCheckbox("ffv-t" + index,item,fopen_tgl);
-                        createCheckbox("ffc-t" + index,item,fcolumn_tgl);
+                        createCheckbox("ffv-t" + index,item,fopen_tgl,data.result.countTahun);
+                        createCheckbox("ffc-t" + index,item,fcolumn_tgl,data.result.countTahun);
                     });
                 }
             })

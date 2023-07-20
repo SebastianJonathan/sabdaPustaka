@@ -100,6 +100,9 @@
         $query = json_encode($params);
         $response = query($url, $query);
         $hits = $response['hits']['hits'];
+        $countEvent = array();
+        $countNarasumber = array();
+        $countTahun = array();
         foreach ($hits as $hit) {
             $source = $hit['_source'];
             $result[] = [
@@ -112,12 +115,27 @@
             ];
             $listNarasumber = explode(", ",$source['narasumber']);
             foreach($listNarasumber as $namaNarasumber){
+                if (!isset($countNarasumber[$namaNarasumber])) {
+                    $countNarasumber[$namaNarasumber] = 1;
+                }else{
+                    $countNarasumber[$namaNarasumber] += 1;
+                }
                 if(!in_array($namaNarasumber, $narasumber)){
                     $narasumber[] = $namaNarasumber;
                 }
             }
+            if (!isset($countEvent[$source['event']])) {
+                $countEvent[$source['event']] = 1;
+            }else{
+                $countEvent[$source['event']] += 1;
+            }
             if(!in_array($source['event'],$event)){
                 $event[] = $source['event'];
+            }
+            if (!isset($countTahun[substr($source['tanggal'],0,4)])) {
+                $countTahun[substr($source['tanggal'],0,4)] = 1;
+            }else{
+                $countTahun[substr($source['tanggal'],0,4)] += 1;
             }
             if(!in_array(substr($source['tanggal'],0,4),$tanggal)){
                 $tanggal[] = substr($source['tanggal'],0,4);
@@ -128,9 +146,21 @@
             'data_result' => $result,
             'unique_narasumber' => $narasumber,
             'unique_event' => $event,
-            'unique_tanggal' => $tanggal
+            'unique_tanggal' => $tanggal,
+            'countEvent' => $countEvent,
+            'countNarasumber' => $countNarasumber,
+            'countTahun' => $countTahun
         ];
         echo json_encode(['result' => $jsonData]);
+    }
+    function uniqueArray($arr) {
+        $uniqueValues = array();
+        foreach ($arr as $value) {
+            if (!in_array($value, $uniqueValues)) {
+                $uniqueValues[] = $value;
+            }
+        }
+        return $uniqueValues;
     }
     function searchFilter($jsonSearch){
         $logFile = 'error.log';
@@ -283,15 +313,34 @@
                 }
             }
         }
+        $result = uniqueArray($result);
+        $countTahun = array();
+        $countNarasumber = array();
+        $countEvent = array();
         foreach($result as $res){
+            if (!isset($countEvent[$res['event']])) {
+                $countEvent[$res['event']] = 1;
+            }else{
+                $countEvent[$res['event']] += 1;
+            }
             if(!in_array($res['event'],$event)){
                 $event[] = $res['event'];
+            }
+            if (!isset($countTahun[substr($res['tanggal'],0,4)])) {
+                $countTahun[substr($res['tanggal'],0,4)] = 1;
+            }else{
+                $countTahun[substr($res['tanggal'],0,4)] += 1;
             }
             if(!in_array(substr($res['tanggal'],0,4),$tahun)){
                 $tahun[] = substr($res['tanggal'],0,4);
             }
             $namaNarasumber = explode(",",$res['narasumber']);
             foreach($namaNarasumber as $narsum){
+                if (!isset($countNarasumber[$narsum])) {
+                    $countNarasumber[$narsum] = 1;
+                }else{
+                    $countNarasumber[$narsum] += 1;
+                }
                 if(!in_array($narsum,$narasumberr)){
                     $narasumberr[] = $narsum;
                 }
@@ -301,7 +350,10 @@
             'data' => $result,
             'narasumber' => $narasumberr,
             'event' => $event,
-            'tahun' => $tahun
+            'tahun' => $tahun,
+            'countEvent' => $countEvent,
+            'countNarasumber' => $countNarasumber,
+            'countTahun' => $countTahun
         ];
         echo json_encode(['result' => $results]);
     }
