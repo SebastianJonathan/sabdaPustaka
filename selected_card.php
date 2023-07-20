@@ -6,12 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles3.css">
+    <!-- <link rel="stylesheet" href="styles3.css"> -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="sabdastyle.css">
     <style>
+        body{
+			background-color: #ffffff;
+			background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%);
+            line-height: 1.6;
+		}
+        a.link-gap {
+            margin-right: 30px;
+            /* Adjust the margin value to your desired gap size */
+        }
+
         .container-atas {
-            background-color: #FFF;
+            background-color: #F8F8F8;
+            color: #333333;
             margin-top: 10px;
             margin-bottom: 30px;
             padding: 20px;
@@ -28,13 +39,16 @@
         }
 
         .summary-content {
-            background-color: #FFFFF0;
+            background-color: #f2f3f0;
             padding: 20px;
             border-radius: 20px;
+            font-size: 16px;
+            line-height: 1.7;
         }
 
         .summary-content h2,
         h3 {
+            color: #2c425c;
             text-align: center;
         }
 
@@ -43,7 +57,8 @@
         }
 
         .pertanyaan-container {
-            background-color: #FFFFF0;
+            color: #2c425c;
+            background-color: #f2f3f0;
             padding: 20px;
             border-radius: 20px;
 
@@ -55,6 +70,17 @@
 
         .container-bawah h3 {
             font-size: medium;
+        }
+
+        .error-message {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .error-message p {
+            text-align: center;
         }
     </style>
 
@@ -136,7 +162,7 @@
             $kata_kunci = $source['kata_kunci'];
             $list_pertanyaan = $source['list_pertanyaan'];
             $list_pertanyaan = str_replace('*', "", $list_pertanyaan);
-            $list_pertanyaan = str_replace('?, ', "?", $list_pertanyaan);
+            $list_pertanyaan = str_replace(', ', "", $list_pertanyaan);
 
             $pertanyaan = explode('?', $list_pertanyaan);
 
@@ -152,9 +178,14 @@
                             <div class="video-container">
                                 <div class="video-wrapper">
                                     <!-- <iframe width="100%" height="315" src="<?php echo $url_youtube; ?>" frameborder="0" allowfullscreen></iframe> -->
-                                    <iframe src="<?php echo $url_static ?>" width="100%" height="400px"></iframe>
-                                    <a href="<?php echo $url_slideshare ?>" target="_blank">Link SlideShare</a>
-                                    <a href="<?php echo $url_youtube ?>" target="_blank">Link Presentasi</a>
+                                    <?php if ($url_static) : ?>
+                                        <iframe src="<?php echo $url_static ?>" width="100%" height="400px"></iframe>
+                                    <?php else : ?>
+                                        <div class="error-message">
+                                            <p class="text-center">Tampilan Presentasi belum ada, silahkan pergi ke <a href="<?php echo $url_slideshare ?>" target="_blank">link ini</a></p>
+                                        </div>
+                                    <?php endif; ?>
+
                                 </div>
                             </div>
                         </div>
@@ -166,6 +197,10 @@
                                     <p><span class="label"></span> <span class="value"><?php echo $narasumber; ?></p>
                                     <p><span class="label"></span><span class="value"> <?php echo $tanggal; ?></p>
                                     <p><span class="label"></span> <?php echo $deskripsi_pendek; ?></p>
+                                    <button type="button" class="btn-sm btn-primary link-gap" onclick="window.open('<?php echo $url_youtube ?>', '_blank')">Tonton Presentasi</button>
+                                    <button type="button" class="btn-sm btn-secondary link-gap" onclick="window.open('<?php echo $url_slideshare ?>', '_blank')">Link Presentasi</button>
+
+
                                 </div>
                             </div>
                         </div>
