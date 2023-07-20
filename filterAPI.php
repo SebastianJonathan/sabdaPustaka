@@ -158,6 +158,9 @@
         error_log($query,3,$logFile);
         $response = query($url, $query);
         $hits = $response['hits']['hits'];
+        $narasumberr = array();
+        $event = array();
+        $tahun = array();
         foreach ($hits as $hit) {
             $source = $hit['_source'];
             if(!empty($jsonSearch["event"])){
@@ -172,7 +175,8 @@
                                     'narasumber' => $source['narasumber'],
                                     'deskripsi_pendek' => $source['deskripsi_pendek'],
                                     'id' => $hit['_id'],
-                                    'youtube' => $source['url_youtube']
+                                    'youtube' => $source['url_youtube'],
+                                    'tanggal' => $source['tanggal']
                                 ];
                             }
                         }
@@ -186,7 +190,8 @@
                                     'narasumber' => $source['narasumber'],
                                     'deskripsi_pendek' => $source['deskripsi_pendek'],
                                     'id' => $hit['_id'],
-                                    'youtube' => $source['url_youtube']
+                                    'youtube' => $source['url_youtube'],
+                                    'tanggal' => $source['tanggal']
                                 ];
                             }
                         }
@@ -201,7 +206,8 @@
                                 'narasumber' => $source['narasumber'],
                                 'deskripsi_pendek' => $source['deskripsi_pendek'],
                                 'id' => $hit['_id'],
-                                'youtube' => $source['url_youtube']
+                                'youtube' => $source['url_youtube'],
+                                'tanggal' => $source['tanggal']
                             ];
                         }
                     }else {
@@ -212,7 +218,8 @@
                                 'narasumber' => $source['narasumber'],
                                 'deskripsi_pendek' => $source['deskripsi_pendek'],
                                 'id' => $hit['_id'],
-                                'youtube' => $source['url_youtube']
+                                'youtube' => $source['url_youtube'],
+                                'tanggal' => $source['tanggal']
                             ];
                         }
                     }
@@ -228,7 +235,8 @@
                                 'narasumber' => $source['narasumber'],
                                 'deskripsi_pendek' => $source['deskripsi_pendek'],
                                 'id' => $hit['_id'],
-                                'youtube' => $source['url_youtube']
+                                'youtube' => $source['url_youtube'],
+                                'tanggal' => $source['tanggal']
                             ];
                         }
                     }
@@ -240,7 +248,8 @@
                             'narasumber' => $source['narasumber'],
                             'deskripsi_pendek' => $source['deskripsi_pendek'],
                             'id' => $hit['_id'],
-                            'youtube' => $source['url_youtube']
+                            'youtube' => $source['url_youtube'],
+                            'tanggal' => $source['tanggal']
                         ];
                     }
                 }
@@ -256,7 +265,8 @@
                                 'narasumber' => $source['narasumber'],
                                 'deskripsi_pendek' => $source['deskripsi_pendek'],
                                 'id' => $hit['_id'],
-                                'youtube' => $source['url_youtube']
+                                'youtube' => $source['url_youtube'],
+                                'tanggal' => $source['tanggal']
                             ];
                         }
                     }
@@ -267,12 +277,33 @@
                         'narasumber' => $source['narasumber'],
                         'deskripsi_pendek' => $source['deskripsi_pendek'],
                         'id' => $hit['_id'],
-                        'youtube' => $source['url_youtube']
+                        'youtube' => $source['url_youtube'],
+                        'tanggal' => $source['tanggal']
                     ];
                 }
             }
         }
-        echo json_encode(['result' => $result]);
+        foreach($result as $res){
+            if(!in_array($res['event'],$event)){
+                $event[] = $res['event'];
+            }
+            if(!in_array(substr($res['tanggal'],0,4),$tahun)){
+                $tahun[] = substr($res['tanggal'],0,4);
+            }
+            $namaNarasumber = explode(",",$res['narasumber']);
+            foreach($namaNarasumber as $narsum){
+                if(!in_array($narsum,$narasumberr)){
+                    $narasumberr[] = $narsum;
+                }
+            }
+        }
+        $results = [
+            'data' => $result,
+            'narasumber' => $narasumberr,
+            'event' => $event,
+            'tahun' => $tahun
+        ];
+        echo json_encode(['result' => $results]);
     }
     $jsonData = file_get_contents('php://input');
     $jsonDataDecoded = json_decode($jsonData, true);
