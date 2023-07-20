@@ -162,7 +162,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+            fetch('http://localhost/pw5/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -284,7 +284,7 @@
 
     async function fetchNewest() {
 		try {
-			const response = await fetch('http://localhost/UI/sabdaPustaka/getNewest.php');
+			const response = await fetch('http://localhost/pw5/getNewest.php');
 			const data = await response.json();
 			const cardResultElement = document.getElementById('card_result');
             cardResultElement.innerHTML = '';
@@ -335,27 +335,6 @@
 
                     FilterColumnCanvas.innerHTML = '';
                     FilterOpenCanvas.innerHTML = '';
-
-                    const titleFFC = document.createElement('h5');
-                    titleFFC.textContent = 'Filter By';
-                    titleFFC.style.marginTop = '20px';
-                    titleFFC.style.marginBottom = '18px';
-                    titleFFC.style.fontWeight = 'bold';
-                    titleFFC.style.paddingTop = '15px';
-                    titleFFC.style.borderTop = '2px goldenrod solid';
-                    titleFFC.style.color = 'gold';
-                    FilterColumnCanvas.appendChild(titleFFC);
-
-                    const titleFFV = document.createElement('h5');
-                    titleFFV.textContent = 'Filter By';
-                    titleFFV.style.marginTop = '20px';
-                    titleFFV.style.marginBottom = '20px';
-                    titleFFV.style.fontWeight = 'bold';
-                    titleFFV.style.paddingTop = '10px';
-                    titleFFV.style.borderTop = '2px goldenrod solid';
-                    titleFFV.style.color = 'gold';
-                    FilterOpenCanvas.appendChild(titleFFV);
-
                 });
             } else {
                 // const noResults = document.createElement('p');
@@ -380,7 +359,7 @@
             sessionStorage.setItem("query", document.getElementById('query').value);
         }
         if(sessionStorage.getItem("query") != null){
-            document.getElementById('query').value = "";
+            // document.getElementById('query').value = "";
             // Define checkbox variables
             const checkbox_judul = document.getElementById('checkbox_judul');
             const checkbox_narasumber = document.getElementById('checkbox_narasumber');
@@ -416,7 +395,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+            fetch('http://localhost/pw5/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',

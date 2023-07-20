@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/UI/sabdaPustaka/home.php" onclick="deleteSessQuery()">Home</a>
+          <a class="nav-link" href="http://localhost/pw5/home.php" onclick="deleteSessQuery()">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">About</a>

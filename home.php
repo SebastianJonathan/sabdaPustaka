@@ -458,12 +458,20 @@
 			queryInput.dataset.fields = fields.join(',');
 			fetchRecommendations2();
 		}
+		function reload(){
+			if(!sessionStorage.getItem('first')){
+				selectAll();
+				fetchNewest();
+			} else{
+				getSearchResult();
+			}
+		}
 
 		window.addEventListener('resize', updateRekomendasiPosition);
 		window.addEventListener('DOMContentLoaded', updateRekomendasiPosition);
 
 		document.getElementById('query').addEventListener('input', fetchRecommendations);
-		document.addEventListener('DOMContentLoaded', getSearchResult);
+		document.addEventListener('DOMContentLoaded', reload);
 	</script>
 </body>
 </html>
