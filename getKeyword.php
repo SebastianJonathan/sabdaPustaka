@@ -19,7 +19,7 @@ if (strlen($_GET['query']) >= 3) {
     }
 
 
-    $url = 'http://localhost:9200/pustaka5/_search';
+    $url = 'http://localhost:9200/pustaka6/_search';
 
     $params = [
         'size' => '200',

@@ -346,6 +346,7 @@
                 }
             }
         }
+        usort($tahun, "dateComparison");
         $results = [
             'data' => $result,
             'narasumber' => $narasumberr,

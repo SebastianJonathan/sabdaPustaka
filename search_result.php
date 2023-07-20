@@ -162,7 +162,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch('http://localhost/pw5/filterAPI.php', {
+            fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -323,7 +323,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch('http://localhost/pw5/filterAPI.php', {
+            fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
