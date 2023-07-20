@@ -26,7 +26,7 @@
 		<!-- Konten Website -->
 		<div class="row">		
 			<!--COL Search & Filter  -->
-			<div class="col-md-2 col-filter" style="padding-right: 5px; padding-left:10px;">
+			<div class="col-lg-2 col-md-3 col-filter" style="padding-right: 5px; padding-left:10px; min-width:210px;">
 
 				<div class="card sect-cont-sidebar">
 					<!-- <img src="..." class="card-img-top" alt="..."> -->
@@ -35,7 +35,7 @@
 						<!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
 						
 						<div class="row">
-							<h5 style="margin-bottom: 10px;">Search By</h5>
+							<h5 style="margin-bottom: 10px; font-weight:bold; color:gold;">Search By</h5>
 						</div>
 						<!-- Search By -->
 						<div class="row fsc">
@@ -58,99 +58,54 @@
 								</label>
 							</div>
 							<div class="buttons">
-								<button type="button" class="button" onclick="selectAll()">Select all</button>
-								<button type="button" class="button" onclick="clearSelection()">Clear selection</button>
+								<button type="button" class="button fs-btn" onclick="selectAll()">Select all</button>
+								<button type="button" class="button fs-btn" onclick="clearSelection()">Clear selection</button>
 							</div>
 						</div>
+
+
+						<div class="row _ffv" style="/*padding-top:15px; margin-top:10px;  border-top: 1px black solid;*/" id="ffc-filter">
+						</div>
 						<!--  Filter Narasumber-->
-						<div class="row ffc" style="padding-top:15px; margin-top:10px; border-top: 1px gold solid;" id="ffc-filter-naras">
-						</div>
+						<!-- <div class="row ffc" style="padding-top:15px; margin-top:10px; border-top: 1px gold solid;" id="ffc-filter-naras">
+						</div> -->
 						<!-- Filter Event-->
-						<div class="row ffc" style="padding-top:15px; margin-top:10px; border-top: 1px gold solid;" id="ffc-filter-event">
-						</div>
+						<!-- <div class="row ffc" style="padding-top:15px; margin-top:10px; border-top: 1px gold solid;" id="ffc-filter-event">
+						</div> -->
 						<!-- Filter Tanggal -->
-						<div class="row ffc" style="padding-top:15px; margin-top:10px; border-top: 1px gold solid;" id="ffc-filter-tgl">
-						</div>
-
-
-
-
-
-						<!-- <h5 class="card-title">Filter</h5>
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item">
-								<div class="row ffc" style="padding-top:15px; margin-top:10px;" id="ffc-filter-naras">
-								</div>
-							</li>
-							<li class="list-group-item">
-								<div class="row ffc" style="padding-top:15px; margin-top:10px;" id="ffc-filter-event">
-								</div>
-							</li>
-							<li class="list-group-item">
-								<div class="row ffc" style="padding-top:15px; margin-top:10px;" id="ffc-filter-tgl">
-								</div>
-							</li>
-						</ul> -->
-
+						<!-- <div class="row ffc" style="padding-top:15px; margin-top:10px; border-top: 1px gold solid;" id="ffc-filter-tgl">
+						</div> -->
 					</div>
 				</div>
-
-
-				<!-- "Search By" Header -->
-				<!-- <div class="row">
-					<h5>Search By</h5>
-				</div> -->
-				<!-- Search By -->
-				<!-- <div class="row fsc">
-					<div class="checkbox-container">
-						<label for="checkbox_judul" class="form-check-label checkbox-label bigger">
-							<input type="checkbox" class="form-check-input bigger" id="checkbox_judul" name="checkbox_judul" value="judul" onchange="">
-							Judul
-						</label>
-					</div>
-					<div class="checkbox-container">
-						<label for="checkbox_narasumber" class="form-check-label checkbox-label bigger">
-							<input type="checkbox" class="form-check-input bigger" id="checkbox_narasumber" name="checkbox_narasumber" value="narasumber" onchange="">
-							Narasumber
-						</label>
-					</div>
-					<div class="checkbox-container">
-						<label for="checkbox_event" class="form-check-label checkbox-label bigger">
-							<input type="checkbox" class="bigger form-check-input" id="checkbox_event" name="checkbox_event" value="event" onchange="">
-							Event
-						</label>
-					</div>
-					<div class="buttons">
-						<button type="button" class="button" onclick="selectAll()">Select all</button>
-						<button type="button" class="button" onclick="clearSelection()">Clear selection</button>
-					</div>
-				</div> -->
-				<!-- Filter Narasumber-->
-				<!-- <div class="row ffc" style="padding-top:15px; margin-top:10px;  border-top: 1px black solid;" id="ffc-filter-naras">
-				</div> -->
-				<!-- Filter Event-->
-				<!-- <div class="row ffc" style="padding-top:15px; margin-top:10px;  border-top: 1px black solid;" id="ffc-filter-event">
-				</div> -->
-				<!-- Filter Tanggal -->
-				<!-- <div class="row ffc" style="padding-top:15px; margin-top:10px;  border-top: 1px black solid;" id="ffc-filter-tgl">
-				</div> -->
 			</div><!-- COL Search & Filter  -->
 
 			<!-- COL Card -->
-			<div class="col-md-10 col-sm-12">
+			<div class="col">
 				<div>
 					<!-- Off-Canvas Sidebar Button -->
-					<button class="btn filter-sm-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#filter-sm" aria-controls="filter-sm">Filter</button>
+					<!-- <button class="btn filter-sm-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#filter-sm" aria-controls="filter-sm">Filter</button> -->
 					<!-- Off-Canvas Sidebar-->
-					<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="filter-sm" aria-labelledby="filter-sm-label" style="max-width:300px">
+					<div class="offcanvas offcanvas-start sect-cont-sidebar" data-bs-scroll="true" tabindex="-1" id="filter-sm" aria-labelledby="filter-sm-label" style="max-width:300px">
 						<div class="offcanvas-header" style="align-items: end; padding-bottom: 0px;">
-							<div style="height: 80px;"></div> 
-								<h5 class="offcanvas-title" id="filter-sm-label">Search By</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+							<div style="height: 40px;"></div> 
+								<!-- <h5 class="offcanvas-title" id="filter-sm-label">Search By</h5> -->
+								
+								
 							</div>
 							<div class="offcanvas-body" >
 								<!-- FSV Off-Canvas Search By -->
 								<div class="row fsv">
+									<div class="row">
+										<div class="col">
+											<h5 style="margin-bottom: 10px; font-weight:bold; color:gold;">Search By</h5>
+										</div>
+										<div class="col" style="display:flex; justify-content:right;">
+											<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" style="color: gold;"></button>
+										</div>
+										
+										
+									</div>
+
 									<div class="checkbox-container">
 										<label for="fsv-checkbox_judul" class="form-check-label checkbox-label bigger">
 											<input type="checkbox" class="form-check-input bigger" id="fsv-checkbox_judul" name="fsv-checkbox_judul" value="judul">
@@ -170,20 +125,22 @@
 										</label>
 									</div>
 									<div class="buttons">
-										<button type="button" class="button" onclick="selectAll()">Select all</button>
-										<button type="button" class="button" onclick="clearSelection()">Clear selection</button>
+										<button type="button" class="button fs-btn" onclick="selectAll()">Select all</button>
+										<button type="button" class="button fs-btn" onclick="clearSelection()">Clear selection</button>
 									</div>
 								</div>
 
+								<div class="row _ffv" style="/*padding-top:15px; margin-top:10px;  border-top: 1px black solid;*/" id="ffv-filter">
+								</div>
 								<!-- FFV Filter Narasumber-->
-								<div class="row ffv" style="padding-top:15px; margin-top:10px;  border-top: 1px black solid;" id="ffv-filter-naras">
-								</div>
+								<!-- <div class="row ffv" style="padding-top:15px; margin-top:10px;  border-top: 1px black solid;" id="ffv-filter-naras">
+								</div> -->
 								<!-- FFV Filter Event -->
-								<div class="row ffv" style="padding-top:15px; margin-top:10px;  border-top: 1px black solid;" id="ffv-filter-event">
-								</div>
+								<!-- <div class="row ffv" style="padding-top:15px; margin-top:10px;  border-top: 1px black solid;" id="ffv-filter-event">
+								</div> -->
 								<!-- FFV Filter Tanggal -->
-								<div class="row ffv" style="padding-top:15px; margin-top:10px;  border-top: 1px black solid;" id="ffv-filter-tgl">
-								</div>
+								<!-- <div class="row ffv" style="padding-top:15px; margin-top:10px;  border-top: 1px black solid;" id="ffv-filter-tgl">
+								</div> -->
 							</div>
 						</div>
 						<script>
@@ -192,6 +149,7 @@
 								let openedCanvas = bootstrap.Offcanvas.getInstance(filter_sm);
 								try{
 									openedCanvas.hide();
+									// document.activeElement.blur();
 								}catch{}
 							}
 							window.addEventListener('resize', hideFilterSM);

@@ -6,19 +6,33 @@
 <body>
   <div class="_cards-container">
     <div class="main">
-      <ul class="_cards" id="card_result">
+        <button class="btn filter-sm-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#filter-sm" aria-controls="filter-sm" style="margin-left: 16px;">Filter</button>
+        <div id="hs-header" style="padding-left: 16px;">
+        
+        </div> 
+        <ul class="_cards" id="card_result">
         <!-- Card results will be dynamically added here -->
-      </ul>
+        </ul>
     </div>
   </div>
 
   <script>
-    const fopen_narasumber = document.getElementById("ffv-filter-naras");
-    const fcolumn_narasumber = document.getElementById("ffc-filter-naras");
-    const fopen_event = document.getElementById("ffv-filter-event");
-    const fcolumn_event = document.getElementById("ffc-filter-event");
-    const fopen_tgl = document.getElementById("ffv-filter-tgl");
-    const fcolumn_tgl = document.getElementById("ffc-filter-tgl");
+    const hs_head = document.getElementById("hs-header");
+    const FilterOpenCanvas = document.getElementById("ffv-filter");
+    const FilterColumnCanvas = document.getElementById("ffc-filter");
+    
+    const fcolumn_narasumber = document.createElement('div');
+    const fopen_narasumber = document.createElement('div');
+    const fcolumn_event = document.createElement('div');
+    const fopen_event = document.createElement('div');
+    const fcolumn_tgl = document.createElement('div');
+    const fopen_tgl = document.createElement('div');
+    // const fopen_narasumber = document.getElementById("ffv-filter-naras");
+    // const fcolumn_narasumber = document.getElementById("ffc-filter-naras");
+    // const fopen_event = document.getElementById("ffv-filter-event");
+    // const fcolumn_event = document.getElementById("ffc-filter-event");
+    // const fopen_tgl = document.getElementById("ffv-filter-tgl");
+    // const fcolumn_tgl = document.getElementById("ffc-filter-tgl");
 
     let filterNarasumber = [];
     let filterEvent = [];
@@ -148,7 +162,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+            fetch('http://localhost/pw5/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -212,49 +226,49 @@
                 fcolumn_tgl.innerHTML = '';
 
                 if(data.result.narasumber.length > 0){
-                    
-                    const titleFFV = document.createElement('h6');
-                    titleFFV.textContent = "Filter Berdasarkan Narasumber";
-                    titleFFV.id = "ffv-narasumber";
-                    titleFFV.style.fontWeight = "bold";
-                    const titleFFC = document.createElement('h6');
-                    titleFFC.textContent = "Filter Berdasarkan Narasumber";
-                    titleFFC.id = "ffc-narasumber";
-                    titleFFC.style.fontWeight = "bold";
-                    fopen_narasumber.appendChild(titleFFV);
-                    fcolumn_narasumber.appendChild(titleFFC);
+                    console.log("WWWW");
+                    // const titleFFV = document.createElement('h6');
+                    // titleFFV.textContent = "Filter Berdasarkan Narasumber";
+                    // titleFFV.id = "ffv-narasumber";
+                    // titleFFV.style.fontWeight = "bold";
+                    // const titleFFC = document.createElement('h6');
+                    // titleFFC.textContent = "Filter Berdasarkan Narasumber";
+                    // titleFFC.id = "ffc-narasumber";
+                    // titleFFC.style.fontWeight = "bold";
+                    // fopen_narasumber.appendChild(titleFFV);
+                    // fcolumn_narasumber.appendChild(titleFFC);
                     data.result.narasumber.forEach(function (item,index){
                         createCheckbox("ffv-n" + index,item,fopen_narasumber,data.result.countNarasumber);
                         createCheckbox("ffc-n" + index,item,fcolumn_narasumber,data.result.countNarasumber);
                     });
                 }
                 if(data.result.event.length > 0){
-                    const titleFFV = document.createElement('h6');
-                    titleFFV.textContent = "Filter Berdasarkan Event";
-                    titleFFV.id = "ffv-event";
-                    titleFFV.style.fontWeight = "bold";
-                    const titleFFC = document.createElement('h6');
-                    titleFFC.textContent = "Filter Berdasarkan Event";
-                    titleFFC.id = "ffc-event";
-                    titleFFC.style.fontWeight = "bold";
-                    fopen_event.appendChild(titleFFV);
-                    fcolumn_event.appendChild(titleFFC);
+                    // const titleFFV = document.createElement('h6');
+                    // titleFFV.textContent = "Filter Berdasarkan Event";
+                    // titleFFV.id = "ffv-event";
+                    // titleFFV.style.fontWeight = "bold";
+                    // const titleFFC = document.createElement('h6');
+                    // titleFFC.textContent = "Filter Berdasarkan Event";
+                    // titleFFC.id = "ffc-event";
+                    // titleFFC.style.fontWeight = "bold";
+                    // fopen_event.appendChild(titleFFV);
+                    // fcolumn_event.appendChild(titleFFC);
                     data.result.event.forEach(function (item,index){
                         createCheckbox("ffv-e" + index,item,fopen_event,data.result.countEvent);
                         createCheckbox("ffc-e" + index,item,fcolumn_event,data.result.countEvent);
                     });
                 }
                 if(data.result.tahun.length > 0){
-                    const titleFFV = document.createElement('h6');
-                    titleFFV.textContent = "Filter Berdasarkan Tahun";
-                    titleFFV.id = "ffv-tanggal";
-                    titleFFV.style.fontWeight = "bold";
-                    const titleFFC = document.createElement('h6');
-                    titleFFC.textContent = "Filter Berdasarkan Tahun";
-                    titleFFC.id = "ffc-tanggal";
-                    titleFFC.style.fontWeight = "bold";
-                    fopen_tgl.appendChild(titleFFV);
-                    fcolumn_tgl.appendChild(titleFFC);
+                    // const titleFFV = document.createElement('h6');
+                    // titleFFV.textContent = "Filter Berdasarkan Tahun";
+                    // titleFFV.id = "ffv-tanggal";
+                    // titleFFV.style.fontWeight = "bold";
+                    // const titleFFC = document.createElement('h6');
+                    // titleFFC.textContent = "Filter Berdasarkan Tahun";
+                    // titleFFC.id = "ffc-tanggal";
+                    // titleFFC.style.fontWeight = "bold";
+                    // fopen_tgl.appendChild(titleFFV);
+                    // fcolumn_tgl.appendChild(titleFFC);
                     data.result.tahun.forEach(function (item,index){
                         createCheckbox("ffv-t" + index,item.substring(0,4),fopen_tgl,data.result.countTahun);
                         createCheckbox("ffc-t" + index,item.substring(0,4),fcolumn_tgl,data.result.countTahun);
@@ -309,7 +323,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+            fetch('http://localhost/pw5/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -321,6 +335,12 @@
                 const cardResultElement = document.getElementById('card_result');
                 cardResultElement.innerHTML = '';
                 if (data.result.data_result.length > 0) {
+                    hs_head.innerHTML = '';
+                    const hs_head_t = document.createElement('h5');
+                    hs_head_t.textContent = "Hasil Search:";
+                    hs_head_t.style.fontWeight = "bold";
+                    hs_head.appendChild(hs_head_t);                    
+                    
                     data.result.data_result.forEach(function (item) {
                     const cardItem = document.createElement('li');
                     cardItem.className = '_cards_item';
@@ -371,25 +391,68 @@
                 }
                 // filterOpenCanvas.innerHTML = '';
                 // filterColumnCanvas.innerHTML = '';
-                fopen_narasumber.innerHTML = '';
-                fcolumn_narasumber.innerHTML = '';
-                fopen_event.innerHTML = '';
-                fcolumn_event.innerHTML = '';
-                fopen_tgl.innerHTML = '';
-                fcolumn_tgl.innerHTML = '';
+                // fopen_narasumber.innerHTML = '';
+                // fcolumn_narasumber.innerHTML = '';
+                // fopen_event.innerHTML = '';
+                // fcolumn_event.innerHTML = '';
+                // fopen_tgl.innerHTML = '';
+                // fcolumn_tgl.innerHTML = '';
+
+                FilterColumnCanvas.innerHTML = '';
+                FilterOpenCanvas.innerHTML = '';
+
+                const titleFFC = document.createElement('h5');
+                titleFFC.textContent = 'Filter By';
+                titleFFC.style.marginTop = '20px';
+                titleFFC.style.marginBottom = '18px';
+                titleFFC.style.fontWeight = 'bold';
+                titleFFC.style.paddingTop = '15px';
+                titleFFC.style.borderTop = '2px goldenrod solid';
+                titleFFC.style.color = 'gold';
+                FilterColumnCanvas.appendChild(titleFFC);
+
+                const titleFFV = document.createElement('h5');
+                titleFFV.textContent = 'Filter By';
+                titleFFV.style.marginTop = '20px';
+                titleFFV.style.marginBottom = '20px';
+                titleFFV.style.fontWeight = 'bold';
+                titleFFV.style.paddingTop = '10px';
+                titleFFV.style.borderTop = '2px goldenrod solid';
+                titleFFV.style.color = 'gold';
+                FilterOpenCanvas.appendChild(titleFFV);
 
                 if(data.result.unique_narasumber.length > 0){
-                    
-                    const titleFFV = document.createElement('h6');
-                    titleFFV.textContent = "Filter Berdasarkan Narasumber";
-                    titleFFV.id = "ffv-narasumber";
-                    titleFFV.style.fontWeight = "bold";
+
                     const titleFFC = document.createElement('h6');
-                    titleFFC.textContent = "Filter Berdasarkan Narasumber";
+                    titleFFC.textContent = "Narasumber";
                     titleFFC.id = "ffc-narasumber";
-                    titleFFC.style.fontWeight = "bold";
-                    fopen_narasumber.appendChild(titleFFV);
-                    fcolumn_narasumber.appendChild(titleFFC);
+                    titleFFC.className = "ffc_head";
+                    // titleFFC.style.fontWeight = "bold";
+                    FilterColumnCanvas.appendChild(titleFFC);
+
+                    const titleFFV = document.createElement('h6');
+                    titleFFV.textContent = "Narasumber";
+                    titleFFV.id = "ffv-narasumber";
+                    titleFFV.className = "ffv_head";
+                    // titleFFV.style.fontWeight = "bold";
+                    FilterOpenCanvas.appendChild(titleFFV);
+
+                    fcolumn_narasumber.innerHTML = '';
+                    fcolumn_narasumber.className = "row ffc ";
+                    // fcolumn_narasumber.style.paddingTop = '15px';
+                    // fcolumn_narasumber.style.marginTop = '10px';
+                    // fcolumn_narasumber.style.borderTop = '1px solid black';
+                    fcolumn_narasumber.id = 'ffc-filter-naras';
+                    FilterColumnCanvas.appendChild(fcolumn_narasumber);
+
+                    fopen_narasumber.innerHTML = '';
+                    fopen_narasumber.className = "row ffv";
+                    // fopen_narasumber.style.paddingTop = '15px';
+                    // fopen_narasumber.style.marginTop = '10px';
+                    // fopen_narasumber.style.borderTop = '1px solid black';
+                    fopen_narasumber.id = 'ffv-filter-naras';
+                    FilterOpenCanvas.appendChild(fopen_narasumber);
+
                     data.result.unique_narasumber.forEach(function (item,index){
                         createCheckbox("ffv-n" + index,item,fopen_narasumber,data.result.countNarasumber);
                         createCheckbox("ffc-n" + index,item,fcolumn_narasumber,data.result.countNarasumber);
@@ -397,15 +460,35 @@
                 }
                 if(data.result.unique_event.length > 0){
                     const titleFFV = document.createElement('h6');
-                    titleFFV.textContent = "Filter Berdasarkan Event";
+                    titleFFV.textContent = "Event";
                     titleFFV.id = "ffv-event";
-                    titleFFV.style.fontWeight = "bold";
+                    titleFFV.className = "ffv_head";
+                    // titleFFV.style.fontWeight = "bold";
+                    FilterOpenCanvas.appendChild(titleFFV);
+
                     const titleFFC = document.createElement('h6');
-                    titleFFC.textContent = "Filter Berdasarkan Event";
+                    titleFFC.textContent = "Event";
                     titleFFC.id = "ffc-event";
-                    titleFFC.style.fontWeight = "bold";
-                    fopen_event.appendChild(titleFFV);
-                    fcolumn_event.appendChild(titleFFC);
+                    titleFFC.className = "ffc_head";
+                    // titleFFC.style.fontWeight = "bold";
+                    FilterColumnCanvas.appendChild(titleFFC);
+
+                    fcolumn_event.innerHTML = '';
+                    fcolumn_event.className = "row ffc";
+                    // fcolumn_event.style.paddingTop = '15px';
+                    // fcolumn_event.style.marginTop = '10px';
+                    // fcolumn_event.style.borderTop = '1px solid black';
+                    fcolumn_event.id = 'ffc-filter-event';
+                    FilterColumnCanvas.appendChild(fcolumn_event);
+
+                    fopen_event.innerHTML = '';
+                    fopen_event.className = "row ffv";
+                    // fopen_event.style.paddingTop = '15px';
+                    // fopen_event.style.marginTop = '10px';
+                    // fopen_event.style.borderTop = '1px solid black';
+                    fopen_event.id = 'ffv-filter-event';
+                    FilterOpenCanvas.appendChild(fopen_event);
+
                     data.result.unique_event.forEach(function (item,index){
                         createCheckbox("ffv-e" + index,item,fopen_event,data.result.countEvent);
                         createCheckbox("ffc-e" + index,item,fcolumn_event,data.result.countEvent);
@@ -413,15 +496,35 @@
                 }
                 if(data.result.unique_tanggal.length > 0){
                     const titleFFV = document.createElement('h6');
-                    titleFFV.textContent = "Filter Berdasarkan Tahun";
+                    titleFFV.textContent = "Tahun";
                     titleFFV.id = "ffv-tanggal";
-                    titleFFV.style.fontWeight = "bold";
+                    titleFFV.className = "ffv_head";
+                    // titleFFV.style.fontWeight = "bold";
                     const titleFFC = document.createElement('h6');
-                    titleFFC.textContent = "Filter Berdasarkan Tahun";
+                    titleFFC.textContent = "Tahun";
                     titleFFC.id = "ffc-tanggal";
-                    titleFFC.style.fontWeight = "bold";
-                    fopen_tgl.appendChild(titleFFV);
-                    fcolumn_tgl.appendChild(titleFFC);
+                    titleFFC.className = "ffc_head";
+                    // titleFFC.style.fontWeight = "bold";
+                    FilterOpenCanvas.appendChild(titleFFV);
+                    FilterColumnCanvas.appendChild(titleFFC);
+
+                    fcolumn_tgl.innerHTML = '';
+                    fcolumn_tgl.className = "row ffc";
+                    // fcolumn_tgl.style.paddingTop = '15px';
+                    // fcolumn_tgl.style.marginTop = '10px';
+                    // fcolumn_tgl.style.borderTop = '1px solid black';
+                    
+                    fcolumn_tgl.id = 'ffc-filter-tgl';
+                    FilterColumnCanvas.appendChild(fcolumn_tgl);
+
+                    fopen_tgl.innerHTML = '';
+                    fopen_tgl.className = "row ffv";
+                    // fopen_tgl.style.paddingTop = '15px';
+                    // fopen_tgl.style.marginTop = '10px';
+                    // fopen_tgl.style.borderTop = '1px solid black';
+                    fopen_tgl.id = 'ffv-filter-tgl';
+                    FilterOpenCanvas.appendChild(fopen_tgl);
+
                     data.result.unique_tanggal.forEach(function (item,index){
                         createCheckbox("ffv-t" + index,item,fopen_tgl,data.result.countTahun);
                         createCheckbox("ffc-t" + index,item,fcolumn_tgl,data.result.countTahun);
