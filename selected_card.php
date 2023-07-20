@@ -43,7 +43,7 @@
         }
 
         .summary-content {
-            background-color: #f2f3f0;
+            background: #ffffff;
             padding: 20px;
             border-radius: 20px;
             font-size: 16px;
@@ -52,7 +52,7 @@
 
         .summary-content h2,
         h3 {
-            color: #2c425c;
+            color: #2b1313	;
             text-align: center;
         }
 
@@ -62,7 +62,7 @@
 
         .pertanyaan-container {
             color: #2c425c;
-            background-color: #f2f3f0;
+            background-color: #ffffff;
             padding: 20px;
             border-radius: 20px;
 
@@ -72,8 +72,9 @@
             overflow-y: auto;
         }
 
-        .container-bawah h3 {
+        .container-bawah h3,p,li,ul{
             font-size: medium;
+            color: #2b1313	;
         }
 
         .error-message {
@@ -91,6 +92,41 @@
             /* background: #f2f3f0; */
             color: #2c425c;
         }
+
+        .keyword-content{
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 20px;
+            font-size: 16px;
+            line-height: 1.7;
+        } 
+
+        .keyword-content h6{
+            margin-left: 5px;
+            margin-bottom: 20px;
+        }
+
+        .keyword-link{
+            color: linear-gradient(to right top, #1e0049, #211045, #251c3f, #2a2638, #2f2f2f);
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        .btn-link1{
+            padding: 10px 15px 10px 15px;
+            border-radius: 20px;
+            font-size: 16px;
+            background: linear-gradient(to right top, #1e0049, #211045, #251c3f, #2a2638, #2f2f2f);
+            text-decoration: none;
+            margin-right: 10px;
+            color: white;
+        }
+
+        .btn-link1:hover{
+            color: gold;
+            text-decoration: none;
+        }
+
     </style>
 
     <script>
@@ -218,8 +254,9 @@
                                     </div>
 
                                     <p><span class="label"></span> <?php echo $deskripsi_pendek; ?></p>
-                                    <button type="button" class="btn-sm btn-primary link-gap" onclick="window.open('<?php echo $url_youtube ?>', '_blank')">Tonton Presentasi</button>
-                                    <button type="button" class="btn-sm btn-secondary link-gap" onclick="window.open('<?php echo $url_slideshare ?>', '_blank')">Link Presentasi</button>
+                                    <a href="<?php echo $url_youtube ?>" class="btn-link1" target="_blank">Tonton Presentasi</a>
+                                    <a href="<?php echo $url_slideshare ?>" class="btn-link1" target="_blank">Link Presentasi</a>
+
 
 
                                 </div>
@@ -245,7 +282,7 @@
                                     <?php
                                     foreach ($katakunci as $item) {
                                         $link = 'javascript:void(0);'; // Set the link to javascript:void(0);
-                                        echo "<a href=\"$link\" class=\"keyword-link\" data-keyword=\"$item\" style=\"color: blue;\">$item</a> " . ". ";
+                                        echo "<a href=\"$link\" class=\"keyword-link\" data-keyword=\"$item\"\">$item</a> ";
                                     }
                                     ?>
 
