@@ -28,5 +28,6 @@
 <script>
   function deleteSessQuery(){
     sessionStorage.removeItem("query")
+    sessionStorage.removeItem("first")
   }
 </script>

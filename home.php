@@ -184,6 +184,7 @@
 		}
 		if(!sessionStorage.getItem('first')){
 			selectAll();
+			fetchNewest();
 		}
 		updateFields();
 

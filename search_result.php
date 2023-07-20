@@ -282,6 +282,99 @@
         }
     }
 
+    async function fetchNewest() {
+		try {
+			const response = await fetch('http://localhost/UI/sabdaPustaka/getNewest.php');
+			const data = await response.json();
+			const cardResultElement = document.getElementById('card_result');
+            cardResultElement.innerHTML = '';
+            if (data.hasil.length > 0) {
+                hs_head.innerHTML = '';                 
+                data.hasil.forEach(function (item) {
+                    const cardItem = document.createElement('li');
+                    cardItem.className = '_cards_item';
+
+                    const card = document.createElement('div');
+                    card.className = '_card';
+                    card.setAttribute('onclick', `window.location.href='selected_card.php?document_id=${item.id}'`);
+
+                    const cardImage = document.createElement('div');
+                    cardImage.className = '_card_image';
+
+                    if (item.youtube) {
+                        const youtubeUrl = item.youtube;
+                        const videoId = getYoutubeVideoId(youtubeUrl);
+                        if (videoId) {
+                            const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                            const thumbnailImg = document.createElement('img');
+                            thumbnailImg.src = thumbnailUrl;
+                            cardImage.appendChild(thumbnailImg);
+                        }
+                    }
+
+                    const cardContent = document.createElement('div');
+                    cardContent.className = '_card_content';
+
+                    const cardTitle = document.createElement('h2');
+                    cardTitle.className = '_card_title';
+                    cardTitle.textContent = item.judul;
+
+                    const cardText = document.createElement('p');
+                    cardText.className = '_card_text';
+                    cardText.textContent = item.narasumber;
+
+                    // Append the card content to the card element
+                    card.appendChild(cardImage);
+                    card.appendChild(cardContent);
+
+                    cardContent.appendChild(cardTitle);
+                    cardContent.appendChild(cardText);
+
+                    cardItem.appendChild(card);
+                    cardResultElement.appendChild(cardItem);
+
+                    FilterColumnCanvas.innerHTML = '';
+                    FilterOpenCanvas.innerHTML = '';
+
+                    const titleFFC = document.createElement('h5');
+                    titleFFC.textContent = 'Filter By';
+                    titleFFC.style.marginTop = '20px';
+                    titleFFC.style.marginBottom = '18px';
+                    titleFFC.style.fontWeight = 'bold';
+                    titleFFC.style.paddingTop = '15px';
+                    titleFFC.style.borderTop = '2px goldenrod solid';
+                    titleFFC.style.color = 'gold';
+                    FilterColumnCanvas.appendChild(titleFFC);
+
+                    const titleFFV = document.createElement('h5');
+                    titleFFV.textContent = 'Filter By';
+                    titleFFV.style.marginTop = '20px';
+                    titleFFV.style.marginBottom = '20px';
+                    titleFFV.style.fontWeight = 'bold';
+                    titleFFV.style.paddingTop = '10px';
+                    titleFFV.style.borderTop = '2px goldenrod solid';
+                    titleFFV.style.color = 'gold';
+                    FilterOpenCanvas.appendChild(titleFFV);
+
+                });
+            } else {
+                // const noResults = document.createElement('p');
+                // noResults.textContent = 'No results found.';
+                // cardResultElement.appendChild(noResults);
+                FilterColumnCanvas.innerHTML = '';
+                FilterOpenCanvas.innerHTML = '';
+
+                hs_head.innerHTML = '';
+                const hs_head_t = document.createElement('h5');
+                hs_head_t.textContent = "No Results Found";
+                hs_head_t.style.fontWeight = "bold";
+                hs_head.appendChild(hs_head_t);  
+            }
+		} catch (error) {
+			console.error('Terjadi kesalahan:', error);
+		}
+	}
+
     function fetchSearchResult() {
         if(document.getElementById('query').value != ""){
             sessionStorage.setItem("query", document.getElementById('query').value);
