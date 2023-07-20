@@ -5,6 +5,23 @@
     <?php
     include 'header.php';
     ?>
+
+    <style>
+        .col-konten-head>h2 {
+            margin-top: 30px;
+            font-weight: bold;
+        }
+
+
+        .centered-text {
+            text-align: center;
+        }
+
+        .large_text {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
@@ -22,9 +39,12 @@
                             <?php
                             if (isset($_POST['keyword'])) {
                                 $keyword = $_POST['keyword'];
-                                echo '<h5>Related Search</h5>' . $keyword;
-                            } else {
-                                echo "No keyword provided.";
+                                echo '<h2 class="centered-text">Related Search</h2><h4 class="centered-text large-text">' . ucfirst($keyword) . '</h4>';                                
+                            }
+
+                            if (isset($_POST['narasumber'])){
+                                $narsum = $_POST['narasumber'];
+                                echo '<h2 class="centered-text">Related Search</h2><h4 class="centered-text large-text">' . ucfirst($narsum) . '</h4>';       
                             }
                             ?>
                         </div>
@@ -37,34 +57,35 @@
                 <div class="row" style="height: 20px;"></div>
             </form>
         </div>
-
-        <!-- <div class="_cards-container">
-            <h1>Related Results</h1>
-
-            <?php
-            if (isset($_POST['keyword'])) {
-                $keyword = $_POST['keyword'];
-                echo "Keyword: " . $keyword;
-            } else {
-                echo "No keyword provided.";
-            }
-            ?>
-            <div class="main">
-                <ul class="_cards" id="card_result">
-                    <!-- Card results will be dynamically added here -->
         </ul>
     </div>
-    </div> 
-
-    <!-- Add your additional HTML content and scripts as needed -->
+    </div>
 
     <script>
         // Extract the keyword from the POST data
         const keyword = "<?php echo isset($_POST['keyword']) ? $_POST['keyword'] : ''; ?>";
+        const narsum = "<?php echo isset($_POST['narasumber']) ? $_POST['narasumber'] : ''; ?>";
 
         if (keyword) {
             // Fetch the related results using the getKeyword.php API
             fetch(`getKeyword.php?query=${encodeURIComponent(keyword)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const hasil = data.hasil;
+
+                    // Display the results
+                    showResults(hasil);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        } else {
+            console.log("No keyword provided.");
+        }
+
+        if (narsum) {
+            // Fetch the related results using the getKeyword.php API
+            fetch(`getNarsum.php?query=${encodeURIComponent(narsum)}`)
                 .then(response => response.json())
                 .then(data => {
                     const hasil = data.hasil;

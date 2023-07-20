@@ -12,7 +12,7 @@ if (isset($_GET['document_id'])) {
     $params = [
         'query' => [
             'more_like_this' => [
-                'fields' => ['judul', 'ringkasan'], // Adjust the fields based on your preference
+                'fields' => ['judul', 'ringkasan', 'kata_kunci'], // Adjust the fields based on your preference
                 'like' => [
                     [
                         '_index' => $index,
@@ -24,7 +24,7 @@ if (isset($_GET['document_id'])) {
                 'minimum_should_match' => '30%'
             ]
         ],
-        'size' => 8 // Adjust the number of related documents to retrieve
+        'size' => 4 // Adjust the number of related documents to retrieve
     ];
 
     // Execute the Elasticsearch query

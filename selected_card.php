@@ -8,13 +8,17 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- <link rel="stylesheet" href="styles3.css"> -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style3.css">
     <link rel="stylesheet" href="sabdastyle.css">
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.7.570/build/pdf.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"> -->
     <style>
-        body{
-			background-color: #ffffff;
-			background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%);
+        body {
+            background-color: #ffffff;
+            background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%);
             line-height: 1.6;
-		}
+        }
+
         a.link-gap {
             margin-right: 30px;
             /* Adjust the margin value to your desired gap size */
@@ -165,8 +169,8 @@
             $list_pertanyaan = str_replace(', ', "", $list_pertanyaan);
 
             $pertanyaan = explode('?', $list_pertanyaan);
-
             $katakunci = explode(', ', $kata_kunci);
+            $pembicara = explode(',', $narasumber);
     ?>
 
             <div class="container-fluid">
@@ -185,7 +189,6 @@
                                             <p class="text-center">Tampilan Presentasi belum ada, silahkan pergi ke <a href="<?php echo $url_slideshare ?>" target="_blank">link ini</a></p>
                                         </div>
                                     <?php endif; ?>
-
                                 </div>
                             </div>
                         </div>
@@ -194,7 +197,15 @@
                             <div class="details-container">
                                 <div class="details-content">
                                     <h2><?php echo $judul; ?></h2>
-                                    <p><span class="label"></span> <span class="value"><?php echo $narasumber; ?></p>
+                                    <?php
+                                    foreach ($pembicara as $item) {
+                                        $item = trim($item); // Trim any extra whitespace
+                                        if ($item !== '') {
+                                            $link = 'javascript:void(0);'; // Set the link to javascript:void(0);
+                                            echo "<a href=\"$link\" class=\"narsum-link\" data-keyword=\"$item\" style=\"color: blue;\">$item</a> " . ". ";
+                                        }
+                                    }
+                                    ?>
                                     <p><span class="label"></span><span class="value"> <?php echo $tanggal; ?></p>
                                     <p><span class="label"></span> <?php echo $deskripsi_pendek; ?></p>
                                     <button type="button" class="btn-sm btn-primary link-gap" onclick="window.open('<?php echo $url_youtube ?>', '_blank')">Tonton Presentasi</button>
@@ -289,6 +300,28 @@
 
                 document.body.appendChild(form);
                 form.submit();
+            });
+        });
+
+        const narsumLinks = document.querySelectorAll('.narsum-link');
+        narsumLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const query = link.dataset.keyword;
+
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = 'related_results.php';
+
+                const narsumInput = document.createElement('input');
+                narsumInput.type = 'hidden';
+                narsumInput.name = 'narasumber';
+                narsumInput.value = query;
+
+                form.appendChild(narsumInput);
+
+                document.body.appendChild(form);
+                form.submit(); // <-- Add parentheses to call the form submission function
             });
         });
 

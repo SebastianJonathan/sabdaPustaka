@@ -29,7 +29,7 @@ if (strlen($_GET['query']) >= 3) {
                     [
                         'multi_match' => [
                             'query' => $_GET['query'],
-                            'fields' => ['kata_kunci_completion.input'],
+                            'fields' => ['narasumber_completion.input'],
                             'operator' => 'and'
                         ]
                     ]
@@ -39,7 +39,7 @@ if (strlen($_GET['query']) >= 3) {
         'highlight' => [
             'pre_tags' => ['<strong>'],
             'post_tags' => ['</strong>'],
-            'fields' => ['kata_kunci_completion.input' => new \stdClass()]
+            'fields' => ['narasumber_completion.input' => new \stdClass()]
         ]
     ];
     $query = json_encode($params);
@@ -51,7 +51,7 @@ if (strlen($_GET['query']) >= 3) {
     $queryy = $_GET['query'];
     foreach ($hits as $hit) {
         $source = $hit['_source'];
-        $keyword = $source['kata_kunci'];
+        $keyword = $source['narasumber'];
         $listKeyword = explode(", ", $keyword);
         foreach ($listKeyword as $namaKeyword) {
             if (strtolower($namaKeyword) == strtolower($queryy)) {
