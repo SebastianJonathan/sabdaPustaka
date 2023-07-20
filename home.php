@@ -12,9 +12,9 @@
 		<div class="row">
 			<form action="" id="search" class="content sect-search">
 				<div class="rekomendasi-container">
-					<div class="col-md-6 InputContainer" style="background-color: #2f2f2f; ">
+					<div class="col-md-6 InputContainer" style="background-color: #1e0049; ">
 						<input placeholder="Search.." id="query" class="query form-control form-input" name="query" type="text" autocomplete="off">
-						<button type="button" class="search-button" onclick="getSearchResult()" style="background-color: #2f2f2f; color: white;">Search</button>
+						<button type="button" class="search-button" onclick="getSearchResult()" style="background-color: #1e0049; color: white;">Search</button>
 					</div>
 					<div id="rekomendasi">
 						<ul id="rekomendasi-list"></ul>

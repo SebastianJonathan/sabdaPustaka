@@ -383,11 +383,43 @@
 
                     cardItem.appendChild(card);
                     cardResultElement.appendChild(cardItem);
+
+                    FilterColumnCanvas.innerHTML = '';
+                    FilterOpenCanvas.innerHTML = '';
+
+                    const titleFFC = document.createElement('h5');
+                    titleFFC.textContent = 'Filter By';
+                    titleFFC.style.marginTop = '20px';
+                    titleFFC.style.marginBottom = '18px';
+                    titleFFC.style.fontWeight = 'bold';
+                    titleFFC.style.paddingTop = '15px';
+                    titleFFC.style.borderTop = '2px goldenrod solid';
+                    titleFFC.style.color = 'gold';
+                    FilterColumnCanvas.appendChild(titleFFC);
+
+                    const titleFFV = document.createElement('h5');
+                    titleFFV.textContent = 'Filter By';
+                    titleFFV.style.marginTop = '20px';
+                    titleFFV.style.marginBottom = '20px';
+                    titleFFV.style.fontWeight = 'bold';
+                    titleFFV.style.paddingTop = '10px';
+                    titleFFV.style.borderTop = '2px goldenrod solid';
+                    titleFFV.style.color = 'gold';
+                    FilterOpenCanvas.appendChild(titleFFV);
+
                 });
                 } else {
-                    const noResults = document.createElement('p');
-                    noResults.textContent = 'No results found.';
-                    cardResultElement.appendChild(noResults);
+                    // const noResults = document.createElement('p');
+                    // noResults.textContent = 'No results found.';
+                    // cardResultElement.appendChild(noResults);
+                    FilterColumnCanvas.innerHTML = '';
+                    FilterOpenCanvas.innerHTML = '';
+
+                    hs_head.innerHTML = '';
+                    const hs_head_t = document.createElement('h5');
+                    hs_head_t.textContent = "No Results Found";
+                    hs_head_t.style.fontWeight = "bold";
+                    hs_head.appendChild(hs_head_t);  
                 }
                 // filterOpenCanvas.innerHTML = '';
                 // filterColumnCanvas.innerHTML = '';
@@ -398,28 +430,7 @@
                 // fopen_tgl.innerHTML = '';
                 // fcolumn_tgl.innerHTML = '';
 
-                FilterColumnCanvas.innerHTML = '';
-                FilterOpenCanvas.innerHTML = '';
 
-                const titleFFC = document.createElement('h5');
-                titleFFC.textContent = 'Filter By';
-                titleFFC.style.marginTop = '20px';
-                titleFFC.style.marginBottom = '18px';
-                titleFFC.style.fontWeight = 'bold';
-                titleFFC.style.paddingTop = '15px';
-                titleFFC.style.borderTop = '2px goldenrod solid';
-                titleFFC.style.color = 'gold';
-                FilterColumnCanvas.appendChild(titleFFC);
-
-                const titleFFV = document.createElement('h5');
-                titleFFV.textContent = 'Filter By';
-                titleFFV.style.marginTop = '20px';
-                titleFFV.style.marginBottom = '20px';
-                titleFFV.style.fontWeight = 'bold';
-                titleFFV.style.paddingTop = '10px';
-                titleFFV.style.borderTop = '2px goldenrod solid';
-                titleFFV.style.color = 'gold';
-                FilterOpenCanvas.appendChild(titleFFV);
 
                 if(data.result.unique_narasumber.length > 0){
 
