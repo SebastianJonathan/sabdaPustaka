@@ -86,6 +86,11 @@
         .error-message p {
             text-align: center;
         }
+
+        .narsum-tanggal{
+            /* background: #f2f3f0; */
+            color: #2c425c;
+        }
     </style>
 
     <script>
@@ -144,7 +149,7 @@
     if (isset($_GET['document_id'])) {
         $documentId = $_GET['document_id'];
 
-        $url = 'http://localhost:9200/pustaka6/_doc/' . $documentId;
+        $url = 'http://localhost:9200/pustaka5/_doc/' . $documentId;
         $response = query($url, null);
 
         if (isset($response['_source'])) {
@@ -197,16 +202,21 @@
                             <div class="details-container">
                                 <div class="details-content">
                                     <h2><?php echo $judul; ?></h2>
-                                    <?php
-                                    foreach ($pembicara as $item) {
-                                        $item = trim($item); // Trim any extra whitespace
-                                        if ($item !== '') {
-                                            $link = 'javascript:void(0);'; // Set the link to javascript:void(0);
-                                            echo "<a href=\"$link\" class=\"narsum-link\" data-keyword=\"$item\" style=\"color: blue;\">$item</a> " . ". ";
+
+                                    <div class="narsum-tanggal">
+                                        <?php
+                                        echo "Narasumber / Pembicara:   ";
+                                        foreach ($pembicara as $item) {
+                                            $item = trim($item); // Trim any extra whitespace
+                                            if ($item !== '') {
+                                                $link = 'javascript:void(0);'; // Set the link to javascript:void(0);
+                                                echo "<a href=\"$link\" class=\"narsum-link\" data-keyword=\"$item\" style=\"color: blue;\">$item</a> " . ". ";
+                                            }
                                         }
-                                    }
-                                    ?>
-                                    <p><span class="label"></span><span class="value"> <?php echo $tanggal; ?></p>
+                                        ?>
+                                        <p><span class="label"></span><span class="value"> Tanggal: <?php echo date('j F Y', strtotime($tanggal)); ?></p>
+                                    </div>
+
                                     <p><span class="label"></span> <?php echo $deskripsi_pendek; ?></p>
                                     <button type="button" class="btn-sm btn-primary link-gap" onclick="window.open('<?php echo $url_youtube ?>', '_blank')">Tonton Presentasi</button>
                                     <button type="button" class="btn-sm btn-secondary link-gap" onclick="window.open('<?php echo $url_slideshare ?>', '_blank')">Link Presentasi</button>
