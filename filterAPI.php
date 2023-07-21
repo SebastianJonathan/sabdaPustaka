@@ -75,83 +75,95 @@
     function search($jsonSearch){
         $logFile = 'error.log';
         $field = $jsonSearch["fields"];
-        $result = array();
-        $narasumber = array();
-        $event = array();
-        $tanggal = array();
-        $url = 'http://localhost:9200/pustaka6/_search';
-        $params = [
-            'size' => $jsonSearch["size"],
-            'query' => [
-                'bool' => [
-                    'must' => [
-                        [
-                            'multi_match' => [
-                                'query' => $jsonSearch["query"],
-                                'fields' => $field,
-                                'operator' => 'and',
-                                'fuzziness' => 'AUTO'
+        if(empty($field)){
+            $jsonData = [
+                'data_result' => [],
+                'unique_narasumber' => [],
+                'unique_event' => [],
+                'unique_tanggal' => [],
+                'countEvent' => [],
+                'countNarasumber' => [],
+                'countTahun' => []
+            ];
+            echo json_encode(['result' => $jsonData]);
+        }else{
+            $result = array();
+            $narasumber = array();
+            $event = array();
+            $tanggal = array();
+            $url = 'http://localhost:9200/pustaka6/_search';
+            $params = [
+                'size' => $jsonSearch["size"],
+                'query' => [
+                    'bool' => [
+                        'must' => [
+                            [
+                                'multi_match' => [
+                                    'query' => $jsonSearch["query"],
+                                    'fields' => $field,
+                                    'operator' => 'and',
+                                ]
                             ]
                         ]
                     ]
-                ]
-            ],
-        ];
-        $query = json_encode($params);
-        $response = query($url, $query);
-        $hits = $response['hits']['hits'];
-        $countEvent = array();
-        $countNarasumber = array();
-        $countTahun = array();
-        foreach ($hits as $hit) {
-            $source = $hit['_source'];
-            $result[] = [
-                'event' => $source['event'],
-                'judul' => $source['judul'],
-                'narasumber' => $source['narasumber'],
-                'deskripsi_pendek' => $source['deskripsi_pendek'],
-                'id' => $hit['_id'],
-                'youtube' => $source['url_youtube']
+                ],
             ];
-            $listNarasumber = explode(", ",$source['narasumber']);
-            foreach($listNarasumber as $namaNarasumber){
-                if (!isset($countNarasumber[$namaNarasumber])) {
-                    $countNarasumber[$namaNarasumber] = 1;
+            $query = json_encode($params);
+            $response = query($url, $query);
+            $hits = $response['hits']['hits'];
+            $countEvent = array();
+            $countNarasumber = array();
+            $countTahun = array();
+            foreach ($hits as $hit) {
+                $source = $hit['_source'];
+                $result[] = [
+                    'event' => $source['event'],
+                    'judul' => $source['judul'],
+                    'narasumber' => $source['narasumber'],
+                    'deskripsi_pendek' => $source['deskripsi_pendek'],
+                    'id' => $hit['_id'],
+                    'youtube' => $source['url_youtube']
+                ];
+                $listNarasumber = explode(", ",$source['narasumber']);
+                foreach($listNarasumber as $namaNarasumber){
+                    if (!isset($countNarasumber[$namaNarasumber])) {
+                        $countNarasumber[$namaNarasumber] = 1;
+                    }else{
+                        $countNarasumber[$namaNarasumber] += 1;
+                    }
+                    if(!in_array($namaNarasumber, $narasumber)){
+                        $narasumber[] = $namaNarasumber;
+                    }
+                }
+                if (!isset($countEvent[$source['event']])) {
+                    $countEvent[$source['event']] = 1;
                 }else{
-                    $countNarasumber[$namaNarasumber] += 1;
+                    $countEvent[$source['event']] += 1;
                 }
-                if(!in_array($namaNarasumber, $narasumber)){
-                    $narasumber[] = $namaNarasumber;
+                if(!in_array($source['event'],$event)){
+                    $event[] = $source['event'];
+                }
+                if (!isset($countTahun[substr($source['tanggal'],0,4)])) {
+                    $countTahun[substr($source['tanggal'],0,4)] = 1;
+                }else{
+                    $countTahun[substr($source['tanggal'],0,4)] += 1;
+                }
+                if(!in_array(substr($source['tanggal'],0,4),$tanggal)){
+                    $tanggal[] = substr($source['tanggal'],0,4);
                 }
             }
-            if (!isset($countEvent[$source['event']])) {
-                $countEvent[$source['event']] = 1;
-            }else{
-                $countEvent[$source['event']] += 1;
-            }
-            if(!in_array($source['event'],$event)){
-                $event[] = $source['event'];
-            }
-            if (!isset($countTahun[substr($source['tanggal'],0,4)])) {
-                $countTahun[substr($source['tanggal'],0,4)] = 1;
-            }else{
-                $countTahun[substr($source['tanggal'],0,4)] += 1;
-            }
-            if(!in_array(substr($source['tanggal'],0,4),$tanggal)){
-                $tanggal[] = substr($source['tanggal'],0,4);
-            }
+            usort($tanggal, "dateComparison");
+            $jsonData = [
+                'data_result' => $result,
+                'unique_narasumber' => $narasumber,
+                'unique_event' => $event,
+                'unique_tanggal' => $tanggal,
+                'countEvent' => $countEvent,
+                'countNarasumber' => $countNarasumber,
+                'countTahun' => $countTahun
+            ];
+            echo json_encode(['result' => $jsonData]);
         }
-        usort($tanggal, "dateComparison");
-        $jsonData = [
-            'data_result' => $result,
-            'unique_narasumber' => $narasumber,
-            'unique_event' => $event,
-            'unique_tanggal' => $tanggal,
-            'countEvent' => $countEvent,
-            'countNarasumber' => $countNarasumber,
-            'countTahun' => $countTahun
-        ];
-        echo json_encode(['result' => $jsonData]);
     }
     function uniqueArray($arr) {
         $uniqueValues = array();
@@ -166,39 +178,93 @@
         $logFile = 'error.log';
         $result = array();
         $field = $jsonSearch["fields"];
-        $url = 'http://localhost:9200/pustaka6/_search';
-        $params = [
-            'size' => $jsonSearch["size"],
-            'query' => [
-                'bool' => [
-                    'must' => [
-                        [
-                            'multi_match' => [
-                                'query' => $jsonSearch["query"],
-                                'fields' => $field,
-                                'operator' => 'and',
-                                'fuzziness' => 'AUTO'
-                            ]
+        if(empty($field)){
+            $results = [
+                'data' => [],
+                'narasumber' => [],
+                'event' => [],
+                'tahun' => [],
+                'countEvent' => [],
+                'countNarasumber' => [],
+                'countTahun' => []
+            ];
+            echo json_encode(['result' => $results]);
+        }else{
+            $url = 'http://localhost:9200/pustaka6/_search';
+            $params = [
+                'size' => $jsonSearch["size"],
+                'query' => [
+                    'bool' => [
+                        'must' => [
+                            [
+                                'multi_match' => [
+                                    'query' => $jsonSearch["query"],
+                                    'fields' => $field,
+                                    'operator' => 'and'
+                                ]
+                            ],
                         ],
                     ],
                 ],
-            ],
-        ];
-        $query = json_encode($params);
-        error_log($query,3,$logFile);
-        $response = query($url, $query);
-        $hits = $response['hits']['hits'];
-        $narasumberr = array();
-        $event = array();
-        $tahun = array();
-        foreach ($hits as $hit) {
-            $source = $hit['_source'];
-            if(!empty($jsonSearch["event"])){
-                if(!empty($jsonSearch["narasumber"])){
-                    if(!empty($jsonSearch["tanggal"])){
-                        $listNarasumber = explode(", ",$source['narasumber']);
-                        foreach($listNarasumber as $namaNarasumber){
-                            if(in_array($source["event"], $jsonSearch["event"]) and in_array($namaNarasumber, $jsonSearch["narasumber"]) and in_array(substr($source["tanggal"],0,4),$jsonSearch["tanggal"])){
+            ];
+            $query = json_encode($params);
+            error_log($query,3,$logFile);
+            $response = query($url, $query);
+            $hits = $response['hits']['hits'];
+            $narasumberr = array();
+            $event = array();
+            $tahun = array();
+            foreach ($hits as $hit) {
+                $source = $hit['_source'];
+                if(!empty($jsonSearch["event"])){
+                    if(!empty($jsonSearch["narasumber"])){
+                        if(!empty($jsonSearch["tanggal"])){
+                            $listNarasumber = explode(", ",$source['narasumber']);
+                            foreach($listNarasumber as $namaNarasumber){
+                                if(in_array($source["event"], $jsonSearch["event"]) and in_array($namaNarasumber, $jsonSearch["narasumber"]) and in_array(substr($source["tanggal"],0,4),$jsonSearch["tanggal"])){
+                                    $result[] = [
+                                        'event' => $source['event'],
+                                        'judul' => $source['judul'],
+                                        'narasumber' => $source['narasumber'],
+                                        'deskripsi_pendek' => $source['deskripsi_pendek'],
+                                        'id' => $hit['_id'],
+                                        'youtube' => $source['url_youtube'],
+                                        'tanggal' => $source['tanggal']
+                                    ];
+                                }
+                            }
+                        }else {
+                            $listNarasumber = explode(", ",$source['narasumber']);
+                            foreach($listNarasumber as $namaNarasumber){
+                                if(in_array($source["event"], $jsonSearch["event"]) and in_array($namaNarasumber, $jsonSearch["narasumber"])){
+                                    $result[] = [
+                                        'event' => $source['event'],
+                                        'judul' => $source['judul'],
+                                        'narasumber' => $source['narasumber'],
+                                        'deskripsi_pendek' => $source['deskripsi_pendek'],
+                                        'id' => $hit['_id'],
+                                        'youtube' => $source['url_youtube'],
+                                        'tanggal' => $source['tanggal']
+                                    ];
+                                }
+                            }
+                        }
+                    }
+                    else{
+                        if(!empty($jsonSearch["tanggal"])){
+                            if(in_array($source["event"], $jsonSearch["event"]) and in_array(substr($source["tanggal"],0,4), $jsonSearch["tanggal"])){
+                                $result[] = [
+                                    'event' => $source['event'],
+                                    'judul' => $source['judul'],
+                                    'narasumber' => $source['narasumber'],
+                                    'deskripsi_pendek' => $source['deskripsi_pendek'],
+                                    'id' => $hit['_id'],
+                                    'youtube' => $source['url_youtube'],
+                                    'tanggal' => $source['tanggal']
+                                ];
+                            }
+                        }else {
+                            if(in_array($source["event"], $jsonSearch["event"])){
                                 $result[] = [
                                     'event' => $source['event'],
                                     'judul' => $source['judul'],
@@ -210,10 +276,12 @@
                                 ];
                             }
                         }
-                    }else {
+                    }
+                }else if(!empty($jsonSearch["tanggal"])){
+                    if(!empty($jsonSearch["narasumber"])){
                         $listNarasumber = explode(", ",$source['narasumber']);
                         foreach($listNarasumber as $namaNarasumber){
-                            if(in_array($source["event"], $jsonSearch["event"]) and in_array($namaNarasumber, $jsonSearch["narasumber"])){
+                            if(in_array($namaNarasumber, $jsonSearch["narasumber"]) and in_array(substr($source["tanggal"],0,4),$jsonSearch["tanggal"])){
                                 $result[] = [
                                     'event' => $source['event'],
                                     'judul' => $source['judul'],
@@ -225,23 +293,8 @@
                                 ];
                             }
                         }
-                    }
-                }
-                else{
-                    if(!empty($jsonSearch["tanggal"])){
-                        if(in_array($source["event"], $jsonSearch["event"]) and in_array(substr($source["tanggal"],0,4), $jsonSearch["tanggal"])){
-                            $result[] = [
-                                'event' => $source['event'],
-                                'judul' => $source['judul'],
-                                'narasumber' => $source['narasumber'],
-                                'deskripsi_pendek' => $source['deskripsi_pendek'],
-                                'id' => $hit['_id'],
-                                'youtube' => $source['url_youtube'],
-                                'tanggal' => $source['tanggal']
-                            ];
-                        }
-                    }else {
-                        if(in_array($source["event"], $jsonSearch["event"])){
+                    } else{
+                        if(in_array(substr($source["tanggal"],0,4),$jsonSearch["tanggal"])){
                             $result[] = [
                                 'event' => $source['event'],
                                 'judul' => $source['judul'],
@@ -254,24 +307,23 @@
                         }
                     }
                 }
-            }else if(!empty($jsonSearch["tanggal"])){
-                if(!empty($jsonSearch["narasumber"])){
-                    $listNarasumber = explode(", ",$source['narasumber']);
-                    foreach($listNarasumber as $namaNarasumber){
-                        if(in_array($namaNarasumber, $jsonSearch["narasumber"]) and in_array(substr($source["tanggal"],0,4),$jsonSearch["tanggal"])){
-                            $result[] = [
-                                'event' => $source['event'],
-                                'judul' => $source['judul'],
-                                'narasumber' => $source['narasumber'],
-                                'deskripsi_pendek' => $source['deskripsi_pendek'],
-                                'id' => $hit['_id'],
-                                'youtube' => $source['url_youtube'],
-                                'tanggal' => $source['tanggal']
-                            ];
+                else {
+                    if(!empty($jsonSearch["narasumber"])){
+                        $listNarasumber = explode(", ",$source['narasumber']);
+                        foreach($listNarasumber as $narasumber){
+                            if(in_array($narasumber, $jsonSearch["narasumber"])){
+                                $result[] = [
+                                    'event' => $source['event'],
+                                    'judul' => $source['judul'],
+                                    'narasumber' => $source['narasumber'],
+                                    'deskripsi_pendek' => $source['deskripsi_pendek'],
+                                    'id' => $hit['_id'],
+                                    'youtube' => $source['url_youtube'],
+                                    'tanggal' => $source['tanggal']
+                                ];
+                            }
                         }
-                    }
-                } else{
-                    if(in_array(substr($source["tanggal"],0,4),$jsonSearch["tanggal"])){
+                    }else{
                         $result[] = [
                             'event' => $source['event'],
                             'judul' => $source['judul'],
@@ -284,79 +336,51 @@
                     }
                 }
             }
-            else {
-                if(!empty($jsonSearch["narasumber"])){
-                    $listNarasumber = explode(", ",$source['narasumber']);
-                    foreach($listNarasumber as $narasumber){
-                        if(in_array($narasumber, $jsonSearch["narasumber"])){
-                            $result[] = [
-                                'event' => $source['event'],
-                                'judul' => $source['judul'],
-                                'narasumber' => $source['narasumber'],
-                                'deskripsi_pendek' => $source['deskripsi_pendek'],
-                                'id' => $hit['_id'],
-                                'youtube' => $source['url_youtube'],
-                                'tanggal' => $source['tanggal']
-                            ];
-                        }
+            $result = uniqueArray($result);
+            $countTahun = array();
+            $countNarasumber = array();
+            $countEvent = array();
+            foreach($result as $res){
+                if (!isset($countEvent[$res['event']])) {
+                    $countEvent[$res['event']] = 1;
+                }else{
+                    $countEvent[$res['event']] += 1;
+                }
+                if(!in_array($res['event'],$event)){
+                    $event[] = $res['event'];
+                }
+                if (!isset($countTahun[substr($res['tanggal'],0,4)])) {
+                    $countTahun[substr($res['tanggal'],0,4)] = 1;
+                }else{
+                    $countTahun[substr($res['tanggal'],0,4)] += 1;
+                }
+                if(!in_array(substr($res['tanggal'],0,4),$tahun)){
+                    $tahun[] = substr($res['tanggal'],0,4);
+                }
+                $namaNarasumber = explode(", ",$res['narasumber']);
+                foreach($namaNarasumber as $narsum){
+                    if (!isset($countNarasumber[$narsum])) {
+                        $countNarasumber[$narsum] = 1;
+                    }else{
+                        $countNarasumber[$narsum] += 1;
                     }
-                }else{
-                    $result[] = [
-                        'event' => $source['event'],
-                        'judul' => $source['judul'],
-                        'narasumber' => $source['narasumber'],
-                        'deskripsi_pendek' => $source['deskripsi_pendek'],
-                        'id' => $hit['_id'],
-                        'youtube' => $source['url_youtube'],
-                        'tanggal' => $source['tanggal']
-                    ];
+                    if(!in_array($narsum,$narasumberr)){
+                        $narasumberr[] = $narsum;
+                    }
                 }
             }
+            usort($tahun, "dateComparison");
+            $results = [
+                'data' => $result,
+                'narasumber' => $narasumberr,
+                'event' => $event,
+                'tahun' => $tahun,
+                'countEvent' => $countEvent,
+                'countNarasumber' => $countNarasumber,
+                'countTahun' => $countTahun
+            ];
+            echo json_encode(['result' => $results]);
         }
-        $result = uniqueArray($result);
-        $countTahun = array();
-        $countNarasumber = array();
-        $countEvent = array();
-        foreach($result as $res){
-            if (!isset($countEvent[$res['event']])) {
-                $countEvent[$res['event']] = 1;
-            }else{
-                $countEvent[$res['event']] += 1;
-            }
-            if(!in_array($res['event'],$event)){
-                $event[] = $res['event'];
-            }
-            if (!isset($countTahun[substr($res['tanggal'],0,4)])) {
-                $countTahun[substr($res['tanggal'],0,4)] = 1;
-            }else{
-                $countTahun[substr($res['tanggal'],0,4)] += 1;
-            }
-            if(!in_array(substr($res['tanggal'],0,4),$tahun)){
-                $tahun[] = substr($res['tanggal'],0,4);
-            }
-            $namaNarasumber = explode(", ",$res['narasumber']);
-            foreach($namaNarasumber as $narsum){
-                if (!isset($countNarasumber[$narsum])) {
-                    $countNarasumber[$narsum] = 1;
-                }else{
-                    $countNarasumber[$narsum] += 1;
-                }
-                if(!in_array($narsum,$narasumberr)){
-                    $narasumberr[] = $narsum;
-                }
-            }
-        }
-        usort($tahun, "dateComparison");
-        $results = [
-            'data' => $result,
-            'narasumber' => $narasumberr,
-            'event' => $event,
-            'tahun' => $tahun,
-            'countEvent' => $countEvent,
-            'countNarasumber' => $countNarasumber,
-            'countTahun' => $countTahun
-        ];
-        echo json_encode(['result' => $results]);
     }
     $jsonData = file_get_contents('php://input');
     $jsonDataDecoded = json_decode($jsonData, true);

@@ -40,7 +40,7 @@ function extractUniqueSpeakers($hits)
 
 
 // Set the Elasticsearch index name and endpoint URL
-$index = 'pustaka5';
+$index = 'pustaka6';
 $url = 'http://localhost:9200/' . $index . '/_search';
 
 // Query to retrieve all documents
