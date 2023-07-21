@@ -565,16 +565,16 @@
 
 			let fields = [];
 
-			if (checkbox_judul.checked) {
+			if (sessionStorage.getItem("checkboxJudul") == "true") {
 				fields.push('judul_completion.input');
 			}
-			if (checkbox_narasumber.checked) {
+			if (sessionStorage.getItem("checkboxNarasumber") == "true") {
 				fields.push('narasumber_completion.input');
 			}
-			if (checkbox_event.checked) {
+			if (sessionStorage.getItem("checkboxEvent") == "true") {
 				fields.push('event_completion.input');
 			}
-			if (checkbox_related.checked) {
+			if (sessionStorage.getItem("checkboxRelated") == "true") {
 				fields.push('deskripsi_pendek');
 				fields.push('ringkasan');
 				fields.push('kata_kunci');
@@ -602,16 +602,16 @@
 
 			let fields = [];
 
-			if (checkbox_judul.checked) {
+			if (sessionStorage.getItem("checkboxJudul") == "true") {
 				fields.push('judul_completion.input');
 			}
-			if (checkbox_narasumber.checked) {
+			if (sessionStorage.getItem("checkboxNarasumber") == "true") {
 				fields.push('narasumber_completion.input');
 			}
-			if (checkbox_event.checked) {
+			if (sessionStorage.getItem("checkboxEvent") == "true") {
 				fields.push('event_completion.input');
 			}
-			if (checkbox_related.checked) {
+			if (sessionStorage.getItem("checkboxRelated") == "true") {
 				fields.push('deskripsi_pendek');
 				fields.push('ringkasan');
 				fields.push('kata_kunci');
