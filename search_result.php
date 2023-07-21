@@ -139,16 +139,16 @@
             let fieldSearch = [];
 
             // Check if the respective checkboxes are checked and add fields to fieldSearch array
-            if (sessionStorage.getItem("checkboxJudul") == true) {
+            if (sessionStorage.getItem("checkboxJudul") == "true") {
                 fieldSearch.push('judul_completion.input');
             }
-            if (sessionStorage.getItem("checkboxNarasumber") == true) {
+            if (sessionStorage.getItem("checkboxNarasumber") == "true") {
                 fieldSearch.push('narasumber_completion.input');
             }
-            if (sessionStorage.getItem("checkboxEvent") == true) {
+            if (sessionStorage.getItem("checkboxEvent") == "true") {
                 fieldSearch.push('event_completion.input');
             }
-            if (sessionStorage.getItem("checkboxRelated") == true) {
+            if (sessionStorage.getItem("checkboxRelated") == "true") {
                 fieldSearch.push('deskripsi_pendek');
 				fieldSearch.push('ringkasan');
 				fieldSearch.push('kata_kunci');
@@ -173,7 +173,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch('http://localhost/pw5/filterAPI.php', {
+            fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -293,7 +293,7 @@
 
     async function fetchNewest() {
 		try {
-			const response = await fetch('http://localhost/pw5/getNewest.php');
+			const response = await fetch('http://localhost/UI/sabdaPustaka/getNewest.php');
 			const data = await response.json();
 			const cardResultElement = document.getElementById('card_result');
             cardResultElement.innerHTML = '';
@@ -383,16 +383,16 @@
             let fieldSearch = [];
 
             // Check if the respective checkboxes are checked and add fields to fieldSearch array
-            if (sessionStorage.getItem("checkboxJudul") == true) {
+            if (sessionStorage.getItem("checkboxJudul") == "true") {
                 fieldSearch.push('judul_completion.input');
             }
-            if (sessionStorage.getItem("checkboxNarasumber") == true) {
+            if (sessionStorage.getItem("checkboxNarasumber") == "true") {
                 fieldSearch.push('narasumber_completion.input');
             }
-            if (sessionStorage.getItem("checkboxEvent") == true) {
+            if (sessionStorage.getItem("checkboxEvent") == "true") {
                 fieldSearch.push('event_completion.input');
             }
-            if (sessionStorage.getItem("checkboxRelated") == true) {
+            if (sessionStorage.getItem("checkboxRelated") == "true") {
                 fieldSearch.push('deskripsi_pendek');
 				fieldSearch.push('ringkasan');
 				fieldSearch.push('kata_kunci');
@@ -414,7 +414,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch('http://localhost/pw5/filterAPI.php', {
+            fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -438,7 +438,7 @@
 
                     const card = document.createElement('div');
                     card.className = '_card';
-                    card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
+                    card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
 
                     const cardImage = document.createElement('div');
                     cardImage.className = '_card_image';
