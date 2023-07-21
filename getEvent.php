@@ -23,9 +23,9 @@ $index = 'pustaka5';
 $url = 'http://localhost:9200/' . $index . '/_search';
 
 // Get the 'event' query parameter from the URL
-$narsumParam = isset($_GET['query']) ? $_GET['query'] : '';
+$eventParam = isset($_GET['query']) ? $_GET['query'] : '';
 
-if (empty($narsumParam)) {
+if (empty($eventParam)) {
     // If the 'event' parameter is empty, return an empty array
     echo json_encode(['hasil' => []]);
     exit();
@@ -36,7 +36,7 @@ $params = [
     'size' => 1000, // Adjust the size to match the maximum number of documents to retrieve
     'query' => [
         'match' => [
-            'narasumber' => $narsumParam,
+            'event' => $eventParam,
         ],
     ],
     '_source' => ['narasumber', 'judul', 'deskripsi_pendek', 'url_youtube'],

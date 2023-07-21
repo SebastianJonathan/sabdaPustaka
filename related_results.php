@@ -39,12 +39,12 @@
                             <?php
                             if (isset($_POST['keyword'])) {
                                 $keyword = $_POST['keyword'];
-                                echo '<h2 class="centered-text">Related Search</h2><h4 class="centered-text large-text">' . ucfirst($keyword) . '</h4>';                                
+                                echo '<h2 class="centered-text">Related Search</h2><h4 class="centered-text large-text">' . ucfirst($keyword) . '</h4>';
                             }
 
-                            if (isset($_POST['narasumber'])){
+                            if (isset($_POST['narasumber'])) {
                                 $narsum = $_POST['narasumber'];
-                                echo '<h2 class="centered-text">Related Search</h2><h4 class="centered-text large-text">' . ucfirst($narsum) . '</h4>';       
+                                echo '<h2 class="centered-text">Related Search</h2><h4 class="centered-text large-text">' . ucfirst($narsum) . '</h4>';
                             }
                             ?>
                         </div>
@@ -68,7 +68,7 @@
 
         if (keyword) {
             // Fetch the related results using the getKeyword.php API
-            fetch(`http://localhost/UI/sabdaPustaka/getKeyword.php?query=${encodeURIComponent(keyword)}`)
+            fetch(`getKeyword.php?query=${encodeURIComponent(keyword)}`)
                 .then(response => response.json())
                 .then(data => {
                     const hasil = data.hasil;
@@ -85,7 +85,7 @@
 
         if (narsum) {
             // Fetch the related results using the getKeyword.php API
-            fetch(`http://localhost/UI/sabdaPustaka/getNarsum.php?query=${encodeURIComponent(narsum)}`)
+            fetch(`getNarsum.php?query=${encodeURIComponent(narsum)}`)
                 .then(response => response.json())
                 .then(data => {
                     const hasil = data.hasil;
@@ -99,6 +99,49 @@
         } else {
             console.log("No keyword provided.");
         }
+
+        /*
+            CODE UNTUK LIST SEMUA NARASUMBER DAN EVENT
+        */
+        // Get the value of the 'event' query parameter from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const eventParam = urlParams.get('event');
+        const narsumParam = urlParams.get('narasumber');
+
+        if (eventParam) {
+            // Fetch the related results using the getEvent.php API
+            fetch(`getEvent.php?query=${encodeURIComponent(eventParam)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const hasil = data.hasil;
+
+                    // Display the results
+                    showResults(hasil);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        } else {
+            console.log("No event parameter provided.");
+        }
+
+        if (narsumParam) {
+            // Fetch the related results using the getEvent.php API
+            fetch(`getNarsum.php?query=${encodeURIComponent(narsumParam)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const hasil = data.hasil;
+
+                    // Display the results
+                    showResults(hasil);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        } else {
+            console.log("No event parameter provided.");
+        }
+
 
         function showResults(results) {
             // Get the card_result container element
