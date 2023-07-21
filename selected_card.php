@@ -185,7 +185,7 @@
     if (isset($_GET['document_id'])) {
         $documentId = $_GET['document_id'];
 
-        $url = 'http://localhost:9200/pustaka5/_doc/' . $documentId;
+        $url = 'http://localhost:9200/pustaka6/_doc/' . $documentId;
         $response = query($url, null);
 
         if (isset($response['_source'])) {

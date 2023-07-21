@@ -132,7 +132,8 @@
     function fetchSearchFilterResult() {
         const fullURL = window.location.href;
 		const segments = fullURL.split('/');
-        const query = segments[segments.length - 1];
+        let query = segments[segments.length - 1];
+        query = query.replace(/%20/g, ' ');
         if(query != null){
             // Define checkbox variables
             const checkbox_judul = document.getElementById('checkbox_judul');
@@ -152,6 +153,12 @@
             if (checkbox_event.checked) {
                 fieldSearch.push('event_completion.input');
             }
+            if (checkbox_related.checked) {
+                fieldSearch.push('deskripsi_pendek');
+				fieldSearch.push('ringkasan');
+				fieldSearch.push('kata_kunci');
+            }
+            console.log(fieldSearch)
             // Create the filter object
             const filter = {
                 "query": query,
@@ -172,7 +179,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch('http://localhost/pw5/filterAPI.php', {
+            fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -294,7 +301,7 @@
 
     async function fetchNewest() {
 		try {
-			const response = await fetch('http://localhost/pw5/getNewest.php');
+			const response = await fetch('http://localhost/UI/sabdaPustaka/getNewest.php');
 			const data = await response.json();
 			const cardResultElement = document.getElementById('card_result');
             cardResultElement.innerHTML = '';
@@ -376,7 +383,8 @@
         filterTanggal.length = 0;
         const fullURL = window.location.href;
 		const segments = fullURL.split('/');
-        const query = segments[segments.length - 1];
+        let query = segments[segments.length - 1];
+        query = query.replace(/%20/g, ' ');
         if(query != null){
             document.getElementById('query').value = query;
             // Define checkbox variables
@@ -397,7 +405,13 @@
             if (checkbox_event.checked) {
                 fieldSearch.push('event_completion.input');
             }
+            if (checkbox_related.checked) {
+                fieldSearch.push('deskripsi_pendek');
+				fieldSearch.push('ringkasan');
+				fieldSearch.push('kata_kunci');
+            }
             // Create the filter object
+            console.log(fieldSearch)
             const filter = {
                 "query": query,
                 "size": 10,
@@ -414,7 +428,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch('http://localhost/pw5/filterAPI.php', {
+            fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -438,7 +452,7 @@
 
                     const card = document.createElement('div');
                     card.className = '_card';
-                    card.setAttribute('onclick', `window.location.href='selected_card.php?document_id=${item.id}'`);
+                    card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
 
                     const cardImage = document.createElement('div');
                     cardImage.className = '_card_image';

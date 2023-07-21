@@ -57,6 +57,12 @@
 									Event
 								</label>
 							</div>
+							<div class="checkbox-container">
+								<label for="checkbox_related" class="form-check-label checkbox-label bigger">
+									<input type="checkbox" class="bigger form-check-input" id="checkbox_related" name="checkbox_related" value="related" onchange="">
+									Related
+								</label>
+							</div>
 							<div class="buttons">
 								<button type="button" class="button fs-btn" onclick="selectAll()">Select all</button>
 								<button type="button" class="button fs-btn" onclick="clearSelection()">Clear selection</button>
@@ -124,6 +130,12 @@
 											Event
 										</label>
 									</div>
+									<div class="checkbox-container">
+										<label for="fsv-checkbox_related" class="form-check-label checkbox-label bigger">
+											<input type="checkbox" class="bigger form-check-input" id="fsv-checkbox_related" name="checkbox_related" value="related">
+											Related
+										</label>
+									</div>
 									<div class="buttons">
 										<button type="button" class="button fs-btn" onclick="selectAll()">Select all</button>
 										<button type="button" class="button fs-btn" onclick="clearSelection()">Clear selection</button>
@@ -182,16 +194,20 @@
 			document.getElementById('checkbox_narasumber').checked = true;
 			document.getElementById('fsv-checkbox_narasumber').checked = true;
 		}
-		updateFields();
+		if (sessionStorage.getItem('checkboxRelated') === 'true') {
+			document.getElementById('checkbox_related').checked = true;
+			document.getElementById('fsv-checkbox_related').checked = true;
+		}
 
 		function startupAndSearch(){
 			const fullURL = window.location.href;
 			const segments = fullURL.split('/');
 			if(segments[segments.length - 2] == "search"){
-				getSearchResult();
+				fetchSearchResult();
 			}else{
 				selectAll();
 				fetchNewest();
+				updateFields();
 			}
 		}
 		startupAndSearch()
@@ -217,9 +233,11 @@
 			document.getElementById('checkbox_judul').checked = true;
 			document.getElementById('fsv-checkbox_judul').checked = true;
 			document.getElementById('checkbox_narasumber').checked = true;
+			document.getElementById('checkbox_related').checked = true;
 			document.getElementById('fsv-checkbox_event').checked = true;
 			document.getElementById('checkbox_event').checked = true;
 			document.getElementById('fsv-checkbox_narasumber').checked = true;
+			document.getElementById('fsv-checkbox_related').checked = true;
 			updateFields();
 		}
 
@@ -227,9 +245,11 @@
 			document.getElementById('checkbox_judul').checked = false;
 			document.getElementById('fsv-checkbox_judul').checked = false;
 			document.getElementById('checkbox_narasumber').checked = false;
+			document.getElementById('checkbox_related').checked = false;
 			document.getElementById('fsv-checkbox_event').checked = false;
 			document.getElementById('checkbox_event').checked = false;
 			document.getElementById('fsv-checkbox_narasumber').checked = false;
+			document.getElementById('fsv-checkbox_related').checked = false;
 			updateFields();
 		}
 		// updateFields()
@@ -258,6 +278,7 @@
 			const checkbox_judul = document.getElementById('checkbox_judul');
 			const checkbox_narasumber = document.getElementById('checkbox_narasumber');
 			const checkbox_event = document.getElementById('checkbox_event');
+			const checkbox_related = document.getElementById('checkbox_related');
 
 			let fields = [];
 
@@ -270,36 +291,46 @@
 			if (checkbox_event.checked) {
 				fields.push('event_completion.input');
 			}
+			if (checkbox_related.checked) {
+				fields.push('deskripsi_pendek');
+				fields.push('ringkasan');
+				fields.push('kata_kunci');
+			}
 
 			const queryInput = document.getElementById('query');
 			queryInput.dataset.fields = fields.join(',');
-			fetchRecommendations();
+			fetchRecommendations2();
 		}
 
 		function updateOnChecked(){
 			const checkbox_judul = document.getElementById('checkbox_judul');
 			const checkbox_narasumber = document.getElementById('checkbox_narasumber');
 			const checkbox_event = document.getElementById('checkbox_event');
+			const checkbox_related = document.getElementById('checkbox_related');
 			const checkbox_judul2 = document.getElementById('fsv-checkbox_judul');
 			const checkbox_narasumber2 = document.getElementById('fsv-checkbox_narasumber');
 			const checkbox_event2 = document.getElementById('fsv-checkbox_event');
+			const checkbox_related2 = document.getElementById('fsv-checkbox_related');
 			checkbox_judul.checked = checkbox_judul2.checked;
 			checkbox_narasumber.checked = checkbox_narasumber2.checked;
 			checkbox_event.checked = checkbox_event2.checked;
+			checkbox_related.checked = checkbox_related2.checked;
 			updateFields();
 		}
 
 		function goSearch(){
-			window.location.href = "http://localhost/pw5/home.php/search/" + document.getElementById("query").value;
+			updateSessionCheckbox();
+			window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById("query").value;
 		}
 		async function fetchRecommendations() {
 			const query = document.getElementById('query').value;
 			const fields = document.getElementById('query').dataset.fields;
 
 			try {
-				const response = await fetch(`http://localhost/pw5/autocomplete.php?query=${query}&fields=${fields}`);
+				const response = await fetch(`http://localhost/UI/sabdaPustaka/autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
 				// console.log(data.rekomendasi);
+				console.log(data);
 				tampilkanRekomendasi(data.rekomendasi);
 			} catch (error) {
 				console.error('Terjadi kesalahan:', error);
@@ -354,6 +385,12 @@
 			rekomendasi.event.forEach(function(item) {
 				addSection(item,'list-hover',rekomendasiList)
 			});
+			if(rekomendasi.related.length > 0){
+				addSection("RELATED",'section',rekomendasiList)
+			}
+			rekomendasi.related.forEach(function(item) {
+				addSection(item,'list-hover',rekomendasiList)
+			});
 
 			const rekomendasiDiv = document.getElementById('rekomendasi');
 			rekomendasiDiv.style.display = 'block';
@@ -363,23 +400,21 @@
 			const rekomendasiDiv = document.getElementById('rekomendasi');
 			rekomendasiDiv.style.display = 'none';
 		}
-
-		function getSearchResult() {
+		function updateSessionCheckbox(){
 			const checkboxJudul = document.getElementById("checkbox_judul");
 			const checkboxEvent = document.getElementById("checkbox_event");
 			const checkboxNarasumber = document.getElementById("checkbox_narasumber");
+			const checkboxRelated = document.getElementById("checkbox_related");
 
 			sessionStorage.setItem("checkboxJudul", checkboxJudul.checked);
 			sessionStorage.setItem("checkboxEvent", checkboxEvent.checked);
 			sessionStorage.setItem("checkboxNarasumber", checkboxNarasumber.checked);
-			sessionStorage.setItem("first",true)
-			fetchSearchResult();
-		};
+			sessionStorage.setItem("checkboxRelated", checkboxRelated.checked);
+		}
 
 		document.getElementById("search").addEventListener("submit", function(event) {
 			event.preventDefault();
 			goSearch();
-			console.log(search);
 			hideRekomendasi();
 		});
 
@@ -416,13 +451,16 @@
 			const checkbox_judul = document.getElementById('checkbox_judul');
 			const checkbox_narasumber = document.getElementById('checkbox_narasumber');
 			const checkbox_event = document.getElementById('checkbox_event');
+			const checkbox_related = document.getElementById('checkbox_related');
 			const checkbox_judul2 = document.getElementById('fsv-checkbox_judul');
 			const checkbox_narasumber2 = document.getElementById('fsv-checkbox_narasumber');
 			const checkbox_event2 = document.getElementById('fsv-checkbox_event');
+			const checkbox_related2 = document.getElementById('fsv-checkbox_related');
 
 			checkbox_judul.checked = checkbox_judul2.checked;
 			checkbox_narasumber.checked = checkbox_narasumber2.checked;
 			checkbox_event.checked = checkbox_event2.checked;
+			checkbox_related.checked = checkbox_related2.checked;
 
 			let fields = [];
 
@@ -434,6 +472,11 @@
 			}
 			if (checkbox_event.checked) {
 				fields.push('event_completion.input');
+			}
+			if (checkbox_related.checked) {
+				fields.push('deskripsi_pendek');
+				fields.push('ringkasan');
+				fields.push('kata_kunci');
 			}
 
 			const queryInput = document.getElementById('query');
@@ -445,13 +488,16 @@
 			const checkbox_judul = document.getElementById('checkbox_judul');
 			const checkbox_narasumber = document.getElementById('checkbox_narasumber');
 			const checkbox_event = document.getElementById('checkbox_event');
+			const checkbox_related = document.getElementById('checkbox_related');
 			const checkbox_judul2 = document.getElementById('fsv-checkbox_judul');
 			const checkbox_narasumber2 = document.getElementById('fsv-checkbox_narasumber');
 			const checkbox_event2 = document.getElementById('fsv-checkbox_event');
+			const checkbox_related2 = document.getElementById('fsv-checkbox_related');
 
 			checkbox_judul2.checked = checkbox_judul.checked;
 			checkbox_narasumber2.checked = checkbox_narasumber.checked;
 			checkbox_event2.checked = checkbox_event.checked;
+			checkbox_related2.checked = checkbox_related.checked;
 
 			let fields = [];
 
@@ -463,6 +509,11 @@
 			}
 			if (checkbox_event.checked) {
 				fields.push('event_completion.input');
+			}
+			if (checkbox_related.checked) {
+				fields.push('deskripsi_pendek');
+				fields.push('ringkasan');
+				fields.push('kata_kunci');
 			}
 
 			const queryInput = document.getElementById('query');

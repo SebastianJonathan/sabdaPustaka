@@ -68,7 +68,7 @@
 
         if (keyword) {
             // Fetch the related results using the getKeyword.php API
-            fetch(`getKeyword.php?query=${encodeURIComponent(keyword)}`)
+            fetch(`http://localhost/UI/sabdaPustaka/getKeyword.php?query=${encodeURIComponent(keyword)}`)
                 .then(response => response.json())
                 .then(data => {
                     const hasil = data.hasil;
@@ -85,7 +85,7 @@
 
         if (narsum) {
             // Fetch the related results using the getKeyword.php API
-            fetch(`getNarsum.php?query=${encodeURIComponent(narsum)}`)
+            fetch(`http://localhost/UI/sabdaPustaka/getNarsum.php?query=${encodeURIComponent(narsum)}`)
                 .then(response => response.json())
                 .then(data => {
                     const hasil = data.hasil;

@@ -53,6 +53,7 @@
         $rekomendasiUtamaEvent = array();
         $rekomendasiTerkaitNarasumber = array();
         $rekomendasiUtamaNarasumber = array();
+        $related = array();
         $queryy = $_GET['query'];
 
         // Loop through the hits
@@ -95,11 +96,27 @@
                     }
                 }
             }
+            if(isset($highlight['deskripsi_pendek'])){
+                if(!in_array($source['judul'],$related) and !in_array($source['judul'],$rekomendasiUtamaJudul) and !in_array($source['judul'],$rekomendasiTerkaitJudul)){
+                    $related[] = $source['judul'];
+                }
+            }
+            if(isset($highlight['ringkasan'])){
+                if(!in_array($source['judul'],$related) and !in_array($source['judul'],$rekomendasiUtamaJudul) and !in_array($source['judul'],$rekomendasiTerkaitJudul)){
+                    $related[] = $source['judul'];
+                }
+            }
+            if(isset($source['kata_kunci'])){
+                if(!in_array($source['judul'],$related) and !in_array($source['judul'],$rekomendasiUtamaJudul) and !in_array($source['judul'],$rekomendasiTerkaitJudul)){
+                    $related[] = $source['judul'];
+                }
+            }
         }   
         $rekomendasi = [
             'judul' => array_merge($rekomendasiUtamaJudul,$rekomendasiTerkaitJudul),
             'event' => array_merge($rekomendasiUtamaEvent,$rekomendasiTerkaitEvent),
-            'narasumber' => array_merge($rekomendasiUtamaNarasumber,$rekomendasiTerkaitNarasumber)
+            'narasumber' => array_merge($rekomendasiUtamaNarasumber,$rekomendasiTerkaitNarasumber),
+            'related' => $related
         ];
         header('Content-Type: application/json');
         echo json_encode(['rekomendasi' => $rekomendasi]);
@@ -107,7 +124,8 @@
         $rekomendasi = [
             'judul' => [],
             'event' => [],
-            'narasumber' => []
+            'narasumber' => [],
+            'related' => []
         ];
         header('Content-Type: application/json');
         echo json_encode(['rekomendasi' => $rekomendasi]);

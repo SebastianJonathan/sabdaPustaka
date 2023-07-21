@@ -334,7 +334,7 @@
             if(!in_array(substr($res['tanggal'],0,4),$tahun)){
                 $tahun[] = substr($res['tanggal'],0,4);
             }
-            $namaNarasumber = explode(",",$res['narasumber']);
+            $namaNarasumber = explode(", ",$res['narasumber']);
             foreach($namaNarasumber as $narsum){
                 if (!isset($countNarasumber[$narsum])) {
                     $countNarasumber[$narsum] = 1;
