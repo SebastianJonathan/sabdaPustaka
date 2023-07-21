@@ -35,7 +35,7 @@
                 <!-- Filter + Konten -->
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
-                        <div class="col-konten-head">
+                        <div class="col-konten-head" id="related-search">
                             <?php
                             if (isset($_POST['keyword'])) {
                                 $keyword = $_POST['keyword'];
@@ -108,6 +108,9 @@
         const eventParam = urlParams.get('event');
         const narsumParam = urlParams.get('narasumber');
 
+
+
+
         if (eventParam) {
             // Fetch the related results using the getEvent.php API
             fetch(`getEvent.php?query=${encodeURIComponent(eventParam)}`)
@@ -131,8 +134,8 @@
                 .then(response => response.json())
                 .then(data => {
                     const hasil = data.hasil;
+                    $narsumparam = narsumParam;
 
-                    // Display the results
                     showResults(hasil);
                 })
                 .catch(error => {

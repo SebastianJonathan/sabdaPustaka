@@ -18,6 +18,27 @@ function query($url, $method, $param)
     return $result;
 }
 
+function extractUniqueSpeakers($hits)
+{
+    $uniqueNames = [];
+
+    foreach ($hits as $hit) {
+        $source = $hit['_source'];
+        $names = explode(", ", $source['narasumber']);
+
+        foreach ($names as $participantName) {
+            $cleanedName = trim($participantName);
+            if (!in_array($cleanedName, $uniqueNames)) {
+                $uniqueNames[] = $cleanedName;
+            }
+        }
+    }
+
+    return $uniqueNames;
+}
+
+
+
 // Set the Elasticsearch index name and endpoint URL
 $index = 'pustaka5';
 $url = 'http://localhost:9200/' . $index . '/_search';
@@ -36,15 +57,11 @@ $response = query($url, 'POST', $query);
 
 // Extract unique 'narasumber' and 'event' values
 $hits = $response['hits']['hits'];
-$narasumbers = [];
+$narasumbers = extractUniqueSpeakers($hits);
 $events = [];
 
 foreach ($hits as $hit) {
     $source = $hit['_source'];
-
-    if (isset($source['narasumber']) && !in_array($source['narasumber'], $narasumbers)) {
-        $narasumbers[] = $source['narasumber'];
-    }
 
     if (isset($source['event']) && !in_array($source['event'], $events)) {
         $events[] = $source['event'];
@@ -61,43 +78,7 @@ sort($narasumbers);
     include 'header.php';
     ?>
     <!-- Add your CSS styles and other head elements here -->
-    <style>
-        /* Custom styles for the list */
-
-        .container-event {
-            color: gold;
-            margin-top: 50px;
-            background: linear-gradient(to right top, #1e0049, #211045, #251c3f, #2a2638, #2f2f2f);
-            padding: 20px;
-            border-radius: 30px;
-        }
-
-
-        .container-event a {
-            color: white;
-            text-decoration: none;
-        }
-
-        a:hover {
-            color: gold;
-        }
-
-        .event-li {
-            margin-bottom: 10px;
-        }
-
-        .event-name {
-            margin-bottom: 15px;
-        }
-
-        .event-name h2 {
-            font-weight: bold;
-        }
-
-        .event-li a {
-            font-size: large;
-        }
-    </style>
+    <link rel="stylesheet" href="getalllist.css">
 </head>
 
 <body>
@@ -134,7 +115,7 @@ sort($narasumbers);
                 foreach ($narasumbers as $narasumber) {
                     // Generate the link with the narasumber as a query parameter
                     $narasumberUrl = 'related_results.php?narasumber=' . urlencode($narasumber);
-                    echo '<div class="col-md-2 narsum-li"><a href="' . $narasumberUrl . '">' . $narasumber . '</a></div>';
+                    echo '<div class="col-md-3 narsum-li"><a href="' . $narasumberUrl . '">' . $narasumber . '</a></div>';
                 }
                 ?>
             </div>
