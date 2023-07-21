@@ -110,18 +110,41 @@ sort($narasumbers);
                     <h2 class="text-center">Semua Narasumber</h2>
                 </div>
             </div>
-            <div class="row">
-                <?php
-                foreach ($narasumbers as $narasumber) {
-                    // Generate the link with the narasumber as a query parameter
-                    $narasumberUrl = 'related_results.php?narasumber=' . urlencode($narasumber);
-                    echo '<div class="col-md-3 narsum-li"><a href="' . $narasumberUrl . '">' . $narasumber . '</a></div>';
-                }
-                ?>
+            <!-- Wrap the entire narasumber container with a parent container -->
+            <div class="container-expandable">
+                <div class="row">
+                    <?php
+                    foreach ($narasumbers as $narasumber) {
+                        // Generate the link with the narasumber as a query parameter
+                        $narasumberUrl = 'related_results.php?narasumber=' . urlencode($narasumber);
+
+                        // Narasumber name
+                        echo '<div class="col-md-3 narsum-li"><a href="' . $narasumberUrl . '">' . $narasumber . '</a></div>';
+                    }
+                    ?>
+                </div>
+            </div>
+            <!-- Add the "V" shaped button at the bottom of the container -->
+            <div class="expand-button">
+                <a href="#" class="expand-toggle">&#x25BC;</a>
             </div>
         </div>
-
     </div>
+
+    <script>
+        // Get the container and the "V" shaped button
+        const containerExpandable = document.querySelector('.container-expandable');
+        const expandToggle = document.querySelector('.expand-toggle');
+
+        expandToggle.addEventListener('click', () => {
+            // Toggle the visibility of the container
+            if (containerExpandable.style.display === 'none') {
+                containerExpandable.style.display = 'block';
+            } else {
+                containerExpandable.style.display = 'none';
+            }
+        });
+    </script>
 
     <?php include 'footer.php'; ?>
 </body>
