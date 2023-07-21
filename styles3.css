@@ -1,7 +1,12 @@
 footer {
     margin-top: auto;
-    /* position: sticky; */
     bottom: 0;
+}
+
+.footer {
+    margin-top: auto;
+    background-color: black;
+    color: #fff;
 }
 
 /* UNTUK MEDIA BESAR */
@@ -23,7 +28,6 @@ footer {
 
 /* UNTUK MEDIA KECIL */
 @media screen and (max-width: 768px){
-
     .colf2{
         width: 100%;
     }
@@ -50,12 +54,6 @@ footer {
         display: flex; 
         flex-direction:column;
     }
-}
-
-.footer {
-    margin-top: auto;
-    background-color: black;
-    color: #fff;
 }
 
 .donasiButtn{

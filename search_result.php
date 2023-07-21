@@ -135,30 +135,24 @@
         let query = segments[segments.length - 1];
         query = query.replace(/%20/g, ' ');
         if(query != null){
-            // Define checkbox variables
-            const checkbox_judul = document.getElementById('checkbox_judul');
-            const checkbox_narasumber = document.getElementById('checkbox_narasumber');
-            const checkbox_event = document.getElementById('checkbox_event');
-
             // Initialize fieldSearch array
             let fieldSearch = [];
 
             // Check if the respective checkboxes are checked and add fields to fieldSearch array
-            if (checkbox_judul.checked) {
+            if (sessionStorage.getItem("checkboxJudul") == true) {
                 fieldSearch.push('judul_completion.input');
             }
-            if (checkbox_narasumber.checked) {
+            if (sessionStorage.getItem("checkboxNarasumber") == true) {
                 fieldSearch.push('narasumber_completion.input');
             }
-            if (checkbox_event.checked) {
+            if (sessionStorage.getItem("checkboxEvent") == true) {
                 fieldSearch.push('event_completion.input');
             }
-            if (checkbox_related.checked) {
+            if (sessionStorage.getItem("checkboxRelated") == true) {
                 fieldSearch.push('deskripsi_pendek');
 				fieldSearch.push('ringkasan');
 				fieldSearch.push('kata_kunci');
             }
-            console.log(fieldSearch)
             // Create the filter object
             const filter = {
                 "query": query,
@@ -179,7 +173,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+            fetch('http://localhost/pw5/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -188,7 +182,6 @@
             })
             .then(response => response.json())
             .then(data => {
-                // console.log(data);
                 const cardResultElement = document.getElementById('card_result');
                 cardResultElement.innerHTML = '';
 
@@ -243,7 +236,6 @@
                 fcolumn_tgl.innerHTML = '';
 
                 if(data.result.narasumber.length > 0){
-                    // console.log("WWWW");
                     // const titleFFV = document.createElement('h6');
                     // titleFFV.textContent = "Filter Berdasarkan Narasumber";
                     // titleFFV.id = "ffv-narasumber";
@@ -301,7 +293,7 @@
 
     async function fetchNewest() {
 		try {
-			const response = await fetch('http://localhost/UI/sabdaPustaka/getNewest.php');
+			const response = await fetch('http://localhost/pw5/getNewest.php');
 			const data = await response.json();
 			const cardResultElement = document.getElementById('card_result');
             cardResultElement.innerHTML = '';
@@ -387,31 +379,25 @@
         query = query.replace(/%20/g, ' ');
         if(query != null){
             document.getElementById('query').value = query;
-            // Define checkbox variables
-            const checkbox_judul = document.getElementById('checkbox_judul');
-            const checkbox_narasumber = document.getElementById('checkbox_narasumber');
-            const checkbox_event = document.getElementById('checkbox_event');
-
             // Initialize fieldSearch array
             let fieldSearch = [];
 
             // Check if the respective checkboxes are checked and add fields to fieldSearch array
-            if (checkbox_judul.checked) {
+            if (sessionStorage.getItem("checkboxJudul") == true) {
                 fieldSearch.push('judul_completion.input');
             }
-            if (checkbox_narasumber.checked) {
+            if (sessionStorage.getItem("checkboxNarasumber") == true) {
                 fieldSearch.push('narasumber_completion.input');
             }
-            if (checkbox_event.checked) {
+            if (sessionStorage.getItem("checkboxEvent") == true) {
                 fieldSearch.push('event_completion.input');
             }
-            if (checkbox_related.checked) {
+            if (sessionStorage.getItem("checkboxRelated") == true) {
                 fieldSearch.push('deskripsi_pendek');
 				fieldSearch.push('ringkasan');
 				fieldSearch.push('kata_kunci');
             }
             // Create the filter object
-            console.log(fieldSearch)
             const filter = {
                 "query": query,
                 "size": 10,
@@ -428,7 +414,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+            fetch('http://localhost/pw5/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -452,7 +438,7 @@
 
                     const card = document.createElement('div');
                     card.className = '_card';
-                    card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
+                    card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
 
                     const cardImage = document.createElement('div');
                     cardImage.className = '_card_image';
@@ -650,7 +636,6 @@
                     clrFilterBtn.type = 'button';
                     clrFilterBtn.className = "button clrfilter_btn";
                     clrFilterBtn.textContent = 'Clear All Filter';
-                    clrFilterBtn.style.backgroundColor = 'goldenrod';
                     clrFilterBtn.style.color = 'black';
                     clrFilterBtn.onclick = clrAllFilterCheckbox;
                     FilterOpenCanvas.appendChild(clrFilterBtn);

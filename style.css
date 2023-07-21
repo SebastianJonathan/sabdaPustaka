@@ -137,10 +137,6 @@ img {
     object-fit: cover;
 }
 
-.button:hover{
-    background-color: dodgerblue;
-}
-
 .filter-sm-btn{
     width: max-content;
     background-color: #1e0049;
@@ -153,11 +149,7 @@ img {
 
 .sect-cont-sidebar{
     background: linear-gradient(to right top, #1e0049, #211045, #251c3f, #2a2638, #2f2f2f, #2f2f2f);
-    /* background: linear-gradient(to right top, #211045, #2f2f2f); */
-    /* background-color: white; */
     color: white;
-    /* min-height: 98.3%; */
-    /* margin-bottom: 16px; */
 }
 
 .btn-close{
@@ -166,11 +158,11 @@ img {
 
 .fs-btn{
 	background-color:#06638F;
-	/* background: linear-gradient(to right top, black, rgb(0, 0, 45), black); */
-	/* background: radial-gradient(#092f68, #114098); */
-	/* border: 1px snow solid; */
 }
 
+.fs-btn:hover {
+    background-color: #057fbc;
+}
 
 .ffv_head, .ffc_head{
 	margin-bottom: 4px;
@@ -185,31 +177,22 @@ img {
 	margin-bottom: 15px;
 }
 
-/* {
-	max-height: 200px;
-    overflow-y: scroll;
-    scrollbar-width: 7px;
-    padding-top: 4px;
-	border-top: 1px whitesmoke solid;
-	margin-bottom: 15px;
-} */
-
-.ffc::-webkit-scrollbar {
+.ffc::-webkit-scrollbar, .ffv::-webkit-scrollbar {
 	width: 7px;
 }
 
-.ffc::-webkit-scrollbar-track {
+.ffc::-webkit-scrollbar-track, .ffv::-webkit-scrollbar-track {
 	background: transparent;
 }
 
-.ffc::-webkit-scrollbar-thumb {
+.ffc::-webkit-scrollbar-thumb, .ffv::-webkit-scrollbar-thumb {
 	background-color: #4C4452;
 	border-radius: 20px;
 	border: 0px transparent;
 	transition: background-color 1s;
 }
 
-.ffc::-webkit-scrollbar-thumb:hover {
+.ffc::-webkit-scrollbar-thumb:hover, .ffv::-webkit-scrollbar-thumb:hover {
     background-color: #FDF7FF;
     transition: background-color 1s;
 }
@@ -227,6 +210,15 @@ img {
 .sect-konten-head{
     padding-left: 16px;
 }
+
+.clrfilter_btn{
+    background-color: goldenrod;
+}
+
+.clrfilter_btn:hover{
+    background-color: gold;
+}
+
 
 @media (max-width: 1200px) {
     ._cards_item {

@@ -320,7 +320,7 @@
 
 		function goSearch(){
 			updateSessionCheckbox();
-			window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById("query").value;
+			window.location.href = "http://localhost/pw5/home.php/search/" + document.getElementById("query").value;
 		}
 		async function fetchRecommendations() {
 			updateSessionCheckbox();
@@ -328,7 +328,7 @@
 			const fields = document.getElementById('query').dataset.fields;
 
 			try {
-				const response = await fetch(`http://localhost/UI/sabdaPustaka/autocomplete.php?query=${query}&fields=${fields}`);
+				const response = await fetch(`http://localhost/pw5/autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
 				// console.log(data.rekomendasi);
 				console.log(data);
@@ -344,7 +344,7 @@
 			const fields = document.getElementById('query').dataset.fields;
 
 			try {
-				const response = await fetch(`autocomplete.php?query=${query}&fields=${fields}`);
+				const response = await fetch(`http://localhost/pw5/autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
 				// console.log(data.rekomendasi);
 				tampilkanRekomendasi(data.rekomendasi);
