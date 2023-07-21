@@ -3,7 +3,6 @@
 
 <head>
 	<?php include 'header.php' ?>
-	<link rel="stylesheet" href="getalllist.css">
 </head>
 
 <body>
