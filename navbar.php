@@ -9,16 +9,19 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/pw5/home.php" >Home</a>
+          <a class="nav-link" href="http://localhost/new/home.php" >Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/pw5/about.php">About</a>
+          <a class="nav-link" href="http://localhost/new/getalllist.php" >List</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/pw5/services.php">Services</a>
+          <a class="nav-link" href="http://localhost/new/about.php">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/pw5/contact.php">Contact</a>
+          <a class="nav-link" href="http://localhost/new/services.php">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://localhost/new/contact.php">Contact</a>
         </li>
       </ul>
     </div>
