@@ -21,7 +21,7 @@ function query($url, $param)
     $url = 'http://localhost:9200/pustaka6/_search';
 
     $params = [
-        'size' => '100',
+        'size' => '8',
         'query' => [
             'bool' => [
                 'filter' => [

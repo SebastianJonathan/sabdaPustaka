@@ -323,6 +323,7 @@
 			window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById("query").value;
 		}
 		async function fetchRecommendations() {
+			updateSessionCheckbox();
 			const query = document.getElementById('query').value;
 			const fields = document.getElementById('query').dataset.fields;
 
@@ -338,6 +339,7 @@
 		}
 
 		async function fetchRecommendations2() {
+			updateSessionCheckbox();
 			const query = document.getElementById('query').value;
 			const fields = document.getElementById('query').dataset.fields;
 
