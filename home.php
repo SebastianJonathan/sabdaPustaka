@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<?php include'header.php'?>
+	<?php include 'header.php' ?>
+	<link rel="stylesheet" href="getalllist.css">
 </head>
 
 <body>
@@ -21,19 +23,18 @@
 					</div>
 			</form>
 		</div>
-		
+
 
 		<!-- Konten Website -->
-		<div class="row">		
+		<div class="row">
 			<!--COL Search & Filter  -->
 			<div class="col-lg-2 col-md-3 col-filter" style="padding-right: 5px; padding-left:10px; min-width:210px;">
-
 				<div class="card sect-cont-sidebar">
 					<!-- <img src="..." class="card-img-top" alt="..."> -->
 					<div class="card-body">
 						<!-- <h5 class="card-title">Search</h5> -->
 						<!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-						
+
 						<div class="row">
 							<h5 style="margin-bottom: 10px; font-weight:bold; color:gold;">Search By</h5>
 						</div>
@@ -93,93 +94,191 @@
 					<!-- Off-Canvas Sidebar-->
 					<div class="offcanvas offcanvas-start sect-cont-sidebar" data-bs-scroll="true" tabindex="-1" id="filter-sm" aria-labelledby="filter-sm-label" style="max-width:300px">
 						<div class="offcanvas-header" style="align-items: end; padding-bottom: 0px;">
-							<div style="height: 40px;"></div> 
-								<!-- <h5 class="offcanvas-title" id="filter-sm-label">Search By</h5> -->
-								
-								
-							</div>
-							<div class="offcanvas-body" >
-								<!-- FSV Off-Canvas Search By -->
-								<div class="row fsv">
-									<div class="row">
-										<div class="col">
-											<h5 style="margin-bottom: 10px; font-weight:bold; color:gold;">Search By</h5>
-										</div>
-										<div class="col" style="display:flex; justify-content:right;">
-											<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" style="color: gold;"></button>
-										</div>
-										
-										
-									</div>
-
-									<div class="checkbox-container">
-										<label for="fsv-checkbox_judul" class="form-check-label checkbox-label bigger">
-											<input type="checkbox" class="form-check-input bigger" id="fsv-checkbox_judul" name="fsv-checkbox_judul" value="judul">
-											Judul
-										</label>
-									</div>
-									<div class="checkbox-container">
-										<label for="fsv-checkbox_narasumber" class="form-check-label checkbox-label bigger">
-											<input type="checkbox" class="form-check-input bigger" id="fsv-checkbox_narasumber" name="checkbox_narasumber" value="narasumber" >
-											Narasumber
-										</label>
-									</div>
-									<div class="checkbox-container">
-										<label for="fsv-checkbox_event" class="form-check-label checkbox-label bigger">
-											<input type="checkbox" class="bigger form-check-input" id="fsv-checkbox_event" name="checkbox_event" value="event">
-											Event
-										</label>
-									</div>
-									<div class="checkbox-container">
-										<label for="fsv-checkbox_related" class="form-check-label checkbox-label bigger">
-											<input type="checkbox" class="bigger form-check-input" id="fsv-checkbox_related" name="checkbox_related" value="related">
-											Related
-										</label>
-									</div>
-									<div class="buttons">
-										<button type="button" class="button fs-btn" onclick="selectAll()">Select all</button>
-										<button type="button" class="button fs-btn" onclick="clearSelection()">Clear selection</button>
-									</div>
-								</div>
-
-								<div class="row _ffv" style="/*padding-top:15px; margin-top:10px;  border-top: 1px black solid;*/" id="ffv-filter">
-								</div>
-								<!-- FFV Filter Narasumber-->
-								<!-- <div class="row ffv" style="padding-top:15px; margin-top:10px;  border-top: 1px black solid;" id="ffv-filter-naras">
-								</div> -->
-								<!-- FFV Filter Event -->
-								<!-- <div class="row ffv" style="padding-top:15px; margin-top:10px;  border-top: 1px black solid;" id="ffv-filter-event">
-								</div> -->
-								<!-- FFV Filter Tanggal -->
-								<!-- <div class="row ffv" style="padding-top:15px; margin-top:10px;  border-top: 1px black solid;" id="ffv-filter-tgl">
-								</div> -->
-							</div>
+							<div style="height: 40px;"></div>
+							<!-- <h5 class="offcanvas-title" id="filter-sm-label">Search By</h5> -->
 						</div>
-						<script>
-							const filter_sm = document.getElementById('filter-sm');
-							function hideFilterSM(){
-								let openedCanvas = bootstrap.Offcanvas.getInstance(filter_sm);
-								try{
-									openedCanvas.hide();
-									// document.activeElement.blur();
-								}catch{}
-							}
-							window.addEventListener('resize', hideFilterSM);
-						</script>
+						<div class="offcanvas-body">
+							<!-- FSV Off-Canvas Search By -->
+							<div class="row fsv">
+								<div class="row">
+									<div class="col">
+										<h5 style="margin-bottom: 10px; font-weight:bold; color:gold;">Search By</h5>
+									</div>
+									<div class="col" style="display:flex; justify-content:right;">
+										<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" style="color: gold;"></button>
+									</div>
+
+
+								</div>
+
+								<div class="checkbox-container">
+									<label for="fsv-checkbox_judul" class="form-check-label checkbox-label bigger">
+										<input type="checkbox" class="form-check-input bigger" id="fsv-checkbox_judul" name="fsv-checkbox_judul" value="judul">
+										Judul
+									</label>
+								</div>
+								<div class="checkbox-container">
+									<label for="fsv-checkbox_narasumber" class="form-check-label checkbox-label bigger">
+										<input type="checkbox" class="form-check-input bigger" id="fsv-checkbox_narasumber" name="checkbox_narasumber" value="narasumber">
+										Narasumber
+									</label>
+								</div>
+								<div class="checkbox-container">
+									<label for="fsv-checkbox_event" class="form-check-label checkbox-label bigger">
+										<input type="checkbox" class="bigger form-check-input" id="fsv-checkbox_event" name="checkbox_event" value="event">
+										Event
+									</label>
+								</div>
+								<div class="checkbox-container">
+									<label for="fsv-checkbox_related" class="form-check-label checkbox-label bigger">
+										<input type="checkbox" class="bigger form-check-input" id="fsv-checkbox_related" name="checkbox_related" value="related">
+										Related
+									</label>
+								</div>
+								<div class="buttons">
+									<button type="button" class="button fs-btn" onclick="selectAll()">Select all</button>
+									<button type="button" class="button fs-btn" onclick="clearSelection()">Clear selection</button>
+								</div>
+							</div>
+
+							<div class="row _ffv" style="/*padding-top:15px; margin-top:10px;  border-top: 1px black solid;*/" id="ffv-filter">
+							</div>
+							<!-- FFV Filter Narasumber-->
+							<!-- <div class="row ffv" style="padding-top:15px; margin-top:10px;  border-top: 1px black solid;" id="ffv-filter-naras">
+								</div> -->
+							<!-- FFV Filter Event -->
+							<!-- <div class="row ffv" style="padding-top:15px; margin-top:10px;  border-top: 1px black solid;" id="ffv-filter-event">
+								</div> -->
+							<!-- FFV Filter Tanggal -->
+							<!-- <div class="row ffv" style="padding-top:15px; margin-top:10px;  border-top: 1px black solid;" id="ffv-filter-tgl">
+								</div> -->
+						</div>
 					</div>
-					<!-- Search Result Cards-->
-					<div>
-						<?php include 'search_result.php'; ?>
-					</div>
-				</div> 
-			</div><!-- COL Card -->
-			
-			<!-- Spacer -->
-			<div class="row" style="height: 20px;"></div>
-		</div><!-- row konten -->
+					<script>
+						const filter_sm = document.getElementById('filter-sm');
+
+						function hideFilterSM() {
+							let openedCanvas = bootstrap.Offcanvas.getInstance(filter_sm);
+							try {
+								openedCanvas.hide();
+								// document.activeElement.blur();
+							} catch {}
+						}
+						window.addEventListener('resize', hideFilterSM);
+					</script>
+				</div>
+				<!-- Search Result Cards-->
+				<div>
+					<?php include 'search_result.php'; ?>
+				</div>
+
+				<!-- PINDAHIN GETALLLLIST.PHP DISINI -->
+
+			</div>
+
+		</div><!-- COL Card -->
+		<!-- Spacer -->
+		<div class="row" style="height: 20px;"></div>
+	</div><!-- row konten -->
 	</div> <!-- Container -->
 
-	<?php include 'footer.php';?>
+
+	<!-- CONTAINER EVENT -->
+	<div class="container-event">
+		<div class="row">
+			<div class="col-md-12 event-name">
+				<h2 class="text-center">Semua Event</h2>
+			</div>
+		</div>
+		<div class="row" id="eventList">
+			<!-- JavaScript will populate this container -->
+		</div>
+	</div>
+
+	<div class="container-event">
+		<div class="row">
+			<div class="col-md-12 event-name">
+				<h2 class="text-center">Semua Narasumber</h2>
+			</div>
+		</div>
+		<div class="row" id="narasumberList">
+			<!-- JavaScript will populate this container -->
+		</div>
+	</div>
+
+	<?php
+	function query($url, $method, $param)
+	{
+		$header = array(
+			'Content-Type: application/json'
+		);
+		$options = array(
+			'http' => array(
+				'header' => $header,
+				'method' => $method,
+				'content' => $param
+			)
+		);
+		$context = stream_context_create($options);
+		$response = file_get_contents($url, false, $context);
+		$result = json_decode($response, true);
+
+		return $result;
+	}
+
+	function extractUniqueSpeakers($hits)
+	{
+		$uniqueNames = [];
+
+		foreach ($hits as $hit) {
+			$source = $hit['_source'];
+			$names = explode(", ", $source['narasumber']);
+
+			foreach ($names as $participantName) {
+				$cleanedName = trim($participantName);
+				if (!in_array($cleanedName, $uniqueNames)) {
+					$uniqueNames[] = $cleanedName;
+				}
+			}
+		}
+
+		return $uniqueNames;
+	}
+
+	// Set the Elasticsearch index name and endpoint URL
+	$index = 'pustaka5';
+	$url = 'http://localhost:9200/' . $index . '/_search';
+
+	// Query to retrieve all documents
+	$params = [
+		'size' => 1000, // Adjust the size to match the maximum number of documents to retrieve
+		'query' => [
+			'match_all' => new \stdClass() // Empty query to retrieve all documents
+		],
+		'_source' => ['narasumber', 'event'] // Include only 'narasumber' and 'event' fields in the response
+	];
+
+	$query = json_encode($params);
+	$response = query($url, 'POST', $query);
+
+	// Extract unique 'narasumber' and 'event' values
+	$hits = $response['hits']['hits'];
+	$narasumbers = extractUniqueSpeakers($hits);
+	$events = [];
+
+	foreach ($hits as $hit) {
+		$source = $hit['_source'];
+
+		if (isset($source['event']) && !in_array($source['event'], $events)) {
+			$events[] = $source['event'];
+		}
+	}
+	sort($events);
+	sort($narasumbers);
+	?>
+
+
+	<?php include 'footer.php'; ?>
 
 	<script>
 		if (sessionStorage.getItem('checkboxJudul') === 'true') {
@@ -199,12 +298,12 @@
 			document.getElementById('fsv-checkbox_related').checked = true;
 		}
 
-		function startupAndSearch(){
+		function startupAndSearch() {
 			const fullURL = window.location.href;
 			const segments = fullURL.split('/');
-			if(segments[segments.length - 2] == "search"){
+			if (segments[segments.length - 2] == "search") {
 				fetchSearchResult();
-			}else{
+			} else {
 				selectAll();
 				fetchNewest();
 				updateFields();
@@ -212,18 +311,18 @@
 		}
 		startupAndSearch()
 
-		function syncCheckbox(id, isChecked){
+		function syncCheckbox(id, isChecked) {
 			var split_id = id.split("-");
 			var clan = split_id[0];
 			var true_id = split_id[1];
 
-			if (clan === "ffv"){
-				var ffc_id = "ffc-"+true_id;
+			if (clan === "ffv") {
+				var ffc_id = "ffc-" + true_id;
 				const ffc_cb = document.getElementById(ffc_id);
 				ffc_cb.checked = isChecked;
-			}else { 
+			} else {
 				// clan === ffc
-				var ffv_id = "ffv-"+true_id;
+				var ffv_id = "ffv-" + true_id;
 				const ffv_cb = document.getElementById(ffv_id);
 				ffv_cb.checked = isChecked;
 			}
@@ -267,7 +366,7 @@
 		$('.fsc input[type=checkbox]').change(function() {
 			var id = this.id;
 			var is_checked = this.checked;
-			var fsv_id = "fsv-"+id;
+			var fsv_id = "fsv-" + id;
 			// console.log(id + " -- " + fsv_id);
 			// console.log(this.checked);
 			$('#' + fsv_id).prop('checked', is_checked);
@@ -302,7 +401,7 @@
 			fetchRecommendations2();
 		}
 
-		function updateOnChecked(){
+		function updateOnChecked() {
 			const checkbox_judul = document.getElementById('checkbox_judul');
 			const checkbox_narasumber = document.getElementById('checkbox_narasumber');
 			const checkbox_event = document.getElementById('checkbox_event');
@@ -318,9 +417,9 @@
 			updateFields();
 		}
 
-		function goSearch(){
+		function goSearch() {
 			updateSessionCheckbox();
-			window.location.href = "http://localhost/pw5/home.php/search/" + document.getElementById("query").value;
+			window.location.href = "http://localhost/new/home.php/search/" + document.getElementById("query").value;
 		}
 		async function fetchRecommendations() {
 			updateSessionCheckbox();
@@ -328,7 +427,7 @@
 			const fields = document.getElementById('query').dataset.fields;
 
 			try {
-				const response = await fetch(`http://localhost/pw5/autocomplete.php?query=${query}&fields=${fields}`);
+				const response = await fetch(`http://localhost/new/autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
 				// console.log(data.rekomendasi);
 				console.log(data);
@@ -344,7 +443,7 @@
 			const fields = document.getElementById('query').dataset.fields;
 
 			try {
-				const response = await fetch(`http://localhost/pw5/autocomplete.php?query=${query}&fields=${fields}`);
+				const response = await fetch(`http://localhost/new/autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
 				// console.log(data.rekomendasi);
 				tampilkanRekomendasi(data.rekomendasi);
@@ -354,13 +453,13 @@
 			hideRekomendasi();
 		}
 
-		function addSection(item, className,rekomendasiList){
+		function addSection(item, className, rekomendasiList) {
 			const li = document.createElement('li');
 			li.className = className;
 			li.textContent = item;
 			li.addEventListener('click', function() {
-					document.getElementById('query').value = item
-					hideRekomendasi();
+				document.getElementById('query').value = item
+				hideRekomendasi();
 			});
 			rekomendasiList.appendChild(li);
 		}
@@ -369,29 +468,29 @@
 			const rekomendasiList = document.getElementById('rekomendasi-list');
 			rekomendasiList.innerHTML = '';
 
-			if(rekomendasi.judul.length > 0 ){
-				addSection("JUDUL",'section',rekomendasiList)
+			if (rekomendasi.judul.length > 0) {
+				addSection("JUDUL", 'section', rekomendasiList)
 			}
 			rekomendasi.judul.forEach(function(item) {
-				addSection(item,'list-hover',rekomendasiList)
+				addSection(item, 'list-hover', rekomendasiList)
 			});
-			if(rekomendasi.narasumber.length > 0){
-				addSection("NARASUMBER",'section',rekomendasiList)
+			if (rekomendasi.narasumber.length > 0) {
+				addSection("NARASUMBER", 'section', rekomendasiList)
 			}
 			rekomendasi.narasumber.forEach(function(item) {
-				addSection(item,'list-hover',rekomendasiList)
+				addSection(item, 'list-hover', rekomendasiList)
 			});
-			if(rekomendasi.event.length > 0){
-				addSection("EVENT",'section',rekomendasiList)
+			if (rekomendasi.event.length > 0) {
+				addSection("EVENT", 'section', rekomendasiList)
 			}
 			rekomendasi.event.forEach(function(item) {
-				addSection(item,'list-hover',rekomendasiList)
+				addSection(item, 'list-hover', rekomendasiList)
 			});
-			if(rekomendasi.related.length > 0){
-				addSection("RELATED",'section',rekomendasiList)
+			if (rekomendasi.related.length > 0) {
+				addSection("RELATED", 'section', rekomendasiList)
 			}
 			rekomendasi.related.forEach(function(item) {
-				addSection(item,'list-hover',rekomendasiList)
+				addSection(item, 'list-hover', rekomendasiList)
 			});
 
 			const rekomendasiDiv = document.getElementById('rekomendasi');
@@ -402,7 +501,8 @@
 			const rekomendasiDiv = document.getElementById('rekomendasi');
 			rekomendasiDiv.style.display = 'none';
 		}
-		function updateSessionCheckbox(){
+
+		function updateSessionCheckbox() {
 			const checkboxJudul = document.getElementById("checkbox_judul");
 			const checkboxEvent = document.getElementById("checkbox_event");
 			const checkboxNarasumber = document.getElementById("checkbox_narasumber");
@@ -442,14 +542,14 @@
 			// window.alert("WWW");
 
 			if (target !== queryInput && !rekomendasiDiv.contains(target)) {
-					hideRekomendasi();
+				hideRekomendasi();
 			}
-			if (target === queryInput){
-					fetchRecommendations();
+			if (target === queryInput) {
+				fetchRecommendations();
 			}
 		});
 
-		function onChangeCheckbox2(){
+		function onChangeCheckbox2() {
 			const checkbox_judul = document.getElementById('checkbox_judul');
 			const checkbox_narasumber = document.getElementById('checkbox_narasumber');
 			const checkbox_event = document.getElementById('checkbox_event');
@@ -486,7 +586,7 @@
 			fetchRecommendations2();
 		}
 
-		function onChangeCheckbox(){
+		function onChangeCheckbox() {
 			const checkbox_judul = document.getElementById('checkbox_judul');
 			const checkbox_narasumber = document.getElementById('checkbox_narasumber');
 			const checkbox_event = document.getElementById('checkbox_event');
@@ -527,6 +627,62 @@
 		window.addEventListener('DOMContentLoaded', updateRekomendasiPosition);
 
 		document.getElementById('query').addEventListener('input', fetchRecommendations);
+
+
+
+		/*
+				FUNCTION GETALLLLIST.PHP
+		*/
+
+		// Events data from PHP
+		const events = <?php echo json_encode($events); ?>;
+		const narasumbers = <?php echo json_encode($narasumbers); ?>;
+
+		// Function to generate HTML elements for events and narasumbers
+		function generateEventLinks() {
+			const eventListContainer = document.getElementById('eventList');
+			events.forEach((event) => {
+				const eventUrl = 'http://localhost/new/related_results.php?event=' + encodeURIComponent(event);
+				const eventDiv = document.createElement('div');
+				eventDiv.className = 'col-md-2 event-li';
+				eventDiv.innerHTML = `<a href="${eventUrl}">${event}</a>`;
+				eventListContainer.appendChild(eventDiv);
+			});
+		}
+
+		function generateNarasumberLinks() {
+			const narasumberListContainer = document.getElementById('narasumberList');
+			narasumbers.forEach((narasumber) => {
+				const narasumberUrl = 'http://localhost/new/related_results.php?narasumber=' + encodeURIComponent(narasumber);
+				const narasumberDiv = document.createElement('div');
+				narasumberDiv.className = 'col-md-3 narsum-li';
+				narasumberDiv.innerHTML = `<a href="${narasumberUrl}">${narasumber}</a>`;
+				narasumberListContainer.appendChild(narasumberDiv);
+			});
+		}
+
+		generateEventLinks();
+		generateNarasumberLinks();
+
+		function regenerateLinks() {
+			// Clear the existing event and narasumber lists
+			const eventListContainer = document.getElementById('eventList');
+			const narasumberListContainer = document.getElementById('narasumberList');
+			eventListContainer.innerHTML = '';
+			narasumberListContainer.innerHTML = '';
+
+			// Regenerate the event and narasumber links
+			generateEventLinks();
+			generateNarasumberLinks();
+		}
+
+		document.getElementById('search').addEventListener('submit', function(event) {
+			event.preventDefault();
+			goSearch();
+			hideRekomendasi();
+			regenerateLinks(); // Regenerate the links after search
+		});
 	</script>
 </body>
+
 </html>
