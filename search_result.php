@@ -645,20 +645,17 @@
                         createCheckbox("ffv-t" + index,item,fopen_tgl,data.result.countTahun);
                         createCheckbox("ffc-t" + index,item,fcolumn_tgl,data.result.countTahun);
                     });
+
+                    const clrFilterBtn = document.createElement('button');
+                    clrFilterBtn.type = 'button';
+                    clrFilterBtn.className = "button clrfilter_btn";
+                    clrFilterBtn.textContent = 'Clear All Filter';
+                    clrFilterBtn.style.backgroundColor = 'goldenrod';
+                    clrFilterBtn.style.color = 'black';
+                    clrFilterBtn.onclick = clrAllFilterCheckbox;
+                    FilterOpenCanvas.appendChild(clrFilterBtn);
+                    FilterColumnCanvas.appendChild(clrFilterBtn);
                 }
-
-                const clrFilterBtn = document.createElement('button');
-                clrFilterBtn.type = 'button';
-                clrFilterBtn.className = "button clrfilter_btn";
-                clrFilterBtn.textContent = 'Clear All Filter';
-                clrFilterBtn.style.backgroundColor = 'goldenrod';
-                clrFilterBtn.style.color = 'black';
-                clrFilterBtn.onclick = clrAllFilterCheckbox;
-                FilterOpenCanvas.appendChild(clrFilterBtn);
-                FilterColumnCanvas.appendChild(clrFilterBtn);
-
-
-
             })
             .catch(error => {
             // Handle any errors
