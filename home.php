@@ -305,11 +305,10 @@
 			} else {
 				selectAll();
 				fetchNewest();
-				updateFields();
 			}
 		}
 		startupAndSearch()
-
+		updateFields();
 		function syncCheckbox(id, isChecked) {
 			var split_id = id.split("-");
 			var clan = split_id[0];
@@ -380,20 +379,20 @@
 
 			let fields = [];
 
-			if (checkbox_judul.checked) {
-				fields.push('judul_completion.input');
-			}
-			if (checkbox_narasumber.checked) {
-				fields.push('narasumber_completion.input');
-			}
-			if (checkbox_event.checked) {
-				fields.push('event_completion.input');
-			}
-			if (checkbox_related.checked) {
-				fields.push('deskripsi_pendek');
+			if (sessionStorage.getItem("checkboxJudul") == "true") {
+                fields.push('judul_completion.input');
+            }
+            if (sessionStorage.getItem("checkboxNarasumber") == "true") {
+                fields.push('narasumber_completion.input');
+            }
+            if (sessionStorage.getItem("checkboxEvent") == "true") {
+                fields.push('event_completion.input');
+            }
+            if (sessionStorage.getItem("checkboxRelated") == "true") {
+                fields.push('deskripsi_pendek');
 				fields.push('ringkasan');
 				fields.push('kata_kunci');
-			}
+            }
 
 			const queryInput = document.getElementById('query');
 			queryInput.dataset.fields = fields.join(',');
@@ -421,7 +420,6 @@
 			window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById("query").value;
 		}
 		async function fetchRecommendations() {
-			updateSessionCheckbox();
 			const query = document.getElementById('query').value;
 			const fields = document.getElementById('query').dataset.fields;
 
