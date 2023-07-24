@@ -8,11 +8,14 @@
     <div class="main">
         <button class="btn filter-sm-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#filter-sm" aria-controls="filter-sm" style="margin-left: 16px;">Filter</button>
         <div id="hs-header" style="padding-left: 16px;">
-        
+            <!-- <div id="show">
+
+            </div> -->
         </div> 
         <ul class="_cards" id="card_result">
         <!-- Card results will be dynamically added here -->
         </ul>
+        <div id="show"></div>
     </div>
   </div>
 
@@ -39,12 +42,19 @@
     let filterTanggal = [];
     var pageSize = 10;
 
-    function createListItem(pageNumber) {
+    function createListItem(pageNumber, width) {
         const li = document.createElement('li');
-        li.classList.add('page-item');
+        li.className = "page-item";
+        // li.classList.add('page-item');
 
-        const a = document.createElement('a');
-        a.classList.add('page-link');
+        var a = document.createElement('a');
+        // a.classList.add('page-link');
+        // a.type = "button";
+        a.className = "page-link";
+        // a.style.color = "white";
+        // a.style.marginBottom = "10px";
+        // a.style.backgroundColor = "#06638F";
+        // a.style.width = width;
         a.innerText = pageNumber;
         a.onclick = function(){
             if(pageNumber != "Show All"){
@@ -53,6 +63,10 @@
                 pageSize = 1000;
             }
             fetchSearchResult();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            })
         }
 
         li.appendChild(a);
@@ -194,7 +208,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+            fetch('http://localhost/pw5/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -314,7 +328,7 @@
 
     async function fetchNewest() {
 		try {
-			const response = await fetch('http://localhost/UI/sabdaPustaka/getNewest.php');
+			const response = await fetch('http://localhost/pw5/getNewest.php');
 			const data = await response.json();
 			const cardResultElement = document.getElementById('card_result');
             cardResultElement.innerHTML = '';
@@ -435,7 +449,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+            fetch('http://localhost/pw5/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -459,7 +473,7 @@
 
                     const card = document.createElement('div');
                     card.className = '_card';
-                    card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
+                    card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
 
                     const cardImage = document.createElement('div');
                     cardImage.className = '_card_image';
@@ -496,16 +510,47 @@
                     cardItem.appendChild(card);
                     cardResultElement.appendChild(cardItem);
 
-                    const showContainer = document.getElementById("show");
-                    showContainer.innerHTML = '';
-                    showContainer.appendChild(createListItem(10));
-                    showContainer.appendChild(createListItem(25));
-                    showContainer.appendChild(createListItem(50));
-                    showContainer.appendChild(createListItem(100));
-                    showContainer.appendChild(createListItem("Show All"));
+                    const showDiv = document.getElementById("show");//document.createElement("div");
+                    showDiv.innerHTML = '';
+                    const showCont = document.createElement("div");
+                    showCont.innerHTML = '';
+                    showCont.id = "show";
+                    // showCont.style.listStyle = 'none';
+                    showCont.style.display = "flex";
+                    showCont.style.justifyContent = "end";
+                    const rowShowC = document.createElement("ul");
+                    rowShowC.className = "pagination"
+
+                    rowShowC.appendChild(createListItem(10,20));
+                    rowShowC.appendChild(createListItem(25,20));
+                    rowShowC.appendChild(createListItem(50,20));
+                    rowShowC.appendChild(createListItem(100,20));
+                    rowShowC.appendChild(createListItem("Show All",80));
+                    // const rowShowAllC = document.createElement("row");
+                    // rowShowAllC.style.display = "flex";
+                    // rowShowAllC.style.justifyContent = "end";
+                    // rowShowAllC
+                    showCont.appendChild(rowShowC);
+                    showDiv.appendChild(showCont);
+                    // showCont.appendChild(rowShowAllC);
+                    // FilterColumnCanvas.appendChild(showCont);
+
 
                     FilterColumnCanvas.innerHTML = '';
                     FilterOpenCanvas.innerHTML = '';
+
+                    // const showTitleFFC = document.createElement('h5');
+                    // showTitleFFC.textContent = 'Show';
+                    // showTitleFFC.style.marginTop = '20px';
+                    // showTitleFFC.style.marginBottom = '18px';
+                    // showTitleFFC.style.fontWeight = 'bold';
+                    // showTitleFFC.style.paddingTop = '15px';
+                    // showTitleFFC.style.borderTop = '2px goldenrod solid';
+                    // showTitleFFC.style.color = 'gold';
+                    // FilterColumnCanvas.appendChild(showTitleFFC);
+
+
+                    // const showContainer = document.getElementById("show")
 
                     const titleFFC = document.createElement('h5');
                     titleFFC.textContent = 'Filter By';
