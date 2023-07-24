@@ -3,6 +3,23 @@
 
 <head>
 	<?php include 'header.php' ?>
+	<style>
+    /* Add some custom styling to the button */
+    .floating-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .floating-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 
 <body>
@@ -206,6 +223,7 @@
 		<div class="row" style="height: 20px;"></div>
 	</div><!-- row konten -->
 	</div> <!-- Container -->
+	<a class="floating-btn" id="down-button" onclick="scrollToBottom()">Go To Bottom</a>
 
 
 
@@ -353,7 +371,32 @@
 			updateSessionCheckbox();
 			updateFields();
 		}
-		// updateFields()
+		function scrollToBottom() {
+			const fullHeight = Math.max(
+				document.body.scrollHeight,
+				document.body.offsetHeight,
+				document.documentElement.clientHeight,
+				document.documentElement.scrollHeight,
+				document.documentElement.offsetHeight
+			);
+
+			window.scrollTo({
+				top: fullHeight,
+				behavior: 'smooth'
+			});
+		}
+
+		function buttonVisibility() {
+			const buttonScrollDown = document.getElementById('down-button');
+			const windowHeight = window.innerHeight;
+
+			if (window.scrollY + windowHeight < document.body.scrollHeight) {
+				buttonScrollDown.style.display = 'block';
+			} else {
+				buttonScrollDown.style.display = 'none';
+			}
+		}
+		window.addEventListener('scroll', buttonVisibility);
 
 		$('.fsv input[type=checkbox]').change(function() {
 			var id = this.id;

@@ -208,7 +208,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch('http://localhost/pw5/filterAPI.php', {
+            fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -328,7 +328,7 @@
 
     async function fetchNewest() {
 		try {
-			const response = await fetch('http://localhost/pw5/getNewest.php');
+			const response = await fetch('http://localhost/UI/sabdaPustaka/getNewest.php');
 			const data = await response.json();
 			const cardResultElement = document.getElementById('card_result');
             cardResultElement.innerHTML = '';
@@ -449,7 +449,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch('http://localhost/pw5/filterAPI.php', {
+            fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -473,7 +473,7 @@
 
                     const card = document.createElement('div');
                     card.className = '_card';
-                    card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
+                    card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
 
                     const cardImage = document.createElement('div');
                     cardImage.className = '_card_image';
