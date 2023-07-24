@@ -12,16 +12,16 @@
           <a class="nav-link" href="http://localhost/UI/sabdaPustaka/home.php" >Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/new/getalllist.php" >List</a>
+          <a class="nav-link" href="http://localhost/UI/sabdaPustaka/getalllist.php" >List</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/new/about.php">About</a>
+          <a class="nav-link" href="http://localhost/UI/sabdaPustaka/about.php">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/new/services.php">Services</a>
+          <a class="nav-link" href="http://localhost/UI/sabdaPustaka/services.php">Services</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/new/contact.php">Contact</a>
+          <a class="nav-link" href="http://localhost/UI/sabdaPustaka/contact.php">Contact</a>
         </li>
       </ul>
     </div>

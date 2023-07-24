@@ -37,6 +37,27 @@
     let filterNarasumber = [];
     let filterEvent = [];
     let filterTanggal = [];
+    var pageSize = 10;
+
+    function createListItem(pageNumber) {
+        const li = document.createElement('li');
+        li.classList.add('page-item');
+
+        const a = document.createElement('a');
+        a.classList.add('page-link');
+        a.innerText = pageNumber;
+        a.onclick = function(){
+            if(pageNumber != "Show All"){
+                pageSize = parseInt(pageNumber);
+            }else{
+                pageSize = 1000;
+            }
+            fetchSearchResult();
+        }
+
+        li.appendChild(a);
+        return li;
+    }
 
     function createCheckbox(id, nama, div_filter,arr) {
         var containerDiv = document.createElement("div");
@@ -156,7 +177,7 @@
             // Create the filter object
             const filter = {
                 "query": query,
-                "size": 10,
+                "size": pageSize,
                 "API": "searchFilter",
                 "fields": fieldSearch,
                 "narasumber": filterNarasumber,
@@ -400,7 +421,7 @@
             // Create the filter object
             const filter = {
                 "query": query,
-                "size": 10,
+                "size": pageSize,
                 "API": "search",
                 "fields": fieldSearch
             };
@@ -474,6 +495,14 @@
 
                     cardItem.appendChild(card);
                     cardResultElement.appendChild(cardItem);
+
+                    const showContainer = document.getElementById("show");
+                    showContainer.innerHTML = '';
+                    showContainer.appendChild(createListItem(10));
+                    showContainer.appendChild(createListItem(25));
+                    showContainer.appendChild(createListItem(50));
+                    showContainer.appendChild(createListItem(100));
+                    showContainer.appendChild(createListItem("Show All"));
 
                     FilterColumnCanvas.innerHTML = '';
                     FilterOpenCanvas.innerHTML = '';

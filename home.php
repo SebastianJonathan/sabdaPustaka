@@ -151,9 +151,10 @@
 				<!-- Search Result Cards-->
 				<div class="row">
 					<?php include 'search_result.php'; ?>
+	
+				</div>
+				<div id="show">
 
-
-					
 				</div>
 
 			<!-- CONTAINER EVENT -->
@@ -198,7 +199,6 @@
 					</div>
 				</div>
 				<!-- PINDAHIN GETALLLLIST.PHP DISINI -->
-
 			</div>
 
 		</div><!-- COL Card -->
