@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/new/home.php" >Home</a>
+          <a class="nav-link" href="http://localhost/UI/sabdaPustaka/home.php" >Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="http://localhost/new/getalllist.php" >List</a>

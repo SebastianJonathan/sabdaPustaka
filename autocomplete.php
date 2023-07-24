@@ -84,8 +84,15 @@
             }
 
             if (isset($highlight['narasumber_completion.input'])) {
+                $narasumber = str_replace(",S.","|S.",$narasumber);
+                $narasumber = str_replace(", S.","| S.",$narasumber);
+                $narasumber = str_replace(",M.","|M.",$narasumber);
+                $narasumber = str_replace(", M.","| M.",$narasumber);
+                $narasumber = str_replace(",Ph.","|Ph.",$narasumber);
+                $narasumber = str_replace(", Ph.","| Ph.",$narasumber);
                 $listNarasumber = explode(", ",$narasumber);
                 foreach($listNarasumber as $namaNarasumber){
+                    $namaNarasumber = str_replace("|",",",$namaNarasumber);
                     if(stripos($namaNarasumber,$_GET['query']) !== false && !in_array($namaNarasumber, $rekomendasiTerkaitNarasumber) && !in_array($namaNarasumber, $rekomendasiUtamaNarasumber)){
                         if(strtolower(substr($namaNarasumber,0,strlen($queryy))) == strtolower($queryy)){
                             $rekomendasiUtamaNarasumber[] = $namaNarasumber;
