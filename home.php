@@ -41,25 +41,25 @@
 						<div class="row fsc">
 							<div class="checkbox-container">
 								<label for="checkbox_judul" class="form-check-label checkbox-label bigger">
-									<input type="checkbox" class="form-check-input bigger cbstyle" id="checkbox_judul" name="checkbox_judul" value="judul" onchange="">
+									<input type="checkbox" class="form-check-input bigger cbstyle" id="checkbox_judul" name="checkbox_judul" value="judul" onchange="updateSessionCheckbox()">
 									Judul
 								</label>
 							</div>
 							<div class="checkbox-container">
 								<label for="checkbox_narasumber" class="form-check-label checkbox-label bigger">
-									<input type="checkbox" class="form-check-input bigger cbstyle" id="checkbox_narasumber" name="checkbox_narasumber" value="narasumber" onchange="">
+									<input type="checkbox" class="form-check-input bigger cbstyle" id="checkbox_narasumber" name="checkbox_narasumber" value="narasumber" onchange="updateSessionCheckbox()">
 									Narasumber
 								</label>
 							</div>
 							<div class="checkbox-container">
 								<label for="checkbox_event" class="form-check-label checkbox-label bigger">
-									<input type="checkbox" class="bigger form-check-input" id="checkbox_event" name="checkbox_event" value="event" onchange="">
+									<input type="checkbox" class="bigger form-check-input" id="checkbox_event" name="checkbox_event" value="event" onchange="updateSessionCheckbox()">
 									Event
 								</label>
 							</div>
 							<div class="checkbox-container">
 								<label for="checkbox_related" class="form-check-label checkbox-label bigger">
-									<input type="checkbox" class="bigger form-check-input" id="checkbox_related" name="checkbox_related" value="related" onchange="">
+									<input type="checkbox" class="bigger form-check-input" id="checkbox_related" name="checkbox_related" value="related" onchange="updateSessionCheckbox()">
 									Related
 								</label>
 							</div>
@@ -337,6 +337,7 @@
 			document.getElementById('checkbox_event').checked = true;
 			document.getElementById('fsv-checkbox_narasumber').checked = true;
 			document.getElementById('fsv-checkbox_related').checked = true;
+			updateSessionCheckbox();
 			updateFields();
 		}
 
@@ -349,6 +350,7 @@
 			document.getElementById('checkbox_event').checked = false;
 			document.getElementById('fsv-checkbox_narasumber').checked = false;
 			document.getElementById('fsv-checkbox_related').checked = false;
+			updateSessionCheckbox();
 			updateFields();
 		}
 		// updateFields()
@@ -437,7 +439,6 @@
 		}
 
 		async function fetchRecommendations2() {
-			updateSessionCheckbox();
 			const query = document.getElementById('query').value;
 			const fields = document.getElementById('query').dataset.fields;
 
@@ -511,6 +512,8 @@
 			sessionStorage.setItem("checkboxEvent", checkboxEvent.checked);
 			sessionStorage.setItem("checkboxNarasumber", checkboxNarasumber.checked);
 			sessionStorage.setItem("checkboxRelated", checkboxRelated.checked);
+
+			updateFields();
 		}
 
 		document.getElementById("search").addEventListener("submit", function(event) {
