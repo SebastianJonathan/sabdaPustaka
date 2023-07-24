@@ -151,10 +151,13 @@
 				<!-- Search Result Cards-->
 				<div class="row">
 					<?php include 'search_result.php'; ?>
+
+
+					
 				</div>
 
 			<!-- CONTAINER EVENT -->
-				<div id="contEventNarsum">
+				<div id="contEventNarsum" class="row">
 					<div class="row">
 						<h5 style="font-weight: bold;">Semua Event:</h5>
 					</div>
@@ -164,11 +167,14 @@
 								<h2 class="text-center">Semua Event</h2>
 							</div>
 						</div>
-						<div class="row" id="eventList">
+						<div class="row" >
+							<ul id="eventList">
+
+							</ul>
 							<!-- JavaScript will populate this container -->
 						</div>
 						<div class="row justify-content-end">
-							<button type="button" onclick="expandEvent()">show more</button>
+							<button id="ex-event-btn" type="button" onclick="expandEvent()">show more</button>
 						</div>
 					</div>
 					
@@ -181,11 +187,13 @@
 								<h2 class="text-center">Semua Narasumber</h2>
 							</div>
 						</div>
-						<div class="row" id="narasumberList" style="overflow-y: clip;">
-							<!-- JavaScript will populate this container -->
+						<div class="row" >
+							<ul id="narasumberList">
+
+							</ul>
 						</div>
 						<div class="row">
-							<button onclick="expandNarasumber()">show more</button>
+							<button id="ex-naras-btn" onclick="expandNarasumber()">show more</button>
 						</div>
 					</div>
 				</div>
@@ -402,14 +410,14 @@
 
 		function goSearch() {
 			updateSessionCheckbox();
-			window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById("query").value;
+			window.location.href = "http://localhost/pw5/home.php/search/" + document.getElementById("query").value;
 		}
 		async function fetchRecommendations() {
 			const query = document.getElementById('query').value;
 			const fields = document.getElementById('query').dataset.fields;
 
 			try {
-				const response = await fetch(`http://localhost/UI/sabdaPustaka/autocomplete.php?query=${query}&fields=${fields}`);
+				const response = await fetch(`http://localhost/pw5/autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
 				// console.log(data.rekomendasi);
 				console.log(data);
@@ -425,7 +433,7 @@
 			const fields = document.getElementById('query').dataset.fields;
 
 			try {
-				const response = await fetch(`http://localhost/UI/sabdaPustaka/autocomplete.php?query=${query}&fields=${fields}`);
+				const response = await fetch(`http://localhost/pw5/autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
 				// console.log(data.rekomendasi);
 				tampilkanRekomendasi(data.rekomendasi);
@@ -624,9 +632,10 @@
 		function generateEventLinks() {
 			const eventListContainer = document.getElementById('eventList');
 			events.forEach((event) => {
-				const eventUrl = 'http://localhost/UI/sabdaPustaka/related_results.php?event=' + encodeURIComponent(event);
-				const eventDiv = document.createElement('div');
-				eventDiv.className = 'col-md-2 event-li';
+				const eventUrl = 'http://localhost/pw5/related_results.php?event=' + encodeURIComponent(event);
+				const eventDiv = document.createElement('li');
+				eventDiv.className = 'event-li';
+				eventDiv.style.width = "200px";
 				eventDiv.innerHTML = `<a href="${eventUrl}">${event}</a>`;
 				eventListContainer.appendChild(eventDiv);
 			});
@@ -635,9 +644,10 @@
 		function generateNarasumberLinks() {
 			const narasumberListContainer = document.getElementById('narasumberList');
 			narasumbers.forEach((narasumber) => {
-				const narasumberUrl = 'http://localhost/UI/sabdaPustaka/related_results.php?narasumber=' + encodeURIComponent(narasumber);
-				const narasumberDiv = document.createElement('div');
-				narasumberDiv.className = 'col-md-3 narsum-li';
+				const narasumberUrl = 'http://localhost/pw5/related_results.php?narasumber=' + encodeURIComponent(narasumber);
+				const narasumberDiv = document.createElement('li');
+				narasumberDiv.className = 'narsum-li';
+				narasumberDiv.style.width = '200px';
 				narasumberDiv.innerHTML = `<a href="${narasumberUrl}">${narasumber}</a>`;
 				narasumberListContainer.appendChild(narasumberDiv);
 			});
@@ -657,38 +667,68 @@
 		}
 
 		function expandEvent(){
+			// var eventCont = document.getElementById('eventList');
+			// var prevHeight = eventCont.clientHeight;
+			// var barHeight = 200;
+			// console.log(prevHeight);
+			// if (prevHeight === barHeight){
+			// 	eventCont.setAttribute("style","height: auto;");
+			// 	// narasCont.clientHeight = "auto";
+			// }else if (prevHeight > barHeight){
+			// 	console.log("height: "+barHeight+";");
+
+			// 	eventCont.style.height = barHeight+"px";
+			// 	eventCont.style.overflowY = "clip";
+			// }
+
 			var eventCont = document.getElementById('eventList');
+			var exBtn = document.getElementById('ex-event-btn');
 			var prevHeight = eventCont.clientHeight;
 			var barHeight = 200;
-			console.log(prevHeight);
-			if (prevHeight === barHeight){
-				eventCont.setAttribute("style","height: auto;");
-				// narasCont.clientHeight = "auto";
-			}else if (prevHeight > barHeight){
-				console.log("height: "+barHeight+";");
 
+			if (prevHeight === barHeight){
+				exBtn.textContent = "Show Less"
+				eventCont.style.height = "auto";
+			}else if (prevHeight > barHeight){
+				exBtn.textContent = "Show More"
 				eventCont.style.height = barHeight+"px";
 				eventCont.style.overflowY = "clip";
+				eventCont.style.overflowX = "clip";
 			}
-
 
 		}
 
 		function expandNarasumber(){
+			// var narasCont = document.getElementById('narasumberList');
+			// var prevHeight = narasCont.clientHeight;
+			// var barHeight = 200;
+			// console.log(prevHeight);
+			// if (prevHeight === barHeight){
+			// 	narasCont.setAttribute("style","height: auto;");
+			// 	// narasCont.clientHeight = "auto";
+			// }else if (prevHeight > barHeight){
+			// 	console.log("height: "+barHeight+";");
+
+			// 	narasCont.style.height = barHeight+"px";
+			// 	narasCont.style.overflowY = "clip";
+			// }
 			var narasCont = document.getElementById('narasumberList');
+			var exBtn = document.getElementById('ex-naras-btn');
 			var prevHeight = narasCont.clientHeight;
 			var barHeight = 200;
-			console.log(prevHeight);
-			if (prevHeight === barHeight){
-				narasCont.setAttribute("style","height: auto;");
-				// narasCont.clientHeight = "auto";
-			}else if (prevHeight > barHeight){
-				console.log("height: "+barHeight+";");
 
+			if (prevHeight === barHeight){
+				narasCont.style.height = "auto";//setAttribute("style","height: auto;");
+				exBtn.textContent = "Show Less"
+			}else if (prevHeight > barHeight){
+				exBtn.textContent = "Show More"
 				narasCont.style.height = barHeight+"px";
 				narasCont.style.overflowY = "clip";
+				narasCont.style.overflowX = "clip";
 			}
 		}
+
+
 
 		document.getElementById('search').addEventListener('submit', function(event) {
 			event.preventDefault();
@@ -718,6 +758,8 @@
 				fetchNewest();
 				generateEventLinks();
 				generateNarasumberLinks();
+				expandEvent();
+				expandNarasumber();
 			}
 		}
 		startupAndSearch()
