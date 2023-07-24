@@ -1,7 +1,10 @@
 body {
-    background-color: #ffffff;
-    background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%);
+    /* background-color: #ffffff;
+    background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%); */
     /* line-height: 1.6; */
+
+    background: linear-gradient(to right top, #1e0049, #211045, #251c3f, #2a2638, #2f2f2f);
+
 }
 
 a.link-gap {
@@ -10,7 +13,7 @@ a.link-gap {
 }
 
 .container-atas {
-    background-color: #F8F8F8;
+    background-color: #FAF9F6;
     color: #333333;
     margin-top: 10px;
     margin-bottom: 30px;
@@ -24,6 +27,10 @@ a.link-gap {
     /* padding: 20px; */
 }
 
+.materi-text h3{
+  color: white;
+}
+
 .materi-terkait{
   margin-bottom: 20px;
 }
@@ -33,7 +40,7 @@ a.link-gap {
 }
 
 .summary-content {
-    background: #ffffff;
+    background: #FAF9F6;
     padding: 20px;
     /* margin-right: 10px; */
     /* border-radius: 20px; */
@@ -54,7 +61,7 @@ h3 {
 
 .pertanyaan-container {
     color: #2c425c;
-    background-color: #ffffff;
+    background-color: #FAF9F6;
     padding: 10px;
     border-radius: 20px;
     height: 100%;
@@ -65,6 +72,11 @@ h3 {
 .container-bawah h3 p li ul{
     font-size: medium;
     color: #2b1313	;
+}
+
+._cards-container{
+  background-color: #FAF9F6;
+  border-radius: 20px;
 }
 
 .error-message {
@@ -84,7 +96,7 @@ h3 {
 }
 
 .keyword-content{
-    background: #ffffff;
+    background: #FAF9F6;
     padding: 20px;
     border-radius: 10px;
     font-size: 16px;
