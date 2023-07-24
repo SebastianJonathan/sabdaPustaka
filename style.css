@@ -226,8 +226,18 @@ img {
     }
 }
 
-@media (max-width: 1080px){
+#narasumberList, #eventList{
+    columns: 4;
+    list-style: none;
+    column-gap: 20px;
+    /* text-decoration: none; */
+    /* column-width: 100px; */
+}
 
+@media (max-width: 1080px){
+    #narasumberList, #eventList{
+        columns: 3;
+    }
 }
 
 @media (min-width: 1080px){
@@ -265,11 +275,17 @@ img {
     .col-filter{
         display: none;
     }
+    #narasumberList, #eventList{
+        columns: 2;
+    }
 
 }
 
 @media (max-width: 480px) {
     ._cards_item {
         flex-basis: 100%;
+    }
+    #narasumberList, #eventList{
+        columns: 1;
     }
 }
