@@ -153,37 +153,40 @@
 					<?php include 'search_result.php'; ?>
 				</div>
 
-				
-				<div class="row">
-					<h5 style="font-weight: bold;">Semua Event:</h5>
-				</div>
-
 			<!-- CONTAINER EVENT -->
-				<div class="row container-event">
+				<div id="contEventNarsum">
 					<div class="row">
-						<div class="col-md-12 event-name">
-							<h2 class="text-center">Semua Event</h2>
+						<h5 style="font-weight: bold;">Semua Event:</h5>
+					</div>
+					<div class="row container-event">
+						<div class="row">
+							<div class="col-md-12 event-name">
+								<h2 class="text-center">Semua Event</h2>
+							</div>
+						</div>
+						<div class="row" id="eventList">
+							<!-- JavaScript will populate this container -->
+						</div>
+						<div class="row justify-content-end">
+							<button type="button" onclick="expandEvent()">show more</button>
 						</div>
 					</div>
-					<div class="row" id="eventList">
-						<!-- JavaScript will populate this container -->
-					</div>
-					<div class="row justify-content-end">
-						<button type="button" onclick="expandEvent()">show more</button>
-					</div>
-				</div>
-
-				<div class="row container-event">
+					
 					<div class="row">
-						<div class="col-md-12 event-name">
-							<h2 class="text-center">Semua Narasumber</h2>
+						<h5 style="font-weight: bold;">Semua Narasumber:</h5>
+					</div>
+					<div class="row container-event" id="contNarsum">
+						<div class="row">
+							<div class="col-md-12 event-name">
+								<h2 class="text-center">Semua Narasumber</h2>
+							</div>
 						</div>
-					</div>
-					<div class="row" id="narasumberList" style="overflow-y: clip;">
-						<!-- JavaScript will populate this container -->
-					</div>
-					<div class="row">
-						<button onclick="expandNarasumber()">show more</button>
+						<div class="row" id="narasumberList" style="overflow-y: clip;">
+							<!-- JavaScript will populate this container -->
+						</div>
+						<div class="row">
+							<button onclick="expandNarasumber()">show more</button>
+						</div>
 					</div>
 				</div>
 				<!-- PINDAHIN GETALLLLIST.PHP DISINI -->
@@ -226,6 +229,7 @@
 		foreach ($hits as $hit) {
 			$source = $hit['_source'];
 			$names = explode(", ", $source['narasumber']);
+			$names = str_replace('*',",",$names);
 
 			foreach ($names as $participantName) {
 				$cleanedName = trim($participantName);
@@ -239,7 +243,7 @@
 	}
 
 	// Set the Elasticsearch index name and endpoint URL
-	$index = 'pustaka5';
+	$index = 'pustaka6';
 	$url = 'http://localhost:9200/' . $index . '/_search';
 
 	// Query to retrieve all documents
@@ -290,19 +294,6 @@
 			document.getElementById('checkbox_related').checked = true;
 			document.getElementById('fsv-checkbox_related').checked = true;
 		}
-
-		function startupAndSearch() {
-			const fullURL = window.location.href;
-			const segments = fullURL.split('/');
-			if (segments[segments.length - 2] == "search") {
-				fetchSearchResult();
-			} else {
-				selectAll();
-				fetchNewest();
-			}
-		}
-		startupAndSearch()
-		updateFields();
 		function syncCheckbox(id, isChecked) {
 			var split_id = id.split("-");
 			var clan = split_id[0];
@@ -411,14 +402,14 @@
 
 		function goSearch() {
 			updateSessionCheckbox();
-			window.location.href = "http://localhost/pw5/home.php/search/" + document.getElementById("query").value;
+			window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById("query").value;
 		}
 		async function fetchRecommendations() {
 			const query = document.getElementById('query').value;
 			const fields = document.getElementById('query').dataset.fields;
 
 			try {
-				const response = await fetch(`http://localhost/pw5/autocomplete.php?query=${query}&fields=${fields}`);
+				const response = await fetch(`http://localhost/UI/sabdaPustaka/autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
 				// console.log(data.rekomendasi);
 				console.log(data);
@@ -434,7 +425,7 @@
 			const fields = document.getElementById('query').dataset.fields;
 
 			try {
-				const response = await fetch(`http://localhost/pw5/autocomplete.php?query=${query}&fields=${fields}`);
+				const response = await fetch(`http://localhost/UI/sabdaPustaka/autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
 				// console.log(data.rekomendasi);
 				tampilkanRekomendasi(data.rekomendasi);
@@ -633,7 +624,7 @@
 		function generateEventLinks() {
 			const eventListContainer = document.getElementById('eventList');
 			events.forEach((event) => {
-				const eventUrl = 'http://localhost/pw5/related_results.php?event=' + encodeURIComponent(event);
+				const eventUrl = 'http://localhost/UI/sabdaPustaka/related_results.php?event=' + encodeURIComponent(event);
 				const eventDiv = document.createElement('div');
 				eventDiv.className = 'col-md-2 event-li';
 				eventDiv.innerHTML = `<a href="${eventUrl}">${event}</a>`;
@@ -644,7 +635,7 @@
 		function generateNarasumberLinks() {
 			const narasumberListContainer = document.getElementById('narasumberList');
 			narasumbers.forEach((narasumber) => {
-				const narasumberUrl = 'http://localhost/pw5/related_results.php?narasumber=' + encodeURIComponent(narasumber);
+				const narasumberUrl = 'http://localhost/UI/sabdaPustaka/related_results.php?narasumber=' + encodeURIComponent(narasumber);
 				const narasumberDiv = document.createElement('div');
 				narasumberDiv.className = 'col-md-3 narsum-li';
 				narasumberDiv.innerHTML = `<a href="${narasumberUrl}">${narasumber}</a>`;
@@ -652,8 +643,6 @@
 			});
 		}
 
-		generateEventLinks();
-		generateNarasumberLinks();
 
 		function regenerateLinks() {
 			// Clear the existing event and narasumber lists
@@ -705,8 +694,34 @@
 			event.preventDefault();
 			goSearch();
 			hideRekomendasi();
-			regenerateLinks(); // Regenerate the links after search
+			// regenerateLinks(); // Regenerate the links after search
 		});
+		function removeAllElements() {
+			const container = document.getElementById('contEventNarsum');
+			// Function to remove all elements inside a container
+			function removeAllChildElements(container) {
+				while (container.firstChild) {
+					container.removeChild(container.firstChild);
+				}
+			}
+
+			removeAllChildElements(container);
+		}
+		function startupAndSearch() {
+			const fullURL = window.location.href;
+			const segments = fullURL.split('/');
+			if (segments[segments.length - 2] == "search") {
+				fetchSearchResult();
+				removeAllElements();
+			} else {
+				selectAll();
+				fetchNewest();
+				generateEventLinks();
+				generateNarasumberLinks();
+			}
+		}
+		startupAndSearch()
+		updateFields();
 	</script>
 </body>
 
