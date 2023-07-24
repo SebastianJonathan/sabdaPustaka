@@ -73,7 +73,6 @@ img {
 ._cards_item {
     flex-basis: calc(25% - 1rem);
     padding: 1rem;
-    margin-right: 16px;
     box-sizing: border-box;
 }
 
@@ -103,6 +102,8 @@ img {
     justify-content: space-between;
     
 }
+
+
 
 ._card_title {
     color: #ffffff;
@@ -136,6 +137,19 @@ img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+#contEventNarsum{
+    margin: 20px 20px 20px 16px; 
+    width: 90%;
+    padding-top: 30px;
+    /* border-top: 1.5px rgba(118, 118, 118, 0.4) solid; */
+}
+
+#ex-event-btn, #ex-naras-btn{
+    background-color: transparent;
+    color: gold;
+    border: none;
 }
 
 .filter-sm-btn{
@@ -221,6 +235,7 @@ img {
 }
 
 
+
 @media (max-width: 1200px) {
     ._cards_item {
         flex-basis: calc(33.3333% - 1rem);
@@ -230,9 +245,7 @@ img {
 #narasumberList, #eventList{
     columns: 4;
     list-style: none;
-    column-gap: 20px;
-    /* text-decoration: none; */
-    /* column-width: 100px; */
+    column-gap: 5%;
 }
 
 @media (max-width: 1080px){
@@ -263,24 +276,35 @@ img {
         display: none;
     }
 
+
+
+}
+
+@media (min-width: 768px){
     #col-filter-sm{
         display: none;
     }
+}
 
+@media (max-width: 768px){
+    .col-filter{
+        display: none;
+    }
 }
 
 @media (max-width: 768px) {
     ._cards_item {
         flex-basis: calc(50% - 1rem);
     }
-    .col-filter{
-        display: none;
-    }
+}
+
+
+@media (max-width: 890px) {
     #narasumberList, #eventList{
         columns: 2;
     }
-
 }
+
 
 @media (max-width: 480px) {
     ._cards_item {

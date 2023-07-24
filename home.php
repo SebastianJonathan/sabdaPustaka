@@ -170,15 +170,38 @@
 					<?php include 'search_result.php'; ?>
 	
 				</div>
-				<div id="show">
+				<div id="show" class="row">
 
 				</div>
 
-			<!-- CONTAINER EVENT -->
 				<div id="contEventNarsum" class="row">
-					<div class="row">
-						<h5 style="font-weight: bold;">Semua Event:</h5>
+					<div class="row container-event">
+						<div class="row event-name">
+							<h2 class="text-center" style="margin-bottom:20px;">Semua Event</h2>
+						</div>
+						<div class="row">
+							<ul id="eventList"></ul>
+						</div>
+						<div class="row">
+							<button id="ex-event-btn" type="button" onclick="expandEvent()">show more</button>
+						</div>
 					</div>
+					<div class="row container-event" id="contNarsum">
+						<div class="row event-name">
+							<h2 class="text-center" style="margin-bottom:20px;">Semua Narasumber</h2>
+						</div>
+						<div class="row">
+							<ul id="narasumberList"></ul>
+						</div>
+						<div class="row">
+							<button id="ex-naras-btn" onclick="expandNarasumber()">show more</button>
+						</div>
+
+					</div>
+				</div>
+
+			<!-- CONTAINER EVENT -->
+				<!-- <div id="contEventNarsum" class="row" style="display:flex;">
 					<div class="row container-event">
 						<div class="row">
 							<div class="col-md-12 event-name">
@@ -186,18 +209,11 @@
 							</div>
 						</div>
 						<div class="row" >
-							<ul id="eventList">
-
-							</ul>
-							<!-- JavaScript will populate this container -->
+							<ul id="eventList"></ul>
 						</div>
 						<div class="row justify-content-end">
 							<button id="ex-event-btn" type="button" onclick="expandEvent()">show more</button>
 						</div>
-					</div>
-					
-					<div class="row">
-						<h5 style="font-weight: bold;">Semua Narasumber:</h5>
 					</div>
 					<div class="row container-event" id="contNarsum">
 						<div class="row">
@@ -206,16 +222,13 @@
 							</div>
 						</div>
 						<div class="row" >
-							<ul id="narasumberList">
-
-							</ul>
+							
 						</div>
 						<div class="row">
 							<button id="ex-naras-btn" onclick="expandNarasumber()">show more</button>
 						</div>
 					</div>
-				</div>
-				<!-- PINDAHIN GETALLLLIST.PHP DISINI -->
+				</div> -->
 			</div>
 
 		</div><!-- COL Card -->
@@ -683,7 +696,7 @@
 				const eventUrl = 'http://localhost/UI/sabdaPustaka/related_results.php?event=' + encodeURIComponent(event);
 				const eventDiv = document.createElement('li');
 				eventDiv.className = 'event-li';
-				eventDiv.style.width = "200px";
+				// eventDiv.style.width = "150px";
 				eventDiv.innerHTML = `<a href="${eventUrl}">${event}</a>`;
 				eventListContainer.appendChild(eventDiv);
 			});
@@ -695,7 +708,7 @@
 				const narasumberUrl = 'http://localhost/UI/sabdaPustaka/related_results.php?narasumber=' + encodeURIComponent(narasumber);
 				const narasumberDiv = document.createElement('li');
 				narasumberDiv.className = 'narsum-li';
-				narasumberDiv.style.width = '200px';
+				// narasumberDiv.style.width = '150px';
 				narasumberDiv.innerHTML = `<a href="${narasumberUrl}">${narasumber}</a>`;
 				narasumberListContainer.appendChild(narasumberDiv);
 			});
@@ -715,20 +728,6 @@
 		}
 
 		function expandEvent(){
-			// var eventCont = document.getElementById('eventList');
-			// var prevHeight = eventCont.clientHeight;
-			// var barHeight = 200;
-			// console.log(prevHeight);
-			// if (prevHeight === barHeight){
-			// 	eventCont.setAttribute("style","height: auto;");
-			// 	// narasCont.clientHeight = "auto";
-			// }else if (prevHeight > barHeight){
-			// 	console.log("height: "+barHeight+";");
-
-			// 	eventCont.style.height = barHeight+"px";
-			// 	eventCont.style.overflowY = "clip";
-			// }
-
 			var eventCont = document.getElementById('eventList');
 			var exBtn = document.getElementById('ex-event-btn');
 			var prevHeight = eventCont.clientHeight;
@@ -747,19 +746,6 @@
 		}
 
 		function expandNarasumber(){
-			// var narasCont = document.getElementById('narasumberList');
-			// var prevHeight = narasCont.clientHeight;
-			// var barHeight = 200;
-			// console.log(prevHeight);
-			// if (prevHeight === barHeight){
-			// 	narasCont.setAttribute("style","height: auto;");
-			// 	// narasCont.clientHeight = "auto";
-			// }else if (prevHeight > barHeight){
-			// 	console.log("height: "+barHeight+";");
-
-			// 	narasCont.style.height = barHeight+"px";
-			// 	narasCont.style.overflowY = "clip";
-			// }
 			var narasCont = document.getElementById('narasumberList');
 			var exBtn = document.getElementById('ex-naras-btn');
 			var prevHeight = narasCont.clientHeight;
