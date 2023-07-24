@@ -137,12 +137,14 @@
             <div class="row">
               <div class="keyword-content">
                 <h5>Kata Kunci</h5>
-                <?php
-                foreach ($katakunci as $item) {
-                  $link = 'javascript:void(0);'; // Set the link to javascript:void(0);
-                  echo "<a href=\"$link\" class=\"keyword-link\" data-keyword=\"$item\"\">$item</a> ";
-                }
-                ?>
+                <div class="links">
+                  <?php
+                  foreach ($katakunci as $item) {
+                    $link = 'javascript:void(0);'; // Set the link to javascript:void(0);
+                    echo "<a href=\"$link\" class=\"keyword-link\" data-keyword=\"$item\"\">$item</a> ";
+                  }
+                  ?>
+                </div>
               </div>
             </div>
           </div>

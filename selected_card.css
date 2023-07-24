@@ -53,6 +53,7 @@ a.link-gap {
 h3 {
     color: #2b1313	;
     text-align: center;
+    font-weight: bold;
 }
 
 .summary-container {
@@ -67,6 +68,10 @@ h3 {
     height: 100%;
     overflow-y: auto;
     border-radius: 10px;
+}
+
+.pertanyaan-container h5{
+  font-weight: bold;
 }
 
 .container-bawah h3 p li ul{
@@ -104,31 +109,23 @@ h3 {
     margin-bottom: 10px;
 } 
 
-.keyword-content h6{
+.keyword-content h5{
     margin-left: 5px;
     margin-bottom: 20px;
+    font-weight: bold;
 }
 
 .keyword-link{
-    color: linear-gradient(to right top, #1e0049, #211045, #251c3f, #2a2638, #2f2f2f);
     text-decoration: none;
     margin-right: 10px;
 }
 
-.btn-link1{
-    padding: 10px 15px 10px 15px;
-    border-radius: 10px;
-    font-size: 16px;
-    background: linear-gradient(to right top, #1e0049, #211045, #251c3f, #2a2638, #2f2f2f);
-    text-decoration: none;
-    margin-right: 10px;
-    color: gold;
-    width: 200px;
+.keyword-content h5{
+  text-align: center;
 }
 
-.btn-link1:hover{
-    color: gold;
-    text-decoration: none;
+.links a{
+  justify-items: center ;
 }
 
 .btn-ln{
