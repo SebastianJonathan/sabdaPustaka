@@ -74,7 +74,7 @@
                 }
             }
             
-            if (isset($highlight['event_completion.input']) && !in_array($event, $rekomendasiTerkaitEvent) && !in_array($event, $rekomendasiUtamaEvent)) {
+            else if (isset($highlight['event_completion.input']) && !in_array($event, $rekomendasiTerkaitEvent) && !in_array($event, $rekomendasiUtamaEvent)) {
                 if(strtolower(substr($event,0,strlen($queryy))) == strtolower($queryy)){
                     $rekomendasiUtamaEvent[] = $event;
                 }
@@ -83,7 +83,7 @@
                 }
             }
 
-            if (isset($highlight['narasumber_completion.input'])) {
+            else if (isset($highlight['narasumber_completion.input'])) {
                 $narasumber = str_replace(",S.","|S.",$narasumber);
                 $narasumber = str_replace(", S.","| S.",$narasumber);
                 $narasumber = str_replace(",M.","|M.",$narasumber);
@@ -103,17 +103,17 @@
                     }
                 }
             }
-            if(isset($highlight['deskripsi_pendek'])){
+            else if(isset($highlight['deskripsi_pendek'])){
                 if(!in_array($source['judul'],$related) and !in_array($source['judul'],$rekomendasiUtamaJudul) and !in_array($source['judul'],$rekomendasiTerkaitJudul)){
                     $related[] = $source['judul'];
                 }
             }
-            if(isset($highlight['ringkasan'])){
+            else if(isset($highlight['ringkasan'])){
                 if(!in_array($source['judul'],$related) and !in_array($source['judul'],$rekomendasiUtamaJudul) and !in_array($source['judul'],$rekomendasiTerkaitJudul)){
                     $related[] = $source['judul'];
                 }
             }
-            if(isset($source['kata_kunci'])){
+            else if(isset($source['kata_kunci'])){
                 if(!in_array($source['judul'],$related) and !in_array($source['judul'],$rekomendasiUtamaJudul) and !in_array($source['judul'],$rekomendasiTerkaitJudul)){
                     $related[] = $source['judul'];
                 }

@@ -376,11 +376,6 @@
 		});
 
 		function updateFields() {
-			const checkbox_judul = document.getElementById('checkbox_judul');
-			const checkbox_narasumber = document.getElementById('checkbox_narasumber');
-			const checkbox_event = document.getElementById('checkbox_event');
-			const checkbox_related = document.getElementById('checkbox_related');
-
 			let fields = [];
 
 			if (sessionStorage.getItem("checkboxJudul") == "true") {
@@ -441,7 +436,6 @@
 		async function fetchRecommendations2() {
 			const query = document.getElementById('query').value;
 			const fields = document.getElementById('query').dataset.fields;
-
 			try {
 				const response = await fetch(`http://localhost/UI/sabdaPustaka/autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
@@ -512,7 +506,6 @@
 			sessionStorage.setItem("checkboxEvent", checkboxEvent.checked);
 			sessionStorage.setItem("checkboxNarasumber", checkboxNarasumber.checked);
 			sessionStorage.setItem("checkboxRelated", checkboxRelated.checked);
-
 			updateFields();
 		}
 
