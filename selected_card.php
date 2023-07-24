@@ -6,6 +6,41 @@
   <?php include 'header.php' ?>
   <link rel="stylesheet" href="selected_card.css">
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.7.570/build/pdf.min.js"></script>
+  <script defer>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        console.log(entry)
+        if (entry.isIntersecting) {
+          entry.target.classList.add('_show');
+        } else {
+          entry.target.classList.remove('_show');
+        }
+      });
+      threshold = 0.1;  
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+      console.log("t");
+      const hiddenElements = document.querySelectorAll('._hidden');
+      console.log(hiddenElements);
+      hiddenElements.forEach((el) => observer.observe(el));
+      // Rest of your code here...
+    });
+  </script>
+  <style>
+    ._hidden {
+      opacity: 0;
+      filter: blur(5px);
+      transform: translateY(40%);
+      transition: all 0.5s;
+    }
+
+    ._show {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateX(0);
+    }
+  </style>
 </head>
 
 <body>
@@ -71,7 +106,7 @@
 
       <div class="container-fluid">
         <!-- PPT & Ringkasan -->
-        <div class="row container-atas">
+        <div class="row container-atas  _hidden">
           <div class="col-lg-6" style="padding:7px;">
             <?php
             if ($url_static) {
@@ -129,13 +164,13 @@
         <div class="row container-bawah">
           <div class="col-lg-9 sum-col">
             <div class="row">
-              <div class="summary-content" style="margin-bottom: 10px;">
+              <div class="summary-content  _hidden" style="margin-bottom: 10px;">
                 <h2>Ringkasan</h2>
                 <?php echo $ringkasan; ?>
               </div>
             </div>
             <div class="row">
-              <div class="keyword-content">
+              <div class="keyword-content  _hidden">
                 <h5>Kata Kunci</h5>
                 <div class="links">
                   <?php
@@ -149,7 +184,7 @@
             </div>
           </div>
           <div class="col-lg-3 q-col">
-            <div class="pertanyaan-container" id="pertanyaan-container">
+            <div class="pertanyaan-container _hidden" id="pertanyaan-container">
               <h5 class="text-center">Pertanyaan Renungan</h5>
               <div class="pertanyaan-content" id="pertanyaan-content">
                 <ul>
@@ -168,8 +203,10 @@
         <!-- Materi Terkait -->
         <div class="row materi-terkait">
           <div class="materi-text">
-            <h3>Materi Terkait</h3>
-            <div id="related-results-container"></div>
+            <section class="_hidden">
+              <h3>Materi Terkait</h3>
+              <div id="related-results-container"></div>
+            </section>
           </div>
         </div>
 
