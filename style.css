@@ -27,7 +27,7 @@ body {
 }
 
 .main {
-    max-width: 1200px;
+    /* max-width: 1200px; */
     margin: 0 auto;
     flex: 1;
 }
@@ -74,6 +74,7 @@ img {
     flex-basis: calc(25% - 1rem);
     padding: 1rem;
     box-sizing: border-box;
+    max-width: 400px;
 }
 
 ._card {
