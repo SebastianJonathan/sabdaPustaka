@@ -26,12 +26,6 @@ const fcolumn_event = document.createElement('div');
 const fopen_event = document.createElement('div');
 const fcolumn_tgl = document.createElement('div');
 const fopen_tgl = document.createElement('div');
-// const fopen_narasumber = document.getElementById("ffv-filter-naras");
-// const fcolumn_narasumber = document.getElementById("ffc-filter-naras");
-// const fopen_event = document.getElementById("ffv-filter-event");
-// const fcolumn_event = document.getElementById("ffc-filter-event");
-// const fopen_tgl = document.getElementById("ffv-filter-tgl");
-// const fcolumn_tgl = document.getElementById("ffc-filter-tgl");
 
 let filterNarasumber = [];
 let filterEvent = [];
@@ -46,7 +40,10 @@ function createListItem(pageNumber) {
     a.className = "page-link";
     a.id = "showp_"+pageNumber;
     a.innerText = pageNumber;
-    console.log("WWWWPPPP");
+    if (pageNumber === now_show){
+        a.setAttribute("style","color: gold;")
+        a.style.backgroundColor = "#1e0049";
+    }
     a.onclick = function(){
         if(pageNumber != "Show All"){
             pageSize = parseInt(pageNumber);
@@ -58,39 +55,11 @@ function createListItem(pageNumber) {
             top: 0,
             behavior: 'smooth'
         })
-        // console.log("WWWLLLWLWLWLW");
-        colorPagination(a.id);
-        // a.style.backgroundColor = "#1e0049";
-        // a.style.color = "gold";
+        now_show = pageNumber;
     }
 
     li.appendChild(a);
     return li;
-}
-
-function colorPagination(id_now){
-    console.log(id_now);
-    var pageLink = document.getElementById(id_now);
-    pageLink.setAttribute("style","color: red;");
-    // $(document).ready(function() {
-    // // Replace "element-with-gold-color" with the actual ID of the element you want to style differently
-    // // var elementId = "element-with-gold-color";
-
-    // // Select the element with the specified ID
-    // var targetElement = $("#" + id_now);
-    // console.log(targetElement === null);
-    // // Set the styles for the target element
-    // targetElement.css({
-    //     "color": "gold",
-    //     "background-color": "blue"
-    // });
-
-    // // Set the styles for sibling elements
-    // targetElement.siblings().css({
-    //     "color": "black",
-    //     "background-color": "white"
-    // });
-    // });
 }
 
 function createCheckbox(id, nama, div_filter,arr) {
@@ -229,7 +198,7 @@ function fetchSearchFilterResult() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+        fetch('http://localhost/pw5/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -349,7 +318,7 @@ function fetchSearchFilterResult() {
 
 async function fetchNewest() {
     try {
-        const response = await fetch('http://localhost/UI/sabdaPustaka/getNewest.php');
+        const response = await fetch('http://localhost/pw5/getNewest.php');
         const data = await response.json();
         const cardResultElement = document.getElementById('card_result');
         cardResultElement.innerHTML = '';
@@ -436,18 +405,21 @@ async function fetchNewest() {
 
 function resizeListEN(){
     var contEN = document.getElementById('contEventNarsum');
-    var contEvent = document.getElementById('contEvent');
-    var contNarsum = document.getElementById('contNarsum');
-    var c1 = document.getElementById('_card_1');
-    
+    if (contEN === null){
+        var contEvent = document.getElementById('contEvent');
+        var contNarsum = document.getElementById('contNarsum');
+        var c1 = document.getElementById('_card_1');
+        
 
-    var unitL = c1.clientWidth + 32;
-    
-    var totalUnit = Math.floor((contEN.clientWidth) / unitL);
-    var totalWidth = (totalUnit * unitL) - 32;
-    // console.log(totalWidth);
-    contEvent.setAttribute("style","width:"+totalWidth+"px");
-    contNarsum.setAttribute("style","width:"+totalWidth+"px");
+        var unitL = c1.clientWidth + 32;
+        
+        var totalUnit = Math.floor((contEN.clientWidth) / unitL);
+        var totalWidth = (totalUnit * unitL) - 32;
+        // console.log(totalWidth);
+        contEvent.setAttribute("style","width:"+totalWidth+"px");
+        contNarsum.setAttribute("style","width:"+totalWidth+"px");
+    }
+
     // console.log(contEvent.clientWidth);
 }
 window.addEventListener('resize', resizeListEN);
@@ -497,7 +469,7 @@ function fetchSearchResult() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+        fetch('http://localhost/pw5/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -521,7 +493,7 @@ function fetchSearchResult() {
 
                 const card = document.createElement('div');
                 card.className = '_card';
-                card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
+                card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
 
                 const cardImage = document.createElement('div');
                 cardImage.className = '_card_image';
