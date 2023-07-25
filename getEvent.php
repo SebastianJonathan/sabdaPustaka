@@ -19,7 +19,7 @@ function query($url, $method, $param)
 }
 
 // Set the Elasticsearch index name and endpoint URL
-$index = 'pustaka5';
+$index = 'pustaka6';
 $url = 'http://localhost:9200/' . $index . '/_search';
 
 // Get the 'event' query parameter from the URL

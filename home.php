@@ -766,6 +766,7 @@
 		}
 		function startupAndSearch() {
 			const fullURL = window.location.href;
+			sessionStorage.setItem("lastUrl", fullURL);
 			const segments = fullURL.split('/');
 			if (segments[segments.length - 2] == "search") {
 				fetchSearchResult();
