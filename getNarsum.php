@@ -35,9 +35,13 @@ if (empty($narsumParam)) {
 $params = [
     'size' => 1000, // Adjust the size to match the maximum number of documents to retrieve
     'query' => [
-        'match' => [
-            'narasumber' => $narsumParam,
-        ],
+        'bool' => [
+            'must' => [
+                'match' => [
+                    'narasumber' => $narsumParam
+                ]
+            ]
+        ]
     ],
     '_source' => ['narasumber', 'judul', 'deskripsi_pendek', 'url_youtube'],
 ];

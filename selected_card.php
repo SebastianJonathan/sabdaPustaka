@@ -101,6 +101,12 @@
 
       $pertanyaan = explode('?', $list_pertanyaan);
       $katakunci = explode(', ', $kata_kunci);
+      $pembicara = str_replace(",S.","|S.",$pembicara);
+      $pembicara = str_replace(", S.","| S.",$pembicara);
+      $pembicara = str_replace(",M.","|M.",$pembicara);
+      $pembicara = str_replace(", M.","| M.",$pembicara);
+      $pembicara = str_replace(",Ph.","|Ph.",$pembicara);
+      $pembicara = str_replace(", Ph.","| Ph.",$pembicara);
       $pembicara = explode(',', $narasumber);
   ?>
 

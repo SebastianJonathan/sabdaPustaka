@@ -124,7 +124,14 @@
                     'id' => $hit['_id'],
                     'youtube' => $source['url_youtube']
                 ];
-                $listNarasumber = explode(", ",$source['narasumber']);
+                $namaNarsum = $source['narasumber'];
+                $namaNarsum = str_replace(",S.","|S.",$namaNarsum);
+                $namaNarsum = str_replace(", S.","| S.",$namaNarsum);
+                $namaNarsum = str_replace(",M.","|M.",$namaNarsum);
+                $namaNarsum = str_replace(", M.","| M.",$namaNarsum);
+                $namaNarsum = str_replace(",Ph.","|Ph.",$namaNarsum);
+                $namaNarsum = str_replace(", Ph.","| Ph.",$namaNarsum);
+                $listNarasumber = explode(", ",$namaNarsum);
                 foreach($listNarasumber as $namaNarasumber){
                     if (!isset($countNarasumber[$namaNarasumber])) {
                         $countNarasumber[$namaNarasumber] = 1;
