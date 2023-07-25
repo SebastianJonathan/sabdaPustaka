@@ -110,6 +110,7 @@
       $pembicara = str_replace(",Ph.","|Ph.",$pembicara);
       $pembicara = str_replace(", Ph.","| Ph.",$pembicara);
       $pembicara = explode(',', $narasumber);
+      $pembicara = str_replace("|",",",$pembicara);
   ?>
 
       <div class="container-fluid">

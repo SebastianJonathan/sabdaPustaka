@@ -135,6 +135,7 @@
                 $namaNarsum = str_replace(", Ph.","| Ph.",$namaNarsum);
                 $listNarasumber = explode(", ",$namaNarsum);
                 foreach($listNarasumber as $namaNarasumber){
+                    $namaNarasumber = str_replace("|",",",$namaNarasumber);
                     if (!isset($countNarasumber[$namaNarasumber])) {
                         $countNarasumber[$namaNarasumber] = 1;
                     }else{
@@ -228,8 +229,18 @@
                 if(!empty($jsonSearch["event"])){
                     if(!empty($jsonSearch["narasumber"])){
                         if(!empty($jsonSearch["tanggal"])){
-                            $listNarasumber = explode(", ",$source['narasumber']);
+                            $namaNarsum = $source['narasumber'];
+                            $namaNarsum = str_replace(",S.","|S.",$namaNarsum);
+                            $namaNarsum = str_replace(", S.","| S.",$namaNarsum);
+                            $namaNarsum = str_replace(",B.","|B.",$namaNarsum);
+                            $namaNarsum = str_replace(", B.","| B.",$namaNarsum);
+                            $namaNarsum = str_replace(",M.","|M.",$namaNarsum);
+                            $namaNarsum = str_replace(", M.","| M.",$namaNarsum);
+                            $namaNarsum = str_replace(",Ph.","|Ph.",$namaNarsum);
+                            $namaNarsum = str_replace(", Ph.","| Ph.",$namaNarsum);
+                            $listNarasumber = explode(", ",$namaNarsum);
                             foreach($listNarasumber as $namaNarasumber){
+                                $namaNarasumber = str_replace("|",",",$namaNarasumber);
                                 if(in_array($source["event"], $jsonSearch["event"]) and in_array($namaNarasumber, $jsonSearch["narasumber"]) and in_array(substr($source["tanggal"],0,4),$jsonSearch["tanggal"])){
                                     $result[] = [
                                         'event' => $source['event'],
@@ -243,8 +254,18 @@
                                 }
                             }
                         }else {
-                            $listNarasumber = explode(", ",$source['narasumber']);
+                            $namaNarsum = $source['narasumber'];
+                            $namaNarsum = str_replace(",S.","|S.",$namaNarsum);
+                            $namaNarsum = str_replace(", S.","| S.",$namaNarsum);
+                            $namaNarsum = str_replace(",B.","|B.",$namaNarsum);
+                            $namaNarsum = str_replace(", B.","| B.",$namaNarsum);
+                            $namaNarsum = str_replace(",M.","|M.",$namaNarsum);
+                            $namaNarsum = str_replace(", M.","| M.",$namaNarsum);
+                            $namaNarsum = str_replace(",Ph.","|Ph.",$namaNarsum);
+                            $namaNarsum = str_replace(", Ph.","| Ph.",$namaNarsum);
+                            $listNarasumber = explode(", ",$namaNarsum);
                             foreach($listNarasumber as $namaNarasumber){
+                                $namaNarasumber = str_replace("|",",",$namaNarasumber);
                                 if(in_array($source["event"], $jsonSearch["event"]) and in_array($namaNarasumber, $jsonSearch["narasumber"])){
                                     $result[] = [
                                         'event' => $source['event'],
@@ -288,8 +309,18 @@
                     }
                 }else if(!empty($jsonSearch["tanggal"])){
                     if(!empty($jsonSearch["narasumber"])){
-                        $listNarasumber = explode(", ",$source['narasumber']);
+                        $namaNarsum = $source['narasumber'];
+                        $namaNarsum = str_replace(",S.","|S.",$namaNarsum);
+                        $namaNarsum = str_replace(", S.","| S.",$namaNarsum);
+                        $namaNarsum = str_replace(",B.","|B.",$namaNarsum);
+                        $namaNarsum = str_replace(", B.","| B.",$namaNarsum);
+                        $namaNarsum = str_replace(",M.","|M.",$namaNarsum);
+                        $namaNarsum = str_replace(", M.","| M.",$namaNarsum);
+                        $namaNarsum = str_replace(",Ph.","|Ph.",$namaNarsum);
+                        $namaNarsum = str_replace(", Ph.","| Ph.",$namaNarsum);
+                        $listNarasumber = explode(", ",$namaNarsum);
                         foreach($listNarasumber as $namaNarasumber){
+                            $namaNarasumber = str_replace("|",",",$namaNarasumber);
                             if(in_array($namaNarasumber, $jsonSearch["narasumber"]) and in_array(substr($source["tanggal"],0,4),$jsonSearch["tanggal"])){
                                 $result[] = [
                                     'event' => $source['event'],
@@ -318,8 +349,18 @@
                 }
                 else {
                     if(!empty($jsonSearch["narasumber"])){
-                        $listNarasumber = explode(", ",$source['narasumber']);
+                        $namaNarsum = $source['narasumber'];
+                        $namaNarsum = str_replace(",S.","|S.",$namaNarsum);
+                        $namaNarsum = str_replace(", S.","| S.",$namaNarsum);
+                        $namaNarsum = str_replace(",B.","|B.",$namaNarsum);
+                        $namaNarsum = str_replace(", B.","| B.",$namaNarsum);
+                        $namaNarsum = str_replace(",M.","|M.",$namaNarsum);
+                        $namaNarsum = str_replace(", M.","| M.",$namaNarsum);
+                        $namaNarsum = str_replace(",Ph.","|Ph.",$namaNarsum);
+                        $namaNarsum = str_replace(", Ph.","| Ph.",$namaNarsum);
+                        $listNarasumber = explode(", ",$namaNarsum);
                         foreach($listNarasumber as $narasumber){
+                            $narasumber = str_replace("|",",",$narasumber);
                             if(in_array($narasumber, $jsonSearch["narasumber"])){
                                 $result[] = [
                                     'event' => $source['event'],
@@ -366,8 +407,18 @@
                 if(!in_array(substr($res['tanggal'],0,4),$tahun)){
                     $tahun[] = substr($res['tanggal'],0,4);
                 }
-                $namaNarasumber = explode(", ",$res['narasumber']);
+                $namaNarsum = $source['narasumber'];
+                $namaNarsum = str_replace(",S.","|S.",$namaNarsum);
+                $namaNarsum = str_replace(", S.","| S.",$namaNarsum);
+                $namaNarsum = str_replace(",B.","|B.",$namaNarsum);
+                $namaNarsum = str_replace(", B.","| B.",$namaNarsum);
+                $namaNarsum = str_replace(",M.","|M.",$namaNarsum);
+                $namaNarsum = str_replace(", M.","| M.",$namaNarsum);
+                $namaNarsum = str_replace(",Ph.","|Ph.",$namaNarsum);
+                $namaNarsum = str_replace(", Ph.","| Ph.",$namaNarsum);
+                $namaNarasumber = explode(", ",$namaNarsum);
                 foreach($namaNarasumber as $narsum){
+                    $narsum = str_replace("|",",",$narsum);
                     if (!isset($countNarasumber[$narsum])) {
                         $countNarasumber[$narsum] = 1;
                     }else{
