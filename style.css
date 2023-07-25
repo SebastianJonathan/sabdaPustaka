@@ -140,6 +140,15 @@ img {
     object-fit: cover;
 }
 
+.page-link{
+    color: black;
+}
+
+.page-link:hover{
+    color: gold;
+    background-color: #1e0049;
+}
+
 #contEventNarsum{
     margin: 20px 20px 20px 16px; 
     width: 90%;
