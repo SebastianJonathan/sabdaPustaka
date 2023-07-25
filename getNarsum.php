@@ -37,7 +37,7 @@ $params = [
                 [
                     'multi_match' => [
                         'query' => $narsumParam,
-                        'fields' => ['narasumber_completion.input','ringkasan', 'deskripsi_pendek'],
+                        'fields' => ['narasumber_completion.input'],
                         'operator' => 'and',
                     ]
                 ]
