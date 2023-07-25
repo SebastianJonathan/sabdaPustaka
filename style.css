@@ -150,9 +150,11 @@ img {
 }
 
 #contEventNarsum{
-    margin: 20px 20px 20px 16px; 
-    width: 90%;
+    /* margin: 20px 20px 20px 16px; 
+    /* width: 90%; */
     padding-top: 30px;
+    padding-left: 16px;
+    /* padding-right: */
     /* border-top: 1.5px rgba(118, 118, 118, 0.4) solid; */
 }
 
@@ -175,6 +177,7 @@ img {
 .sect-cont-sidebar{
     background: linear-gradient(to right top, #1e0049, #211045, #251c3f, #2a2638, #2f2f2f, #2f2f2f);
     color: white;
+    /* height: 100%; */
 }
 
 .btn-close{
@@ -243,7 +246,6 @@ img {
 .clrfilter_btn:hover{
     background-color: gold;
 }
-
 
 
 @media (max-width: 1200px) {

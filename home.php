@@ -30,7 +30,7 @@
 			<div class="col-lg-2 col-md-3 col-filter" style="padding-right: 5px; padding-left:10px; min-width:210px;">
 				<div class="card sect-cont-sidebar">
 					<!-- <img src="..." class="card-img-top" alt="..."> -->
-					<div class="card-body">
+					<div class="card-body card-sidebar">
 						<!-- <h5 class="card-title">Search</h5> -->
 						<!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
 
@@ -158,7 +158,7 @@
 				</div>
 
 				<div id="contEventNarsum" class="row">
-					<div class="row container-event">
+					<div class="row container-event" id="contEvent">
 						<div class="row event-name">
 							<h2 class="text-center" style="margin-bottom:20px;">Semua Event</h2>
 						</div>
@@ -182,36 +182,6 @@
 
 					</div>
 				</div>
-
-			<!-- CONTAINER EVENT -->
-				<!-- <div id="contEventNarsum" class="row" style="display:flex;">
-					<div class="row container-event">
-						<div class="row">
-							<div class="col-md-12 event-name">
-								<h2 class="text-center">Semua Event</h2>
-							</div>
-						</div>
-						<div class="row" >
-							<ul id="eventList"></ul>
-						</div>
-						<div class="row justify-content-end">
-							<button id="ex-event-btn" type="button" onclick="expandEvent()">show more</button>
-						</div>
-					</div>
-					<div class="row container-event" id="contNarsum">
-						<div class="row">
-							<div class="col-md-12 event-name">
-								<h2 class="text-center">Semua Narasumber</h2>
-							</div>
-						</div>
-						<div class="row" >
-							
-						</div>
-						<div class="row">
-							<button id="ex-naras-btn" onclick="expandNarasumber()">show more</button>
-						</div>
-					</div>
-				</div> -->
 			</div>
 
 		</div><!-- COL Card -->
@@ -455,14 +425,14 @@
 
 		function goSearch() {
 			updateSessionCheckbox();
-			window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById("query").value;
+			window.location.href = "http://localhost/pw5/home.php/search/" + document.getElementById("query").value;
 		}
 		async function fetchRecommendations() {
 			const query = document.getElementById('query').value;
 			const fields = document.getElementById('query').dataset.fields;
 
 			try {
-				const response = await fetch(`http://localhost/UI/sabdaPustaka/autocomplete.php?query=${query}&fields=${fields}`);
+				const response = await fetch(`http://localhost/pw5/autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
 				// console.log(data.rekomendasi);
 				console.log(data);
@@ -476,7 +446,7 @@
 			const query = document.getElementById('query').value;
 			const fields = document.getElementById('query').dataset.fields;
 			try {
-				const response = await fetch(`http://localhost/UI/sabdaPustaka/autocomplete.php?query=${query}&fields=${fields}`);
+				const response = await fetch(`http://localhost/pw5/autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
 				// console.log(data.rekomendasi);
 				tampilkanRekomendasi(data.rekomendasi);
@@ -676,7 +646,7 @@
 		function generateEventLinks() {
 			const eventListContainer = document.getElementById('eventList');
 			events.forEach((event) => {
-				const eventUrl = 'http://localhost/UI/sabdaPustaka/related_results.php?event=' + encodeURIComponent(event);
+				const eventUrl = 'http://localhost/pw5/related_results.php?event=' + encodeURIComponent(event);
 				const eventDiv = document.createElement('li');
 				eventDiv.className = 'event-li';
 				// eventDiv.style.width = "150px";
@@ -688,7 +658,7 @@
 		function generateNarasumberLinks() {
 			const narasumberListContainer = document.getElementById('narasumberList');
 			narasumbers.forEach((narasumber) => {
-				const narasumberUrl = 'http://localhost/UI/sabdaPustaka/related_results.php?narasumber=' + encodeURIComponent(narasumber);
+				const narasumberUrl = 'http://localhost/pw5/related_results.php?narasumber=' + encodeURIComponent(narasumber);
 				const narasumberDiv = document.createElement('li');
 				narasumberDiv.className = 'narsum-li';
 				// narasumberDiv.style.width = '150px';
@@ -698,17 +668,17 @@
 		}
 
 
-		function regenerateLinks() {
-			// Clear the existing event and narasumber lists
-			const eventListContainer = document.getElementById('eventList');
-			const narasumberListContainer = document.getElementById('narasumberList');
-			eventListContainer.innerHTML = '';
-			narasumberListContainer.innerHTML = '';
+		// function regenerateLinks() {
+		// 	// Clear the existing event and narasumber lists
+		// 	const eventListContainer = document.getElementById('eventList');
+		// 	const narasumberListContainer = document.getElementById('narasumberList');
+		// 	eventListContainer.innerHTML = '';
+		// 	narasumberListContainer.innerHTML = '';
 
-			// Regenerate the event and narasumber links
-			generateEventLinks();
-			generateNarasumberLinks();
-		}
+		// 	// Regenerate the event and narasumber links
+		// 	generateEventLinks();
+		// 	generateNarasumberLinks();
+		// }
 
 		function expandEvent(){
 			var eventCont = document.getElementById('eventList');
@@ -782,6 +752,7 @@
 		}
 		startupAndSearch()
 		updateFields();
+		
 	</script>
 </body>
 

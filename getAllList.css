@@ -9,6 +9,10 @@
     margin-bottom: 30px;
 }
 
+.contEvent, .contNarsum{
+    margin-left: 16px;
+}
+
 .evLiD{
     color: gold;
     /* margin-top: 50px; */

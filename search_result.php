@@ -15,6 +15,7 @@
 </div>
 
 <script>
+    var now_show = 10;
 const hs_head = document.getElementById("hs-header");
 const FilterOpenCanvas = document.getElementById("ffv-filter");
 const FilterColumnCanvas = document.getElementById("ffc-filter");
@@ -43,7 +44,9 @@ function createListItem(pageNumber) {
 
     var a = document.createElement('a');
     a.className = "page-link";
+    a.id = "showp_"+pageNumber;
     a.innerText = pageNumber;
+    console.log("WWWWPPPP");
     a.onclick = function(){
         if(pageNumber != "Show All"){
             pageSize = parseInt(pageNumber);
@@ -55,10 +58,39 @@ function createListItem(pageNumber) {
             top: 0,
             behavior: 'smooth'
         })
+        // console.log("WWWLLLWLWLWLW");
+        colorPagination(a.id);
+        // a.style.backgroundColor = "#1e0049";
+        // a.style.color = "gold";
     }
 
     li.appendChild(a);
     return li;
+}
+
+function colorPagination(id_now){
+    console.log(id_now);
+    var pageLink = document.getElementById(id_now);
+    pageLink.setAttribute("style","color: red;");
+    // $(document).ready(function() {
+    // // Replace "element-with-gold-color" with the actual ID of the element you want to style differently
+    // // var elementId = "element-with-gold-color";
+
+    // // Select the element with the specified ID
+    // var targetElement = $("#" + id_now);
+    // console.log(targetElement === null);
+    // // Set the styles for the target element
+    // targetElement.css({
+    //     "color": "gold",
+    //     "background-color": "blue"
+    // });
+
+    // // Set the styles for sibling elements
+    // targetElement.siblings().css({
+    //     "color": "black",
+    //     "background-color": "white"
+    // });
+    // });
 }
 
 function createCheckbox(id, nama, div_filter,arr) {
@@ -153,6 +185,7 @@ function onChangeFilterCheckbox(value,type,checked){
 }
 
 function fetchSearchFilterResult() {
+    now_show = 10;
     const fullURL = window.location.href;
     const segments = fullURL.split('/');
     let query = segments[segments.length - 1];
@@ -321,8 +354,12 @@ async function fetchNewest() {
         const cardResultElement = document.getElementById('card_result');
         cardResultElement.innerHTML = '';
         if (data.hasil.length > 0) {
-            hs_head.innerHTML = '';                 
+            hs_head.innerHTML = ''; 
+            counter = 0;                
             data.hasil.forEach(function (item) {
+                counter = counter + 1;
+                // console.log(counter);
+
                 hs_head.innerHTML = '';
                 const hs_head_t = document.createElement('h5');
                 hs_head_t.textContent = "Terkini:";
@@ -334,6 +371,9 @@ async function fetchNewest() {
 
                 const card = document.createElement('div');
                 card.className = '_card';
+                card.id = "_card_"+counter;
+                // console.log(card.id);
+
                 card.setAttribute('onclick', `window.location.href='selected_card.php?document_id=${item.id}'`);
 
                 const cardImage = document.createElement('div');
@@ -390,7 +430,27 @@ async function fetchNewest() {
     } catch (error) {
         console.error('Terjadi kesalahan:', error);
     }
+    resizeListEN()
+    // console.log(document.getElementById('contEvent') === null);
 }
+
+function resizeListEN(){
+    var contEN = document.getElementById('contEventNarsum');
+    var contEvent = document.getElementById('contEvent');
+    var contNarsum = document.getElementById('contNarsum');
+    var c1 = document.getElementById('_card_1');
+    
+
+    var unitL = c1.clientWidth + 32;
+    
+    var totalUnit = Math.floor((contEN.clientWidth) / unitL);
+    var totalWidth = (totalUnit * unitL) - 32;
+    // console.log(totalWidth);
+    contEvent.setAttribute("style","width:"+totalWidth+"px");
+    contNarsum.setAttribute("style","width:"+totalWidth+"px");
+    // console.log(contEvent.clientWidth);
+}
+window.addEventListener('resize', resizeListEN);
 
 function fetchSearchResult() {
     filterNarasumber.length = 0;
@@ -498,9 +558,9 @@ function fetchSearchResult() {
                 cardItem.appendChild(card);
                 cardResultElement.appendChild(cardItem);
 
-                const showDiv = document.getElementById("show");//document.createElement("div");
-                showDiv.innerHTML = '';
-                const showCont = document.createElement("div");
+            const showDiv = document.getElementById("show");//document.createElement("div");
+            showDiv.innerHTML = '';
+            const showCont = document.createElement("div");
                 showCont.innerHTML = '';
                 showCont.id = "show";
                 // showCont.style.listStyle = 'none';
@@ -516,7 +576,7 @@ function fetchSearchResult() {
                 rowShowC.appendChild(createListItem("Show All"));
                 showCont.appendChild(rowShowC);
                 showDiv.appendChild(showCont);
-
+                
 
                 FilterColumnCanvas.innerHTML = '';
                 FilterOpenCanvas.innerHTML = '';
