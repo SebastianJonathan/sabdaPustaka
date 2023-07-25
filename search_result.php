@@ -229,7 +229,7 @@ function fetchSearchFilterResult() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/pw5/filterAPI.php', {
+        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -349,7 +349,7 @@ function fetchSearchFilterResult() {
 
 async function fetchNewest() {
     try {
-        const response = await fetch('http://localhost/pw5/getNewest.php');
+        const response = await fetch('http://localhost/UI/sabdaPustaka/getNewest.php');
         const data = await response.json();
         const cardResultElement = document.getElementById('card_result');
         cardResultElement.innerHTML = '';
@@ -497,7 +497,7 @@ function fetchSearchResult() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/pw5/filterAPI.php', {
+        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -521,7 +521,7 @@ function fetchSearchResult() {
 
                 const card = document.createElement('div');
                 card.className = '_card';
-                card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
+                card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
 
                 const cardImage = document.createElement('div');
                 cardImage.className = '_card_image';
@@ -557,63 +557,6 @@ function fetchSearchResult() {
 
                 cardItem.appendChild(card);
                 cardResultElement.appendChild(cardItem);
-
-            const showDiv = document.getElementById("show");//document.createElement("div");
-            showDiv.innerHTML = '';
-            const showCont = document.createElement("div");
-                showCont.innerHTML = '';
-                showCont.id = "show";
-                // showCont.style.listStyle = 'none';
-                showCont.style.display = "flex";
-                showCont.style.justifyContent = "end";
-                const rowShowC = document.createElement("ul");
-                rowShowC.className = "pagination"
-
-                rowShowC.appendChild(createListItem(10));
-                rowShowC.appendChild(createListItem(25));
-                rowShowC.appendChild(createListItem(50));
-                rowShowC.appendChild(createListItem(100));
-                rowShowC.appendChild(createListItem("Show All"));
-                showCont.appendChild(rowShowC);
-                showDiv.appendChild(showCont);
-                
-
-                FilterColumnCanvas.innerHTML = '';
-                FilterOpenCanvas.innerHTML = '';
-
-                // const showTitleFFC = document.createElement('h5');
-                // showTitleFFC.textContent = 'Show';
-                // showTitleFFC.style.marginTop = '20px';
-                // showTitleFFC.style.marginBottom = '18px';
-                // showTitleFFC.style.fontWeight = 'bold';
-                // showTitleFFC.style.paddingTop = '15px';
-                // showTitleFFC.style.borderTop = '2px goldenrod solid';
-                // showTitleFFC.style.color = 'gold';
-                // FilterColumnCanvas.appendChild(showTitleFFC);
-
-
-                // const showContainer = document.getElementById("show")
-
-                const titleFFC = document.createElement('h5');
-                titleFFC.textContent = 'Filter By';
-                titleFFC.style.marginTop = '20px';
-                titleFFC.style.marginBottom = '18px';
-                titleFFC.style.fontWeight = 'bold';
-                titleFFC.style.paddingTop = '15px';
-                titleFFC.style.borderTop = '2px goldenrod solid';
-                titleFFC.style.color = 'gold';
-                FilterColumnCanvas.appendChild(titleFFC);
-
-                const titleFFV = document.createElement('h5');
-                titleFFV.textContent = 'Filter By';
-                titleFFV.style.marginTop = '20px';
-                titleFFV.style.marginBottom = '20px';
-                titleFFV.style.fontWeight = 'bold';
-                titleFFV.style.paddingTop = '10px';
-                titleFFV.style.borderTop = '2px goldenrod solid';
-                titleFFV.style.color = 'gold';
-                FilterOpenCanvas.appendChild(titleFFV);
-
             });
             } else {
                 // const noResults = document.createElement('p');
@@ -638,7 +581,47 @@ function fetchSearchResult() {
             // fcolumn_tgl.innerHTML = '';
 
 
+            const showDiv = document.getElementById("show");//document.createElement("div");
+            showDiv.innerHTML = '';
+            const showCont = document.createElement("div");
+            showCont.innerHTML = '';
+            showCont.id = "show";
+            // showCont.style.listStyle = 'none';
+            showCont.style.display = "flex";
+            showCont.style.justifyContent = "end";
+            const rowShowC = document.createElement("ul");
+            rowShowC.className = "pagination"
 
+            rowShowC.appendChild(createListItem(10));
+            rowShowC.appendChild(createListItem(25));
+            rowShowC.appendChild(createListItem(50));
+            rowShowC.appendChild(createListItem(100));
+            rowShowC.appendChild(createListItem("Show All"));
+            showCont.appendChild(rowShowC);
+            showDiv.appendChild(showCont);
+                
+
+            FilterColumnCanvas.innerHTML = '';
+            FilterOpenCanvas.innerHTML = '';
+            const titleFFC = document.createElement('h5');
+            titleFFC.textContent = 'Filter By';
+            titleFFC.style.marginTop = '20px';
+            titleFFC.style.marginBottom = '18px';
+            titleFFC.style.fontWeight = 'bold';
+            titleFFC.style.paddingTop = '15px';
+            titleFFC.style.borderTop = '2px goldenrod solid';
+            titleFFC.style.color = 'gold';
+            FilterColumnCanvas.appendChild(titleFFC);
+
+            const titleFFV = document.createElement('h5');
+            titleFFV.textContent = 'Filter By';
+            titleFFV.style.marginTop = '20px';
+            titleFFV.style.marginBottom = '20px';
+            titleFFV.style.fontWeight = 'bold';
+            titleFFV.style.paddingTop = '10px';
+            titleFFV.style.borderTop = '2px goldenrod solid';
+            titleFFV.style.color = 'gold';
+            FilterOpenCanvas.appendChild(titleFFV);
             if(data.result.unique_narasumber.length > 0){
 
                 const titleFFC = document.createElement('h6');

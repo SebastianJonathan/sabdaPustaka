@@ -425,14 +425,14 @@
 
 		function goSearch() {
 			updateSessionCheckbox();
-			window.location.href = "http://localhost/pw5/home.php/search/" + document.getElementById("query").value;
+			window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById("query").value;
 		}
 		async function fetchRecommendations() {
 			const query = document.getElementById('query').value;
 			const fields = document.getElementById('query').dataset.fields;
 
 			try {
-				const response = await fetch(`http://localhost/pw5/autocomplete.php?query=${query}&fields=${fields}`);
+				const response = await fetch(`http://localhost/UI/sabdaPustaka/autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
 				// console.log(data.rekomendasi);
 				console.log(data);
@@ -446,7 +446,7 @@
 			const query = document.getElementById('query').value;
 			const fields = document.getElementById('query').dataset.fields;
 			try {
-				const response = await fetch(`http://localhost/pw5/autocomplete.php?query=${query}&fields=${fields}`);
+				const response = await fetch(`http://localhost/UI/sabdaPustaka/autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
 				// console.log(data.rekomendasi);
 				tampilkanRekomendasi(data.rekomendasi);
@@ -646,7 +646,7 @@
 		function generateEventLinks() {
 			const eventListContainer = document.getElementById('eventList');
 			events.forEach((event) => {
-				const eventUrl = 'http://localhost/pw5/related_results.php?event=' + encodeURIComponent(event);
+				const eventUrl = 'http://localhost/UI/sabdaPustaka/related_results.php?event=' + encodeURIComponent(event);
 				const eventDiv = document.createElement('li');
 				eventDiv.className = 'event-li';
 				// eventDiv.style.width = "150px";
@@ -658,7 +658,7 @@
 		function generateNarasumberLinks() {
 			const narasumberListContainer = document.getElementById('narasumberList');
 			narasumbers.forEach((narasumber) => {
-				const narasumberUrl = 'http://localhost/pw5/related_results.php?narasumber=' + encodeURIComponent(narasumber);
+				const narasumberUrl = 'http://localhost/UI/sabdaPustaka/related_results.php?narasumber=' + encodeURIComponent(narasumber);
 				const narasumberDiv = document.createElement('li');
 				narasumberDiv.className = 'narsum-li';
 				// narasumberDiv.style.width = '150px';
