@@ -1,18 +1,16 @@
 <?php
-function query($url, $method, $param)
-{
+function query($url, $param) {
     $header = array(
         'Content-Type: application/json'
     );
-    $options = array(
-        'http' => array(
-            'header' => $header,
-            'method' => $method,
-            'content' => $param
-        )
-    );
-    $context = stream_context_create($options);
-    $response = file_get_contents($url, false, $context);
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $param);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($curl);
+    curl_close($curl);
     $result = json_decode($response, true);
 
     return $result;
@@ -31,25 +29,24 @@ if (empty($narsumParam)) {
     exit();
 }
 
-// Prepare the Elasticsearch query to filter by 'event' field
 $params = [
-    'size' => 1000, // Adjust the size to match the maximum number of documents to retrieve
+    'size' => 1000,
     'query' => [
         'bool' => [
             'must' => [
-                'match' => [
-                    'narasumber' => $narsumParam
+                [
+                    'multi_match' => [
+                        'query' => $narsumParam,
+                        'fields' => ['narasumber_completion.input','ringkasan', 'deskripsi_pendek'],
+                        'operator' => 'and',
+                    ]
                 ]
             ]
         ]
     ],
-    '_source' => ['narasumber', 'judul', 'deskripsi_pendek', 'url_youtube'],
 ];
-
 $query = json_encode($params);
-$response = query($url, 'POST', $query);
-
-// Extract search results
+$response = query($url, $query);
 $hits = $response['hits']['hits'];
 $hasil = [];
 
