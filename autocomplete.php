@@ -86,6 +86,8 @@
             else if (isset($highlight['narasumber_completion.input'])) {
                 $narasumber = str_replace(",S.","|S.",$narasumber);
                 $narasumber = str_replace(", S.","| S.",$narasumber);
+                $narasumber = str_replace(",B.","|B.",$narasumber);
+                $narasumber = str_replace(", B.","| B.",$narasumber);
                 $narasumber = str_replace(",M.","|M.",$narasumber);
                 $narasumber = str_replace(", M.","| M.",$narasumber);
                 $narasumber = str_replace(",Ph.","|Ph.",$narasumber);

@@ -127,6 +127,8 @@
                 $namaNarsum = $source['narasumber'];
                 $namaNarsum = str_replace(",S.","|S.",$namaNarsum);
                 $namaNarsum = str_replace(", S.","| S.",$namaNarsum);
+                $namaNarsum = str_replace(",B.","|B.",$namaNarsum);
+                $namaNarsum = str_replace(", B.","| B.",$namaNarsum);
                 $namaNarsum = str_replace(",M.","|M.",$namaNarsum);
                 $namaNarsum = str_replace(", M.","| M.",$namaNarsum);
                 $namaNarsum = str_replace(",Ph.","|Ph.",$namaNarsum);
