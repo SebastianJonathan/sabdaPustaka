@@ -40,7 +40,7 @@ function extractUniqueSpeakers($hits)
 
 
 // Set the Elasticsearch index name and endpoint URL
-$index = 'pustaka6';
+$index = 'pustaka7';
 $url = 'http://localhost:9200/' . $index . '/_search';
 
 // Query to retrieve all documents
@@ -94,12 +94,13 @@ sort($narasumbers);
                 </div>
             </div>
             <div class="row">
+                <ul id="eventList"></ul>
                 <?php
-                foreach ($events as $event) {
-                    // Generate the link with the event as a query parameter
-                    $eventUrl = 'related_results.php?event=' . urlencode($event);
-                    echo '<div class="col-md-2 event-li"><a href="' . $eventUrl . '">' . $event . '</a></div>';
-                }
+                // foreach ($events as $event) {
+                //     // Generate the link with the event as a query parameter
+                //     $eventUrl = 'related_results.php?event=' . urlencode($event);
+                //     echo '<div class="col-md-2 event-li"><a href="' . $eventUrl . '">' . $event . '</a></div>';
+                // }
                 ?>
             </div>
         </div>
@@ -113,15 +114,17 @@ sort($narasumbers);
             <!-- Wrap the entire narasumber container with a parent container -->
             <div class="container-expandable">
                 <div class="row">
-                    <?php
-                    foreach ($narasumbers as $narasumber) {
-                        // Generate the link with the narasumber as a query parameter
-                        $narasumberUrl = 'related_results.php?narasumber=' . urlencode($narasumber);
 
-                        // Narasumber name
-                        echo '<div class="col-md-3 narsum-li"><a href="' . $narasumberUrl . '">' . $narasumber . '</a></div>';
-                    }
+                    <?php
+                    // foreach ($narasumbers as $narasumber) {
+                    //     // Generate the link with the narasumber as a query parameter
+                    //     $narasumberUrl = 'related_results.php?narasumber=' . urlencode($narasumber);
+
+                    //     // Narasumber name
+                    //     echo '<div class="col-md-3 narsum-li"><a href="' . $narasumberUrl . '">' . $narasumber . '</a></div>';
+                    // }
                     ?>
+                    <ul id="narasumberList"></ul>
                 </div>
             </div>
             <!-- Add the "V" shaped button at the bottom of the container -->
@@ -135,6 +138,9 @@ sort($narasumbers);
         // Get the container and the "V" shaped button
         const containerExpandable = document.querySelector('.container-expandable');
         const expandToggle = document.querySelector('.expand-toggle');
+		const events = <?php echo json_encode($events); ?>;
+		const narasumbers = <?php echo json_encode($narasumbers); ?>;
+
 
         expandToggle.addEventListener('click', () => {
             // Toggle the visibility of the container
@@ -144,6 +150,33 @@ sort($narasumbers);
                 containerExpandable.style.display = 'none';
             }
         });
+
+        function generateEventLinks() {
+			const eventListContainer = document.getElementById('eventList');
+			events.forEach((event) => {
+				const eventUrl = 'http://localhost/pw5/related_results.php?event=' + encodeURIComponent(event);
+				const eventDiv = document.createElement('li');
+				eventDiv.className = 'event-li';
+				// eventDiv.style.width = "150px";
+				eventDiv.innerHTML = `<a href="${eventUrl}">${event}</a>`;
+				eventListContainer.appendChild(eventDiv);
+			});
+		}
+
+		function generateNarasumberLinks() {
+			const narasumberListContainer = document.getElementById('narasumberList');
+			narasumbers.forEach((narasumber) => {
+				const narasumberUrl = 'http://localhost/pw5/related_results.php?narasumber=' + encodeURIComponent(narasumber);
+				const narasumberDiv = document.createElement('li');
+				narasumberDiv.className = 'narsum-li';
+				// narasumberDiv.style.width = '150px';
+				narasumberDiv.innerHTML = `<a href="${narasumberUrl}">${narasumber}</a>`;
+				narasumberListContainer.appendChild(narasumberDiv);
+			});
+		}
+
+        generateEventLinks();
+		generateNarasumberLinks();
     </script>
 
     <?php include 'footer.php'; ?>

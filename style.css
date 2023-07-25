@@ -286,11 +286,10 @@ img {
         display: none;
     }
 
+    .col-filter{
+        display: unset;
+    }
 
-
-}
-
-@media (min-width: 768px){
     #col-filter-sm{
         display: none;
     }
@@ -299,6 +298,9 @@ img {
 @media (max-width: 768px){
     .col-filter{
         display: none;
+    }
+    .filter-sm-btn{
+        display: unset;
     }
 }
 
