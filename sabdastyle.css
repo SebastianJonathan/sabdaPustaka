@@ -14,6 +14,21 @@
     margin-top: 1%;
 }
 
+.floating-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 40px;
+    text-decoration: none;
+}
+
+.floating-btn:hover {
+    background-color: #0056b3;
+}
+
 .button {
     color: white;
     /* background-color: #222; */

@@ -3,23 +3,6 @@
 
 <head>
 	<?php include 'header.php' ?>
-	<style>
-    /* Add some custom styling to the button */
-    .floating-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #007bff;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 5px;
-      text-decoration: none;
-    }
-
-    .floating-btn:hover {
-      background-color: #0056b3;
-    }
-  </style>
 </head>
 
 <body>
@@ -236,7 +219,7 @@
 		<div class="row" style="height: 20px;"></div>
 	</div><!-- row konten -->
 	</div> <!-- Container -->
-	<a class="floating-btn" id="down-button" onclick="scrollToBottom()">Go To Bottom</a>
+	<a class="floating-btn" id="down-button" onclick="scrollToBottom()">🢃</a>
 
 
 
