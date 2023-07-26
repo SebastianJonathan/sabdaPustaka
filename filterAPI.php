@@ -30,9 +30,21 @@
         $narasumber = array();
         $event = array();
         $tanggal = array();
-        $url = 'http://localhost:9200/pustaka7/_search';
+        $url = 'http://localhost:9200/pustaka6/_search';
+        $params2 = [
+            'size' => 10000,
+            'query' => [
+                'match_all' => new stdClass(),
+            ],
+        ];
+        $query2 = json_encode($params2);
+        $response2 = query($url, $query2);
+        $totalHits = 0;
+        foreach($response2['hits']['hits'] as $datas){
+            $totalHits += 1;
+        }
         $params = [
-            'size' => $jsonFilter["size"],
+            'size' => 10,
             'query' => [
                 'match_all' => new stdClass(),
             ],
@@ -99,7 +111,8 @@
             'unique_tanggal' => $tanggal,
             'countEvent' => $countEvent,
             'countNarasumber' => $countNarasumber,
-            'countTahun' => $countTahun
+            'countTahun' => $countTahun,
+            'total' => $totalHits
         ];
         echo json_encode(['result' => $jsonData]);
     }
@@ -122,7 +135,29 @@
             $narasumber = array();
             $event = array();
             $tanggal = array();
-            $url = 'http://localhost:9200/pustaka7/_search';
+            $url = 'http://localhost:9200/pustaka6/_search';
+            $params2 = [
+                'size' => 10000,
+                'query' => [
+                    'bool' => [
+                        'must' => [
+                            [
+                                'multi_match' => [
+                                    'query' => $jsonSearch["query"],
+                                    'fields' => $field,
+                                    'operator' => 'and',
+                                ]
+                            ]
+                        ]
+                    ]
+                ],
+            ];
+            $query2 = json_encode($params2);
+            $response2 = query($url, $query2);
+            $totalHits = 0;
+            foreach($response2['hits']['hits'] as $datas){
+                $totalHits += 1;
+            }
             $params = [
                 'size' => $jsonSearch["size"],
                 'query' => [
@@ -201,7 +236,8 @@
                 'unique_tanggal' => $tanggal,
                 'countEvent' => $countEvent,
                 'countNarasumber' => $countNarasumber,
-                'countTahun' => $countTahun
+                'countTahun' => $countTahun,
+                'total' => $totalHits
             ];
             echo json_encode(['result' => $jsonData]);
         }
@@ -231,7 +267,38 @@
             ];
             echo json_encode(['result' => $results]);
         }else{
-            $url = 'http://localhost:9200/pustaka7/_search';
+            $url = 'http://localhost:9200/pustaka6/_search';
+            if($jsonSearch["query"] === "Kosong"){
+                $params2 = [
+                    'size' => 10000,
+                    'query' => [
+                        'match_all' => new stdClass(),
+                    ],
+                ];
+            }else{
+                $params2 = [
+                    'size' => 10000,
+                    'query' => [
+                        'bool' => [
+                            'must' => [
+                                [
+                                    'multi_match' => [
+                                        'query' => $jsonSearch["query"],
+                                        'fields' => $field,
+                                        'operator' => 'and'
+                                    ]
+                                ],
+                            ],
+                        ],
+                    ],
+                ];
+            }
+            $query2 = json_encode($params2);
+            $response2 = query($url, $query2);
+            $totalHits = 0;
+            foreach($response2['hits']['hits'] as $datas){
+                $totalHits += 1;
+            }
             if($jsonSearch["query"] === "Kosong"){
                 $params = [
                     'size' => $jsonSearch["size"],
@@ -477,7 +544,8 @@
                 'tahun' => $tahun,
                 'countEvent' => $countEvent,
                 'countNarasumber' => $countNarasumber,
-                'countTahun' => $countTahun
+                'countTahun' => $countTahun,
+                'total' => $totalHits
             ];
             echo json_encode(['result' => $results]);
         }
