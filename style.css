@@ -130,11 +130,10 @@ img {
 }
 
 ._card_text {
-    color: #ffffff;
+    color: gold;
     font-size: 1rem;
     line-height: 1.4;
     margin-bottom: 0;
-    font-weight: 400;
 }
 
 ._card_image {
@@ -198,12 +197,12 @@ img {
 }
 
 .fs-btn{
-	background-color:#06638F;
+	background-color:#FF6663;
 }
 
 .fs-btn:hover {
-    background-color: #057fbc;
-}
+    background-color: #F4AFB4;
+    color: #272727}
 
 .ffv_head, .ffc_head{
 	margin-bottom: 4px;
