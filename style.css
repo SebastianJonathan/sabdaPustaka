@@ -283,6 +283,30 @@ img {
 	
 }
 
+@media (min-width: 992px){
+    .filter-sm-btn{
+        display: none;
+    }
+
+    .col-filter{
+        display: unset;
+    }
+
+    #col-filter-sm{
+        display: none;
+    }
+}
+
+@media (max-width: 992px){
+    .col-filter{
+        display: none;
+    }
+    .filter-sm-btn{
+        display: unset;
+    }
+}
+
+
 @media (min-width: 768px) {
     .content-container {
         flex-wrap: nowrap;
@@ -295,18 +319,6 @@ img {
 
     .details-container {
         flex-basis: 40%;
-    }
-
-    .filter-sm-btn{
-        display: none;
-    }
-
-    .col-filter{
-        display: unset;
-    }
-
-    #col-filter-sm{
-        display: none;
     }
 }
 

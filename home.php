@@ -36,9 +36,9 @@
 
 
 		<!-- Konten Website -->
-		<div class="row">
+		<div class="row" id="kontenS">
 			<!--COL Search & Filter  -->
-			<div class="col-lg-2 col-md-3 col-filter" style="padding-right: 5px; padding-left:10px; min-width:210px;">
+			<div class="col-lg-2 col-md-3 col-filter" id="col-filter-md" style="padding-right: 5px; padding-left:10px; min-width:210px;">
 				<div class="card sect-cont-sidebar">
 					<!-- <img src="..." class="card-img-top" alt="..."> -->
 					<div class="card-body card-sidebar">
@@ -255,7 +255,7 @@
 	}
 
 	// Set the Elasticsearch index name and endpoint URL
-	$index = 'pustaka6';
+	$index = 'pustaka7';
 	$url = 'http://localhost:9200/' . $index . '/_search';
 
 	// Query to retrieve all documents
@@ -436,14 +436,14 @@
 
 		function goSearch() {
 			updateSessionCheckbox();
-			window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById("query").value;
+			window.location.href = "http://localhost/pw5/home.php/search/" + document.getElementById("query").value;
 		}
 		async function fetchRecommendations() {
 			const query = document.getElementById('query').value;
 			const fields = document.getElementById('query').dataset.fields;
 
 			try {
-				const response = await fetch(`http://localhost/UI/sabdaPustaka/autocomplete.php?query=${query}&fields=${fields}`);
+				const response = await fetch(`http://localhost/pw5/autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
 				// console.log(data.rekomendasi);
 				console.log(data);
@@ -457,7 +457,7 @@
 			const query = document.getElementById('query').value;
 			const fields = document.getElementById('query').dataset.fields;
 			try {
-				const response = await fetch(`http://localhost/UI/sabdaPustaka/autocomplete.php?query=${query}&fields=${fields}`);
+				const response = await fetch(`http://localhost/pw5/autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
 				// console.log(data.rekomendasi);
 				tampilkanRekomendasi(data.rekomendasi);
@@ -658,7 +658,7 @@
 		function generateEventLinks() {
 			const eventListContainer = document.getElementById('eventList');
 			events.forEach((event) => {
-				const eventUrl = 'http://localhost/UI/sabdaPustaka/related_results.php?event=' + encodeURIComponent(event);
+				const eventUrl = 'http://localhost/pw5/related_results.php?event=' + encodeURIComponent(event);
 				const eventDiv = document.createElement('li');
 				eventDiv.className = 'event-li';
 				// eventDiv.style.width = "150px";
@@ -670,7 +670,7 @@
 		function generateNarasumberLinks() {
 			const narasumberListContainer = document.getElementById('narasumberList');
 			narasumbers.forEach((narasumber) => {
-				const narasumberUrl = 'http://localhost/UI/sabdaPustaka/related_results.php?narasumber=' + encodeURIComponent(narasumber);
+				const narasumberUrl = 'http://localhost/pw5/related_results.php?narasumber=' + encodeURIComponent(narasumber);
 				const narasumberDiv = document.createElement('li');
 				narasumberDiv.className = 'narsum-li';
 				// narasumberDiv.style.width = '150px';
