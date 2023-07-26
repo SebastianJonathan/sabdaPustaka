@@ -3,6 +3,17 @@
 
 <head>
 	<?php include 'header.php' ?>
+	<style>
+	._cards_item2 {
+		margin-bottom: 10px; /* Adjust the spacing between cards */
+		display: block; /* Display each card as a block to make them vertical */
+	}
+	.container-list {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+	}	
+	</style>
 </head>
 
 <body>
@@ -740,9 +751,17 @@
 			sessionStorage.setItem("lastUrl", fullURL);
 			const segments = fullURL.split('/');
 			if (segments[segments.length - 2] == "search") {
-				fetchSearchResult();
+				if(sessionStorage.getItem("mode") == null){
+					sessionStorage.setItem("mode","card");
+				}
+				if(sessionStorage.getItem("mode") == "card"){
+					fetchSearchResult();
+				}else if(sessionStorage.getItem("mode") == "list"){
+					fetchSearchResult2();
+				}
 				removeAllElements();
 			} else {
+				sessionStorage.setItem("mode","card");
 				selectAll();
 				fetchNewest();
 				generateEventLinks();

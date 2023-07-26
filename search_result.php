@@ -86,6 +86,11 @@ function createCheckbox(id, nama, div_filter,arr) {
             onChangeFilterCheckbox(nama,"tanggal",input.checked);
         }
         // console.log(filterNarasumber);
+        if(sessionStorage.getItem("mode") == "card"){
+			fetchSearchFilterResult();
+		}else if(sessionStorage.getItem("mode") == "list"){
+			fetchSearchFilterResult2();
+		}
         fetchSearchFilterResult();
     };
 
@@ -153,7 +158,7 @@ function onChangeFilterCheckbox(value,type,checked){
     }
 }
 
-function fetchSearchFilterResult() {
+function fetchSearchFilterResult2() {
     now_show = 10;
     const fullURL = window.location.href;
     const segments = fullURL.split('/');
@@ -194,11 +199,168 @@ function fetchSearchFilterResult() {
 
         // Get the card_result container element
         const cardResultElement = document.getElementById('card_result');
+        cardResultElement.classList.add('container-list');
+        cardResultElement.classList.add('_card2');
+        cardResultElement.classList.remove('_cards');
 
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/pw5/filterAPI.php', {
+        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: filterJson,
+        })
+        .then(response => response.json())
+        .then(data => {
+            const cardResultElement = document.getElementById('card_result');
+            cardResultElement.innerHTML = '';
+
+            data.result.data.forEach(function (item) {
+                // Create a card element
+                const cardItem = document.createElement('div');
+                cardItem.className = '_cards_item2';
+
+                const card = document.createElement('div');
+                card.className = '_card';
+                card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
+
+                const cardContent = document.createElement('div');
+                cardContent.className = '_card_content';
+
+                const cardTitle = document.createElement('h2');
+                cardTitle.className = '_card_title';
+                cardTitle.textContent = item.judul;
+
+                const cardText = document.createElement('p');
+                cardText.className = '_card_text';
+                cardText.textContent = item.narasumber;
+
+                // Append the card content to the card element
+                card.appendChild(cardContent);
+
+                cardContent.appendChild(cardTitle);
+                cardContent.appendChild(cardText);
+
+                // Append the card to the main container
+                cardItem.appendChild(card);
+                cardResultElement.appendChild(cardItem);
+            });
+            fopen_narasumber.innerHTML = '';
+            fcolumn_narasumber.innerHTML = '';
+            fopen_event.innerHTML = '';
+            fcolumn_event.innerHTML = '';
+            fopen_tgl.innerHTML = '';
+            fcolumn_tgl.innerHTML = '';
+
+            if(data.result.narasumber.length > 0){
+                // const titleFFV = document.createElement('h6');
+                // titleFFV.textContent = "Filter Berdasarkan Narasumber";
+                // titleFFV.id = "ffv-narasumber";
+                // titleFFV.style.fontWeight = "bold";
+                // const titleFFC = document.createElement('h6');
+                // titleFFC.textContent = "Filter Berdasarkan Narasumber";
+                // titleFFC.id = "ffc-narasumber";
+                // titleFFC.style.fontWeight = "bold";
+                // fopen_narasumber.appendChild(titleFFV);
+                // fcolumn_narasumber.appendChild(titleFFC);
+                data.result.narasumber.forEach(function (item,index){
+                    createCheckbox("ffv-n" + index,item,fopen_narasumber,data.result.countNarasumber);
+                    createCheckbox("ffc-n" + index,item,fcolumn_narasumber,data.result.countNarasumber);
+                });
+            }
+            if(data.result.event.length > 0){
+                // const titleFFV = document.createElement('h6');
+                // titleFFV.textContent = "Filter Berdasarkan Event";
+                // titleFFV.id = "ffv-event";
+                // titleFFV.style.fontWeight = "bold";
+                // const titleFFC = document.createElement('h6');
+                // titleFFC.textContent = "Filter Berdasarkan Event";
+                // titleFFC.id = "ffc-event";
+                // titleFFC.style.fontWeight = "bold";
+                // fopen_event.appendChild(titleFFV);
+                // fcolumn_event.appendChild(titleFFC);
+                data.result.event.forEach(function (item,index){
+                    createCheckbox("ffv-e" + index,item,fopen_event,data.result.countEvent);
+                    createCheckbox("ffc-e" + index,item,fcolumn_event,data.result.countEvent);
+                });
+            }
+            if(data.result.tahun.length > 0){
+                // const titleFFV = document.createElement('h6');
+                // titleFFV.textContent = "Filter Berdasarkan Tahun";
+                // titleFFV.id = "ffv-tanggal";
+                // titleFFV.style.fontWeight = "bold";
+                // const titleFFC = document.createElement('h6');
+                // titleFFC.textContent = "Filter Berdasarkan Tahun";
+                // titleFFC.id = "ffc-tanggal";
+                // titleFFC.style.fontWeight = "bold";
+                // fopen_tgl.appendChild(titleFFV);
+                // fcolumn_tgl.appendChild(titleFFC);
+                data.result.tahun.forEach(function (item,index){
+                    createCheckbox("ffv-t" + index,item.substring(0,4),fopen_tgl,data.result.countTahun);
+                    createCheckbox("ffc-t" + index,item.substring(0,4),fcolumn_tgl,data.result.countTahun);
+                });
+            }
+        })
+        .catch(error => {
+        // Handle any errors
+        console.error(error);
+        });
+    }
+}
+
+function fetchSearchFilterResult() {
+    now_show = 10;
+    console.log(filterEvent,filterNarasumber,filterTanggal);
+    const fullURL = window.location.href;
+    const segments = fullURL.split('/');
+    let query = segments[segments.length - 1];
+    query = query.replace(/%20/g, ' ');
+    if(query != null){
+        // Initialize fieldSearch array
+        let fieldSearch = [];
+
+        // Check if the respective checkboxes are checked and add fields to fieldSearch array
+        if (sessionStorage.getItem("checkboxJudul") == "true") {
+            fieldSearch.push('judul_completion.input');
+        }
+        if (sessionStorage.getItem("checkboxNarasumber") == "true") {
+            fieldSearch.push('narasumber_completion.input');
+        }
+        if (sessionStorage.getItem("checkboxEvent") == "true") {
+            fieldSearch.push('event_completion.input');
+        }
+        if (sessionStorage.getItem("checkboxRelated") == "true") {
+            fieldSearch.push('deskripsi_pendek');
+            fieldSearch.push('ringkasan');
+            fieldSearch.push('kata_kunci');
+        }
+        // Create the filter object
+        const filter = {
+            "query": query,
+            "size": pageSize,
+            "API": "searchFilter",
+            "fields": fieldSearch,
+            "narasumber": filterNarasumber,
+            "event": filterEvent,
+            "tanggal": filterTanggal
+        };
+
+        // Convert the filter object to JSON
+        const filterJson = JSON.stringify(filter);
+
+        // Get the card_result container element
+        const cardResultElement = document.getElementById('card_result');
+        cardResultElement.classList.remove('container-list');
+        cardResultElement.classList.remove('_card2');
+        cardResultElement.classList.add('_cards');
+
+        // Delete all card elements by setting the innerHTML to an empty string
+        cardResultElement.innerHTML = '';
+
+        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -318,7 +480,7 @@ function fetchSearchFilterResult() {
 
 async function fetchNewest() {
     try {
-        const response = await fetch('http://localhost/pw5/getNewest.php');
+        const response = await fetch('http://localhost/UI/sabdaPustaka/getNewest.php');
         const data = await response.json();
         const cardResultElement = document.getElementById('card_result');
         cardResultElement.innerHTML = '';
@@ -465,11 +627,14 @@ function fetchSearchResult() {
 
         // Get the card_result container element
         const cardResultElement = document.getElementById('card_result');
+        cardResultElement.classList.remove('container-list');
+        cardResultElement.classList.add('_cards');
+        cardResultElement.classList.remove('_cards2');
 
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/pw5/filterAPI.php', {
+        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -479,11 +644,12 @@ function fetchSearchResult() {
         .then(response => response.json())
         .then(data => {
             const cardResultElement = document.getElementById('card_result');
+            cardResultElement.classList.remove('container-list');
             cardResultElement.innerHTML = '';
             if (data.result.data_result.length > 0) {
                 hs_head.innerHTML = '';
                 const hs_head_t = document.createElement('h5');
-                hs_head_t.textContent = "Hasil Search:";
+                hs_head_t.textContent = "Hasil Search Untuk : " + query;
                 hs_head_t.style.fontWeight = "bold";
                 hs_head.appendChild(hs_head_t);                    
                 
@@ -493,7 +659,7 @@ function fetchSearchResult() {
 
                 const card = document.createElement('div');
                 card.className = '_card';
-                card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
+                card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
 
                 const cardImage = document.createElement('div');
                 cardImage.className = '_card_image';
@@ -531,6 +697,293 @@ function fetchSearchResult() {
                 cardResultElement.appendChild(cardItem);
             });
             } else {
+                // const noResults = document.createElement('p');
+                // noResults.textContent = 'No results found.';
+                // cardResultElement.appendChild(noResults);
+                FilterColumnCanvas.innerHTML = '';
+                FilterOpenCanvas.innerHTML = '';
+
+                hs_head.innerHTML = '';
+                const hs_head_t = document.createElement('h5');
+                hs_head_t.textContent = "No Results Found";
+                hs_head_t.style.fontWeight = "bold";
+                hs_head.appendChild(hs_head_t);  
+            }
+            // filterOpenCanvas.innerHTML = '';
+            // filterColumnCanvas.innerHTML = '';
+            // fopen_narasumber.innerHTML = '';
+            // fcolumn_narasumber.innerHTML = '';
+            // fopen_event.innerHTML = '';
+            // fcolumn_event.innerHTML = '';
+            // fopen_tgl.innerHTML = '';
+            // fcolumn_tgl.innerHTML = '';
+
+
+            const showDiv = document.getElementById("show");//document.createElement("div");
+            showDiv.innerHTML = '';
+            const showCont = document.createElement("div");
+            showCont.innerHTML = '';
+            showCont.id = "show";
+            // showCont.style.listStyle = 'none';
+            showCont.style.display = "flex";
+            showCont.style.justifyContent = "end";
+            const rowShowC = document.createElement("ul");
+            rowShowC.className = "pagination"
+
+            rowShowC.appendChild(createListItem(10));
+            rowShowC.appendChild(createListItem(25));
+            rowShowC.appendChild(createListItem(50));
+            rowShowC.appendChild(createListItem(100));
+            rowShowC.appendChild(createListItem("Show All"));
+            showCont.appendChild(rowShowC);
+            showDiv.appendChild(showCont);
+                
+
+            FilterColumnCanvas.innerHTML = '';
+            FilterOpenCanvas.innerHTML = '';
+            const titleFFC = document.createElement('h5');
+            titleFFC.textContent = 'Filter By';
+            titleFFC.style.marginTop = '20px';
+            titleFFC.style.marginBottom = '18px';
+            titleFFC.style.fontWeight = 'bold';
+            titleFFC.style.paddingTop = '15px';
+            titleFFC.style.borderTop = '2px goldenrod solid';
+            titleFFC.style.color = 'gold';
+            FilterColumnCanvas.appendChild(titleFFC);
+
+            const titleFFV = document.createElement('h5');
+            titleFFV.textContent = 'Filter By';
+            titleFFV.style.marginTop = '20px';
+            titleFFV.style.marginBottom = '20px';
+            titleFFV.style.fontWeight = 'bold';
+            titleFFV.style.paddingTop = '10px';
+            titleFFV.style.borderTop = '2px goldenrod solid';
+            titleFFV.style.color = 'gold';
+            FilterOpenCanvas.appendChild(titleFFV);
+            if(data.result.unique_narasumber.length > 0){
+
+                const titleFFC = document.createElement('h6');
+                titleFFC.textContent = "Narasumber";
+                titleFFC.id = "ffc-narasumber";
+                titleFFC.className = "ffc_head";
+                // titleFFC.style.fontWeight = "bold";
+                FilterColumnCanvas.appendChild(titleFFC);
+
+                const titleFFV = document.createElement('h6');
+                titleFFV.textContent = "Narasumber";
+                titleFFV.id = "ffv-narasumber";
+                titleFFV.className = "ffv_head";
+                // titleFFV.style.fontWeight = "bold";
+                FilterOpenCanvas.appendChild(titleFFV);
+
+                fcolumn_narasumber.innerHTML = '';
+                fcolumn_narasumber.className = "row ffc ";
+                // fcolumn_narasumber.style.paddingTop = '15px';
+                // fcolumn_narasumber.style.marginTop = '10px';
+                // fcolumn_narasumber.style.borderTop = '1px solid black';
+                fcolumn_narasumber.id = 'ffc-filter-naras';
+                FilterColumnCanvas.appendChild(fcolumn_narasumber);
+
+                fopen_narasumber.innerHTML = '';
+                fopen_narasumber.className = "row ffv";
+                // fopen_narasumber.style.paddingTop = '15px';
+                // fopen_narasumber.style.marginTop = '10px';
+                // fopen_narasumber.style.borderTop = '1px solid black';
+                fopen_narasumber.id = 'ffv-filter-naras';
+                FilterOpenCanvas.appendChild(fopen_narasumber);
+
+                data.result.unique_narasumber.forEach(function (item,index){
+                    createCheckbox("ffv-n" + index,item,fopen_narasumber,data.result.countNarasumber);
+                    createCheckbox("ffc-n" + index,item,fcolumn_narasumber,data.result.countNarasumber);
+                });
+            }
+            if(data.result.unique_event.length > 0){
+                const titleFFV = document.createElement('h6');
+                titleFFV.textContent = "Event";
+                titleFFV.id = "ffv-event";
+                titleFFV.className = "ffv_head";
+                // titleFFV.style.fontWeight = "bold";
+                FilterOpenCanvas.appendChild(titleFFV);
+
+                const titleFFC = document.createElement('h6');
+                titleFFC.textContent = "Event";
+                titleFFC.id = "ffc-event";
+                titleFFC.className = "ffc_head";
+                // titleFFC.style.fontWeight = "bold";
+                FilterColumnCanvas.appendChild(titleFFC);
+
+                fcolumn_event.innerHTML = '';
+                fcolumn_event.className = "row ffc";
+                // fcolumn_event.style.paddingTop = '15px';
+                // fcolumn_event.style.marginTop = '10px';
+                // fcolumn_event.style.borderTop = '1px solid black';
+                fcolumn_event.id = 'ffc-filter-event';
+                FilterColumnCanvas.appendChild(fcolumn_event);
+
+                fopen_event.innerHTML = '';
+                fopen_event.className = "row ffv";
+                // fopen_event.style.paddingTop = '15px';
+                // fopen_event.style.marginTop = '10px';
+                // fopen_event.style.borderTop = '1px solid black';
+                fopen_event.id = 'ffv-filter-event';
+                FilterOpenCanvas.appendChild(fopen_event);
+
+                data.result.unique_event.forEach(function (item,index){
+                    createCheckbox("ffv-e" + index,item,fopen_event,data.result.countEvent);
+                    createCheckbox("ffc-e" + index,item,fcolumn_event,data.result.countEvent);
+                });
+            }
+            if(data.result.unique_tanggal.length > 0){
+                const titleFFV = document.createElement('h6');
+                titleFFV.textContent = "Tahun";
+                titleFFV.id = "ffv-tanggal";
+                titleFFV.className = "ffv_head";
+                // titleFFV.style.fontWeight = "bold";
+                const titleFFC = document.createElement('h6');
+                titleFFC.textContent = "Tahun";
+                titleFFC.id = "ffc-tanggal";
+                titleFFC.className = "ffc_head";
+                // titleFFC.style.fontWeight = "bold";
+                FilterOpenCanvas.appendChild(titleFFV);
+                FilterColumnCanvas.appendChild(titleFFC);
+
+                fcolumn_tgl.innerHTML = '';
+                fcolumn_tgl.className = "row ffc";
+                // fcolumn_tgl.style.paddingTop = '15px';
+                // fcolumn_tgl.style.marginTop = '10px';
+                // fcolumn_tgl.style.borderTop = '1px solid black';
+                
+                fcolumn_tgl.id = 'ffc-filter-tgl';
+                FilterColumnCanvas.appendChild(fcolumn_tgl);
+
+                fopen_tgl.innerHTML = '';
+                fopen_tgl.className = "row ffv";
+                // fopen_tgl.style.paddingTop = '15px';
+                // fopen_tgl.style.marginTop = '10px';
+                // fopen_tgl.style.borderTop = '1px solid black';
+                fopen_tgl.id = 'ffv-filter-tgl';
+                FilterOpenCanvas.appendChild(fopen_tgl);
+
+                data.result.unique_tanggal.forEach(function (item,index){
+                    createCheckbox("ffv-t" + index,item,fopen_tgl,data.result.countTahun);
+                    createCheckbox("ffc-t" + index,item,fcolumn_tgl,data.result.countTahun);
+                });
+
+                const clrFilterBtn = document.createElement('button');
+                clrFilterBtn.type = 'button';
+                clrFilterBtn.className = "button clrfilter_btn";
+                clrFilterBtn.textContent = 'Clear All Filter';
+                clrFilterBtn.style.color = 'black';
+                clrFilterBtn.onclick = clrAllFilterCheckbox;
+                FilterOpenCanvas.appendChild(clrFilterBtn);
+                FilterColumnCanvas.appendChild(clrFilterBtn);
+            }
+        })
+        .catch(error => {
+        // Handle any errors
+        console.error(error);
+        });
+    }
+}
+
+function fetchSearchResult2() {
+    filterNarasumber.length = 0;
+    filterEvent.length = 0;
+    filterTanggal.length = 0;
+    const fullURL = window.location.href;
+    const segments = fullURL.split('/');
+    let query = segments[segments.length - 1];
+    query = query.replace(/%20/g, ' ');
+    if(query != null){
+        document.getElementById('query').value = query;
+        // Initialize fieldSearch array
+        let fieldSearch = [];
+
+        // Check if the respective checkboxes are checked and add fields to fieldSearch array
+        if (sessionStorage.getItem("checkboxJudul") == "true") {
+            fieldSearch.push('judul_completion.input');
+        }
+        if (sessionStorage.getItem("checkboxNarasumber") == "true") {
+            fieldSearch.push('narasumber_completion.input');
+        }
+        if (sessionStorage.getItem("checkboxEvent") == "true") {
+            fieldSearch.push('event_completion.input');
+        }
+        if (sessionStorage.getItem("checkboxRelated") == "true") {
+            fieldSearch.push('deskripsi_pendek');
+            fieldSearch.push('ringkasan');
+            fieldSearch.push('kata_kunci');
+        }
+        // Create the filter object
+        const filter = {
+            "query": query,
+            "size": pageSize,
+            "API": "search",
+            "fields": fieldSearch
+        };
+
+        // Convert the filter object to JSON
+        const filterJson = JSON.stringify(filter);
+
+        // Get the card_result container element
+        const cardResultElement = document.getElementById('card_result');
+        cardResultElement.classList.add('container-list');
+        cardResultElement.classList.remove('_cards');
+        cardResultElement.classList.add('_cards2');
+
+        // Delete all card elements by setting the innerHTML to an empty string
+        cardResultElement.innerHTML = '';
+
+        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: filterJson,
+        })
+        .then(response => response.json())
+        .then(data => {
+            const cardResultElement = document.getElementById('card_result');
+            cardResultElement.innerHTML = '';
+            if (data.result.data_result.length > 0) {
+                hs_head.innerHTML = '';
+                const hs_head_t = document.createElement('h5');
+                hs_head_t.textContent = "Hasil Search Untuk : " + query;
+                hs_head_t.style.fontWeight = "bold";
+                hs_head.appendChild(hs_head_t);
+
+                data.result.data_result.forEach(function (item) {
+                    // Create a card element
+                    const cardItem = document.createElement('div');
+                    cardItem.className = '_cards_item2';
+
+                    const card = document.createElement('div');
+                    card.className = '_card';
+                    card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
+
+                    const cardContent = document.createElement('div');
+                    cardContent.className = '_card_content';
+
+                    const cardTitle = document.createElement('h2');
+                    cardTitle.className = '_card_title';
+                    cardTitle.textContent = item.judul;
+
+                    const cardText = document.createElement('p');
+                    cardText.className = '_card_text';
+                    cardText.textContent = item.narasumber;
+
+                    // Append the card content to the card element
+                    card.appendChild(cardContent);
+
+                    cardContent.appendChild(cardTitle);
+                    cardContent.appendChild(cardText);
+
+                    // Append the card to the main container
+                    cardItem.appendChild(card);
+                    cardResultElement.appendChild(cardItem);
+                });
+            }
+            else {
                 // const noResults = document.createElement('p');
                 // noResults.textContent = 'No results found.';
                 // cardResultElement.appendChild(noResults);
