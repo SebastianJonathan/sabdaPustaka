@@ -463,6 +463,7 @@
 			li.addEventListener('click', function() {
 				document.getElementById('query').value = item
 				hideRekomendasi();
+				goSearch();
 			});
 			rekomendasiList.appendChild(li);
 		}
