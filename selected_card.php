@@ -16,10 +16,10 @@
           entry.target.classList.remove('_show');
         }
       });
-      threshold = 0.1;  
+      threshold = 0.1;
     });
 
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
       console.log("t");
       const hiddenElements = document.querySelectorAll('._hidden');
       console.log(hiddenElements);
@@ -102,17 +102,17 @@
       $pertanyaan = explode('?', $list_pertanyaan);
       $katakunci = explode(', ', $kata_kunci);
       $pembicara = $source['narasumber'];
-      $pembicara = str_replace(",S.","|S.",$pembicara);
-      $pembicara = str_replace(", S.","| S.",$pembicara);
-      $pembicara = str_replace(",B.","|B.",$pembicara);
-      $pembicara = str_replace(", B.","| B.",$pembicara);
-      $pembicara = str_replace(",M.","|M.",$pembicara);
-      $pembicara = str_replace(", M.","| M.",$pembicara);
-      $pembicara = str_replace(",Ph.","|Ph.",$pembicara);
-      $pembicara = str_replace(", Ph.","| Ph.",$pembicara);
+      $pembicara = str_replace(",S.", "|S.", $pembicara);
+      $pembicara = str_replace(", S.", "| S.", $pembicara);
+      $pembicara = str_replace(",B.", "|B.", $pembicara);
+      $pembicara = str_replace(", B.", "| B.", $pembicara);
+      $pembicara = str_replace(",M.", "|M.", $pembicara);
+      $pembicara = str_replace(", M.", "| M.", $pembicara);
+      $pembicara = str_replace(",Ph.", "|Ph.", $pembicara);
+      $pembicara = str_replace(", Ph.", "| Ph.", $pembicara);
       $pembicara = explode(',', $narasumber);
-      $pembicara = str_replace("|",",",$pembicara);
-  ?>
+      $pembicara = str_replace("|", ",", $pembicara);
+      ?>
 
       <div class="container-fluid">
         <!-- PPT & Ringkasan -->
@@ -120,26 +120,37 @@
           <div class="col-lg-6" style="padding:7px;">
             <?php
             if ($url_static) {
-            ?>
-              <iframe src="<?php echo $url_static ?>" width="100%" height="400px"></iframe>
-            <?php
+              ?>
+              <?php
+              $filename_with_slash = strrchr($url_static, '/');
+              $filename = ltrim($filename_with_slash, '/');
+              $new_filename = str_replace('.pdf', '.png', $filename);
+              ?>
+
+              <img src="img/<?php echo $new_filename; ?>" alt="Your Image Description" width="1280">
+              <?php
             } else {
-            ?>
+              ?>
               <div class="error-message" style="padding:7px;">
-                <p class="text-center">Tampilan Presentasi belum ada, silahkan pergi ke <a href="<?php echo $url_slideshare ?>" target="_blank">link ini</a></p>
+                <p class="text-center">Tampilan Presentasi belum ada, silahkan pergi ke <a
+                    href="<?php echo $url_slideshare ?>" target="_blank">link ini</a></p>
               </div>
-            <?php
+              <?php
             }
             ?>
           </div>
           <div class="col-lg-6" style>
             <div class="details-container">
               <div class="details-content">
-                <h2><?php echo $judul; ?></h2>
+                <h2>
+                  <?php echo $judul; ?>
+                </h2>
 
                 <!-- Narasumer & Tanggal -->
                 <div class="narsum-tanggal">
-                  <p><span class="label"></span><span class="value" style="font-weight: bold;"><?php echo $event; ?></p>
+                  <p><span class="label"></span><span class="value" style="font-weight: bold;">
+                      <?php echo $event; ?>
+                  </p>
                   <?php
                   echo "Narasumber / Pembicara:   ";
                   foreach ($pembicara as $item) {
@@ -150,11 +161,15 @@
                     }
                   }
                   ?>
-                  <p><span class="label"></span><span class="value"> Tanggal: <?php echo date('j F Y', strtotime($tanggal)); ?></p>
+                  <p><span class="label"></span><span class="value"> Tanggal:
+                      <?php echo date('j F Y', strtotime($tanggal)); ?>
+                  </p>
                 </div>
 
                 <!-- Deskripsi Pendek -->
-                <p><span class="label"></span> <?php echo $deskripsi_pendek; ?></p>
+                <p><span class="label"></span>
+                  <?php echo $deskripsi_pendek; ?>
+                </p>
 
                 <!-- Button YT & SlideShare -->
                 <span>
@@ -223,20 +238,20 @@
       </div>
 
 
-    <?php
+      <?php
     } else {
+      ?>
+      <br>
+      <h1>Document not found<h1><br>
+          <?php
+    }
+  } else {
     ?>
       <br>
       <h1>Document not found<h1><br>
-        <?php
-      }
-    } else {
-        ?>
-        <br>
-        <h1>Document not found<h1><br>
           <?php
-        }
-          ?>
+  }
+  ?>
 
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
           <script>
