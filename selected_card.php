@@ -40,6 +40,14 @@
       filter: blur(0);
       transform: translateX(0);
     }
+
+    .unduh h6{
+      font-weight: bold;
+      font-size: small;
+      text-decoration: underline;
+      text-align: center;
+      color: coral;
+    }
   </style>
 </head>
 
@@ -126,8 +134,12 @@
               $filename = ltrim($filename_with_slash, '/');
               $new_filename = str_replace('.pdf', '.png', $filename);
               ?>
-
-              <img src="img/<?php echo $new_filename; ?>" alt="Your Image Description" width="1280">
+              <a href="<?php echo $url_static; ?>" target="_blank">
+                <img src="img/<?php echo $new_filename; ?>" alt="Your Image Description" width="1280">
+              </a>
+              <div class="unduh">
+                <h6>Klik pada gambar untuk mengunduh file presentasi</h4>
+              </div>
               <?php
             } else {
               ?>
@@ -179,6 +191,15 @@
                   <button type="button" class="btn-ln">
                     <a href="<?php echo $url_slideshare ?>" class="btn-ln-a" target="_blank">Link Presentasi</a>
                   </button>
+                  <!-- <?php
+                  if ($url_static) {
+                    ?>
+                    <button type="button" class="btn-ln">
+                      <a href="<?php echo $url_static ?>" class="btn-ln-a" target="_blank">Unduh Presentasi</a>
+                    </button>
+                    <?php
+                  }
+                  ?> -->
                 </span>
               </div>
             </div>
