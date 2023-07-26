@@ -405,7 +405,7 @@ async function fetchNewest() {
 
 function resizeListEN(){
     var contEN = document.getElementById('contEventNarsum');
-    if (contEN === null){
+    if (contEN != null){
         var contEvent = document.getElementById('contEvent');
         var contNarsum = document.getElementById('contNarsum');
         var c1 = document.getElementById('_card_1');
