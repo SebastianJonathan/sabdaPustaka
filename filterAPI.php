@@ -407,7 +407,7 @@
                 if(!in_array(substr($res['tanggal'],0,4),$tahun)){
                     $tahun[] = substr($res['tanggal'],0,4);
                 }
-                $namaNarsum = $source['narasumber'];
+                $namaNarsum = $res['narasumber'];
                 $namaNarsum = str_replace(",S.","|S.",$namaNarsum);
                 $namaNarsum = str_replace(", S.","| S.",$namaNarsum);
                 $namaNarsum = str_replace(",B.","|B.",$namaNarsum);
