@@ -1,7 +1,6 @@
 /* Font */
 @import url('https://fonts.googleapis.com/css?family=Quicksand:400,700');
 
-/* Design */
 *,
 *::before,
 *::after {
@@ -104,7 +103,7 @@ img {
 }
 
 ._card:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
 
 ._card_content {

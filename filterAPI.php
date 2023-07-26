@@ -30,7 +30,7 @@
         $narasumber = array();
         $event = array();
         $tanggal = array();
-        $url = 'http://localhost:9200/pustaka6/_search';
+        $url = 'http://localhost:9200/pustaka7/_search';
         $params = [
             'size' => $jsonFilter["size"],
             'query' => [
@@ -122,7 +122,7 @@
             $narasumber = array();
             $event = array();
             $tanggal = array();
-            $url = 'http://localhost:9200/pustaka6/_search';
+            $url = 'http://localhost:9200/pustaka7/_search';
             $params = [
                 'size' => $jsonSearch["size"],
                 'query' => [
@@ -231,7 +231,7 @@
             ];
             echo json_encode(['result' => $results]);
         }else{
-            $url = 'http://localhost:9200/pustaka6/_search';
+            $url = 'http://localhost:9200/pustaka7/_search';
             if($jsonSearch["query"] === "Kosong"){
                 $params = [
                     'size' => $jsonSearch["size"],

@@ -46,7 +46,8 @@
       font-size: small;
       text-decoration: underline;
       text-align: center;
-      color: coral;
+      color: #DF2935;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -144,7 +145,7 @@
             } else {
               ?>
               <div class="error-message" style="padding:7px;">
-                <p class="text-center">Tampilan Presentasi belum ada, silahkan pergi ke <a
+                <p class="text-center">Tampilan Presentasi belum tersedia, silahkan pergi ke <a
                     href="<?php echo $url_slideshare ?>" target="_blank">link ini</a></p>
               </div>
               <?php
@@ -169,7 +170,7 @@
                     $item = trim($item); // Trim any extra whitespace
                     if ($item !== '') {
                       $link = 'javascript:void(0);'; // Set the link to javascript:void(0);
-                      echo "<a href=\"$link\" class=\"narsum-link\" data-keyword=\"$item\" style=\"color: blue;\">$item</a> " . ". ";
+                      echo "<a href=\"$link\" class=\"narsum-link\" data-keyword=\"$item\"\">$item</a> " . ". ";
                     }
                   }
                   ?>
@@ -185,7 +186,7 @@
 
                 <!-- Button YT & SlideShare -->
                 <span>
-                  <button type="button" class="btn-ln">
+                  <button type="button" class="btn-ln tonton">
                     <a href="<?php echo $url_youtube ?>" class="btn-ln-a" target="_blank">Tonton Presentasi</a>
                   </button>
                   <button type="button" class="btn-ln">
@@ -256,6 +257,15 @@
           </div>
         </div>
 
+        <!-- Judul Terkait -->
+        <div class="row materi-terkait judul-terkait">
+          <div class="materi-text">
+            <section class="_hidden">
+              <h3>Judul Terkait</h3>
+              <div id="related-judul-container"></div>
+            </section>
+          </div>
+        </div>
       </div>
 
 
@@ -341,8 +351,24 @@
                 });
             }
 
+            
+            function fetchRelatedJudul() {
+              const documentId = '<?php echo $_GET['document_id']; ?>';
+
+              fetch(`getRelatedJudul.php?document_id=${encodeURIComponent(documentId)}`)
+                .then(response => response.text())
+                .then(data => {
+                  const relatedResultsContainer = document.getElementById('related-judul-container');
+                  relatedResultsContainer.innerHTML = data;
+                })
+                .catch(error => {
+                  console.error(error);
+                });
+            }
+
             // Call the fetchRelatedDocuments function to fetch and display the related document titles
             fetchRelatedDocuments();
+            fetchRelatedJudul();
           </script>
           <?php
           include 'footer.php';
