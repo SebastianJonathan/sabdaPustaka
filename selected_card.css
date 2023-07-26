@@ -14,7 +14,7 @@ a.link-gap {
 
 .container-atas {
     background-color: #FAF9F6;
-    color: #333333;
+    color: #2F2D2F;
     margin-top: 10px;
     margin-bottom: 30px;
     padding: 20px;
@@ -51,7 +51,7 @@ a.link-gap {
 
 .summary-content h2,
 h3 {
-    color: #2b1313	;
+    color: #2F2D2F	;
     text-align: center;
     font-weight: bold;
 }
@@ -61,7 +61,7 @@ h3 {
 }
 
 .pertanyaan-container {
-    color: #2c425c;
+    color: #2F2D2F;
     background-color: #FAF9F6;
     padding: 10px;
     border-radius: 20px;
@@ -76,7 +76,7 @@ h3 {
 
 .container-bawah h3 p li ul{
     font-size: medium;
-    color: #2b1313	;
+    color: #2F2D2F	;
 }
 
 ._cards-container{
@@ -97,7 +97,7 @@ h3 {
 
 .narsum-tanggal{
     /* background: #f2f3f0; */
-    color: #2c425c;
+    color: #2F2D2F;
 }
 
 .keyword-content{
@@ -118,10 +118,28 @@ h3 {
 .keyword-link{
     text-decoration: none;
     margin-right: 10px;
+    color: #1481BA;
+    font-weight:600;
+}
+
+.keyword-link:hover{
+  color: #2F2D2F;
+  text-decoration: underline;
 }
 
 .keyword-content h5{
   text-align: center;
+}
+
+.narsum-link{
+  text-decoration: none;
+  color: #1481BA;
+  font-weight: 600;
+}
+
+.narsum-link:hover{
+  color: #2F2D2F;
+  text-decoration: underline;
 }
 
 .links a{
@@ -131,12 +149,13 @@ h3 {
 .btn-ln{
   padding: 5px;
   border-radius: 10px;
-  background: linear-gradient(to right top, #1e0049, #211045, #251c3f, #2a2638, #2f2f2f);
+  background: #FF6663;
   margin-right: 10px;
   margin-bottom: 7px;
   width: 200px;
   border: 0px;
 }
+
 
 .btn-ln-a{
   text-decoration: none;
@@ -144,8 +163,8 @@ h3 {
   font-size: 16px;
 }
 
-.btn-ln-a:hover{
-  color: gold;
+.btn-ln:hover{
+  background-color: #2F2D2F;
 }
 
 .ppt-container{
