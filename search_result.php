@@ -91,7 +91,6 @@ function createCheckbox(id, nama, div_filter,arr) {
 		}else if(sessionStorage.getItem("mode") == "list"){
 			fetchSearchFilterResult2();
 		}
-        fetchSearchFilterResult();
     };
 
     label.appendChild(input);
@@ -158,7 +157,7 @@ function onChangeFilterCheckbox(value,type,checked){
     }
 }
 
-function fetchSearchFilterResult() {
+function fetchSearchFilterResult2() {
     now_show = 10;
     const fullURL = window.location.href;
     const segments = fullURL.split('/');
@@ -219,7 +218,7 @@ function fetchSearchFilterResult() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+        fetch('http://localhost/pw5/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -238,7 +237,7 @@ function fetchSearchFilterResult() {
 
                 const card = document.createElement('div');
                 card.className = '_card';
-                card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
+                card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
 
                 const cardContent = document.createElement('div');
                 cardContent.className = '_card_content';
@@ -324,7 +323,7 @@ function fetchSearchFilterResult() {
     }
 }
 
-function fetchSearchFilterResult2() {
+function fetchSearchFilterResult() {
     now_show = 10;
     console.log(filterEvent,filterNarasumber,filterTanggal);
     const fullURL = window.location.href;
@@ -386,7 +385,7 @@ function fetchSearchFilterResult2() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+        fetch('http://localhost/pw5/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -506,7 +505,7 @@ function fetchSearchFilterResult2() {
 
 async function fetchNewest() {
     try {
-        const response = await fetch('http://localhost/UI/sabdaPustaka/getNewest.php');
+        const response = await fetch('http://localhost/pw5/getNewest.php');
         const data = await response.json();
         const cardResultElement = document.getElementById('card_result');
         cardResultElement.innerHTML = '';
@@ -615,7 +614,7 @@ function resizeListEN(){
 }
 window.addEventListener('resize', resizeListEN);
 
-function fetchSearchResult2() {
+function fetchSearchResult() {
     filterNarasumber.length = 0;
     filterEvent.length = 0;
     filterTanggal.length = 0;
@@ -671,7 +670,7 @@ function fetchSearchResult2() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+        fetch('http://localhost/pw5/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -685,18 +684,72 @@ function fetchSearchResult2() {
             cardResultElement.innerHTML = '';
             if (data.result.data_result.length > 0) {
                 hs_head.innerHTML = '';
+
+                const hs_head_col1 = document.createElement('div');
+                hs_head_col1.className = 'col-6';
+                
                 const hs_head_t = document.createElement('h5');
                 hs_head_t.textContent = "Hasil Search Untuk : " + query;
                 hs_head_t.style.fontWeight = "bold";
-                hs_head.appendChild(hs_head_t);                    
-                
+                hs_head_col1.appendChild(hs_head_t);   
+
+                const hs_head_col2 = document.createElement('div');
+                hs_head_col2.className = 'col-6';
+                hs_head_col2.setAttribute("style", "display: flex; justify-content: right;");
+
+                var dropd = document.createElement('div');
+                dropd.className = "dropdown";
+
+                var dropBtn = document.createElement('button');
+                dropBtn.className = "btn btn-secondary dropdown-toggle";
+                dropBtn.type = "button";
+                dropBtn.textContent = "View As :  ";
+                dropBtn.style.width = "100px";
+                dropBtn.style.height = "30px";
+                dropBtn.dataset.bsToggle = 'dropdown';
+                dropBtn.setAttribute('aria-expanded', false);
+                dropBtn.style.backgroundColor = "black";
+                dropd.appendChild(dropBtn);
+
+                var dropUl = document.createElement('ul');
+                dropUl.className = "dropdown-menu";
+
+                var dropLi1 = document.createElement('li');
+                var dropLi_Grid = document.createElement('a');
+                dropLi_Grid.className = "dropdown-item";
+                dropLi_Grid.textContent = "Grid";
+                dropLi_Grid.onclick = function(){
+                    sessionStorage.setItem("mode", "card");
+                    fetchSearchFilterResult();
+                }
+                dropLi1.appendChild(dropLi_Grid);
+
+                var dropLi2 = document.createElement('li');
+                var dropLi_List = document.createElement('a');
+                dropLi_List.className = "dropdown-item";
+                dropLi_List.textContent = "List";
+                dropLi_List.onclick = function(){
+                    sessionStorage.setItem("mode", "list");
+                    fetchSearchFilterResult2();
+                }
+                dropLi2.appendChild(dropLi_List);
+
+                dropUl.appendChild(dropLi1);
+                dropUl.appendChild(dropLi2);
+                dropd.appendChild(dropUl);
+
+                hs_head_col2.appendChild(dropd);
+                hs_head.appendChild(hs_head_col1);
+                hs_head.appendChild(hs_head_col2);
+
+                // FOR EACH
                 data.result.data_result.forEach(function (item) {
                 const cardItem = document.createElement('li');
                 cardItem.className = '_cards_item';
 
                 const card = document.createElement('div');
                 card.className = '_card';
-                card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
+                card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
 
                 const cardImage = document.createElement('div');
                 cardImage.className = '_card_image';
@@ -923,7 +976,7 @@ function fetchSearchResult2() {
     }
 }
 
-function fetchSearchResult() {
+function fetchSearchResult2() {
     filterNarasumber.length = 0;
     filterEvent.length = 0;
     filterTanggal.length = 0;
@@ -979,7 +1032,7 @@ function fetchSearchResult() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+        fetch('http://localhost/pw5/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -992,11 +1045,65 @@ function fetchSearchResult() {
             cardResultElement.innerHTML = '';
             if (data.result.data_result.length > 0) {
                 hs_head.innerHTML = '';
+
+                const hs_head_col1 = document.createElement('div');
+                hs_head_col1.className = 'col-6';
+                
                 const hs_head_t = document.createElement('h5');
                 hs_head_t.textContent = "Hasil Search Untuk : " + query;
                 hs_head_t.style.fontWeight = "bold";
-                hs_head.appendChild(hs_head_t);
+                hs_head_col1.appendChild(hs_head_t);   
 
+                const hs_head_col2 = document.createElement('div');
+                hs_head_col2.className = 'col-6';
+                hs_head_col2.setAttribute("style", "display: flex; justify-content: right;");
+
+                var dropd = document.createElement('div');
+                dropd.className = "dropdown";
+
+                var dropBtn = document.createElement('button');
+                dropBtn.className = "btn btn-secondary dropdown-toggle";
+                dropBtn.type = "button";
+                dropBtn.textContent = "View As :  ";
+                dropBtn.style.width = "100px";
+                dropBtn.style.height = "30px";
+                dropBtn.dataset.bsToggle = 'dropdown';
+                dropBtn.setAttribute('aria-expanded', false);
+                dropBtn.style.backgroundColor = "black";
+                dropd.appendChild(dropBtn);
+
+                var dropUl = document.createElement('ul');
+                dropUl.className = "dropdown-menu";
+
+                var dropLi1 = document.createElement('li');
+                var dropLi_Grid = document.createElement('a');
+                dropLi_Grid.className = "dropdown-item";
+                dropLi_Grid.textContent = "Grid";
+                dropLi_Grid.onclick = function(){
+                    sessionStorage.setItem("mode", "card");
+                    fetchSearchFilterResult();
+                }
+                dropLi1.appendChild(dropLi_Grid);
+
+                var dropLi2 = document.createElement('li');
+                var dropLi_List = document.createElement('a');
+                dropLi_List.className = "dropdown-item";
+                dropLi_List.textContent = "List";
+                dropLi_List.onclick = function(){
+                    sessionStorage.setItem("mode", "list");
+                    fetchSearchFilterResult2();
+                }
+                dropLi2.appendChild(dropLi_List);
+
+                dropUl.appendChild(dropLi1);
+                dropUl.appendChild(dropLi2);
+                dropd.appendChild(dropUl);
+
+                hs_head_col2.appendChild(dropd);
+                hs_head.appendChild(hs_head_col1);
+                hs_head.appendChild(hs_head_col2);
+
+                // FOR EACH
                 data.result.data_result.forEach(function (item) {
                     // Create a card element
                     const cardItem = document.createElement('div');
@@ -1004,7 +1111,7 @@ function fetchSearchResult() {
 
                     const card = document.createElement('div');
                     card.className = '_card';
-                    card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
+                    card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
 
                     const cardContent = document.createElement('div');
                     cardContent.className = '_card_content';
