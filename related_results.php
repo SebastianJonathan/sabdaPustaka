@@ -35,16 +35,16 @@
                 <!-- Filter + Konten -->
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
-                        <div class="col-konten-head" id="related-search">
+                        <div class="col-konten-head terkait" id="related-search">
                             <?php
                             if (isset($_POST['keyword'])) {
                                 $keyword = $_POST['keyword'];
-                                echo '<h2 class="centered-text">Related Search</h2><h4 class="centered-text large-text">' . ucfirst($keyword) . '</h4>';
+                                echo '<h2 class="centered-text">Pencarian Terkait</h2><h4 class="centered-text large-text">' . ucfirst($keyword) . '</h4>';
                             }
 
                             if (isset($_POST['narasumber'])) {
                                 $narsum = $_POST['narasumber'];
-                                echo '<h2 class="centered-text">Related Search</h2><h4 class="centered-text large-text">' . ucfirst($narsum) . '</h4>';
+                                echo '<h2 class="centered-text">Pencarian Terkait</h2><h4 class="centered-text large-text">' . ucfirst($narsum) . '</h4>';
                             }
                             ?>
                         </div>
@@ -66,8 +66,10 @@
         const keyword = "<?php echo isset($_POST['keyword']) ? $_POST['keyword'] : ''; ?>";
         const narsum = "<?php echo isset($_POST['narasumber']) ? $_POST['narasumber'] : ''; ?>";
 
+
         if (keyword) {
             // Fetch the related results using the getKeyword.php API
+
             fetch(`getKeyword.php?query=${encodeURIComponent(keyword)}`)
                 .then(response => response.json())
                 .then(data => {
@@ -109,8 +111,6 @@
         const narsumParam = urlParams.get('narasumber');
 
 
-
-
         if (eventParam) {
             // Fetch the related results using the getEvent.php API
             fetch(`getEvent.php?query=${encodeURIComponent(eventParam)}`)
@@ -150,11 +150,24 @@
             // Get the card_result container element
             const cardResultElement = document.getElementById('card_result');
 
+            const colKontenHeadElement = document.querySelector('.col-konten-head.terkait');
+
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
+            const testParagraph = document.getElementById('related-search');
+
+            if (eventParam) {
+                testParagraph.innerHTML = '<h2 class="centered-text">Pencarian Terkait</h2><h4 class="centered-text large-text">' + eventParam + '</h4>';
+            }
+            if (narsumParam) {
+                testParagraph.innerHTML = '<h2 class="centered-text">Pencarian Terkait</h2><h4 class="centered-text large-text">' + narsumParam + '</h4>';
+            }
+
+
+
             if (results.length > 0) {
-                results.forEach(function(item) {
+                results.forEach(function (item) {
                     const cardItem = document.createElement('li');
                     cardItem.className = '_cards_item';
 
