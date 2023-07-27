@@ -797,7 +797,7 @@ function fetchSearchResult() {
                 dropBtn.style.height = "30px";
                 dropBtn.dataset.bsToggle = 'dropdown';
                 dropBtn.setAttribute('aria-expanded', false);
-                dropBtn.style.backgroundColor = "black";
+                dropBtn.style.backgroundColor = "#1e0049";
                 dropd.appendChild(dropBtn);
 
                 var dropUl = document.createElement('ul');
@@ -1171,7 +1171,7 @@ function fetchSearchResult2() {
                 dropBtn.style.height = "30px";
                 dropBtn.dataset.bsToggle = 'dropdown';
                 dropBtn.setAttribute('aria-expanded', false);
-                // dropBtn.style.backgroundColor = "black";
+                dropBtn.style.backgroundColor = "#1e0049";
                 dropd.appendChild(dropBtn);
 
                 var dropUl = document.createElement('ul');
