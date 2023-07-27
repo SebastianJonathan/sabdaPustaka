@@ -443,13 +443,15 @@
 		}
 
 		function goSearch() {
-			updateSessionCheckbox();
 			const fullURL = window.location.href;
-			const segments = fullURL.split('/');
-			if (segments[segments.length - 2] == "search") {
-				sessionStorage.setItem("query", segments[segments.length - 1]);
+    		const segments = fullURL.split('/');
+			if(sessionStorage.getItem("alreadysearch") == null){
+				if(segments[segments.length - 2] == "search"){
+					window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + segments[segments.length - 1];
+				}
+			}else{
+				updateSessionCheckbox();
 			}
-			window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + sessionStorage.getItem("query");
 		}
 		async function fetchRecommendations() {
 			const query = document.getElementById('query').value;
@@ -544,7 +546,7 @@
 			const fullURL = window.location.href;
     		const segments = fullURL.split('/');
 			if(segments[segments.length - 2] == "search"){
-				window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + segments[segments.length - 1];
+				window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById('query').value;
 			}
 		}
 
