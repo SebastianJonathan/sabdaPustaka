@@ -30,9 +30,13 @@ const fopen_tgl = document.createElement('div');
 let filterNarasumber = [];
 let filterEvent = [];
 let filterTanggal = [];
-var pageSize = 10;
+var pageSize = 12;
 var currPage = 1;
-var maxPage = 7;
+var maxPage = 1;
+
+function setMaxPage(total_data){
+    maxPage = Math.ceil(total_data / pageSize);
+}
 
 function createListItem(pageNumber) {
     const li = document.createElement('li');
@@ -78,6 +82,9 @@ function createListItem2(pageNumber) {
     }
     a.onclick = function(){
         if (pageNumber != currPage){
+            if (pageNumber === "Show All"){
+
+            }
             currPage = pageNumber;
             if(sessionStorage.getItem("mode") == "list"){
                 if(filterNarasumber.length != 0 || filterEvent.length != 0 || filterTanggal.length != 0){
@@ -241,7 +248,7 @@ function fetchSearchFilterResult2() {
                 "narasumber": filterNarasumber,
                 "event": filterEvent,
                 "tanggal": filterTanggal,
-                "currPage": (currPage - 1) * 10 + 1
+                "currPage": (currPage - 1) * 10
             };
         }else{
             filter = {
@@ -252,7 +259,7 @@ function fetchSearchFilterResult2() {
                 "narasumber": filterNarasumber,
                 "event": filterEvent,
                 "tanggal": filterTanggal,
-                "currPage": (currPage - 1) * 10 + 1
+                "currPage": (currPage - 1) * 10
             };
         }
 
@@ -268,7 +275,7 @@ function fetchSearchFilterResult2() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+        fetch('http://localhost/pw5/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -287,7 +294,7 @@ function fetchSearchFilterResult2() {
 
                 const card = document.createElement('div');
                 card.className = '_card';
-                card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
+                card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
 
                 const cardContent = document.createElement('div');
                 cardContent.className = '_card_content';
@@ -411,7 +418,7 @@ function fetchSearchFilterResult() {
                 "narasumber": filterNarasumber,
                 "event": filterEvent,
                 "tanggal": filterTanggal,
-                "currPage": (currPage - 1) * 10 + 1
+                "currPage": (currPage - 1) * 10
             };
         }else{
             filter = {
@@ -422,7 +429,7 @@ function fetchSearchFilterResult() {
                 "narasumber": filterNarasumber,
                 "event": filterEvent,
                 "tanggal": filterTanggal,
-                "currPage": (currPage - 1) * 10 + 1
+                "currPage": (currPage - 1) * 10
             };
         }
 
@@ -438,7 +445,7 @@ function fetchSearchFilterResult() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+        fetch('http://localhost/pw5/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -558,7 +565,7 @@ function fetchSearchFilterResult() {
 
 async function fetchNewest() {
     try {
-        const response = await fetch('http://localhost/UI/sabdaPustaka/getNewest.php');
+        const response = await fetch('http://localhost/pw5/getNewest.php');
         const data = await response.json();
         const cardResultElement = document.getElementById('card_result');
         cardResultElement.innerHTML = '';
@@ -703,7 +710,7 @@ function fetchSearchResult() {
             filter = {
                 "size": pageSize,
                 "API": "getAll",
-                "currPage": (currPage - 1) * 10 + 1
+                "currPage": (currPage - 1) * 10
             };
         }else{
             filter = {
@@ -711,7 +718,7 @@ function fetchSearchResult() {
                 "size": pageSize,
                 "API": "search",
                 "fields": fieldSearch,
-                "currPage": (currPage - 1) * 10 + 1
+                "currPage": (currPage - 1) * 10
             };
         }
 
@@ -727,7 +734,7 @@ function fetchSearchResult() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+        fetch('http://localhost/pw5/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -737,6 +744,8 @@ function fetchSearchResult() {
         .then(response => response.json())
         .then(data => {
             console.log(data.result.total);
+            setMaxPage(data.result.total);
+
             const cardResultElement = document.getElementById('card_result');
             cardResultElement.classList.remove('container-list');
             cardResultElement.innerHTML = '';
@@ -804,7 +813,7 @@ function fetchSearchResult() {
                 // FOR EACH
                 counter = 0;
                 data.result.data_result.forEach(function (item) {
-                console.log("counter: "+counter);
+                // console.log("counter: "+counter);
                 counter = counter + 1;
 
                 const cardItem = document.createElement('li');
@@ -812,7 +821,7 @@ function fetchSearchResult() {
 
                 const card = document.createElement('div');
                 card.className = '_card';
-                card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
+                card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
 
                 const cardImage = document.createElement('div');
                 cardImage.className = '_card_image';
@@ -900,7 +909,7 @@ function fetchSearchResult() {
             const pagiUl = document.createElement("ul");
             pagiUl.className = "pagination"
 
-            pagiUl.appendChild(createListItem2("Prev"));
+            // pagiUl.appendChild(createListItem2("Prev"));
             c_pagi = 0;
             p_pagi = -2;
             while (c_pagi < 5){
@@ -981,6 +990,7 @@ function fetchSearchResult() {
             titleFFV.style.borderTop = '2px goldenrod solid';
             titleFFV.style.color = 'gold';
             FilterOpenCanvas.appendChild(titleFFV);
+
             if(data.result.unique_narasumber.length > 0){
 
                 const titleFFC = document.createElement('h6');
@@ -1143,7 +1153,7 @@ function fetchSearchResult2() {
             filter = {
                 "size": pageSize,
                 "API": "getAll",
-                "currPage": (currPage - 1) * 10 + 1
+                "currPage": (currPage - 1) * 10
             };
         }else{
             filter = {
@@ -1151,7 +1161,7 @@ function fetchSearchResult2() {
                 "size": pageSize,
                 "API": "search",
                 "fields": fieldSearch,
-                "currPage": (currPage - 1) * 10 + 1
+                "currPage": (currPage - 1) * 10
             };
         }
 
@@ -1167,7 +1177,7 @@ function fetchSearchResult2() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+        fetch('http://localhost/pw5/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -1176,6 +1186,8 @@ function fetchSearchResult2() {
         })
         .then(response => response.json())
         .then(data => {
+            setMaxPage(data.result.total);
+
             const cardResultElement = document.getElementById('card_result');
             cardResultElement.innerHTML = '';
             if (data.result.data_result.length > 0) {
@@ -1238,6 +1250,32 @@ function fetchSearchResult2() {
                 hs_head.appendChild(hs_head_col1);
                 hs_head.appendChild(hs_head_col2);
 
+                const pagiCont = document.createElement("div");
+                pagiCont.innerHTML = '';
+                pagiCont.id = "show";
+                // showCont.style.listStyle = 'none';
+                pagiCont.style.display = "flex";
+                pagiCont.style.justifyContent = "end";
+                const pagiUl = document.createElement("ul");
+                pagiUl.className = "pagination"
+
+                // pagiUl.appendChild(createListItem2("Prev"));
+                c_pagi = 0;
+                p_pagi = -2;
+                while (c_pagi < 5){
+                    if ((currPage + p_pagi) > maxPage ){
+                        break;
+                    }
+                    if ((currPage + p_pagi) > 0){
+                        pagiUl.appendChild(createListItem2(currPage + p_pagi));
+                        c_pagi += 1;
+                    }
+                    p_pagi += 1;
+                }
+                pagiUl.appendChild(createListItem2("Show All"));
+                pagiCont.appendChild(pagiUl);
+                showDiv.appendChild(pagiCont);
+
                 // FOR EACH
                 data.result.data_result.forEach(function (item) {
                     // Create a card element
@@ -1246,7 +1284,7 @@ function fetchSearchResult2() {
 
                     const card = document.createElement('div');
                     card.className = '_card';
-                    card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
+                    card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
 
                     const cardContent = document.createElement('div');
                     cardContent.className = '_card_content';
@@ -1310,7 +1348,7 @@ function fetchSearchResult2() {
             rowShowC.appendChild(createListItem(100));
             rowShowC.appendChild(createListItem("Show All"));
             showCont.appendChild(rowShowC);
-            showDiv.appendChild(showCont);
+            // showDiv.appendChild(showCont);
                 
 
             FilterColumnCanvas.innerHTML = '';
