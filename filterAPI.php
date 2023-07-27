@@ -57,7 +57,7 @@
                 $totalHits += 1;
             }
             $params = [
-                'size' => 12,
+                'size' => $jsonFilter["size"],
                 'query' => [
                     'match_all' => new stdClass(),
                 ],

@@ -18,9 +18,10 @@
             return $result;
         }
 
-        $url = 'http://localhost:9200/pustaka6/_search';
+        $url = 'http://localhost:9200/pustaka7/_search';
 
         $fields = explode(',', $_GET['fields']);
+        print_r($fields);
 
         $params = [
             'size' => 10,
