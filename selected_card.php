@@ -285,7 +285,7 @@
   } else {
     ?>
       <br>
-      <h1>Document not found<h1><br>
+      <h1>Document not found</h1><br>
           <?php
   }
   ?>
