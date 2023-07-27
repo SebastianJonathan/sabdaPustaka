@@ -24,10 +24,20 @@ function extractUniqueSpeakers($hits)
 
     foreach ($hits as $hit) {
         $source = $hit['_source'];
-        $names = explode(", ", $source['narasumber']);
+        $names = "";
+        $name = $source['narasumber'];
+        $name = str_replace(",S.","|S.",$name);
+        $name = str_replace(", S.","| S.",$name);
+        $name = str_replace(",M.","|M.",$name);
+        $name = str_replace(", M.","| M.",$name);
+        $name = str_replace(",Ph.","|Ph.",$name);
+        $name = str_replace(", Ph.","| Ph.",$name);
+        $names = $name;
+        $names = explode(", ", $names);
 
         foreach ($names as $participantName) {
             $cleanedName = trim($participantName);
+            $cleanedName = str_replace("|",",",$cleanedName);
             if (!in_array($cleanedName, $uniqueNames)) {
                 $uniqueNames[] = $cleanedName;
             }
@@ -154,7 +164,7 @@ sort($narasumbers);
         function generateEventLinks() {
 			const eventListContainer = document.getElementById('eventList');
 			events.forEach((event) => {
-				const eventUrl = 'http://localhost/pw5/related_results.php?event=' + encodeURIComponent(event);
+				const eventUrl = 'http://localhost/new/related_results.php?event=' + encodeURIComponent(event);
 				const eventDiv = document.createElement('li');
 				eventDiv.className = 'event-li';
 				// eventDiv.style.width = "150px";
@@ -166,7 +176,7 @@ sort($narasumbers);
 		function generateNarasumberLinks() {
 			const narasumberListContainer = document.getElementById('narasumberList');
 			narasumbers.forEach((narasumber) => {
-				const narasumberUrl = 'http://localhost/pw5/related_results.php?narasumber=' + encodeURIComponent(narasumber);
+				const narasumberUrl = 'http://localhost/new/related_results.php?narasumber=' + encodeURIComponent(narasumber);
 				const narasumberDiv = document.createElement('li');
 				narasumberDiv.className = 'narsum-li';
 				// narasumberDiv.style.width = '150px';
