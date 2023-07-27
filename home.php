@@ -443,6 +443,7 @@
 
 		function goSearch() {
 			updateSessionCheckbox();
+			window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById('query').value;
 		}
 		async function fetchRecommendations() {
 			const query = document.getElementById('query').value;
@@ -539,8 +540,6 @@
 
 			if(segments[segments.length - 2] == "search"){
 				window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + segments[segments.length - 1];
-			}else{
-				window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById('query').value;
 			}
 		}
 
