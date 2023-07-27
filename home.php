@@ -443,15 +443,7 @@
 		}
 
 		function goSearch() {
-			const fullURL = window.location.href;
-    		const segments = fullURL.split('/');
-			if(sessionStorage.getItem("alreadysearch") == null){
-				if(segments[segments.length - 2] == "search"){
-					window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + segments[segments.length - 1];
-				}
-			}else{
-				updateSessionCheckbox();
-			}
+			updateSessionCheckbox();
 		}
 		async function fetchRecommendations() {
 			const query = document.getElementById('query').value;
