@@ -189,10 +189,16 @@
                   <button type="button" class="btn-ln tonton">
                     <a href="<?php echo $url_youtube ?>" class="btn-ln-a" target="_blank">Tonton Presentasi</a>
                   </button>
-                  <button type="button" class="btn-ln">
-                    <a href="<?php echo $url_slideshare ?>" class="btn-ln-a" target="_blank">Link Presentasi</a>
-                  </button>
-                  <!-- <?php
+                  <?php
+                  if ($url_slideshare) {
+                    ?>
+                    <button type="button" class="btn-ln">
+                      <a href="<?php echo $url_slideshare ?>" class="btn-ln-a" target="_blank">Lihat Presentasi</a>
+                    </button>
+                    <?php
+                  }
+                  ?>
+                   <?php
                   if ($url_static) {
                     ?>
                     <button type="button" class="btn-ln">
@@ -200,7 +206,7 @@
                     </button>
                     <?php
                   }
-                  ?> -->
+                  ?> 
                 </span>
               </div>
             </div>
