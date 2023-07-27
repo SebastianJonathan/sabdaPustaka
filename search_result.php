@@ -435,7 +435,7 @@ function fetchSearchFilterResult() {
                 "query": "Kosong",
                 "size": pageSize,
                 "API": "searchFilter",
-                "fields": ['judul_completion.input', 'narasumber_completion.input', 'event_completion.input', 'deskripsi_pendek', 'ringkasan', 'kata_kunci'],
+                "fields": fieldSearch,
                 "narasumber": filterNarasumber,
                 "event": filterEvent,
                 "tanggal": filterTanggal,

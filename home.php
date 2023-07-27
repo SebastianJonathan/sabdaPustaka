@@ -306,6 +306,12 @@
 			document.getElementById('checkbox_related').checked = true;
 			document.getElementById('fsv-checkbox_related').checked = true;
 		}
+		if (sessionStorage.getItem('checkboxJudul') === null &&
+		sessionStorage.getItem('checkboxEvent') === null && 
+		sessionStorage.getItem('checkboxNarasumber') === null && 
+		sessionStorage.getItem('checkboxRelated') === null) {
+			selectAll();
+		}
 		function syncCheckbox(id, isChecked) {
 			var split_id = id.split("-");
 			var clan = split_id[0];
@@ -413,6 +419,7 @@
 				fields.push('kata_kunci');
 				fields.push('judul_completion.input');
             }
+			
 
 			const queryInput = document.getElementById('query');
 			queryInput.dataset.fields = fields.join(',');
@@ -437,7 +444,12 @@
 
 		function goSearch() {
 			updateSessionCheckbox();
-			window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById("query").value;
+			const fullURL = window.location.href;
+			const segments = fullURL.split('/');
+			if (segments[segments.length - 2] == "search") {
+				sessionStorage.setItem("query", segments[segments.length - 1]);
+			}
+			window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + sessionStorage.getItem("query");
 		}
 		async function fetchRecommendations() {
 			const query = document.getElementById('query').value;
@@ -532,7 +544,7 @@
 			const fullURL = window.location.href;
     		const segments = fullURL.split('/');
 			if(segments[segments.length - 2] == "search"){
-				window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById("query").value;
+				window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + segments[segments.length - 1];
 			}
 		}
 
