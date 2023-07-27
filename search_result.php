@@ -294,7 +294,7 @@ function fetchSearchFilterResult2() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+        fetch('http://localhost/pw5/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -313,7 +313,7 @@ function fetchSearchFilterResult2() {
 
                 const card = document.createElement('div');
                 card.className = '_card';
-                card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
+                card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
 
                 const cardContent = document.createElement('div');
                 cardContent.className = '_card_content';
@@ -465,7 +465,7 @@ function fetchSearchFilterResult() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+        fetch('http://localhost/pw5/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -586,7 +586,7 @@ function fetchSearchFilterResult() {
 async function fetchNewest() {
     try {
         const main = document.getElementById('main');
-        const response = await fetch('http://localhost/UI/sabdaPustaka/getNewest.php');
+        const response = await fetch('http://localhost/pw5/getNewest.php');
         const data = await response.json();
         const cardResultElement = document.getElementById('card_result');
         cardResultElement.innerHTML = '';
@@ -677,7 +677,7 @@ async function fetchNewest() {
         showAllBtn.style.backgroundColor = "#1e0049";
         showAllBtn.style.color= "white";
         showAllBtn.onclick = function(){
-            window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/";
+            window.location.href = "http://localhost/pw5/home.php/search/";
         }
         showAllDiv.appendChild(showAllBtn);
         main.appendChild(showAllDiv);
@@ -774,7 +774,7 @@ function fetchSearchResult() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+        fetch('http://localhost/pw5/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -797,7 +797,12 @@ function fetchSearchResult() {
                 hs_head_col1.style.alignItem = 'center';
                 
                 const hs_head_t = document.createElement('h5');
-                hs_head_t.textContent = "Hasil Search Untuk : " + query;
+                if (query === ""){
+                    hs_head_t.textContent = "Hasil Search untuk Semua Data";
+                }else {
+                    hs_head_t.textContent = "Hasil Search untuk : " + query;
+                }
+                
                 hs_head_t.style.fontWeight = "bold";
                 hs_head_col1.appendChild(hs_head_t);   
 
@@ -891,7 +896,7 @@ function fetchSearchResult() {
 
                 const card = document.createElement('div');
                 card.className = '_card';
-                card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
+                card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
 
                 const cardImage = document.createElement('div');
                 cardImage.className = '_card_image';
@@ -1152,7 +1157,7 @@ function fetchSearchResult2() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+        fetch('http://localhost/pw5/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -1172,7 +1177,12 @@ function fetchSearchResult2() {
                 hs_head_col1.className = 'col-6';
                 
                 const hs_head_t = document.createElement('h5');
-                hs_head_t.textContent = "Hasil Search Untuk : " + query;
+                if (query === ""){
+                    hs_head_t.textContent = "Hasil Search untuk Semua Data";
+                }else {
+                    hs_head_t.textContent = "Hasil Search untuk : " + query;
+                }
+
                 hs_head_t.style.fontWeight = "bold";
                 hs_head_col1.appendChild(hs_head_t);   
 
@@ -1261,7 +1271,7 @@ function fetchSearchResult2() {
 
                     const card = document.createElement('div');
                     card.className = '_card';
-                    card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
+                    card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
 
                     const cardContent = document.createElement('div');
                     cardContent.className = '_card_content';
@@ -1457,4 +1467,11 @@ function getYoutubeVideoId(url) {
         return null; // Invalid YouTube URL or ID not found
     }
 }
+
+// $("#element-id").fadeOut(1000, function() {
+//     for (var i = 0; i < x; i++) {
+//         $(this).append("<li>Element " + i + "</li>");
+//     }
+//     $(this).fadeIn(1000);
+// });
 </script>
