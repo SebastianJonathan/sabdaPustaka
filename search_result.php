@@ -892,34 +892,10 @@ function fetchSearchResult() {
                 hs_head_t.style.fontWeight = "bold";
                 hs_head.appendChild(hs_head_t);  
             }
-            // filterOpenCanvas.innerHTML = '';
-            // filterColumnCanvas.innerHTML = '';
-            // fopen_narasumber.innerHTML = '';
-            // fcolumn_narasumber.innerHTML = '';
-            // fopen_event.innerHTML = '';
-            // fcolumn_event.innerHTML = '';
-            // fopen_tgl.innerHTML = '';
-            // fcolumn_tgl.innerHTML = '';
 
 
             const showDiv = document.getElementById("show");//document.createElement("div");
             showDiv.innerHTML = '';
-            const showCont = document.createElement("div");
-            showCont.innerHTML = '';
-            showCont.id = "show";
-            // showCont.style.listStyle = 'none';
-            showCont.style.display = "flex";
-            showCont.style.justifyContent = "end";
-            const rowShowC = document.createElement("ul");
-            rowShowC.className = "pagination"
-
-            rowShowC.appendChild(createListItem(10));
-            rowShowC.appendChild(createListItem(25));
-            rowShowC.appendChild(createListItem(50));
-            rowShowC.appendChild(createListItem(100));
-            rowShowC.appendChild(createListItem("Show All"));
-            showCont.appendChild(rowShowC);
-            // showDiv.appendChild(showCont);
 
             const pagiCont = document.createElement("div");
             pagiCont.innerHTML = '';
@@ -943,48 +919,6 @@ function fetchSearchResult() {
                 }
                 p_pagi += 1;
             }
-            // if (currPage === 3){
-            //     pagiUl.appendChild(createListItem2(1));
-            //     pagiUl.appendChild(createListItem2(1));
-            //     pagiUl.appendChild(createListItem2(2));
-            //     pagiUl.appendChild(createListItem2(3));
-            // }else if (currPage === 2){
-            //     pagiUl.appendChild(createListItem2(1));
-            //     pagiUl.appendChild(createListItem2(2));
-            //     pagiUl.appendChild(createListItem2(3));
-            //     pagiUl.appendChild(createListItem2(4));
-            // }else if (currPage === 1){
-            //     pagiUl.appendChild(createListItem2(1));
-            //     pagiUl.appendChild(createListItem2(2));
-            //     pagiUl.appendChild(createListItem2(3));
-            //     pagiUl.appendChild(createListItem2(4));
-            // }
-/*
-1 prev 1 2 3 4 5 next
-2 prev 1 2 3 4 5 next
-3 prev 1 2 3 4 5 next
-4 prev 2 3 4 5 6 next
-5 prev 3 4 5 6 7 next
-
-
-*/
-
-
-            
-            // if ((currPage - 2)>0){
-            //     pagiUl.appendChild(createListItem2("<<"));
-            // }
-            // if ((currPage - 1)>0){
-            //     pagiUl.appendChild(createListItem2(currPage-1));
-            // }
-            // pagiUl.appendChild(createListItem2(currPage));
-            // if ((currPage + 1) <= maxPage){
-            //     pagiUl.appendChild(createListItem2(currPage-1));
-            // }
-            // if ((currPage + 2) <= maxPage){
-            //     pagiUl.appendChild(createListItem2(">>"));
-            // }
-            // pagiUl.appendChild(createListItem2("Next"));
             pagiUl.appendChild(createListItem2("Show All"));
             pagiCont.appendChild(pagiUl);
             showDiv.appendChild(pagiCont);
@@ -1271,15 +1205,17 @@ function fetchSearchResult2() {
                 hs_head.appendChild(hs_head_col1);
                 hs_head.appendChild(hs_head_col2);
 
-                const pagiCont = document.createElement("div");
+                var showDiv = document.getElementById("show");
+                showDiv.innerHTML = '';
+                var pagiCont = document.createElement("div");
                 pagiCont.innerHTML = '';
                 pagiCont.id = "show";
                 // showCont.style.listStyle = 'none';
                 pagiCont.style.display = "flex";
                 pagiCont.style.justifyContent = "end";
                 const pagiUl = document.createElement("ul");
-                pagiUl.className = "pagination"
-
+                pagiUl.className = "pagination";
+                console.log("WWWL");
                 // pagiUl.appendChild(createListItem2("Prev"));
                 c_pagi = 0;
                 p_pagi = -2;
@@ -1342,35 +1278,6 @@ function fetchSearchResult2() {
                 hs_head_t.style.fontWeight = "bold";
                 hs_head.appendChild(hs_head_t);  
             }
-            // filterOpenCanvas.innerHTML = '';
-            // filterColumnCanvas.innerHTML = '';
-            // fopen_narasumber.innerHTML = '';
-            // fcolumn_narasumber.innerHTML = '';
-            // fopen_event.innerHTML = '';
-            // fcolumn_event.innerHTML = '';
-            // fopen_tgl.innerHTML = '';
-            // fcolumn_tgl.innerHTML = '';
-
-
-            const showDiv = document.getElementById("show");//document.createElement("div");
-            showDiv.innerHTML = '';
-            const showCont = document.createElement("div");
-            showCont.innerHTML = '';
-            showCont.id = "show";
-            // showCont.style.listStyle = 'none';
-            showCont.style.display = "flex";
-            showCont.style.justifyContent = "end";
-            const rowShowC = document.createElement("ul");
-            rowShowC.className = "pagination"
-
-            rowShowC.appendChild(createListItem(10));
-            rowShowC.appendChild(createListItem(25));
-            rowShowC.appendChild(createListItem(50));
-            rowShowC.appendChild(createListItem(100));
-            rowShowC.appendChild(createListItem("Show All"));
-            showCont.appendChild(rowShowC);
-            // showDiv.appendChild(showCont);
-                
 
             FilterColumnCanvas.innerHTML = '';
             FilterOpenCanvas.innerHTML = '';
@@ -1393,6 +1300,7 @@ function fetchSearchResult2() {
             titleFFV.style.borderTop = '2px goldenrod solid';
             titleFFV.style.color = 'gold';
             FilterOpenCanvas.appendChild(titleFFV);
+
             if(data.result.unique_narasumber.length > 0){
 
                 const titleFFC = document.createElement('h6');
