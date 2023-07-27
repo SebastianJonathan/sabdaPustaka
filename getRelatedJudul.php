@@ -5,7 +5,7 @@ if (isset($_GET['document_id'])) {
     // Set up Elasticsearch connection
     $host = 'localhost';
     $port = '9200';
-    $index = 'pustaka9';
+    $index = 'pustaka7';
     $url = "http://{$host}:{$port}/{$index}/_search";
 
     // Prepare the query parameters

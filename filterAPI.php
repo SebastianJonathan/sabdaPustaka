@@ -44,7 +44,7 @@
             $totalHits += 1;
         }
         $params = [
-            'size' => 10,
+            'size' => 12,
             'query' => [
                 'match_all' => new stdClass(),
             ],
