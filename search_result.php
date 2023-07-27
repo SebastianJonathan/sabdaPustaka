@@ -1,7 +1,7 @@
 <div class="_cards-container">
 <div class="main">
     <button class="btn filter-sm-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#filter-sm" aria-controls="filter-sm" style="margin-left: 16px;">Filter</button>
-    <div id="hs-header" style="padding-left: 16px;">
+    <div class="row" id="hs-header" style="padding-left: 16px;">
         <!-- <div id="show">
 
         </div> -->
@@ -31,6 +31,9 @@ let filterNarasumber = [];
 let filterEvent = [];
 let filterTanggal = [];
 var pageSize = 10;
+var currPage = 1;
+var maxPage = 7;
+var fromPageData = 0;
 
 function createListItem(pageNumber) {
     const li = document.createElement('li');
@@ -61,6 +64,42 @@ function createListItem(pageNumber) {
     li.appendChild(a);
     return li;
 }
+
+function createListItem2(pageNumber) {
+    const li = document.createElement('li');
+    li.className = "page-item";
+
+    var a = document.createElement('a');
+    a.className = "page-link";
+    a.id = "pagi_"+pageNumber;
+    a.innerText = pageNumber;
+    if (pageNumber === currPage){
+        a.setAttribute("style","color: gold;")
+        a.style.backgroundColor = "#1e0049";
+    }
+    a.onclick = function(){
+        if (pageNumber != currPage){
+            if(pageNumber != "Show All"){
+                fromPageData = (pageNumber-1) * pageSize;
+                // pageSize = parseInt(pageNumber);
+            }else{
+                pageSize = 10000;
+                fromPageData = 0;
+            }
+            fetchSearchResult();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            })
+            currPage = pageNumber;
+        }
+    }
+
+    li.appendChild(a);
+    return li;
+}
+
+
 
 function createCheckbox(id, nama, div_filter,arr) {
     var containerDiv = document.createElement("div");
@@ -592,10 +631,11 @@ async function fetchNewest() {
 
 function resizeListEN(){
     var contEN = document.getElementById('contEventNarsum');
-    if (contEN != null){
+    var c1 = document.getElementById('_card_1');
+    if (c1 != null){
         var colFilter = document.getElementById('col-filter-md');
         var kontenS = document.getElementById('kontenS');
-        var c1 = document.getElementById('_card_1');
+        
         var contEvent = document.getElementById('contEvent');
         var contNarsum = document.getElementById('contNarsum');
         
@@ -654,7 +694,8 @@ function fetchSearchResult() {
                 "query": query,
                 "size": pageSize,
                 "API": "search",
-                "fields": fieldSearch
+                "fields": fieldSearch,
+                "from": fromPageData
             };
         }
 
@@ -679,6 +720,7 @@ function fetchSearchResult() {
         })
         .then(response => response.json())
         .then(data => {
+            console.log(data.result.total);
             const cardResultElement = document.getElementById('card_result');
             cardResultElement.classList.remove('container-list');
             cardResultElement.innerHTML = '';
@@ -687,6 +729,7 @@ function fetchSearchResult() {
 
                 const hs_head_col1 = document.createElement('div');
                 hs_head_col1.className = 'col-6';
+                hs_head_col1.style.alignItem = 'center';
                 
                 const hs_head_t = document.createElement('h5');
                 hs_head_t.textContent = "Hasil Search Untuk : " + query;
@@ -716,7 +759,7 @@ function fetchSearchResult() {
 
                 var dropLi1 = document.createElement('li');
                 var dropLi_Grid = document.createElement('a');
-                dropLi_Grid.className = "dropdown-item";
+                dropLi_Grid.className = "dropdown-item drop-li-a";
                 dropLi_Grid.textContent = "Grid";
                 dropLi_Grid.onclick = function(){
                     sessionStorage.setItem("mode", "card");
@@ -743,7 +786,11 @@ function fetchSearchResult() {
                 hs_head.appendChild(hs_head_col2);
 
                 // FOR EACH
+                counter = 0;
                 data.result.data_result.forEach(function (item) {
+                console.log("counter: "+counter);
+                counter = counter + 1;
+
                 const cardItem = document.createElement('li');
                 cardItem.className = '_cards_item';
 
@@ -826,7 +873,75 @@ function fetchSearchResult() {
             rowShowC.appendChild(createListItem(100));
             rowShowC.appendChild(createListItem("Show All"));
             showCont.appendChild(rowShowC);
-            showDiv.appendChild(showCont);
+            // showDiv.appendChild(showCont);
+
+            const pagiCont = document.createElement("div");
+            pagiCont.innerHTML = '';
+            pagiCont.id = "show";
+            // showCont.style.listStyle = 'none';
+            pagiCont.style.display = "flex";
+            pagiCont.style.justifyContent = "end";
+            const pagiUl = document.createElement("ul");
+            pagiUl.className = "pagination"
+
+            pagiUl.appendChild(createListItem2("Prev"));
+            c_pagi = 0;
+            p_pagi = -2;
+            while (c_pagi < 5){
+                if ((currPage + p_pagi) > maxPage ){
+                    break;
+                }
+                if ((currPage + p_pagi) > 0){
+                    pagiUl.appendChild(createListItem2(currPage + p_pagi));
+                    c_pagi += 1;
+                }
+                p_pagi += 1;
+            }
+            // if (currPage === 3){
+            //     pagiUl.appendChild(createListItem2(1));
+            //     pagiUl.appendChild(createListItem2(1));
+            //     pagiUl.appendChild(createListItem2(2));
+            //     pagiUl.appendChild(createListItem2(3));
+            // }else if (currPage === 2){
+            //     pagiUl.appendChild(createListItem2(1));
+            //     pagiUl.appendChild(createListItem2(2));
+            //     pagiUl.appendChild(createListItem2(3));
+            //     pagiUl.appendChild(createListItem2(4));
+            // }else if (currPage === 1){
+            //     pagiUl.appendChild(createListItem2(1));
+            //     pagiUl.appendChild(createListItem2(2));
+            //     pagiUl.appendChild(createListItem2(3));
+            //     pagiUl.appendChild(createListItem2(4));
+            // }
+/*
+1 prev 1 2 3 4 5 next
+2 prev 1 2 3 4 5 next
+3 prev 1 2 3 4 5 next
+4 prev 2 3 4 5 6 next
+5 prev 3 4 5 6 7 next
+
+
+*/
+
+
+            
+            // if ((currPage - 2)>0){
+            //     pagiUl.appendChild(createListItem2("<<"));
+            // }
+            // if ((currPage - 1)>0){
+            //     pagiUl.appendChild(createListItem2(currPage-1));
+            // }
+            // pagiUl.appendChild(createListItem2(currPage));
+            // if ((currPage + 1) <= maxPage){
+            //     pagiUl.appendChild(createListItem2(currPage-1));
+            // }
+            // if ((currPage + 2) <= maxPage){
+            //     pagiUl.appendChild(createListItem2(">>"));
+            // }
+            // pagiUl.appendChild(createListItem2("Next"));
+            pagiUl.appendChild(createListItem2("Show All"));
+            pagiCont.appendChild(pagiUl);
+            showDiv.appendChild(pagiCont);
                 
 
             FilterColumnCanvas.innerHTML = '';
@@ -1062,14 +1177,14 @@ function fetchSearchResult2() {
                 dropd.className = "dropdown";
 
                 var dropBtn = document.createElement('button');
-                dropBtn.className = "btn btn-secondary dropdown-toggle";
+                dropBtn.className = "btn btn-secondary dropdown-toggle drop-btn";
                 dropBtn.type = "button";
                 dropBtn.textContent = "View As :  ";
                 dropBtn.style.width = "100px";
                 dropBtn.style.height = "30px";
                 dropBtn.dataset.bsToggle = 'dropdown';
                 dropBtn.setAttribute('aria-expanded', false);
-                dropBtn.style.backgroundColor = "black";
+                // dropBtn.style.backgroundColor = "black";
                 dropd.appendChild(dropBtn);
 
                 var dropUl = document.createElement('ul');
@@ -1077,7 +1192,7 @@ function fetchSearchResult2() {
 
                 var dropLi1 = document.createElement('li');
                 var dropLi_Grid = document.createElement('a');
-                dropLi_Grid.className = "dropdown-item";
+                dropLi_Grid.className = "dropdown-item drop-li-a";
                 dropLi_Grid.textContent = "Grid";
                 dropLi_Grid.onclick = function(){
                     sessionStorage.setItem("mode", "card");
