@@ -529,6 +529,11 @@
 			sessionStorage.setItem("checkboxNarasumber", checkboxNarasumber.checked);
 			sessionStorage.setItem("checkboxRelated", checkboxRelated.checked);
 			updateFields();
+			const fullURL = window.location.href;
+    		const segments = fullURL.split('/');
+			if(segments[segments.length - 2] == "search"){
+				window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById("query").value;
+			}
 		}
 
 		document.getElementById("search").addEventListener("submit", function(event) {

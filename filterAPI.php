@@ -35,7 +35,7 @@
             'size' => 10000,
             'query' => [
                 'match_all' => new stdClass(),
-            ]
+            ],
         ];
         $query2 = json_encode($params2);
         $response2 = query($url, $query2);

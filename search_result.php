@@ -435,12 +435,13 @@ function fetchSearchFilterResult() {
                 "query": "Kosong",
                 "size": pageSize,
                 "API": "searchFilter",
-                "fields": fieldSearch,
+                "fields": ['judul_completion.input', 'narasumber_completion.input', 'event_completion.input', 'deskripsi_pendek', 'ringkasan', 'kata_kunci'],
                 "narasumber": filterNarasumber,
                 "event": filterEvent,
                 "tanggal": filterTanggal,
                 "currPage": (currPage - 1) * 10
             };
+            console.log("Masuk");
         }else{
             filter = {
                 "query": query,
@@ -731,7 +732,8 @@ function fetchSearchResult() {
             filter = {
                 "size": pageSize,
                 "API": "getAll",
-                "currPage": (currPage - 1) * 10
+                "currPage": (currPage - 1) * 10,
+                "fields": fieldSearch
             };
         }else{
             filter = {
@@ -1108,7 +1110,8 @@ function fetchSearchResult2() {
             filter = {
                 "size": pageSize,
                 "API": "getAll",
-                "currPage": (currPage - 1) * 10
+                "currPage": (currPage - 1) * 10,
+                "fields": fieldSearch
             };
         }else{
             filter = {
