@@ -1,5 +1,5 @@
 <div class="_cards-container">
-<div class="main">
+<div class="main" id="main">
     <button class="btn filter-sm-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#filter-sm" aria-controls="filter-sm" style="margin-left: 16px;">Filter</button>
     <div class="row" id="hs-header" style="padding-left: 16px;">
         <!-- <div id="show">
@@ -130,8 +130,6 @@ function createListItem2(pageNumber) {
     li.appendChild(a);
     return li;
 }
-
-
 
 function createCheckbox(id, nama, div_filter,arr) {
     var containerDiv = document.createElement("div");
@@ -296,7 +294,7 @@ function fetchSearchFilterResult2() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+        fetch('http://localhost/pw5/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -315,7 +313,7 @@ function fetchSearchFilterResult2() {
 
                 const card = document.createElement('div');
                 card.className = '_card';
-                card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
+                card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
 
                 const cardContent = document.createElement('div');
                 cardContent.className = '_card_content';
@@ -467,7 +465,7 @@ function fetchSearchFilterResult() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+        fetch('http://localhost/pw5/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -587,7 +585,8 @@ function fetchSearchFilterResult() {
 
 async function fetchNewest() {
     try {
-        const response = await fetch('http://localhost/UI/sabdaPustaka/getNewest.php');
+        const main = document.getElementById('main');
+        const response = await fetch('http://localhost/pw5/getNewest.php');
         const data = await response.json();
         const cardResultElement = document.getElementById('card_result');
         cardResultElement.innerHTML = '';
@@ -665,6 +664,24 @@ async function fetchNewest() {
             hs_head_t.style.fontWeight = "bold";
             hs_head.appendChild(hs_head_t);  
         }
+
+        const showAllDiv = document.createElement('div');
+        showAllDiv.setAttribute("style", "display: flex; justify-content: center; margin-top: 15px;");
+
+        const showAllBtn = document.createElement('button');
+        showAllBtn.type = "button";
+        showAllBtn.className = "button";
+        showAllBtn.style.width = "100px";
+        showAllBtn.style.height = "35px";
+        showAllBtn.textContent = "Show All";
+        showAllBtn.style.backgroundColor = "#1e0049";
+        showAllBtn.style.color= "white";
+        showAllBtn.onclick = function(){
+            window.location.href = "http://localhost/pw5/home.php/search/";
+        }
+        showAllDiv.appendChild(showAllBtn);
+        main.appendChild(showAllDiv);
+        
     } catch (error) {
         console.error('Terjadi kesalahan:', error);
     }
@@ -757,7 +774,7 @@ function fetchSearchResult() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+        fetch('http://localhost/pw5/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -833,6 +850,36 @@ function fetchSearchResult() {
                 hs_head.appendChild(hs_head_col1);
                 hs_head.appendChild(hs_head_col2);
 
+                const showDiv = document.getElementById("show");//document.createElement("div");
+                showDiv.innerHTML = '';
+
+                const pagiCont = document.createElement("div");
+                pagiCont.innerHTML = '';
+                pagiCont.id = "show";
+                // showCont.style.listStyle = 'none';
+                pagiCont.style.display = "flex";
+                pagiCont.style.justifyContent = "end";
+                const pagiUl = document.createElement("ul");
+                pagiUl.className = "pagination"
+
+                // pagiUl.appendChild(createListItem2("Prev"));
+                c_pagi = 0;
+                p_pagi = -2;
+                while (c_pagi < 5){
+                    if ((currPage + p_pagi) > maxPage ){
+                        break;
+                    }
+                    if ((currPage + p_pagi) > 0){
+                        pagiUl.appendChild(createListItem2(currPage + p_pagi));
+                        c_pagi += 1;
+                    }
+                    p_pagi += 1;
+                }
+                pagiUl.appendChild(createListItem2("Show All"));
+                pagiCont.appendChild(pagiUl);
+                showDiv.appendChild(pagiCont);
+
+
                 // FOR EACH
                 counter = 0;
                 data.result.data_result.forEach(function (item) {
@@ -844,7 +891,7 @@ function fetchSearchResult() {
 
                 const card = document.createElement('div');
                 card.className = '_card';
-                card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
+                card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
 
                 const cardImage = document.createElement('div');
                 cardImage.className = '_card_image';
@@ -894,36 +941,6 @@ function fetchSearchResult() {
                 hs_head_t.style.fontWeight = "bold";
                 hs_head.appendChild(hs_head_t);  
             }
-
-
-            const showDiv = document.getElementById("show");//document.createElement("div");
-            showDiv.innerHTML = '';
-
-            const pagiCont = document.createElement("div");
-            pagiCont.innerHTML = '';
-            pagiCont.id = "show";
-            // showCont.style.listStyle = 'none';
-            pagiCont.style.display = "flex";
-            pagiCont.style.justifyContent = "end";
-            const pagiUl = document.createElement("ul");
-            pagiUl.className = "pagination"
-
-            // pagiUl.appendChild(createListItem2("Prev"));
-            c_pagi = 0;
-            p_pagi = -2;
-            while (c_pagi < 5){
-                if ((currPage + p_pagi) > maxPage ){
-                    break;
-                }
-                if ((currPage + p_pagi) > 0){
-                    pagiUl.appendChild(createListItem2(currPage + p_pagi));
-                    c_pagi += 1;
-                }
-                p_pagi += 1;
-            }
-            pagiUl.appendChild(createListItem2("Show All"));
-            pagiCont.appendChild(pagiUl);
-            showDiv.appendChild(pagiCont);
                 
 
             FilterColumnCanvas.innerHTML = '';
@@ -1135,7 +1152,7 @@ function fetchSearchResult2() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
+        fetch('http://localhost/pw5/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -1218,7 +1235,7 @@ function fetchSearchResult2() {
                 pagiCont.style.justifyContent = "end";
                 const pagiUl = document.createElement("ul");
                 pagiUl.className = "pagination";
-                console.log("WWWL");
+                // console.log("WWWL");
                 // pagiUl.appendChild(createListItem2("Prev"));
                 c_pagi = 0;
                 p_pagi = -2;
@@ -1244,7 +1261,7 @@ function fetchSearchResult2() {
 
                     const card = document.createElement('div');
                     card.className = '_card';
-                    card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
+                    card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
 
                     const cardContent = document.createElement('div');
                     cardContent.className = '_card_content';
