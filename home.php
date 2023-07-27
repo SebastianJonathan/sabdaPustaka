@@ -464,7 +464,6 @@
 			const fields = document.getElementById('query').dataset.fields;
 			try {
 				const response = await fetch(`http://localhost/UI/sabdaPustaka/autocomplete.php?query=${query}&fields=${fields}`);
-				console.log(`http://localhost/UI/sabdaPustaka/autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
 				// console.log(data.rekomendasi);
 				tampilkanRekomendasi(data.rekomendasi);
@@ -537,7 +536,10 @@
 			updateFields();
 			const fullURL = window.location.href;
     		const segments = fullURL.split('/');
+
 			if(segments[segments.length - 2] == "search"){
+				window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + segments[segments.length - 1];
+			}else{
 				window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById('query').value;
 			}
 		}
