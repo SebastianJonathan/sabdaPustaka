@@ -5,14 +5,14 @@ if (isset($_GET['document_id'])) {
     // Set up Elasticsearch connection
     $host = 'localhost';
     $port = '9200';
-    $index = 'pustaka5';
+    $index = 'pustaka9';
     $url = "http://{$host}:{$port}/{$index}/_search";
 
     // Prepare the query parameters
     $params = [
         'query' => [
             'more_like_this' => [
-                'fields' => ['judul', 'ringkasan', 'kata_kunci'], // Adjust the fields based on your preference
+                'fields' => ['ringkasan'], // Adjust the fields based on your preference
                 'like' => [
                     [
                         '_index' => $index,
@@ -51,6 +51,7 @@ if (isset($_GET['document_id'])) {
     echo '<ul class = "_cards" id="card_result">';
     // Output the related documents
     foreach ($relatedDocuments as $document) {
+        $event = $document['_source']['event'];
         $judul = $document['_source']['judul'];
         $narasumber = $document['_source']['narasumber'];
 
@@ -69,6 +70,7 @@ if (isset($_GET['document_id'])) {
         
         echo '</div>';
         echo '<div class="_card_content">';
+        echo '<p class="_card_text">' . $event . '</p>';
         echo '<h2 class="_card_title">' . $judul . '</h2>';
         echo '<p class="_card_text">' . $narasumber . '</p>';
         echo '</div>';

@@ -9,7 +9,6 @@
   <script defer>
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        console.log(entry)
         if (entry.isIntersecting) {
           entry.target.classList.add('_show');
         } else {
@@ -20,9 +19,7 @@
     });
 
     document.addEventListener("DOMContentLoaded", function () {
-      console.log("t");
       const hiddenElements = document.querySelectorAll('._hidden');
-      console.log(hiddenElements);
       hiddenElements.forEach((el) => observer.observe(el));
       // Rest of your code here...
     });
@@ -30,9 +27,9 @@
   <style>
     ._hidden {
       opacity: 0;
-      filter: blur(5px);
+      filter: blur(6px);
       transform: translateY(40%);
-      transition: all 0.5s;
+      transition: all 0.6s;
     }
 
     ._show {
@@ -41,7 +38,7 @@
       transform: translateX(0);
     }
 
-    .unduh h6{
+    .unduh h6 {
       font-weight: bold;
       font-size: small;
       text-decoration: underline;
@@ -82,7 +79,7 @@
   if (isset($_GET['document_id'])) {
     $documentId = $_GET['document_id'];
 
-    $url = 'http://localhost:9200/pustaka7/_doc/' . $documentId;
+    $url = 'http://localhost:9200/pustaka9/_doc/' . $documentId;
     $response = query($url, null);
 
     if (isset($response['_source'])) {
@@ -135,11 +132,14 @@
               $filename = ltrim($filename_with_slash, '/');
               $new_filename = str_replace('.pdf', '.png', $filename);
               ?>
-              <a href="<?php echo $url_static; ?>" target="_blank">
-                <img src="img/<?php echo $new_filename; ?>" alt="Your Image Description" width="1280">
+              <div id="pdfViewer" style="display: none;">
+                <iframe src="<?php echo $url_static; ?>" width="100%" height="400px"></iframe>
+              </div>
+              <a href="#" onclick="togglePdfViewer();">
+                <img id="image" src="img/<?php echo $new_filename; ?>" alt="Your Image Description" width="1280">
               </a>
               <div class="unduh">
-                <h6>Klik pada gambar untuk mengunduh file presentasi</h4>
+                <h6>Klik pada gambar untuk melihat presentasi dalam PDF</h6>
               </div>
               <?php
             } else {
@@ -337,6 +337,18 @@
               });
             });
 
+            function togglePdfViewer() {
+              var pdfViewer = document.getElementById('pdfViewer');
+              var image = document.getElementById('image');
+              if (pdfViewer.style.display === 'none') {
+                pdfViewer.style.display = 'block';
+                image.style.display = 'none';
+              } else {
+                pdfViewer.style.display = 'none';
+                image.style.display = 'block';
+              }
+            }
+
             function fetchRelatedDocuments() {
               const documentId = '<?php echo $_GET['document_id']; ?>';
 
@@ -351,7 +363,7 @@
                 });
             }
 
-            
+
             function fetchRelatedJudul() {
               const documentId = '<?php echo $_GET['document_id']; ?>';
 

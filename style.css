@@ -74,6 +74,7 @@ img {
     padding: 1rem;
     box-sizing: border-box;
     max-width: 400px;
+    margin-right: 16px;
 }
 
 ._card {

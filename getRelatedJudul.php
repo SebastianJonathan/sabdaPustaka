@@ -5,7 +5,7 @@ if (isset($_GET['document_id'])) {
     // Set up Elasticsearch connection
     $host = 'localhost';
     $port = '9200';
-    $index = 'pustaka7';
+    $index = 'pustaka9';
     $url = "http://{$host}:{$port}/{$index}/_search";
 
     // Prepare the query parameters
@@ -20,8 +20,8 @@ if (isset($_GET['document_id'])) {
                     ]
                 ],
                 'min_term_freq' => 1,
-                'max_query_terms' => 4, // Adjust the number of terms based on your preference
-                'minimum_should_match' => '50%'
+                'max_query_terms' => 12, // Adjust the number of terms based on your preference
+                'minimum_should_match' => '30%'
             ]
         ],
         'size' => 4 // Adjust the number of related documents to retrieve
