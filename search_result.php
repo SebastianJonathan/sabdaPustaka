@@ -33,7 +33,6 @@ let filterTanggal = [];
 var pageSize = 10;
 var currPage = 1;
 var maxPage = 7;
-var fromPageData = 0;
 
 function createListItem(pageNumber) {
     const li = document.createElement('li');
@@ -79,19 +78,24 @@ function createListItem2(pageNumber) {
     }
     a.onclick = function(){
         if (pageNumber != currPage){
-            if(pageNumber != "Show All"){
-                fromPageData = (pageNumber-1) * pageSize;
-                // pageSize = parseInt(pageNumber);
+            currPage = pageNumber;
+            if(sessionStorage.getItem("mode") == "list"){
+                if(filterNarasumber.length != 0 || filterEvent.length != 0 || filterTanggal.length != 0){
+                    fetchSearchFilterResult2();
+                }else{
+                    fetchSearchResult2();
+                }
             }else{
-                pageSize = 10000;
-                fromPageData = 0;
+                if(filterNarasumber.length != 0 || filterEvent.length != 0 || filterTanggal.length != 0){
+                    fetchSearchFilterResult();
+                }else{
+                    fetchSearchResult();
+                }
             }
-            fetchSearchResult();
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             })
-            currPage = pageNumber;
         }
     }
 
@@ -163,7 +167,11 @@ function clrAllFilterCheckbox(){
     filterNarasumber.length = 0;
     filterEvent.length = 0;
     filterTanggal.length = 0;
-    fetchSearchFilterResult();
+    if(sessionStorage.getItem("mode") == "list"){
+        fetchSearchFilterResult2();
+    }else{
+        fetchSearchFilterResult();
+    }
 }
 
 function onChangeFilterCheckbox(value,type,checked){
@@ -220,6 +228,7 @@ function fetchSearchFilterResult2() {
             fieldSearch.push('deskripsi_pendek');
             fieldSearch.push('ringkasan');
             fieldSearch.push('kata_kunci');
+            fieldSearch.push('judul_completion.input');
         }
         // Create the filter object
         let filter = ""
@@ -231,7 +240,8 @@ function fetchSearchFilterResult2() {
                 "fields": fieldSearch,
                 "narasumber": filterNarasumber,
                 "event": filterEvent,
-                "tanggal": filterTanggal
+                "tanggal": filterTanggal,
+                "currPage": (currPage - 1) * 10 + 1
             };
         }else{
             filter = {
@@ -241,7 +251,8 @@ function fetchSearchFilterResult2() {
                 "fields": fieldSearch,
                 "narasumber": filterNarasumber,
                 "event": filterEvent,
-                "tanggal": filterTanggal
+                "tanggal": filterTanggal,
+                "currPage": (currPage - 1) * 10 + 1
             };
         }
 
@@ -257,7 +268,7 @@ function fetchSearchFilterResult2() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/pw5/filterAPI.php', {
+        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -276,7 +287,7 @@ function fetchSearchFilterResult2() {
 
                 const card = document.createElement('div');
                 card.className = '_card';
-                card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
+                card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
 
                 const cardContent = document.createElement('div');
                 cardContent.className = '_card_content';
@@ -387,6 +398,7 @@ function fetchSearchFilterResult() {
             fieldSearch.push('deskripsi_pendek');
             fieldSearch.push('ringkasan');
             fieldSearch.push('kata_kunci');
+            fieldSearch.push('judul_completion.input');
         }
         // Create the filter object
         let filter = "";
@@ -398,7 +410,8 @@ function fetchSearchFilterResult() {
                 "fields": fieldSearch,
                 "narasumber": filterNarasumber,
                 "event": filterEvent,
-                "tanggal": filterTanggal
+                "tanggal": filterTanggal,
+                "currPage": (currPage - 1) * 10 + 1
             };
         }else{
             filter = {
@@ -408,7 +421,8 @@ function fetchSearchFilterResult() {
                 "fields": fieldSearch,
                 "narasumber": filterNarasumber,
                 "event": filterEvent,
-                "tanggal": filterTanggal
+                "tanggal": filterTanggal,
+                "currPage": (currPage - 1) * 10 + 1
             };
         }
 
@@ -424,7 +438,7 @@ function fetchSearchFilterResult() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/pw5/filterAPI.php', {
+        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -544,7 +558,7 @@ function fetchSearchFilterResult() {
 
 async function fetchNewest() {
     try {
-        const response = await fetch('http://localhost/pw5/getNewest.php');
+        const response = await fetch('http://localhost/UI/sabdaPustaka/getNewest.php');
         const data = await response.json();
         const cardResultElement = document.getElementById('card_result');
         cardResultElement.innerHTML = '';
@@ -681,13 +695,15 @@ function fetchSearchResult() {
             fieldSearch.push('deskripsi_pendek');
             fieldSearch.push('ringkasan');
             fieldSearch.push('kata_kunci');
+            fieldSearch.push('judul_completion.input');
         }
         // Create the filter object
         let filter = "";
         if(query == ""){
             filter = {
                 "size": pageSize,
-                "API": "getAll"
+                "API": "getAll",
+                "currPage": (currPage - 1) * 10 + 1
             };
         }else{
             filter = {
@@ -695,7 +711,7 @@ function fetchSearchResult() {
                 "size": pageSize,
                 "API": "search",
                 "fields": fieldSearch,
-                "from": fromPageData
+                "currPage": (currPage - 1) * 10 + 1
             };
         }
 
@@ -711,7 +727,7 @@ function fetchSearchResult() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/pw5/filterAPI.php', {
+        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -796,7 +812,7 @@ function fetchSearchResult() {
 
                 const card = document.createElement('div');
                 card.className = '_card';
-                card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
+                card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
 
                 const cardImage = document.createElement('div');
                 cardImage.className = '_card_image';
@@ -1118,20 +1134,24 @@ function fetchSearchResult2() {
             fieldSearch.push('deskripsi_pendek');
             fieldSearch.push('ringkasan');
             fieldSearch.push('kata_kunci');
+            fieldSearch.push('judul_completion.input');
         }
+        
         // Create the filter object
         let filter = "";
         if(query == ""){
             filter = {
                 "size": pageSize,
-                "API": "getAll"
+                "API": "getAll",
+                "currPage": (currPage - 1) * 10 + 1
             };
         }else{
             filter = {
                 "query": query,
                 "size": pageSize,
                 "API": "search",
-                "fields": fieldSearch
+                "fields": fieldSearch,
+                "currPage": (currPage - 1) * 10 + 1
             };
         }
 
@@ -1147,7 +1167,7 @@ function fetchSearchResult2() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/pw5/filterAPI.php', {
+        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -1226,7 +1246,7 @@ function fetchSearchResult2() {
 
                     const card = document.createElement('div');
                     card.className = '_card';
-                    card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
+                    card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
 
                     const cardContent = document.createElement('div');
                     cardContent.className = '_card_content';

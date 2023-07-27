@@ -411,6 +411,7 @@
                 fields.push('deskripsi_pendek');
 				fields.push('ringkasan');
 				fields.push('kata_kunci');
+				fields.push('judul_completion.input');
             }
 
 			const queryInput = document.getElementById('query');
@@ -595,6 +596,7 @@
 				fields.push('deskripsi_pendek');
 				fields.push('ringkasan');
 				fields.push('kata_kunci');
+				fields.push('judul_completion.input');
 			}
 
 			const queryInput = document.getElementById('query');
@@ -632,6 +634,7 @@
 				fields.push('deskripsi_pendek');
 				fields.push('ringkasan');
 				fields.push('kata_kunci');
+				fields.push('judul_completion.input');
 			}
 
 			const queryInput = document.getElementById('query');

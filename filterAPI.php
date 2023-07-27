@@ -35,7 +35,7 @@
             'size' => 10000,
             'query' => [
                 'match_all' => new stdClass(),
-            ],
+            ]
         ];
         $query2 = json_encode($params2);
         $response2 = query($url, $query2);
@@ -48,6 +48,7 @@
             'query' => [
                 'match_all' => new stdClass(),
             ],
+            'from' => $jsonFilter["currPage"]
         ];
         $query = json_encode($params);
         $response = query($url, $query);
@@ -173,6 +174,7 @@
                         ]
                     ]
                 ],
+                'from' => $jsonSearch["currPage"]
             ];
             $query = json_encode($params);
             $response = query($url, $query);
@@ -305,6 +307,7 @@
                     'query' => [
                         'match_all' => new stdClass(),
                     ],
+                    'from' => $jsonSearch["currPage"]
                 ];
             }else{
                 $params = [
@@ -322,6 +325,7 @@
                             ],
                         ],
                     ],
+                    'from' => $jsonSearch["currPage"]
                 ];
             }
             $query = json_encode($params);
