@@ -267,7 +267,7 @@ function fetchSearchFilterResult2() {
                 "narasumber": filterNarasumber,
                 "event": filterEvent,
                 "tanggal": filterTanggal,
-                "currPage": (currPage - 1) * 10
+                "currPage": (currPage - 1) * 12
             };
         }else{
             filter = {
@@ -278,7 +278,7 @@ function fetchSearchFilterResult2() {
                 "narasumber": filterNarasumber,
                 "event": filterEvent,
                 "tanggal": filterTanggal,
-                "currPage": (currPage - 1) * 10
+                "currPage": (currPage - 1) * 12
             };
         }
 
@@ -294,7 +294,7 @@ function fetchSearchFilterResult2() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/pw5/filterAPI.php', {
+        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -313,7 +313,7 @@ function fetchSearchFilterResult2() {
 
                 const card = document.createElement('div');
                 card.className = '_card';
-                card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
+                card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
 
                 const cardContent = document.createElement('div');
                 cardContent.className = '_card_content';
@@ -437,7 +437,7 @@ function fetchSearchFilterResult() {
                 "narasumber": filterNarasumber,
                 "event": filterEvent,
                 "tanggal": filterTanggal,
-                "currPage": (currPage - 1) * 10
+                "currPage": (currPage - 1) * 12
             };
             console.log("Masuk");
         }else{
@@ -449,7 +449,7 @@ function fetchSearchFilterResult() {
                 "narasumber": filterNarasumber,
                 "event": filterEvent,
                 "tanggal": filterTanggal,
-                "currPage": (currPage - 1) * 10
+                "currPage": (currPage - 1) * 12
             };
         }
 
@@ -465,7 +465,7 @@ function fetchSearchFilterResult() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/pw5/filterAPI.php', {
+        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -586,7 +586,7 @@ function fetchSearchFilterResult() {
 async function fetchNewest() {
     try {
         const main = document.getElementById('main');
-        const response = await fetch('http://localhost/pw5/getNewest.php');
+        const response = await fetch('http://localhost/UI/sabdaPustaka/getNewest.php');
         const data = await response.json();
         const cardResultElement = document.getElementById('card_result');
         cardResultElement.innerHTML = '';
@@ -677,7 +677,7 @@ async function fetchNewest() {
         showAllBtn.style.backgroundColor = "#1e0049";
         showAllBtn.style.color= "white";
         showAllBtn.onclick = function(){
-            window.location.href = "http://localhost/pw5/home.php/search/";
+            window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/";
         }
         showAllDiv.appendChild(showAllBtn);
         main.appendChild(showAllDiv);
@@ -749,7 +749,7 @@ function fetchSearchResult() {
             filter = {
                 "size": pageSize,
                 "API": "getAll",
-                "currPage": (currPage - 1) * 10,
+                "currPage": (currPage - 1) * 12,
                 "fields": fieldSearch
             };
         }else{
@@ -758,7 +758,7 @@ function fetchSearchResult() {
                 "size": pageSize,
                 "API": "search",
                 "fields": fieldSearch,
-                "currPage": (currPage - 1) * 10
+                "currPage": (currPage - 1) * 12
             };
         }
 
@@ -774,7 +774,7 @@ function fetchSearchResult() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/pw5/filterAPI.php', {
+        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -896,7 +896,7 @@ function fetchSearchResult() {
 
                 const card = document.createElement('div');
                 card.className = '_card';
-                card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
+                card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
 
                 const cardImage = document.createElement('div');
                 cardImage.className = '_card_image';
@@ -1132,7 +1132,7 @@ function fetchSearchResult2() {
             filter = {
                 "size": pageSize,
                 "API": "getAll",
-                "currPage": (currPage - 1) * 10,
+                "currPage": (currPage - 1) * 12,
                 "fields": fieldSearch
             };
         }else{
@@ -1141,7 +1141,7 @@ function fetchSearchResult2() {
                 "size": pageSize,
                 "API": "search",
                 "fields": fieldSearch,
-                "currPage": (currPage - 1) * 10
+                "currPage": (currPage - 1) * 12
             };
         }
 
@@ -1157,7 +1157,7 @@ function fetchSearchResult2() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch('http://localhost/pw5/filterAPI.php', {
+        fetch('http://localhost/UI/sabdaPustaka/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -1271,7 +1271,7 @@ function fetchSearchResult2() {
 
                     const card = document.createElement('div');
                     card.className = '_card';
-                    card.setAttribute('onclick', `window.location.href='http://localhost/pw5/selected_card.php?document_id=${item.id}'`);
+                    card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
 
                     const cardContent = document.createElement('div');
                     cardContent.className = '_card_content';
