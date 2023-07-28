@@ -869,7 +869,9 @@ function fetchSearchResult() {
                 const pagiUl = document.createElement("ul");
                 pagiUl.className = "pagination"
 
-                // pagiUl.appendChild(createListItem2("Prev"));
+                if ((currPage - 1) > 0){
+                    pagiUl.appendChild(createListItem2("Prev"));
+                }
                 c_pagi = 0;
                 p_pagi = -2;
                 while (c_pagi < 5){
@@ -881,6 +883,9 @@ function fetchSearchResult() {
                         c_pagi += 1;
                     }
                     p_pagi += 1;
+                }
+                if ((currPage + 1) < maxPage ){
+                    pagiUl.appendChild(createListItem2("Next"));
                 }
                 pagiUl.appendChild(createListItem2("Show All"));
                 pagiCont.appendChild(pagiUl);
@@ -1256,6 +1261,9 @@ function fetchSearchResult2() {
                 pagiUl.className = "pagination";
                 // console.log("WWWL");
                 // pagiUl.appendChild(createListItem2("Prev"));
+                if ((currPage - 1) > 0){
+                    pagiUl.appendChild(createListItem2("Prev"));
+                }
                 c_pagi = 0;
                 p_pagi = -2;
                 while (c_pagi < 5){
@@ -1267,6 +1275,9 @@ function fetchSearchResult2() {
                         c_pagi += 1;
                     }
                     p_pagi += 1;
+                }
+                if ((currPage + 1) < maxPage ){
+                    pagiUl.appendChild(createListItem2("Next"));
                 }
                 pagiUl.appendChild(createListItem2("Show All"));
                 pagiCont.appendChild(pagiUl);
