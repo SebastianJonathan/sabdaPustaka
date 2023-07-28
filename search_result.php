@@ -894,7 +894,7 @@ function fetchSearchResult() {
                     }
                     p_pagi += 1;
                 }
-                if ((currPage + 1) < maxPage ){
+                if ((currPage + 1) <= maxPage ){
                     pagiUl.appendChild(createListItem2("Next"));
                 }
                 pagiUl.appendChild(createListItem2("Show All"));
@@ -1286,7 +1286,7 @@ function fetchSearchResult2() {
                     }
                     p_pagi += 1;
                 }
-                if ((currPage + 1) < maxPage ){
+                if ((currPage + 1) <= maxPage ){
                     pagiUl.appendChild(createListItem2("Next"));
                 }
                 pagiUl.appendChild(createListItem2("Show All"));
