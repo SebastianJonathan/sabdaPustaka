@@ -730,7 +730,7 @@ function fetchSearchResult() {
     filterTanggal.length = 0;
     const fullURL = window.location.href;
     const segments = fullURL.split('/');
-    let query = segments[segments.length - 1];
+    let query = segments[segments.length - 2];
     query = query.replace(/%20/g, ' ');
     if(query != null){
         document.getElementById('query').value = query;
@@ -894,7 +894,7 @@ function fetchSearchResult() {
                     }
                     p_pagi += 1;
                 }
-                if ((currPage + 1) <= maxPage ){
+                if ((currPage + 1) < maxPage ){
                     pagiUl.appendChild(createListItem2("Next"));
                 }
                 pagiUl.appendChild(createListItem2("Show All"));
@@ -1124,7 +1124,7 @@ function fetchSearchResult2() {
     filterTanggal.length = 0;
     const fullURL = window.location.href;
     const segments = fullURL.split('/');
-    let query = segments[segments.length - 1];
+    let query = segments[segments.length - 2];
     query = query.replace(/%20/g, ' ');
     if(query != null){
         document.getElementById('query').value = query;
@@ -1286,7 +1286,7 @@ function fetchSearchResult2() {
                     }
                     p_pagi += 1;
                 }
-                if ((currPage + 1) <= maxPage ){
+                if ((currPage + 1) < maxPage ){
                     pagiUl.appendChild(createListItem2("Next"));
                 }
                 pagiUl.appendChild(createListItem2("Show All"));
