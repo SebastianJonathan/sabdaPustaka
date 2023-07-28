@@ -831,6 +831,7 @@ function fetchSearchResult() {
                 var dropLi_Grid = document.createElement('a');
                 dropLi_Grid.className = "dropdown-item drop-li-a";
                 dropLi_Grid.textContent = "Grid";
+                dropLi_Grid.style.color = "black";
                 dropLi_Grid.onclick = function(){
                     sessionStorage.setItem("mode", "card");
                     fetchSearchFilterResult();
@@ -841,6 +842,7 @@ function fetchSearchResult() {
                 var dropLi_List = document.createElement('a');
                 dropLi_List.className = "dropdown-item drop-li-a";
                 dropLi_List.textContent = "List";
+                dropLi_List.style.color = "black";
                 dropLi_List.onclick = function(){
                     sessionStorage.setItem("mode", "list");
                     fetchSearchFilterResult2();
@@ -1211,8 +1213,8 @@ function fetchSearchResult2() {
                 var dropLi_Grid = document.createElement('a');
                 dropLi_Grid.className = "dropdown-item drop-li-a";
                 dropLi_Grid.textContent = "Grid";
+                dropLi_Grid.style.color = "black";
                 dropLi_Grid.onclick = function(){
-                    dropLi_Grid.style.color = "black";
                     sessionStorage.setItem("mode", "card");
                     fetchSearchFilterResult();
                 }
@@ -1222,10 +1224,8 @@ function fetchSearchResult2() {
                 var dropLi_List = document.createElement('a');
                 dropLi_List.className = "dropdown-item drop-li-a";
                 dropLi_List.textContent = "List";
-                dropLi_List.setAttribute("style","color: black;");
+                dropLi_List.style.color = "black";
                 dropLi_List.onclick = function(){
-                    // dropLi_List.style.color = "black";
-                    
                     sessionStorage.setItem("mode", "list");
                     fetchSearchFilterResult2();
                 }
