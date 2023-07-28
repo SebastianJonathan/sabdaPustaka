@@ -52,25 +52,25 @@
 						<div class="row fsc">
 							<div class="checkbox-container">
 								<label for="checkbox_judul" class="form-check-label checkbox-label bigger">
-									<input type="checkbox" class="form-check-input bigger cbstyle" id="checkbox_judul" name="checkbox_judul" value="judul" onchange="updateSessionCheckbox()">
+									<input type="checkbox" class="form-check-input bigger cbstyle" id="checkbox_judul" name="checkbox_judul" value="judul" onchange="updateSessionCheckboxFirst()">
 									Judul
 								</label>
 							</div>
 							<div class="checkbox-container">
 								<label for="checkbox_narasumber" class="form-check-label checkbox-label bigger">
-									<input type="checkbox" class="form-check-input bigger cbstyle" id="checkbox_narasumber" name="checkbox_narasumber" value="narasumber" onchange="updateSessionCheckbox()">
+									<input type="checkbox" class="form-check-input bigger cbstyle" id="checkbox_narasumber" name="checkbox_narasumber" value="narasumber" onchange="updateSessionCheckboxFirst()">
 									Narasumber
 								</label>
 							</div>
 							<div class="checkbox-container">
 								<label for="checkbox_event" class="form-check-label checkbox-label bigger">
-									<input type="checkbox" class="bigger form-check-input" id="checkbox_event" name="checkbox_event" value="event" onchange="updateSessionCheckbox()">
+									<input type="checkbox" class="bigger form-check-input" id="checkbox_event" name="checkbox_event" value="event" onchange="updateSessionCheckboxFirst()">
 									Event
 								</label>
 							</div>
 							<div class="checkbox-container">
 								<label for="checkbox_related" class="form-check-label checkbox-label bigger">
-									<input type="checkbox" class="bigger form-check-input" id="checkbox_related" name="checkbox_related" value="related" onchange="updateSessionCheckbox()">
+									<input type="checkbox" class="bigger form-check-input" id="checkbox_related" name="checkbox_related" value="related" onchange="updateSessionCheckboxFirst()">
 									Related
 								</label>
 							</div>
@@ -306,12 +306,6 @@
 			document.getElementById('checkbox_related').checked = true;
 			document.getElementById('fsv-checkbox_related').checked = true;
 		}
-		if (sessionStorage.getItem('checkboxJudul') === null &&
-		sessionStorage.getItem('checkboxEvent') === null && 
-		sessionStorage.getItem('checkboxNarasumber') === null && 
-		sessionStorage.getItem('checkboxRelated') === null) {
-			selectAll();
-		}
 		function syncCheckbox(id, isChecked) {
 			var split_id = id.split("-");
 			var clan = split_id[0];
@@ -338,7 +332,7 @@
 			document.getElementById('checkbox_event').checked = true;
 			document.getElementById('fsv-checkbox_narasumber').checked = true;
 			document.getElementById('fsv-checkbox_related').checked = true;
-			updateSessionCheckbox();
+			updateSessionCheckboxFirst();
 			updateFields();
 		}
 
@@ -351,7 +345,7 @@
 			document.getElementById('checkbox_event').checked = false;
 			document.getElementById('fsv-checkbox_narasumber').checked = false;
 			document.getElementById('fsv-checkbox_related').checked = false;
-			updateSessionCheckbox();
+			updateSessionCheckboxFirst();
 			updateFields();
 		}
 		function scrollToBottom() {
@@ -440,10 +434,39 @@
 			checkbox_related.checked = checkbox_related2.checked;
 			updateFields();
 		}
-
+		function getSearchByState(){
+			let searchBy = "";
+			if(sessionStorage.getItem("checkboxJudul") == "true"){
+				searchBy += "t";
+			}else{
+				searchBy += "f";
+			}
+			if(sessionStorage.getItem("checkboxEvent") == "true"){
+				searchBy += "t";
+			}else{
+				searchBy += "f";
+			}
+			if(sessionStorage.getItem("checkboxNarasumber") == "true"){
+				searchBy += "t";
+			}else{
+				searchBy += "f";
+			}
+			if(sessionStorage.getItem("checkboxRelated") == "true"){
+				searchBy += "t";
+			}else{
+				searchBy += "f";
+			}
+			return searchBy;
+		}
 		function goSearch() {
-			updateSessionCheckbox();
-			window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById('query').value;
+			let searchBy = getSearchByState();
+			const fullURL = window.location.href;
+			const segments = fullURL.split('/');
+			if(segments[segments.length - 3] == "search" && document.getElementById('query').value == ""){
+				window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + segments[segments.length - 2] + "/" + searchBy;
+			}else{
+				window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById('query').value + "/" + searchBy;
+			}
 		}
 		async function fetchRecommendations() {
 			const query = document.getElementById('query').value;
@@ -481,7 +504,7 @@
 			li.addEventListener('click', function() {
 				document.getElementById('query').value = item
 				hideRekomendasi();
-				goSearch();
+				updateSessionCheckbox();
 			});
 			rekomendasiList.appendChild(li);
 		}
@@ -535,11 +558,9 @@
 			sessionStorage.setItem("checkboxNarasumber", checkboxNarasumber.checked);
 			sessionStorage.setItem("checkboxRelated", checkboxRelated.checked);
 			updateFields();
-			const fullURL = window.location.href;
-    		const segments = fullURL.split('/');
-
-			if(segments[segments.length - 2] == "search"){
-				window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + segments[segments.length - 1];
+			if(sessionStorage.getItem("changeSearchBy") == "1"){
+				sessionStorage.setItem("changeSearchBy", "0");
+				goSearch();
 			}
 		}
 
@@ -722,6 +743,10 @@
 			}
 
 		}
+		function updateSessionCheckboxFirst(){
+			sessionStorage.setItem("changeSearchBy","1");
+			updateSessionCheckbox();
+		}
 
 		function expandNarasumber(){
 			var narasCont = document.getElementById('narasumberList');
@@ -756,16 +781,42 @@
 					container.removeChild(container.firstChild);
 				}
 			}
-
 			removeAllChildElements(container);
 		}
 		function startupAndSearch() {
 			const fullURL = window.location.href;
 			sessionStorage.setItem("lastUrl", fullURL);
 			const segments = fullURL.split('/');
-			if (segments[segments.length - 2] == "search") {
+			if (segments[segments.length - 3] == "search") {
+				const checkboxJudul = document.getElementById("checkbox_judul");
+				const checkboxEvent = document.getElementById("checkbox_event");
+				const checkboxNarasumber = document.getElementById("checkbox_narasumber");
+				const checkboxRelated = document.getElementById("checkbox_related");
+				if(segments[segments.length - 1].substring(0,1) == "t"){
+					checkboxJudul.checked = true;
+				}else{
+					checkboxJudul.checked = false;
+				}
+				if(segments[segments.length - 1].substring(1,2) == "t"){
+					checkboxEvent.checked = true;
+				}else{
+					checkboxEvent.checked = false;
+				}
+				if(segments[segments.length - 1].substring(2,3) == "t"){
+					checkboxNarasumber.checked = true;
+				}else{
+					checkboxNarasumber.checked = false;
+				}
+				if(segments[segments.length - 1].substring(3,4) == "t"){
+					checkboxRelated.checked = true;
+				}else{
+					checkboxRelated.checked = false;
+				}
 				if(sessionStorage.getItem("mode") == null){
 					sessionStorage.setItem("mode","card");
+				}
+				if(sessionStorage.getItem("changeSearchBy") == null){
+					updateSessionCheckboxFirst();
 				}
 				removeAllElements();
 				if(sessionStorage.getItem("mode") == "card"){
