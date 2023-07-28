@@ -886,6 +886,11 @@ function fetchSearchResult() {
                 pagiCont.appendChild(pagiUl);
                 showDiv.appendChild(pagiCont);
 
+                var showPagiProg = document.createElement("p");
+                showPagiProg.style.textAlign = "end";
+                showPagiProg.style.marginRight = "16px";
+                showPagiProg.textContent = "Page " + currPage + " of " + maxPage;
+                showDiv.appendChild(showPagiProg);
 
                 // FOR EACH
                 counter = 0;
@@ -1266,6 +1271,13 @@ function fetchSearchResult2() {
                 pagiUl.appendChild(createListItem2("Show All"));
                 pagiCont.appendChild(pagiUl);
                 showDiv.appendChild(pagiCont);
+
+                var showPagiProg = document.createElement("p");
+                showPagiProg.style.textAlign = "end";
+                showPagiProg.style.marginRight = "16px";
+                showPagiProg.textContent = "Page " + currPage + " of " + maxPage;
+                showDiv.appendChild(showPagiProg);
+                
 
                 // FOR EACH
                 data.result.data_result.forEach(function (item) {
