@@ -504,7 +504,7 @@
 			li.addEventListener('click', function() {
 				document.getElementById('query').value = item
 				hideRekomendasi();
-				updateSessionCheckbox();
+				updateSessionCheckboxFirst();
 			});
 			rekomendasiList.appendChild(li);
 		}
