@@ -241,10 +241,9 @@ function onChangeFilterCheckbox(value,type,checked){
 }
 
 function fetchSearchFilterResult2() {
-    now_show = 10;
     const fullURL = window.location.href;
     const segments = fullURL.split('/');
-    let query = segments[segments.length - 1];
+    let query = segments[segments.length - 2];
     query = query.replace(/%20/g, ' ');
     if(query != null){
         // Initialize fieldSearch array
@@ -414,7 +413,7 @@ function fetchSearchFilterResult() {
     console.log(filterEvent,filterNarasumber,filterTanggal);
     const fullURL = window.location.href;
     const segments = fullURL.split('/');
-    let query = segments[segments.length - 1];
+    let query = segments[segments.length - 2];
     query = query.replace(/%20/g, ' ');
     if(query != null){
         // Initialize fieldSearch array
