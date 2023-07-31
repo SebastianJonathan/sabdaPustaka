@@ -336,6 +336,19 @@
 			updateFields();
 		}
 
+		function selectAllHome() {
+			document.getElementById('checkbox_judul').checked = true;
+			document.getElementById('fsv-checkbox_judul').checked = true;
+			document.getElementById('checkbox_narasumber').checked = true;
+			document.getElementById('checkbox_related').checked = true;
+			document.getElementById('fsv-checkbox_event').checked = true;
+			document.getElementById('checkbox_event').checked = true;
+			document.getElementById('fsv-checkbox_narasumber').checked = true;
+			document.getElementById('fsv-checkbox_related').checked = true;
+			updateSessionCheckboxHome();
+			updateFields();
+		}
+
 		function clearSelection() {
 			document.getElementById('checkbox_judul').checked = false;
 			document.getElementById('fsv-checkbox_judul').checked = false;
@@ -748,6 +761,11 @@
 			updateSessionCheckbox();
 		}
 
+		function updateSessionCheckboxHome(){
+			sessionStorage.setItem("changeSearchBy","2");
+			updateSessionCheckbox();
+		}
+
 		function expandNarasumber(){
 			var narasCont = document.getElementById('narasumberList');
 			var exBtn = document.getElementById('ex-naras-btn');
@@ -826,7 +844,7 @@
 				}
 			} else {
 				sessionStorage.setItem("mode","card");
-				selectAll();
+				selectAllHome();
 				fetchNewest();
 				generateEventLinks();
 				generateNarasumberLinks();
