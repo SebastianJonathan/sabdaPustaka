@@ -17,4 +17,4 @@ Catatan :
 - Jika memakai sqlToES.php tidak perlu menjalankan buatIndex.php, sql_to_txt.php, dan cobaisiESBULK.php
 - Dengan folder bulk, hanya perlu file cobaisiESBULK.php untuk memasukkan file-file ke dalam ES.
 - Folder bulk harus terletak pada directory yang sama dengan cobaisiESBULK.php atau sqlToES.php 
-- Folder mapping harus terletak pada directory yang sama dengan buatIndex.php atau sqlToES.php 
+- File mapping harus terletak pada directory yang sama dengan buatIndex.php atau sqlToES.php 
