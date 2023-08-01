@@ -686,7 +686,7 @@ async function fetchNewest() {
         showAllBtn.style.backgroundColor = "#1e0049";
         showAllBtn.style.color= "white";
         showAllBtn.onclick = function(){
-            window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/";
+            window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search//tttt";
         }
         showAllDiv.appendChild(showAllBtn);
         main.appendChild(showAllDiv);
