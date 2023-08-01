@@ -492,7 +492,7 @@ function fetchSearchFilterResult() {
 
                 const card = document.createElement('div');
                 card.className = '_card';
-                card.setAttribute('onclick', `window.location.href='selected_card.php?document_id=${item.id}'`);
+                card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
 
                 const cardImage = document.createElement('div');
                 cardImage.className = '_card_image';
@@ -620,7 +620,7 @@ async function fetchNewest() {
                 card.id = "_card_"+counter;
                 // console.log(card.id);
 
-                card.setAttribute('onclick', `window.location.href='selected_card.php?document_id=${item.id}'`);
+                card.setAttribute('onclick', `window.location.href='http://localhost/UI/sabdaPustaka/selected_card.php?document_id=${item.id}'`);
 
                 const cardImage = document.createElement('div');
                 cardImage.className = '_card_image';

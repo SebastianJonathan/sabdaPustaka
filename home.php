@@ -335,20 +335,6 @@
 			updateSessionCheckboxFirst();
 			updateFields();
 		}
-
-		function selectAllHome() {
-			document.getElementById('checkbox_judul').checked = true;
-			document.getElementById('fsv-checkbox_judul').checked = true;
-			document.getElementById('checkbox_narasumber').checked = true;
-			document.getElementById('checkbox_related').checked = true;
-			document.getElementById('fsv-checkbox_event').checked = true;
-			document.getElementById('checkbox_event').checked = true;
-			document.getElementById('fsv-checkbox_narasumber').checked = true;
-			document.getElementById('fsv-checkbox_related').checked = true;
-			updateSessionCheckboxHome();
-			updateFields();
-		}
-
 		function clearSelection() {
 			document.getElementById('checkbox_judul').checked = false;
 			document.getElementById('fsv-checkbox_judul').checked = false;
@@ -475,10 +461,12 @@
 			let searchBy = getSearchByState();
 			const fullURL = window.location.href;
 			const segments = fullURL.split('/');
-			if(segments[segments.length - 3] == "search" && document.getElementById('query').value == ""){
+			if(segments[segments.length - 3] == "search" && document.getElementById('query').value == "" && sessionStorage.getItem("query") == null){
 				window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + segments[segments.length - 2] + "/" + searchBy;
+				sessionStorage.setItem("query",segments[segments.length - 2]);
 			}else{
 				window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById('query').value + "/" + searchBy;
+				sessionStorage.setItem("query",document.getElementById('query').value);
 			}
 		}
 		async function fetchRecommendations() {
@@ -517,7 +505,8 @@
 			li.addEventListener('click', function() {
 				document.getElementById('query').value = item
 				hideRekomendasi();
-				updateSessionCheckboxFirst();
+				updateSessionCheckbox();
+				goSearch();
 			});
 			rekomendasiList.appendChild(li);
 		}
@@ -571,7 +560,9 @@
 			sessionStorage.setItem("checkboxNarasumber", checkboxNarasumber.checked);
 			sessionStorage.setItem("checkboxRelated", checkboxRelated.checked);
 			updateFields();
-			if(sessionStorage.getItem("changeSearchBy") == "1"){
+			const fullURL = window.location.href;
+			const segments = fullURL.split('/');
+			if(sessionStorage.getItem("changeSearchBy") == "1" && segments[segments.length - 3] == "search"){
 				sessionStorage.setItem("changeSearchBy", "0");
 				goSearch();
 			}
@@ -761,11 +752,6 @@
 			updateSessionCheckbox();
 		}
 
-		function updateSessionCheckboxHome(){
-			sessionStorage.setItem("changeSearchBy","2");
-			updateSessionCheckbox();
-		}
-
 		function expandNarasumber(){
 			var narasCont = document.getElementById('narasumberList');
 			var exBtn = document.getElementById('ex-naras-btn');
@@ -844,7 +830,7 @@
 				}
 			} else {
 				sessionStorage.setItem("mode","card");
-				selectAllHome();
+				selectAll();
 				fetchNewest();
 				generateEventLinks();
 				generateNarasumberLinks();
