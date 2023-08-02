@@ -252,7 +252,7 @@
           </div>
           <div class="col-lg-3 q-col">
             <div class="pertanyaan-container _hidden" id="pertanyaan-container">
-              <h5 class="text-center">Pertanyaan Renungan</h5>
+              <h5 class="text-center">Pertanyaan Refleksi</h5>
               <div class="pertanyaan-content" id="pertanyaan-content">
                 <ul>
                   <?php
