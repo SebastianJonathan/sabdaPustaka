@@ -1,4 +1,3 @@
-<?php include 'DATA/API/config.php' ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,7 +70,7 @@
         if (keyword) {
             // Fetch the related results using the getKeyword.php API
 
-            fetch(configPath + `DATA/API/getKeyword.php?query=${encodeURIComponent(keyword)}`)
+            fetch(`getKeyword.php?query=${encodeURIComponent(keyword)}`)
                 .then(response => response.json())
                 .then(data => {
                     const hasil = data.hasil;
@@ -88,7 +87,7 @@
 
         if (narsum) {
             // Fetch the related results using the getKeyword.php API
-            fetch(configPath + `DATA/API/getNarsum.php?query=${encodeURIComponent(narsum)}`)
+            fetch(`getNarsum.php?query=${encodeURIComponent(narsum)}`)
                 .then(response => response.json())
                 .then(data => {
                     const hasil = data.hasil;
@@ -114,7 +113,7 @@
 
         if (eventParam) {
             // Fetch the related results using the getEvent.php API
-            fetch(configPath + `DATA/API/getEvent.php?query=${encodeURIComponent(eventParam)}`)
+            fetch(`getEvent.php?query=${encodeURIComponent(eventParam)}`)
                 .then(response => response.json())
                 .then(data => {
                     const hasil = data.hasil;
@@ -131,7 +130,7 @@
 
         if (narsumParam) {
             // Fetch the related results using the getEvent.php API
-            fetch(configPath + `DATA/API/getNarsum.php?query=${encodeURIComponent(narsumParam)}`)
+            fetch(`getNarsum.php?query=${encodeURIComponent(narsumParam)}`)
                 .then(response => response.json())
                 .then(data => {
                     const hasil = data.hasil;

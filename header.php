@@ -1,4 +1,4 @@
-<?php include 'config.php' ?>
+<?php include 'DATA/API/config.php' ?>
 <title>Sabda Pustaka</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,10 +11,10 @@
     loadCustomStyles();
 
     function loadCustomStyles() {
-        addStyleSheet(configPath + "styles3.css");
-        addStyleSheet(configPath + "style.css");
-        addStyleSheet(configPath + "sabdastyle.css");
-        addStyleSheet(configPath + "getalllist.css");
+        addStyleSheet(configPath + "DATA/CSS/styles3.css");
+        addStyleSheet(configPath + "DATA/CSS/style.css");
+        addStyleSheet(configPath + "DATA/CSS/sabdastyle.css");
+        addStyleSheet(configPath + "DATA/CSS/getalllist.css");
     }
 
     function addStyleSheet(href) {

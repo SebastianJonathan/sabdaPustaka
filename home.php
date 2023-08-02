@@ -3,7 +3,6 @@
 
 <head>
 	<?php include 'header.php' ?>
-	<?php include 'config.php'; ?>
 	<style>
 	._cards_item2 {
 		margin-bottom: 10px; /* Adjust the spacing between cards */
@@ -475,7 +474,7 @@
 			const fields = document.getElementById('query').dataset.fields;
 
 			try {
-				const response = await fetch(configPath + `autocomplete.php?query=${query}&fields=${fields}`);
+				const response = await fetch(configPath + `DATA/API/autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
 				// console.log(data.rekomendasi);
 				console.log(data);
@@ -489,7 +488,7 @@
 			const query = document.getElementById('query').value;
 			const fields = document.getElementById('query').dataset.fields;
 			try {
-				const response = await fetch(configPath + `autocomplete.php?query=${query}&fields=${fields}`);
+				const response = await fetch(configPath + `DATA/API/autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
 				// console.log(data.rekomendasi);
 				tampilkanRekomendasi(data.rekomendasi);
@@ -697,7 +696,7 @@
 		function generateEventLinks() {
 			const eventListContainer = document.getElementById('eventList');
 			events.forEach((event) => {
-				const eventUrl = configPath + 'related_results.php?event=' + encodeURIComponent(event);
+				const eventUrl = configPath + 'DATA/API/related_results.php?event=' + encodeURIComponent(event);
 				const eventDiv = document.createElement('li');
 				eventDiv.className = 'event-li';
 				// eventDiv.style.width = "150px";
@@ -709,7 +708,7 @@
 		function generateNarasumberLinks() {
 			const narasumberListContainer = document.getElementById('narasumberList');
 			narasumbers.forEach((narasumber) => {
-				const narasumberUrl = configPath + 'related_results.php?narasumber=' + encodeURIComponent(narasumber);
+				const narasumberUrl = configPath + 'DATA/API/related_results.php?narasumber=' + encodeURIComponent(narasumber);
 				const narasumberDiv = document.createElement('li');
 				narasumberDiv.className = 'narsum-li';
 				// narasumberDiv.style.width = '150px';

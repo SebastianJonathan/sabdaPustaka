@@ -1,10 +1,24 @@
+<?php include 'DATA/API/config.php' ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <title>Document</title>
   <?php include 'header.php' ?>
-  <link rel="stylesheet" href="selected_card.css">
+  <script>
+    loadCustomStyles();
+
+    function loadCustomStyles() {
+        addStyleSheet(configPath + "DATA/CSS/selected_card.css");
+    }
+
+    function addStyleSheet(href) {
+        var link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = href;
+        document.head.appendChild(link);
+    }
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.7.570/build/pdf.min.js"></script>
   <script defer>
     const observer = new IntersectionObserver((entries) => {
@@ -358,7 +372,7 @@
             function fetchRelatedDocuments() {
               const documentId = '<?php echo $_GET['document_id']; ?>';
 
-              fetch(`getRelated.php?document_id=${encodeURIComponent(documentId)}`)
+              fetch(configPath + `DATA/API/getRelated.php?document_id=${encodeURIComponent(documentId)}`)
                 .then(response => response.text())
                 .then(data => {
                   const relatedResultsContainer = document.getElementById('related-results-container');
@@ -373,7 +387,7 @@
             function fetchRelatedJudul() {
               const documentId = '<?php echo $_GET['document_id']; ?>';
 
-              fetch(`getRelatedJudul.php?document_id=${encodeURIComponent(documentId)}`)
+              fetch(configPath + `DATA/API/getRelatedJudul.php?document_id=${encodeURIComponent(documentId)}`)
                 .then(response => response.text())
                 .then(data => {
                   const relatedResultsContainer = document.getElementById('related-judul-container');

@@ -1,24 +1,7 @@
 <?php
-include 'config.php';
+include 'DATA/API/config.php';
 $url = $configElasticPath . $indexName . '/_search';
-function query($url, $method, $param)
-{
-    $header = array(
-        'Content-Type: application/json'
-    );
-    $options = array(
-        'http' => array(
-            'header' => $header,
-            'method' => $method,
-            'content' => $param
-        )
-    );
-    $context = stream_context_create($options);
-    $response = file_get_contents($url, false, $context);
-    $result = json_decode($response, true);
-
-    return $result;
-}
+include 'query.php';
 
 function extractUniqueSpeakers($hits)
 {

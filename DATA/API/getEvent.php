@@ -1,24 +1,7 @@
 <?php
 include 'configES.php';
-$url = '/_search';
-function query($url, $method, $param)
-{
-    $header = array(
-        'Content-Type: application/json'
-    );
-    $options = array(
-        'http' => array(
-            'header' => $header,
-            'method' => $method,
-            'content' => $param
-        )
-    );
-    $context = stream_context_create($options);
-    $response = file_get_contents($url, false, $context);
-    $result = json_decode($response, true);
-
-    return $result;
-}
+$url = $configElasticPath . $indexName . '/_search';
+include 'query.php';
 
 // Get the 'event' query parameter from the URL
 $eventParam = isset($_GET['query']) ? $_GET['query'] : '';

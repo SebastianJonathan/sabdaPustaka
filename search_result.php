@@ -303,7 +303,7 @@ function fetchSearchFilterResult2() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch(configPath + 'filterAPI.php', {
+        fetch(configPath + 'DATA/API/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -474,7 +474,7 @@ function fetchSearchFilterResult() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch(configPath + 'filterAPI.php', {
+        fetch(configPath + 'DATA/API/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -595,7 +595,7 @@ function fetchSearchFilterResult() {
 async function fetchNewest() {
     try {
         const main = document.getElementById('main');
-        const response = await fetch(configPath + 'getNewest.php');
+        const response = await fetch(configPath + 'DATA/API/getNewest.php');
         const data = await response.json();
         const cardResultElement = document.getElementById('card_result');
         cardResultElement.innerHTML = '';
@@ -783,7 +783,7 @@ function fetchSearchResult() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch(configPath + 'filterAPI.php', {
+        fetch(configPath + 'DATA/API/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
@@ -1178,7 +1178,7 @@ function fetchSearchResult2() {
         // Delete all card elements by setting the innerHTML to an empty string
         cardResultElement.innerHTML = '';
 
-        fetch(configPath + 'filterAPI.php', {
+        fetch(configPath + 'DATA/API/filterAPI.php', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
