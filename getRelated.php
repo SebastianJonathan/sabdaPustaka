@@ -1,12 +1,12 @@
 <?php
+include 'config.php';
 if (isset($_GET['document_id'])) {
     $documentId = $_GET['document_id'];
-
+    
     // Set up Elasticsearch connection
-    $host = 'localhost';
-    $port = '9200';
-    $index = 'pustaka7';
-    $url = "http://{$host}:{$port}/{$index}/_search";
+    $hostPort = $configElasticPath;
+    $index = $indexName;
+    $url = "{$hostPort}{$index}/_search";
 
     // Prepare the query parameters
     $params = [

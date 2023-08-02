@@ -1,4 +1,6 @@
 <?php
+include 'configES.php';
+$url = $configElasticPath . $indexName . '/_search';
 if (strlen($_GET['query']) >= 3) {
     function query($url, $param)
     {
@@ -17,9 +19,6 @@ if (strlen($_GET['query']) >= 3) {
 
         return $result;
     }
-
-
-    $url = 'http://localhost:9200/pustaka6/_search';
 
     $params = [
         'size' => '200',

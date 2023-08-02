@@ -1,3 +1,4 @@
+<?php include 'config.php' ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fix">
   <div class="container">
     <a class="navbar-brand navbar-brands" href="https://live.sabda.org/">
@@ -9,22 +10,39 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/UI/sabdaPustaka/home.php" >Home</a>
+          <a class="nav-link" onclick="home()" >Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/UI/sabdaPustaka/getalllist.php" >List</a>
+          <a class="nav-link" onclick="getAllList()" >List</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/UI/sabdaPustaka/about.php">About</a>
+          <a class="nav-link" onclick="about()">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/UI/sabdaPustaka/services.php">Services</a>
+          <a class="nav-link" onclick="services()">Services</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="http://localhost/UI/sabdaPustaka/contact.php">Contact</a>
+          <a class="nav-link" onclick="contact()">Contact</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
 <div style="height: 60px;"><!-- Spacer --></div> 
+<script>
+  function home(){
+    window.location.href = configPath + 'home.php';
+  }
+  function getAllList(){
+    window.location.href = configPath + 'getAllList.php';
+  }
+  function about(){
+    window.location.href = configPath + 'about.php';
+  }
+  function services(){
+    window.location.href = configPath + 'services.php';
+  }
+  function contact(){
+    window.location.href = configPath + 'contact.php';
+  }
+</script>

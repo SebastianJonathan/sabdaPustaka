@@ -1,5 +1,7 @@
 <?php
-function query($url, $param)
+    include 'config.php';
+    $url = $configElasticPath . $index . '/_search';
+    function query($url, $param)
     {
         $header = array(
             'Content-Type: application/json'
@@ -18,7 +20,6 @@ function query($url, $param)
     }
 
     function getAll($querys){
-        $url = 'http://localhost:9200/pustaka6/_search';
         $params = [
             'query' => [
                 'match_all' => (object) [],

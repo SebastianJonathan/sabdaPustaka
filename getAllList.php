@@ -1,4 +1,6 @@
 <?php
+include 'config.php';
+$url = $configElasticPath . $indexName . '/_search';
 function query($url, $method, $param)
 {
     $header = array(
@@ -46,12 +48,6 @@ function extractUniqueSpeakers($hits)
 
     return $uniqueNames;
 }
-
-
-
-// Set the Elasticsearch index name and endpoint URL
-$index = 'pustaka7';
-$url = 'http://localhost:9200/' . $index . '/_search';
 
 // Query to retrieve all documents
 $params = [
@@ -164,7 +160,7 @@ sort($narasumbers);
         function generateEventLinks() {
 			const eventListContainer = document.getElementById('eventList');
 			events.forEach((event) => {
-				const eventUrl = 'http://localhost/new/related_results.php?event=' + encodeURIComponent(event);
+				const eventUrl = configPath + 'related_results.php?event=' + encodeURIComponent(event);
 				const eventDiv = document.createElement('li');
 				eventDiv.className = 'event-li';
 				// eventDiv.style.width = "150px";
@@ -176,7 +172,7 @@ sort($narasumbers);
 		function generateNarasumberLinks() {
 			const narasumberListContainer = document.getElementById('narasumberList');
 			narasumbers.forEach((narasumber) => {
-				const narasumberUrl = 'http://localhost/new/related_results.php?narasumber=' + encodeURIComponent(narasumber);
+				const narasumberUrl = configPath + 'related_results.php?narasumber=' + encodeURIComponent(narasumber);
 				const narasumberDiv = document.createElement('li');
 				narasumberDiv.className = 'narsum-li';
 				// narasumberDiv.style.width = '150px';

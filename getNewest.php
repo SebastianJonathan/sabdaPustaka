@@ -1,4 +1,6 @@
 <?php
+include 'configES.php';
+$url = $configElasticPath . $indexName . '/_search';
 function query($url, $param)
     {
         $header = array(
@@ -16,9 +18,6 @@ function query($url, $param)
 
         return $result;
     }
-
-
-    $url = 'http://localhost:9200/pustaka6/_search';
 
     $params = [
         'size' => '8',

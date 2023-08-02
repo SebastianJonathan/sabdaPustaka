@@ -3,6 +3,7 @@
 
 <head>
 	<?php include 'header.php' ?>
+	<?php include 'config.php'; ?>
 	<style>
 	._cards_item2 {
 		margin-bottom: 10px; /* Adjust the spacing between cards */
@@ -255,8 +256,8 @@
 	}
 
 	// Set the Elasticsearch index name and endpoint URL
-	$index = 'pustaka7';
-	$url = 'http://localhost:9200/' . $index . '/_search';
+	$index = $indexName;
+	$url = $configElasticPath . $index . '/_search';
 
 	// Query to retrieve all documents
 	$params = [
@@ -462,10 +463,10 @@
 			const fullURL = window.location.href;
 			const segments = fullURL.split('/');
 			if(segments[segments.length - 3] == "search" && document.getElementById('query').value == "" && sessionStorage.getItem("query") == null){
-				window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + segments[segments.length - 2] + "/" + searchBy;
+				window.location.href = configPath + "home.php/search/" + segments[segments.length - 2] + "/" + searchBy;
 				sessionStorage.setItem("query",segments[segments.length - 2]);
 			}else{
-				window.location.href = "http://localhost/UI/sabdaPustaka/home.php/search/" + document.getElementById('query').value + "/" + searchBy;
+				window.location.href = configPath + "home.php/search/" + document.getElementById('query').value + "/" + searchBy;
 				sessionStorage.setItem("query",document.getElementById('query').value);
 			}
 		}
@@ -474,7 +475,7 @@
 			const fields = document.getElementById('query').dataset.fields;
 
 			try {
-				const response = await fetch(`http://localhost/UI/sabdaPustaka/autocomplete.php?query=${query}&fields=${fields}`);
+				const response = await fetch(configPath + `autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
 				// console.log(data.rekomendasi);
 				console.log(data);
@@ -488,7 +489,7 @@
 			const query = document.getElementById('query').value;
 			const fields = document.getElementById('query').dataset.fields;
 			try {
-				const response = await fetch(`http://localhost/UI/sabdaPustaka/autocomplete.php?query=${query}&fields=${fields}`);
+				const response = await fetch(configPath + `autocomplete.php?query=${query}&fields=${fields}`);
 				const data = await response.json();
 				// console.log(data.rekomendasi);
 				tampilkanRekomendasi(data.rekomendasi);
@@ -696,7 +697,7 @@
 		function generateEventLinks() {
 			const eventListContainer = document.getElementById('eventList');
 			events.forEach((event) => {
-				const eventUrl = 'http://localhost/UI/sabdaPustaka/related_results.php?event=' + encodeURIComponent(event);
+				const eventUrl = configPath + 'related_results.php?event=' + encodeURIComponent(event);
 				const eventDiv = document.createElement('li');
 				eventDiv.className = 'event-li';
 				// eventDiv.style.width = "150px";
@@ -708,7 +709,7 @@
 		function generateNarasumberLinks() {
 			const narasumberListContainer = document.getElementById('narasumberList');
 			narasumbers.forEach((narasumber) => {
-				const narasumberUrl = 'http://localhost/UI/sabdaPustaka/related_results.php?narasumber=' + encodeURIComponent(narasumber);
+				const narasumberUrl = configPath + 'related_results.php?narasumber=' + encodeURIComponent(narasumber);
 				const narasumberDiv = document.createElement('li');
 				narasumberDiv.className = 'narsum-li';
 				// narasumberDiv.style.width = '150px';

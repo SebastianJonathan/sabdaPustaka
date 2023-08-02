@@ -1,4 +1,6 @@
 <?php
+include 'configES.php';
+$url = '/_search';
 function query($url, $method, $param)
 {
     $header = array(
@@ -17,10 +19,6 @@ function query($url, $method, $param)
 
     return $result;
 }
-
-// Set the Elasticsearch index name and endpoint URL
-$index = 'pustaka6';
-$url = 'http://localhost:9200/' . $index . '/_search';
 
 // Get the 'event' query parameter from the URL
 $eventParam = isset($_GET['query']) ? $_GET['query'] : '';

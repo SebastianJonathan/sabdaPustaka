@@ -1,4 +1,6 @@
 <?php
+    include 'configES.php';
+    $url = $configElasticPath . $indexName . '/_search';
     function query($url, $param) {
         $header = array(
             'Content-Type: application/json'
@@ -26,7 +28,7 @@
             return 1;
         }
     }
-    function getAllData($jsonFilter){
+    function getAllData($jsonFilter, $url){
         $field = $jsonFilter["fields"];
         if(empty($field)){
             $jsonData = [
@@ -43,7 +45,6 @@
             $narasumber = array();
             $event = array();
             $tanggal = array();
-            $url = 'http://localhost:9200/pustaka6/_search';
             $params2 = [
                 'size' => 10000,
                 'query' => [
@@ -131,7 +132,7 @@
             echo json_encode(['result' => $jsonData]);
         }
     }
-    function search($jsonSearch){
+    function search($jsonSearch, $url){
         $logFile = 'error.log';
         $field = $jsonSearch["fields"];
         if(empty($field)){
@@ -150,7 +151,6 @@
             $narasumber = array();
             $event = array();
             $tanggal = array();
-            $url = 'http://localhost:9200/pustaka6/_search';
             $params2 = [
                 'size' => 10000,
                 'query' => [
@@ -267,7 +267,7 @@
         }
         return $uniqueValues;
     }
-    function searchFilter($jsonSearch){
+    function searchFilter($jsonSearch, $url){
         $logFile = 'error.log';
         $result = array();
         $field = $jsonSearch["fields"];
@@ -283,7 +283,6 @@
             ];
             echo json_encode(['result' => $results]);
         }else{
-            $url = 'http://localhost:9200/pustaka6/_search';
             if($jsonSearch["query"] === "Kosong"){
                 $params2 = [
                     'size' => 10000,
@@ -571,10 +570,10 @@
     $jsonData = file_get_contents('php://input');
     $jsonDataDecoded = json_decode($jsonData, true);
     if($jsonDataDecoded["API"] == "getAll"){
-        getAllData($jsonDataDecoded);
+        getAllData($jsonDataDecoded, $url);
     } else if($jsonDataDecoded["API"] == "search"){
-        search($jsonDataDecoded);
+        search($jsonDataDecoded, $url);
     } else if($jsonDataDecoded["API"] == "searchFilter"){
-        searchFilter($jsonDataDecoded);
+        searchFilter($jsonDataDecoded, $url);
     }
 ?>
