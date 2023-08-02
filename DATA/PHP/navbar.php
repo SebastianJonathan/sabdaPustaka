@@ -1,4 +1,4 @@
-<?php include 'DATA/API/config.php' ?>
+<?php include '../API/config.php' ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fix">
   <div class="container">
     <a class="navbar-brand navbar-brands" href="https://live.sabda.org/">
@@ -31,18 +31,18 @@
 <div style="height: 60px;"><!-- Spacer --></div> 
 <script>
   function home(){
-    window.location.href = configPath + 'home.php';
+    window.location.href = configPath + 'DATA/PHP/home.php';
   }
   function getAllList(){
-    window.location.href = configPath + 'getAllList.php';
+    window.location.href = configPath + 'DATA/PHP/getAllList.php';
   }
   function about(){
-    window.location.href = configPath + 'about.php';
+    window.location.href = configPath + 'DATA/PHP/about.php';
   }
   function services(){
-    window.location.href = configPath + 'services.php';
+    window.location.href = configPath + 'DATA/PHP/services.php';
   }
   function contact(){
-    window.location.href = configPath + 'contact.php';
+    window.location.href = configPath + 'DATA/PHP/contact.php';
   }
 </script>

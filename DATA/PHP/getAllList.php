@@ -1,7 +1,7 @@
 <?php
-include 'DATA/API/config.php';
+include '../API/config.php';
 $url = $configElasticPath . $indexName . '/_search';
-include 'query.php';
+include '../API/query.php';
 
 function extractUniqueSpeakers($hits)
 {
@@ -42,7 +42,7 @@ $params = [
 ];
 
 $query = json_encode($params);
-$response = query($url, 'POST', $query);
+$response = query($url, $query);
 
 // Extract unique 'narasumber' and 'event' values
 $hits = $response['hits']['hits'];
@@ -143,7 +143,7 @@ sort($narasumbers);
         function generateEventLinks() {
 			const eventListContainer = document.getElementById('eventList');
 			events.forEach((event) => {
-				const eventUrl = configPath + 'related_results.php?event=' + encodeURIComponent(event);
+				const eventUrl = configPath + 'DATA/PHP/related_results.php?event=' + encodeURIComponent(event);
 				const eventDiv = document.createElement('li');
 				eventDiv.className = 'event-li';
 				// eventDiv.style.width = "150px";
@@ -155,7 +155,7 @@ sort($narasumbers);
 		function generateNarasumberLinks() {
 			const narasumberListContainer = document.getElementById('narasumberList');
 			narasumbers.forEach((narasumber) => {
-				const narasumberUrl = configPath + 'related_results.php?narasumber=' + encodeURIComponent(narasumber);
+				const narasumberUrl = configPath + 'DATA/PHP/related_results.php?narasumber=' + encodeURIComponent(narasumber);
 				const narasumberDiv = document.createElement('li');
 				narasumberDiv.className = 'narsum-li';
 				// narasumberDiv.style.width = '150px';

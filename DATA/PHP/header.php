@@ -1,4 +1,4 @@
-<?php include 'DATA/API/config.php' ?>
+<?php include '../API/config.php' ?>
 <title>Sabda Pustaka</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">

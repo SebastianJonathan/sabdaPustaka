@@ -24,7 +24,7 @@ $params = [
 ];
 
 $query = json_encode($params);
-$response = query($url, 'POST', $query);
+$response = query($url, $query);
 
 // Extract search results
 $hits = $response['hits']['hits'];
