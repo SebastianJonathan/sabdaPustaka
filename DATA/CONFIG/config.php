@@ -4,5 +4,5 @@
     $indexName = "pustaka6";
 ?>
 <script>
-    const configPath = "http://localhost/UI/sabdaPustaka/"
+    var configPath = "http://localhost/pw5/"
 </script>

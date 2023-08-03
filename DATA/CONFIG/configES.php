@@ -1,4 +1,4 @@
 <?php
     $configElasticPath = "http://localhost:9200/";
-    $indexName = "pustaka6";
+    $indexName = "pustaka7";
 ?>
