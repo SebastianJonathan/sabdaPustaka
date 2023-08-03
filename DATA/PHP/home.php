@@ -465,7 +465,7 @@
 				window.location.href = configPath + "DATA/PHP/home.php/search/" + segments[segments.length - 2] + "/" + searchBy;
 				sessionStorage.setItem("query",segments[segments.length - 2]);
 			}else{
-				window.location.href = configPath + "DatAhome.php/search/" + document.getElementById('query').value + "/" + searchBy;
+				window.location.href = configPath + "DATA/PHP/home.php/search/" + document.getElementById('query').value + "/" + searchBy;
 				sessionStorage.setItem("query",document.getElementById('query').value);
 			}
 		}
