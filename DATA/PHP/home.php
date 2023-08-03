@@ -603,80 +603,6 @@
 			}
 		});
 
-		function onChangeCheckbox2() {
-			const checkbox_judul = document.getElementById('checkbox_judul');
-			const checkbox_narasumber = document.getElementById('checkbox_narasumber');
-			const checkbox_event = document.getElementById('checkbox_event');
-			const checkbox_related = document.getElementById('checkbox_related');
-			const checkbox_judul2 = document.getElementById('fsv-checkbox_judul');
-			const checkbox_narasumber2 = document.getElementById('fsv-checkbox_narasumber');
-			const checkbox_event2 = document.getElementById('fsv-checkbox_event');
-			const checkbox_related2 = document.getElementById('fsv-checkbox_related');
-
-			checkbox_judul.checked = checkbox_judul2.checked;
-			checkbox_narasumber.checked = checkbox_narasumber2.checked;
-			checkbox_event.checked = checkbox_event2.checked;
-			checkbox_related.checked = checkbox_related2.checked;
-
-			let fields = [];
-
-			if (sessionStorage.getItem("checkboxJudul") == "true") {
-				fields.push('judul_completion.input');
-			}
-			if (sessionStorage.getItem("checkboxNarasumber") == "true") {
-				fields.push('narasumber_completion.input');
-			}
-			if (sessionStorage.getItem("checkboxEvent") == "true") {
-				fields.push('event_completion.input');
-			}
-			if (sessionStorage.getItem("checkboxRelated") == "true") {
-				fields.push('deskripsi_pendek');
-				fields.push('ringkasan');
-				fields.push('kata_kunci');
-			}
-
-			const queryInput = document.getElementById('query');
-			queryInput.dataset.fields = fields.join(',');
-			fetchRecommendations2();
-		}
-
-		function onChangeCheckbox() {
-			const checkbox_judul = document.getElementById('checkbox_judul');
-			const checkbox_narasumber = document.getElementById('checkbox_narasumber');
-			const checkbox_event = document.getElementById('checkbox_event');
-			const checkbox_related = document.getElementById('checkbox_related');
-			const checkbox_judul2 = document.getElementById('fsv-checkbox_judul');
-			const checkbox_narasumber2 = document.getElementById('fsv-checkbox_narasumber');
-			const checkbox_event2 = document.getElementById('fsv-checkbox_event');
-			const checkbox_related2 = document.getElementById('fsv-checkbox_related');
-
-			checkbox_judul2.checked = checkbox_judul.checked;
-			checkbox_narasumber2.checked = checkbox_narasumber.checked;
-			checkbox_event2.checked = checkbox_event.checked;
-			checkbox_related2.checked = checkbox_related.checked;
-
-			let fields = [];
-
-			if (sessionStorage.getItem("checkboxJudul") == "true") {
-				fields.push('judul_completion.input');
-			}
-			if (sessionStorage.getItem("checkboxNarasumber") == "true") {
-				fields.push('narasumber_completion.input');
-			}
-			if (sessionStorage.getItem("checkboxEvent") == "true") {
-				fields.push('event_completion.input');
-			}
-			if (sessionStorage.getItem("checkboxRelated") == "true") {
-				fields.push('deskripsi_pendek');
-				fields.push('ringkasan');
-				fields.push('kata_kunci');
-			}
-
-			const queryInput = document.getElementById('query');
-			queryInput.dataset.fields = fields.join(',');
-			fetchRecommendations2();
-		}
-
 		window.addEventListener('resize', updateRekomendasiPosition);
 		window.addEventListener('DOMContentLoaded', updateRekomendasiPosition);
 
@@ -717,19 +643,6 @@
 			});
 		}
 
-
-		// function regenerateLinks() {
-		// 	// Clear the existing event and narasumber lists
-		// 	const eventListContainer = document.getElementById('eventList');
-		// 	const narasumberListContainer = document.getElementById('narasumberList');
-		// 	eventListContainer.innerHTML = '';
-		// 	narasumberListContainer.innerHTML = '';
-
-		// 	// Regenerate the event and narasumber links
-		// 	generateEventLinks();
-		// 	generateNarasumberLinks();
-		// }
-
 		function expandEvent(){
 			var eventCont = document.getElementById('eventList');
 			var exBtn = document.getElementById('ex-event-btn');
@@ -768,8 +681,6 @@
 				narasCont.style.overflowX = "clip";
 			}
 		}
-
-
 
 		document.getElementById('search').addEventListener('submit', function(event) {
 			event.preventDefault();

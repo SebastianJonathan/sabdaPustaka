@@ -571,9 +571,6 @@
                     FilterOpenCanvas.innerHTML = '';
                 });
             } else {
-                // const noResults = document.createElement('p');
-                // noResults.textContent = 'No results found.';
-                // cardResultElement.appendChild(noResults);
                 FilterColumnCanvas.innerHTML = '';
                 FilterOpenCanvas.innerHTML = '';
 
