@@ -3,7 +3,7 @@
     $url = $configElasticPath . $index . '/_search';
     include 'query.php';
 
-    function getAll($querys){
+    function getAll($querys, $url){
         $params = [
             'query' => [
                 'match_all' => (object) [],
@@ -37,5 +37,5 @@
         }
     }
     $querys = $_GET['query'];
-    getAll($querys);
+    getAll($querys, $url);
 ?>
