@@ -39,36 +39,6 @@
         maxPage = Math.ceil(total_data / pageSize);
     }
 
-    function createListItem(pageNumber) {
-        const li = document.createElement('li');
-        li.className = "page-item";
-
-        var a = document.createElement('a');
-        a.className = "page-link";
-        a.id = "showp_"+pageNumber;
-        a.innerText = pageNumber;
-        if (pageNumber === now_show){
-            a.setAttribute("style","color: gold;")
-            a.style.backgroundColor = "#1e0049";
-        }
-        a.onclick = function(){
-            if(pageNumber != "Show All"){
-                pageSize = parseInt(pageNumber);
-            }else{
-                pageSize = 1000;
-            }
-            fetchSearchResult();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            })
-            now_show = pageNumber;
-        }
-
-        li.appendChild(a);
-        return li;
-    }
-
     function createListItem2(pageNumber) {
         const li = document.createElement('li');
         li.className = "page-item";
@@ -353,48 +323,18 @@
                 fcolumn_tgl.innerHTML = '';
 
                 if(data.result.narasumber.length > 0){
-                    // const titleFFV = document.createElement('h6');
-                    // titleFFV.textContent = "Filter Berdasarkan Narasumber";
-                    // titleFFV.id = "ffv-narasumber";
-                    // titleFFV.style.fontWeight = "bold";
-                    // const titleFFC = document.createElement('h6');
-                    // titleFFC.textContent = "Filter Berdasarkan Narasumber";
-                    // titleFFC.id = "ffc-narasumber";
-                    // titleFFC.style.fontWeight = "bold";
-                    // fopen_narasumber.appendChild(titleFFV);
-                    // fcolumn_narasumber.appendChild(titleFFC);
                     data.result.narasumber.forEach(function (item,index){
                         createCheckbox("ffv-n" + index,item,fopen_narasumber,data.result.countNarasumber);
                         createCheckbox("ffc-n" + index,item,fcolumn_narasumber,data.result.countNarasumber);
                     });
                 }
                 if(data.result.event.length > 0){
-                    // const titleFFV = document.createElement('h6');
-                    // titleFFV.textContent = "Filter Berdasarkan Event";
-                    // titleFFV.id = "ffv-event";
-                    // titleFFV.style.fontWeight = "bold";
-                    // const titleFFC = document.createElement('h6');
-                    // titleFFC.textContent = "Filter Berdasarkan Event";
-                    // titleFFC.id = "ffc-event";
-                    // titleFFC.style.fontWeight = "bold";
-                    // fopen_event.appendChild(titleFFV);
-                    // fcolumn_event.appendChild(titleFFC);
                     data.result.event.forEach(function (item,index){
                         createCheckbox("ffv-e" + index,item,fopen_event,data.result.countEvent);
                         createCheckbox("ffc-e" + index,item,fcolumn_event,data.result.countEvent);
                     });
                 }
                 if(data.result.tahun.length > 0){
-                    // const titleFFV = document.createElement('h6');
-                    // titleFFV.textContent = "Filter Berdasarkan Tahun";
-                    // titleFFV.id = "ffv-tanggal";
-                    // titleFFV.style.fontWeight = "bold";
-                    // const titleFFC = document.createElement('h6');
-                    // titleFFC.textContent = "Filter Berdasarkan Tahun";
-                    // titleFFC.id = "ffc-tanggal";
-                    // titleFFC.style.fontWeight = "bold";
-                    // fopen_tgl.appendChild(titleFFV);
-                    // fcolumn_tgl.appendChild(titleFFC);
                     data.result.tahun.forEach(function (item,index){
                         createCheckbox("ffv-t" + index,item.substring(0,4),fopen_tgl,data.result.countTahun);
                         createCheckbox("ffc-t" + index,item.substring(0,4),fcolumn_tgl,data.result.countTahun);
@@ -537,48 +477,18 @@
                 fcolumn_tgl.innerHTML = '';
 
                 if(data.result.narasumber.length > 0){
-                    // const titleFFV = document.createElement('h6');
-                    // titleFFV.textContent = "Filter Berdasarkan Narasumber";
-                    // titleFFV.id = "ffv-narasumber";
-                    // titleFFV.style.fontWeight = "bold";
-                    // const titleFFC = document.createElement('h6');
-                    // titleFFC.textContent = "Filter Berdasarkan Narasumber";
-                    // titleFFC.id = "ffc-narasumber";
-                    // titleFFC.style.fontWeight = "bold";
-                    // fopen_narasumber.appendChild(titleFFV);
-                    // fcolumn_narasumber.appendChild(titleFFC);
                     data.result.narasumber.forEach(function (item,index){
                         createCheckbox("ffv-n" + index,item,fopen_narasumber,data.result.countNarasumber);
                         createCheckbox("ffc-n" + index,item,fcolumn_narasumber,data.result.countNarasumber);
                     });
                 }
                 if(data.result.event.length > 0){
-                    // const titleFFV = document.createElement('h6');
-                    // titleFFV.textContent = "Filter Berdasarkan Event";
-                    // titleFFV.id = "ffv-event";
-                    // titleFFV.style.fontWeight = "bold";
-                    // const titleFFC = document.createElement('h6');
-                    // titleFFC.textContent = "Filter Berdasarkan Event";
-                    // titleFFC.id = "ffc-event";
-                    // titleFFC.style.fontWeight = "bold";
-                    // fopen_event.appendChild(titleFFV);
-                    // fcolumn_event.appendChild(titleFFC);
                     data.result.event.forEach(function (item,index){
                         createCheckbox("ffv-e" + index,item,fopen_event,data.result.countEvent);
                         createCheckbox("ffc-e" + index,item,fcolumn_event,data.result.countEvent);
                     });
                 }
                 if(data.result.tahun.length > 0){
-                    // const titleFFV = document.createElement('h6');
-                    // titleFFV.textContent = "Filter Berdasarkan Tahun";
-                    // titleFFV.id = "ffv-tanggal";
-                    // titleFFV.style.fontWeight = "bold";
-                    // const titleFFC = document.createElement('h6');
-                    // titleFFC.textContent = "Filter Berdasarkan Tahun";
-                    // titleFFC.id = "ffc-tanggal";
-                    // titleFFC.style.fontWeight = "bold";
-                    // fopen_tgl.appendChild(titleFFV);
-                    // fcolumn_tgl.appendChild(titleFFC);
                     data.result.tahun.forEach(function (item,index){
                         createCheckbox("ffv-t" + index,item.substring(0,4),fopen_tgl,data.result.countTahun);
                         createCheckbox("ffc-t" + index,item.substring(0,4),fcolumn_tgl,data.result.countTahun);
@@ -799,118 +709,12 @@
                 cardResultElement.classList.remove('container-list');
                 cardResultElement.innerHTML = '';
                 if (data.result.data_result.length > 0) {
-                    hs_head.innerHTML = '';
-
-                    const hs_head_col1 = document.createElement('div');
-                    hs_head_col1.className = 'col-10';
-                    hs_head_col1.style.alignItem = 'center';
-                    
-                    const hs_head_t = document.createElement('h5');
-                    if (query === ""){
-                        hs_head_t.textContent = "Hasil Search untuk Semua Data";
-                    }else {
-                        hs_head_t.textContent = "Hasil Search untuk : " + query;
-                    }
-                    
-                    hs_head_t.style.fontWeight = "bold";
-                    hs_head_col1.appendChild(hs_head_t);   
-
-                    const hs_head_col2 = document.createElement('div');
-                    hs_head_col2.className = 'col-2';
-                    hs_head_col2.setAttribute("style", "display: flex; justify-content: right;");
-
-                    var dropd = document.createElement('div');
-                    dropd.className = "dropdown";
-
-                    var dropBtn = document.createElement('button');
-                    dropBtn.className = "btn btn-secondary dropdown-toggle";
-                    dropBtn.type = "button";
-                    dropBtn.textContent = "View As :  ";
-                    dropBtn.style.width = "100px";
-                    dropBtn.style.height = "30px";
-                    dropBtn.dataset.bsToggle = 'dropdown';
-                    dropBtn.setAttribute('aria-expanded', false);
-                    dropBtn.style.backgroundColor = "#1e0049";
-                    dropd.appendChild(dropBtn);
-
-                    var dropUl = document.createElement('ul');
-                    dropUl.className = "dropdown-menu";
-
-                    var dropLi1 = document.createElement('li');
-                    var dropLi_Grid = document.createElement('a');
-                    dropLi_Grid.className = "dropdown-item drop-li-a";
-                    dropLi_Grid.textContent = "Grid";
-                    dropLi_Grid.style.color = "black";
-                    dropLi_Grid.onclick = function(){
-                        sessionStorage.setItem("mode", "card");
-                        fetchSearchFilterResult();
-                    }
-                    dropLi1.appendChild(dropLi_Grid);
-
-                    var dropLi2 = document.createElement('li');
-                    var dropLi_List = document.createElement('a');
-                    dropLi_List.className = "dropdown-item drop-li-a";
-                    dropLi_List.textContent = "List";
-                    dropLi_List.style.color = "black";
-                    dropLi_List.onclick = function(){
-                        sessionStorage.setItem("mode", "list");
-                        fetchSearchFilterResult2();
-                    }
-                    dropLi2.appendChild(dropLi_List);
-
-                    dropUl.appendChild(dropLi1);
-                    dropUl.appendChild(dropLi2);
-                    dropd.appendChild(dropUl);
-
-                    hs_head_col2.appendChild(dropd);
-                    hs_head.appendChild(hs_head_col1);
-                    hs_head.appendChild(hs_head_col2);
-
-                    const showDiv = document.getElementById("show");//document.createElement("div");
-                    showDiv.innerHTML = '';
-
-                    const pagiCont = document.createElement("div");
-                    pagiCont.innerHTML = '';
-                    pagiCont.id = "show";
-                    // showCont.style.listStyle = 'none';
-                    pagiCont.style.display = "flex";
-                    pagiCont.style.justifyContent = "end";
-                    const pagiUl = document.createElement("ul");
-                    pagiUl.className = "pagination"
-
-                    if ((currPage - 1) > 0){
-                        pagiUl.appendChild(createListItem2("Prev"));
-                    }
-                    c_pagi = 0;
-                    p_pagi = -2;
-                    while (c_pagi < 5){
-                        if ((currPage + p_pagi) > maxPage ){
-                            break;
-                        }
-                        if ((currPage + p_pagi) > 0){
-                            pagiUl.appendChild(createListItem2(currPage + p_pagi));
-                            c_pagi += 1;
-                        }
-                        p_pagi += 1;
-                    }
-                    if ((currPage + 1) < maxPage ){
-                        pagiUl.appendChild(createListItem2("Next"));
-                    }
-                    pagiUl.appendChild(createListItem2("Show All"));
-                    pagiCont.appendChild(pagiUl);
-                    showDiv.appendChild(pagiCont);
-
-                    var showPagiProg = document.createElement("p");
-                    showPagiProg.style.textAlign = "end";
-                    showPagiProg.style.marginRight = "16px";
-                    showPagiProg.textContent = "Page " + currPage + " of " + maxPage;
-                    showDiv.appendChild(showPagiProg);
+										
+										setHeadSearch(query);
+										setPagination();
 
                     // FOR EACH
-                    counter = 0;
                     data.result.data_result.forEach(function (item) {
-                    // console.log("counter: "+counter);
-                    counter = counter + 1;
 
                     const cardItem = document.createElement('li');
                     cardItem.className = '_cards_item';
@@ -955,9 +759,6 @@
                     cardResultElement.appendChild(cardItem);
                 });
                 } else {
-                    // const noResults = document.createElement('p');
-                    // noResults.textContent = 'No results found.';
-                    // cardResultElement.appendChild(noResults);
                     FilterColumnCanvas.innerHTML = '';
                     FilterOpenCanvas.innerHTML = '';
 
@@ -997,29 +798,21 @@
                     titleFFC.textContent = "Narasumber";
                     titleFFC.id = "ffc-narasumber";
                     titleFFC.className = "ffc_head";
-                    // titleFFC.style.fontWeight = "bold";
                     FilterColumnCanvas.appendChild(titleFFC);
 
                     const titleFFV = document.createElement('h6');
                     titleFFV.textContent = "Narasumber";
                     titleFFV.id = "ffv-narasumber";
                     titleFFV.className = "ffv_head";
-                    // titleFFV.style.fontWeight = "bold";
                     FilterOpenCanvas.appendChild(titleFFV);
 
                     fcolumn_narasumber.innerHTML = '';
                     fcolumn_narasumber.className = "row ffc ";
-                    // fcolumn_narasumber.style.paddingTop = '15px';
-                    // fcolumn_narasumber.style.marginTop = '10px';
-                    // fcolumn_narasumber.style.borderTop = '1px solid black';
                     fcolumn_narasumber.id = 'ffc-filter-naras';
                     FilterColumnCanvas.appendChild(fcolumn_narasumber);
 
                     fopen_narasumber.innerHTML = '';
                     fopen_narasumber.className = "row ffv";
-                    // fopen_narasumber.style.paddingTop = '15px';
-                    // fopen_narasumber.style.marginTop = '10px';
-                    // fopen_narasumber.style.borderTop = '1px solid black';
                     fopen_narasumber.id = 'ffv-filter-naras';
                     FilterOpenCanvas.appendChild(fopen_narasumber);
 
@@ -1033,29 +826,21 @@
                     titleFFV.textContent = "Event";
                     titleFFV.id = "ffv-event";
                     titleFFV.className = "ffv_head";
-                    // titleFFV.style.fontWeight = "bold";
                     FilterOpenCanvas.appendChild(titleFFV);
 
                     const titleFFC = document.createElement('h6');
                     titleFFC.textContent = "Event";
                     titleFFC.id = "ffc-event";
                     titleFFC.className = "ffc_head";
-                    // titleFFC.style.fontWeight = "bold";
                     FilterColumnCanvas.appendChild(titleFFC);
 
                     fcolumn_event.innerHTML = '';
                     fcolumn_event.className = "row ffc";
-                    // fcolumn_event.style.paddingTop = '15px';
-                    // fcolumn_event.style.marginTop = '10px';
-                    // fcolumn_event.style.borderTop = '1px solid black';
                     fcolumn_event.id = 'ffc-filter-event';
                     FilterColumnCanvas.appendChild(fcolumn_event);
 
                     fopen_event.innerHTML = '';
                     fopen_event.className = "row ffv";
-                    // fopen_event.style.paddingTop = '15px';
-                    // fopen_event.style.marginTop = '10px';
-                    // fopen_event.style.borderTop = '1px solid black';
                     fopen_event.id = 'ffv-filter-event';
                     FilterOpenCanvas.appendChild(fopen_event);
 
@@ -1069,29 +854,21 @@
                     titleFFV.textContent = "Tahun";
                     titleFFV.id = "ffv-tanggal";
                     titleFFV.className = "ffv_head";
-                    // titleFFV.style.fontWeight = "bold";
                     const titleFFC = document.createElement('h6');
                     titleFFC.textContent = "Tahun";
                     titleFFC.id = "ffc-tanggal";
                     titleFFC.className = "ffc_head";
-                    // titleFFC.style.fontWeight = "bold";
                     FilterOpenCanvas.appendChild(titleFFV);
                     FilterColumnCanvas.appendChild(titleFFC);
 
                     fcolumn_tgl.innerHTML = '';
                     fcolumn_tgl.className = "row ffc";
-                    // fcolumn_tgl.style.paddingTop = '15px';
-                    // fcolumn_tgl.style.marginTop = '10px';
-                    // fcolumn_tgl.style.borderTop = '1px solid black';
                     
                     fcolumn_tgl.id = 'ffc-filter-tgl';
                     FilterColumnCanvas.appendChild(fcolumn_tgl);
 
                     fopen_tgl.innerHTML = '';
                     fopen_tgl.className = "row ffv";
-                    // fopen_tgl.style.paddingTop = '15px';
-                    // fopen_tgl.style.marginTop = '10px';
-                    // fopen_tgl.style.borderTop = '1px solid black';
                     fopen_tgl.id = 'ffv-filter-tgl';
                     FilterOpenCanvas.appendChild(fopen_tgl);
 
@@ -1200,112 +977,9 @@
                 const cardResultElement = document.getElementById('card_result');
                 cardResultElement.innerHTML = '';
                 if (data.result.data_result.length > 0) {
-                    hs_head.innerHTML = '';
-
-                    const hs_head_col1 = document.createElement('div');
-                    hs_head_col1.className = 'col-10';
                     
-                    const hs_head_t = document.createElement('h5');
-                    if (query === ""){
-                        hs_head_t.textContent = "Hasil Search untuk Semua Data";
-                    }else {
-                        hs_head_t.textContent = "Hasil Search untuk : " + query;
-                    }
-
-                    hs_head_t.style.fontWeight = "bold";
-                    hs_head_col1.appendChild(hs_head_t);   
-
-                    const hs_head_col2 = document.createElement('div');
-                    hs_head_col2.className = 'col-2';
-                    hs_head_col2.setAttribute("style", "display: flex; justify-content: right;");
-
-                    var dropd = document.createElement('div');
-                    dropd.className = "dropdown";
-
-                    var dropBtn = document.createElement('button');
-                    dropBtn.className = "btn btn-secondary dropdown-toggle drop-btn";
-                    dropBtn.type = "button";
-                    dropBtn.textContent = "View As :  ";
-                    dropBtn.style.width = "100px";
-                    dropBtn.style.height = "30px";
-                    dropBtn.dataset.bsToggle = 'dropdown';
-                    dropBtn.setAttribute('aria-expanded', false);
-                    dropBtn.style.backgroundColor = "#1e0049";
-                    dropd.appendChild(dropBtn);
-
-                    var dropUl = document.createElement('ul');
-                    dropUl.className = "dropdown-menu";
-
-                    var dropLi1 = document.createElement('li');
-                    var dropLi_Grid = document.createElement('a');
-                    dropLi_Grid.className = "dropdown-item drop-li-a";
-                    dropLi_Grid.textContent = "Grid";
-                    dropLi_Grid.style.color = "black";
-                    dropLi_Grid.onclick = function(){
-                        sessionStorage.setItem("mode", "card");
-                        fetchSearchFilterResult();
-                    }
-                    dropLi1.appendChild(dropLi_Grid);
-
-                    var dropLi2 = document.createElement('li');
-                    var dropLi_List = document.createElement('a');
-                    dropLi_List.className = "dropdown-item drop-li-a";
-                    dropLi_List.textContent = "List";
-                    dropLi_List.style.color = "black";
-                    dropLi_List.onclick = function(){
-                        sessionStorage.setItem("mode", "list");
-                        fetchSearchFilterResult2();
-                    }
-                    dropLi2.appendChild(dropLi_List);
-
-                    dropUl.appendChild(dropLi1);
-                    dropUl.appendChild(dropLi2);
-                    dropd.appendChild(dropUl);
-
-                    hs_head_col2.appendChild(dropd);
-                    hs_head.appendChild(hs_head_col1);
-                    hs_head.appendChild(hs_head_col2);
-
-                    var showDiv = document.getElementById("show");
-                    showDiv.innerHTML = '';
-                    var pagiCont = document.createElement("div");
-                    pagiCont.innerHTML = '';
-                    pagiCont.id = "show";
-                    // showCont.style.listStyle = 'none';
-                    pagiCont.style.display = "flex";
-                    pagiCont.style.justifyContent = "end";
-                    const pagiUl = document.createElement("ul");
-                    pagiUl.className = "pagination";
-                    // console.log("WWWL");
-                    // pagiUl.appendChild(createListItem2("Prev"));
-                    if ((currPage - 1) > 0){
-                        pagiUl.appendChild(createListItem2("Prev"));
-                    }
-                    c_pagi = 0;
-                    p_pagi = -2;
-                    while (c_pagi < 5){
-                        if ((currPage + p_pagi) > maxPage ){
-                            break;
-                        }
-                        if ((currPage + p_pagi) > 0){
-                            pagiUl.appendChild(createListItem2(currPage + p_pagi));
-                            c_pagi += 1;
-                        }
-                        p_pagi += 1;
-                    }
-                    if ((currPage + 1) < maxPage ){
-                        pagiUl.appendChild(createListItem2("Next"));
-                    }
-                    pagiUl.appendChild(createListItem2("Show All"));
-                    pagiCont.appendChild(pagiUl);
-                    showDiv.appendChild(pagiCont);
-
-                    var showPagiProg = document.createElement("p");
-                    showPagiProg.style.textAlign = "end";
-                    showPagiProg.style.marginRight = "16px";
-                    showPagiProg.textContent = "Page " + currPage + " of " + maxPage;
-                    showDiv.appendChild(showPagiProg);
-                    
+										setHeadSearch(query);
+                    setPagination();
 
                     // FOR EACH
                     data.result.data_result.forEach(function (item) {
@@ -1483,6 +1157,118 @@
             });
         }
     }
+
+		function setHeadSearch(query){
+			hs_head.innerHTML = '';
+
+			const hs_head_col1 = document.createElement('div');
+			hs_head_col1.className = 'col-10';
+			
+			const hs_head_t = document.createElement('h5');
+			if (query === ""){
+					hs_head_t.textContent = "Hasil Search untuk Semua Data";
+			}else {
+					hs_head_t.textContent = "Hasil Search untuk : " + query;
+			}
+
+			hs_head_t.style.fontWeight = "bold";
+			hs_head_col1.appendChild(hs_head_t);   
+
+			const hs_head_col2 = document.createElement('div');
+			hs_head_col2.className = 'col-2';
+			hs_head_col2.setAttribute("style", "display: flex; justify-content: right;");
+
+			var dropd = document.createElement('div');
+			dropd.className = "dropdown";
+
+			var dropBtn = document.createElement('button');
+			dropBtn.className = "btn btn-secondary dropdown-toggle drop-btn";
+			dropBtn.type = "button";
+			dropBtn.textContent = "View As :  ";
+			dropBtn.style.width = "100px";
+			dropBtn.style.height = "30px";
+			dropBtn.dataset.bsToggle = 'dropdown';
+			dropBtn.setAttribute('aria-expanded', false);
+			dropBtn.style.backgroundColor = "#1e0049";
+			dropd.appendChild(dropBtn);
+
+			var dropUl = document.createElement('ul');
+			dropUl.className = "dropdown-menu";
+
+			var dropLi1 = document.createElement('li');
+			var dropLi_Grid = document.createElement('a');
+			dropLi_Grid.className = "dropdown-item drop-li-a";
+			dropLi_Grid.textContent = "Grid";
+			dropLi_Grid.style.color = "black";
+			dropLi_Grid.onclick = function(){
+					sessionStorage.setItem("mode", "card");
+					fetchSearchFilterResult();
+			}
+			dropLi1.appendChild(dropLi_Grid);
+
+			var dropLi2 = document.createElement('li');
+			var dropLi_List = document.createElement('a');
+			dropLi_List.className = "dropdown-item drop-li-a";
+			dropLi_List.textContent = "List";
+			dropLi_List.style.color = "black";
+			dropLi_List.onclick = function(){
+					sessionStorage.setItem("mode", "list");
+					fetchSearchFilterResult2();
+			}
+			dropLi2.appendChild(dropLi_List);
+
+			dropUl.appendChild(dropLi1);
+			dropUl.appendChild(dropLi2);
+			dropd.appendChild(dropUl);
+
+			hs_head_col2.appendChild(dropd);
+			hs_head.appendChild(hs_head_col1);
+			hs_head.appendChild(hs_head_col2);
+		}
+
+		function setPagination(){
+			const showDiv = document.getElementById("show");//document.createElement("div");
+			showDiv.innerHTML = '';
+
+			const pagiCont = document.createElement("div");
+			pagiCont.innerHTML = '';
+			pagiCont.id = "show";
+			pagiCont.style.display = "flex";
+			pagiCont.style.justifyContent = "end";
+
+			const pagiUl = document.createElement("ul");
+			pagiUl.className = "pagination"
+
+			// Mengisi Pagination
+			if ((currPage - 1) > 0){
+				pagiUl.appendChild(createListItem2("Prev"));
+			}
+			c_pagi = 0;
+			p_pagi = -2;
+			while (c_pagi < 5){
+				if ((currPage + p_pagi) > maxPage ){
+						break;
+				}
+				if ((currPage + p_pagi) > 0){
+						pagiUl.appendChild(createListItem2(currPage + p_pagi));
+						c_pagi += 1;
+				}
+				p_pagi += 1;
+			}
+			if ((currPage + 1) < maxPage ){
+				pagiUl.appendChild(createListItem2("Next"));
+			}
+			pagiUl.appendChild(createListItem2("Show All"));
+			pagiCont.appendChild(pagiUl);
+			showDiv.appendChild(pagiCont);
+
+			// Menampilkan nomer halaman sekarang dan terakhir
+			var showPagiProg = document.createElement("p");
+			showPagiProg.style.textAlign = "end";
+			showPagiProg.style.marginRight = "16px";
+			showPagiProg.textContent = "Page " + currPage + " of " + maxPage;
+			showDiv.appendChild(showPagiProg);
+		}
 
     function getYoutubeVideoId(url) {
         const pattern = /(?:youtube(?:-nocookie)?\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
