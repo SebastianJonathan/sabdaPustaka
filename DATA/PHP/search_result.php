@@ -1162,7 +1162,7 @@
 			hs_head.innerHTML = '';
 
 			const hs_head_col1 = document.createElement('div');
-			hs_head_col1.className = 'col-10';
+			hs_head_col1.className = 'col-10 hshc1';
 			
 			const hs_head_t = document.createElement('h5');
 			if (query === ""){
@@ -1175,7 +1175,7 @@
 			hs_head_col1.appendChild(hs_head_t);   
 
 			const hs_head_col2 = document.createElement('div');
-			hs_head_col2.className = 'col-2';
+			hs_head_col2.className = 'col-2 hshc2';
 			hs_head_col2.setAttribute("style", "display: flex; justify-content: right;");
 
 			var dropd = document.createElement('div');

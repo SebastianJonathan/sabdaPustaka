@@ -61,6 +61,31 @@ img {
     background-color: rgba(255, 255, 255, 0.12);
 }
 
+
+/* @media (min-width: 600px) {
+    .hshc1 h5{
+        width: 100%;
+    }
+} */
+
+@media (max-width: 600px) {
+    .hshc1 h5{
+        width: 90%;
+    }
+}
+
+@media (max-width: 500px) {
+    .hshc1 h5{
+        width: 80%;
+    }
+}
+
+@media (max-width: 400px) {
+    .hshc1 h5{
+        width: 70%;
+    }
+}
+
 ._cards {
     display: flex;
     flex-wrap: wrap;
