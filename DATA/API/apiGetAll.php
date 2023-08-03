@@ -1,5 +1,5 @@
 <?php
-    include 'config.php';
+    include '../CONFIG/config.php';
     $url = $configElasticPath . $index . '/_search';
     include 'query.php';
 

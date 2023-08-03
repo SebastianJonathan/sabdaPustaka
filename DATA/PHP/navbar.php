@@ -1,4 +1,4 @@
-<?php include '../API/config.php' ?>
+<?php include '../CONFIG/config.php' ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fix">
   <div class="container">
     <a class="navbar-brand navbar-brands" href="https://live.sabda.org/">

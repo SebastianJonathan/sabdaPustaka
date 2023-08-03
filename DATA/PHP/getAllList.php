@@ -1,5 +1,5 @@
 <?php
-include '../API/config.php';
+include '../CONFIG/config.php';
 $url = $configElasticPath . $indexName . '/_search';
 include '../API/query.php';
 

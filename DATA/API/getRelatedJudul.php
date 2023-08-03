@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include '../CONFIG/config.php';
 if (isset($_GET['document_id'])) {
     $documentId = $_GET['document_id'];
 

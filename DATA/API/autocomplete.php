@@ -1,5 +1,5 @@
 <?php
-    include 'configES.php';
+    include '../CONFIG/configES.php';
     $url = $configElasticPath . $indexName . '/_search';
     if(strlen($_GET['query']) >= 3){
         include 'query.php';

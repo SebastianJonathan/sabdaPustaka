@@ -1,4 +1,4 @@
-<?php include '../API/config.php' ?>
+<?php include '../CONFIG/config.php' ?>
 <!DOCTYPE html>
 <html lang="en">
 

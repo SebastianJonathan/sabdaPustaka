@@ -1,5 +1,5 @@
 <?php
-    include 'configES.php';
+    include '../CONFIG/configES.php';
     $url = $configElasticPath . $indexName . '/_search';
     include 'query.php';
     function dateComparison($date1, $date2) {
