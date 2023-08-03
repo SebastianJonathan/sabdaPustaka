@@ -67,6 +67,11 @@ img {
         width: 100%;
     }
 } */
+@media (min-width: 992px) {
+    .hshc2 button{
+        margin-right: 8px;
+    }
+}
 
 @media (max-width: 600px) {
     .hshc1 h5{
