@@ -20,7 +20,7 @@
     }
 
     // Define the Elasticsearch index URL and document data
-    $url = 'http://localhost:9200/cobaw';  // Replace with your desired index and type
+    $url = 'http://localhost:9200/pustaka8';  // Replace with your desired index and type
 
     $jsonUrl = 'mapping_es_nested_completion.json';
 

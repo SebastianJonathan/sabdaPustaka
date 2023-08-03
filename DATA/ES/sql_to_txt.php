@@ -1,6 +1,13 @@
 <?php
-function query($url, $method, $param = null)
-{
+$index_name = 'pustaka8';
+
+$host = 'localhost';  // Your MySQL server hostname
+$username = 'root';  // Your MySQL username
+$password = '';  // Your MySQL password
+$database = 'sabda_pustaka';  // Your database name
+$tablename = "sabda_list_youtube_done"; // Your table name
+
+function query($url, $method, $param = null){
     $header = array(
         'Content-Type: application/json'
     );
@@ -31,8 +38,6 @@ function splitKeyword($text){
     }
     return $hasil;
 }
-
-
 
 function compArr($divider, $word){
     $explode_arr = explode($divider, $word);
@@ -101,11 +106,6 @@ function tanya_comp_a($tanya_arr){
     return $result;
 }
 
-$host = 'localhost';  // Your MySQL server hostname
-$username = 'root';  // Your MySQL username
-$password = '';  // Your MySQL password
-$database = 'sabda_pustaka';  // Your database name
-
 // Create a connection
 $connection = new mysqli($host, $username, $password, $database);
 
@@ -115,7 +115,7 @@ if ($connection->connect_error) {
 }
 
 // Query to fetch 5 rows from the "sssfffwww" table
-$query = "SELECT * FROM sabda_list_youtube_done";
+$query = "SELECT * FROM ". $tablename;
 $result = $connection->query($query);
 
 //Create folder bulk if not exist
@@ -133,7 +133,7 @@ $file_output = 'bulk\bulk1.txt';
 $file_counter = 1;
 $filename_arr = 'bulk\bulk1.txt';
 $i_counter = 0;
-$index_name = 'pustaka5';
+
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $metaline = '{ "index" : { "_index" : "'.$index_name.'", "_id":'.$i_counter.'}}';
@@ -177,17 +177,14 @@ if ($result->num_rows > 0) {
 
         $short_desc = $row['short_desc'];
         $short_desc = str_replace('"', "'", $short_desc);
-        $short_desc = implode("*", explode("\r\n", $short_desc));
-        $short_desc = implode("*", explode("\n", $short_desc));
+        $short_desc = implode("<br>", explode("\r\n", $short_desc));
+        $short_desc = implode("<br>", explode("\n", $short_desc));
         // $short_desc = str_replace('*', '\n', $short_desc);
 
         $summary = $row['summary'];
-        if ($i_counter == 43){
-            printf($summary);
-        }
         $summary = str_replace('"', "'", $summary);
-        $summary = implode("*", explode("\r\n", $summary));
-        $summary = implode("*", explode("\n", $summary));
+        $summary = implode("<br>", explode("\r\n", $summary));
+        $summary = implode("<br>", explode("\n", $summary));
         // $summary = str_replace('*', "\n", $summary);
 
         $keywords = $row['keywords'];
@@ -196,8 +193,8 @@ if ($result->num_rows > 0) {
 
         $pertanyaan = $row['Pertanyaan'];
         $pertanyaan = str_replace('"', "'", $pertanyaan);
-        $pertanyaan = implode("*", explode("\r\n", $pertanyaan));
-        $pertanyaan = implode("*", explode("\n", $pertanyaan));
+        $pertanyaan = implode("", explode("\r\n", $pertanyaan));
+        $pertanyaan = implode("", explode("\n", $pertanyaan));
         // $exp_pertanyaan = explode(", ", $pertanyaan);
         // $jadi_pertanyaan = tanya_comp_a($exp_pertanyaan);
         
