@@ -93,7 +93,7 @@
   if (isset($_GET['document_id'])) {
     $documentId = $_GET['document_id'];
 
-    $url = 'http://localhost:9200/pustaka7/_doc/' . $documentId;
+    $url = $configElasticPath . $indexName . '/_doc/' . $documentId;
     $response = query($url, null);
 
     if (isset($response['_source'])) {
