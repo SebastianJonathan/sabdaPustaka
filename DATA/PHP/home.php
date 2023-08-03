@@ -98,7 +98,7 @@
 							<div style="height: 40px;"></div>
 							<!-- <h5 class="offcanvas-title" id="filter-sm-label">Search By</h5> -->
 						</div>
-						<div class="offcanvas-body">
+						<div class="offcanvas-body offcvb">
 							<!-- FSV Off-Canvas Search By -->
 							<div class="row fsv">
 								<div class="row">
