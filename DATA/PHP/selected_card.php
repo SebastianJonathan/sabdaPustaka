@@ -147,7 +147,7 @@
               $new_filename = str_replace('.pdf', '.png', $filename);
               $image_url = $configPath . "DATA/img/" . $new_filename;
               
-              // if (file_exists($new_filename)){
+              if (file_exists("../img/".$new_filename)){
               ?>
                 <div id="pdfViewer" style="display: none;">
                   <iframe src="<?php echo $url_static; ?>" width="100%" height="400px"></iframe>
@@ -159,13 +159,13 @@
                   <h6>Klik pada gambar untuk melihat presentasi dalam PDF</h6>
                 </div>
               <?php
-              // }else{
+              }else{
                 ?>
-                <!-- <div id="pdfViewer">
+                <div id="pdfViewer">
                   <iframe src="<?php echo $url_static; ?>" width="100%" height="400px"></iframe>
-                </div> -->
+                </div>
                 <?php
-              // }
+              }
               ?>
               <?php
             } else {
