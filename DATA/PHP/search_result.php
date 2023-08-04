@@ -593,7 +593,7 @@
             showAllBtn.style.backgroundColor = "#1e0049";
             showAllBtn.style.color= "white";
             showAllBtn.onclick = function(){
-                window.location.href = configPath + "home.php/search//tttt";
+                window.location.href = configPath + "DATA/PHP/home.php/search//tttt";
             }
             showAllDiv.appendChild(showAllBtn);
             main.appendChild(showAllDiv);
