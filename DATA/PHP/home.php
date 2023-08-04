@@ -730,19 +730,33 @@
 			}
 			removeAllChildElements(container);
 		}
+		function checkingBool(bools){
+			let boolean = false;
+			for (let i = 0; i <= 3; i++) {
+				if(bools.substring(i,i+1) == "t" || bools.substring(i,i+1) == "f"){
+					boolean = true;
+				}else{
+					boolean = false;
+					break;
+				}
+			}
+			return boolean;
+		}
 		function startupAndSearch() {
 			const fullURL = window.location.href;
 			sessionStorage.setItem("lastUrl", fullURL);
 			const segments = fullURL.split('/');
-			if (segments[segments.length - 3] == "search") {
+			if (segments[segments.length - 3] == "search" && segments[segments.length - 1].length == 4 && checkingBool(segments[segments.length - 1]) == true) {
 				const checkboxJudul = document.getElementById("checkbox_judul");
 				const checkboxEvent = document.getElementById("checkbox_event");
 				const checkboxNarasumber = document.getElementById("checkbox_narasumber");
 				const checkboxRelated = document.getElementById("checkbox_related");
 				if(segments[segments.length - 1].substring(0,1) == "t"){
 					checkboxJudul.checked = true;
+					sessionStorage.setItem('checkboxJudul', true);
 				}else{
 					checkboxJudul.checked = false;
+					sessionStorage.setItem('checkboxJudul', false);
 				}
 				if(segments[segments.length - 1].substring(1,2) == "t"){
 					checkboxEvent.checked = true;
@@ -759,6 +773,7 @@
 				}else{
 					checkboxRelated.checked = false;
 				}
+				updateSessionCheckbox();
 				if(sessionStorage.getItem("mode") == null){
 					sessionStorage.setItem("mode","card");
 				}
