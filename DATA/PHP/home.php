@@ -114,25 +114,25 @@
 
 								<div class="checkbox-container">
 									<label for="fsv-checkbox_judul" class="form-check-label checkbox-label bigger">
-										<input type="checkbox" class="form-check-input bigger" id="fsv-checkbox_judul" name="fsv-checkbox_judul" value="judul">
+										<input type="checkbox" class="form-check-input bigger" id="fsv-checkbox_judul" name="fsv-checkbox_judul" value="judul" onchange="onChangeResponsiveJudul()">
 										Judul
 									</label>
 								</div>
 								<div class="checkbox-container">
 									<label for="fsv-checkbox_narasumber" class="form-check-label checkbox-label bigger">
-										<input type="checkbox" class="form-check-input bigger" id="fsv-checkbox_narasumber" name="checkbox_narasumber" value="narasumber">
+										<input type="checkbox" class="form-check-input bigger" id="fsv-checkbox_narasumber" name="checkbox_narasumber" value="narasumber" onchange="onChangeResponsiveNarasumber()">
 										Narasumber
 									</label>
 								</div>
 								<div class="checkbox-container">
 									<label for="fsv-checkbox_event" class="form-check-label checkbox-label bigger">
-										<input type="checkbox" class="bigger form-check-input" id="fsv-checkbox_event" name="checkbox_event" value="event">
+										<input type="checkbox" class="bigger form-check-input" id="fsv-checkbox_event" name="checkbox_event" value="event" onchange="onChangeResponsiveEvent()">
 										Event
 									</label>
 								</div>
 								<div class="checkbox-container">
 									<label for="fsv-checkbox_related" class="form-check-label checkbox-label bigger">
-										<input type="checkbox" class="bigger form-check-input" id="fsv-checkbox_related" name="checkbox_related" value="related">
+										<input type="checkbox" class="bigger form-check-input" id="fsv-checkbox_related" name="checkbox_related" value="related" onchange="onChangeResponsiveRelated()">
 										Related
 									</label>
 								</div>
@@ -346,6 +346,22 @@
 			document.getElementById('fsv-checkbox_related').checked = false;
 			updateSessionCheckboxFirst();
 			updateFields();
+		}
+		function onChangeResponsiveJudul(){
+			document.getElementById('checkbox_judul').checked = false;
+			updateSessionCheckboxFirst();
+		}
+		function onChangeResponsiveEvent(){
+			document.getElementById('checkbox_event').checked = false;
+			updateSessionCheckboxFirst();
+		}
+		function onChangeResponsiveNarasumber(){
+			document.getElementById('checkbox_narasumber').checked = false;
+			updateSessionCheckboxFirst();
+		}
+		function onChangeResponsiveRelated(){
+			document.getElementById('checkbox_related').checked = false;
+			updateSessionCheckboxFirst();
 		}
 		function scrollToBottom() {
 			const fullHeight = Math.max(
