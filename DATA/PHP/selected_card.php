@@ -145,23 +145,34 @@
               $filename_with_slash = strrchr($url_static, '/');
               $filename = ltrim($filename_with_slash, '/');
               $new_filename = str_replace('.pdf', '.png', $filename);
+              
+              if (file_exists($new_filename)){
               ?>
-              <div id="pdfViewer" style="display: none;">
-                <iframe src="<?php echo $url_static; ?>" width="100%" height="400px"></iframe>
-              </div>
-              <a href="#" onclick="togglePdfViewer();">
-                <img id="image" src="img/<?php echo $new_filename; ?>" alt="Your Image Description" width="1280">
-              </a>
-              <div class="unduh">
-                <h6>Klik pada gambar untuk melihat presentasi dalam PDF</h6>
-              </div>
+                <div id="pdfViewer" style="display: none;">
+                  <iframe src="<?php echo $url_static; ?>" width="100%" height="400px"></iframe>
+                </div>
+                <a href="#" onclick="togglePdfViewer();">
+                  <img id="image" src="img/<?php echo $new_filename; ?>" alt="Your Image Description" width="1280">
+                </a>
+                <div class="unduh">
+                  <h6>Klik pada gambar untuk melihat presentasi dalam PDF</h6>
+                </div>
+              <?php
+              }else{
+                ?>
+                <div id="pdfViewer">
+                  <iframe src="<?php echo $url_static; ?>" width="100%" height="400px"></iframe>
+                </div>
+                <?php
+              }
+              ?>
               <?php
             } else {
               ?>
-              <div class="error-message" style="padding:7px;">
-                <p class="text-center">Tampilan Presentasi belum tersedia, silahkan pergi ke <a
-                    href="<?php echo $url_slideshare ?>" target="_blank">link ini</a></p>
-              </div>
+                <div class="error-message" style="padding:7px;">
+                  <p class="text-center">Tampilan Presentasi belum tersedia, silahkan pergi ke <a
+                      href="<?php echo $url_slideshare ?>" target="_blank">link ini</a></p>
+                </div>
               <?php
             }
             ?>
