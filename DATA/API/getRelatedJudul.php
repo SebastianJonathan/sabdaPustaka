@@ -46,40 +46,46 @@ if (isset($_GET['document_id'])) {
     // Extract the related documents
     $relatedDocuments = $result['hits']['hits'];
 
-    echo '<div class = "_cards-container">';
-    echo '<div class = "main">';
-    echo '<ul class = "_cards" id="card_result">';
-    // Output the related documents
-    foreach ($relatedDocuments as $document) {
-        $event = $document['_source']['event'];
-        $judul = $document['_source']['judul'];
-        $narasumber = $document['_source']['narasumber'];
-
-        echo '<li class="_cards_item">';
-        echo '<div class="_card" onclick="window.location.href=\'selected_card.php?document_id=' . $document['_id'] . '\'">';
-        echo '<div class="_card_image">';
-        
-        if (isset($document['_source']['url_youtube'])) {
-            $youtubeUrl = $document['_source']['url_youtube'];
-            $videoId = getYoutubeVideoId($youtubeUrl);
-            if ($videoId) {
-                $thumbnailUrl = 'https://img.youtube.com/vi/' . $videoId . '/hqdefault.jpg';
-                echo '<img src="' . $thumbnailUrl . '" alt="Card Image">';
+    if (sizeof($relatedDocuments) > 0){
+        echo '<h3>Judul Terkait</h3>';
+        echo '<div class = "_cards-container">';
+        echo '<div class = "main">';
+        echo '<ul class = "_cards" id="card_result">';
+    
+        // Output the related documents
+        foreach ($relatedDocuments as $document) {
+            $event = $document['_source']['event'];
+            $judul = $document['_source']['judul'];
+            $narasumber = $document['_source']['narasumber'];
+    
+            echo '<li class="_cards_item">';
+            echo '<div class="_card" onclick="window.location.href=\'selected_card.php?document_id=' . $document['_id'] . '\'">';
+            echo '<div class="_card_image">';
+            
+            if (isset($document['_source']['url_youtube'])) {
+                $youtubeUrl = $document['_source']['url_youtube'];
+                $videoId = getYoutubeVideoId($youtubeUrl);
+                if ($videoId) {
+                    $thumbnailUrl = 'https://img.youtube.com/vi/' . $videoId . '/hqdefault.jpg';
+                    echo '<img src="' . $thumbnailUrl . '" alt="Card Image">';
+                }
             }
+            
+            echo '</div>';
+            echo '<div class="_card_content">';
+            echo '<p class="_card_text">' . $event . '</p>';
+            echo '<h2 class="_card_title">' . $judul . '</h2>';
+            echo '<p class="_card_text">' . $narasumber . '</p>';
+            echo '</div>';
+            echo '</div>';
+            echo '</li>';
         }
-        
-        echo '</div>';
-        echo '<div class="_card_content">';
-        echo '<p class="_card_text">' . $event . '</p>';
-        echo '<h2 class="_card_title">' . $judul . '</h2>';
-        echo '<p class="_card_text">' . $narasumber . '</p>';
         echo '</div>';
         echo '</div>';
-        echo '</li>';
+        echo '</div>';
+    
     }
-    echo '</div>';
-    echo '</div>';
-    echo '</div>';
+
 
 }
 
