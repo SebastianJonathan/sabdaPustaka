@@ -59,47 +59,50 @@ footer {
 .donasiButtn{
     background-color: #DF750F;
     border: 2px solid azure;
-    .donasiButtna{
-        color: whitesmoke;
-    };
 }
 
+.donasiButtn .donasiButtna{
+        color: whitesmoke;
+}
 
 .donasiButtn:hover{
     color: black;
     background-color: #ffbb00;
     border: 3px solid white;
     padding: 0px;
-    .donasiButtna{
-        color: black;
-    };
+}
+
+.donasiButtn:hover .donasiButtna{
+    color: black;
 }
 
 .involveButtn{
     background-color: #4CAF50;
     border: 2px solid azure;
-    .involveButtna{
-        color: whitesmoke;
-    };
 }
 
+.involveButtn .involveButtna{
+    color: whitesmoke;
+}
 
 .involveButtn:hover{
     color: black;
     background-color: #4ee753;
     border: 3px solid white;
     padding: 0px;
-    .involveButtna{
+}
+
+.involveButtn:hover .involveButtna{
         color: black;
-    };
 }
 
 .kontakButtn{
     background-color: #008CBA;
     border: 2px solid azure;
-    .kontakButtna{
-        color: whitesmoke;
-    };
+}
+
+.kontakButtn .kontakButtna{
+    color: whitesmoke;
 }
 
 
@@ -108,7 +111,8 @@ footer {
     background-color: #00aee8;
     border: 3px solid white;
     padding: 0px;
-    .kontakButtna{
-        color: black;
-    };
+}
+
+.kontakButtn:hover .kontakButtna{
+    color: black;
 }
