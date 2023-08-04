@@ -213,13 +213,13 @@
                 <!-- Button YT & SlideShare -->
                 <span>
                   <button type="button" class="btn-ln tonton">
-                    <a href="<?php echo $url_youtube ?>" class="btn-ln-a" target="_blank">Tonton Presentasi</a>
+                    <a href="<?php echo $url_youtube ?>" class="btn-ln-a" target="_blank">Youtube</a>
                   </button>
                   <?php
                   if ($url_slideshare) {
                     ?>
                     <button type="button" class="btn-ln">
-                      <a href="<?php echo $url_slideshare ?>" class="btn-ln-a" target="_blank">Lihat Presentasi</a>
+                      <a href="<?php echo $url_slideshare ?>" class="btn-ln-a" target="_blank">Slideshare</a>
                     </button>
                     <?php
                   }
