@@ -348,19 +348,35 @@
 			updateFields();
 		}
 		function onChangeResponsiveJudul(){
-			document.getElementById('checkbox_judul').checked = false;
+			if(document.getElementById('checkbox_judul').checked == false){
+				document.getElementById('checkbox_judul').checked = true;
+			}else{
+				document.getElementById('checkbox_judul').checked = false;
+			}
 			updateSessionCheckboxFirst();
 		}
 		function onChangeResponsiveEvent(){
-			document.getElementById('checkbox_event').checked = false;
+			if(document.getElementById('checkbox_event').checked == false){
+				document.getElementById('checkbox_event').checked = true;
+			}else{
+				document.getElementById('checkbox_event').checked = false;
+			}
 			updateSessionCheckboxFirst();
 		}
 		function onChangeResponsiveNarasumber(){
-			document.getElementById('checkbox_narasumber').checked = false;
+			if(document.getElementById('checkbox_narasumber').checked == false){
+				document.getElementById('checkbox_narasumber').checked = true;
+			}else{
+				document.getElementById('checkbox_narasumber').checked = false;
+			}
 			updateSessionCheckboxFirst();
 		}
 		function onChangeResponsiveRelated(){
-			document.getElementById('checkbox_related').checked = false;
+			if(document.getElementById('checkbox_related').checked == false){
+				document.getElementById('checkbox_related').checked = true;
+			}else{
+				document.getElementById('checkbox_related').checked = false;
+			}
 			updateSessionCheckboxFirst();
 		}
 		function scrollToBottom() {
