@@ -1,0 +1,64 @@
+/* Custom styles for the list */
+
+.container-event {
+    color: gold;
+    /* margin-top: 50px; */
+    background: linear-gradient(to right top, #1e0049, #211045, #251c3f, #2a2638, #2f2f2f);
+    padding: 20px;
+    border-radius: 30px;
+    margin-bottom: 30px;
+}
+
+.contEvent, .contNarsum{
+    margin-left: 16px;
+}
+
+.evLiD{
+    color: gold;
+    /* margin-top: 50px; */
+    background: linear-gradient(to right top, #1e0049, #211045, #251c3f, #2a2638, #2f2f2f);
+    padding: 20px;
+    border-radius: 30px;
+    margin-bottom: 20px;
+}
+
+.container-event a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: gold;
+}
+
+.event-li,
+.narsum-li {
+    margin-bottom: 10px;
+    width: 150px;
+    word-wrap: normal;
+}
+@media (max-width: 480px) {
+    .event-li,
+    .narsum-li {
+        width: 100%;
+    }
+}
+
+
+.ev-li-a{
+    color: white;
+    text-decoration: none;
+}
+
+.event-name {
+    margin-bottom: 15px;
+}
+
+.event-name h2 {
+    font-weight: bold;
+}
+
+.event-li a,
+.narsum-li a {
+    font-size: large;
+}
