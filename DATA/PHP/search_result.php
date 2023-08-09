@@ -1,19 +1,3 @@
-<div class="_cards-container">
-<div class="main" id="main">
-    <button class="btn filter-sm-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#filter-sm" aria-controls="filter-sm" style="margin-left: 16px;">Filter</button>
-    <div class="row" id="hs-header" style="padding-left: 16px;">
-        <!-- <div id="show">
-
-        </div> -->
-    </div> 
-    <ul class="_cards" id="card_result">
-    <!-- Card results will be dynamically added here -->
-    </ul>
-    <div id="show"></div>
-</div>
-
-</div>
-
 <script>
     var now_show = 10;
     const hs_head = document.getElementById("hs-header");
@@ -273,7 +257,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch(configPath + 'DATA/API/filterAPI.php', {
+            fetch(configPath + 'API/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -292,7 +276,7 @@
 
                     const card = document.createElement('div');
                     card.className = '_card';
-                    card.setAttribute('onclick', `window.location.href='${configPath}DATA/PHP/selected_card.php?document_id=${item.id}'`);
+                    card.setAttribute('onclick', `window.location.href='${configPath}PHP/selected_card.php?document_id=${item.id}'`);
 
                     const cardContent = document.createElement('div');
                     cardContent.className = '_card_content';
@@ -414,7 +398,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch(configPath + 'DATA/API/filterAPI.php', {
+            fetch(configPath + 'API/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -432,7 +416,7 @@
 
                     const card = document.createElement('div');
                     card.className = '_card';
-                    card.setAttribute('onclick', `window.location.href='${configPath}DATA/PHP/selected_card.php?document_id=${item.id}'`);
+                    card.setAttribute('onclick', `window.location.href='${configPath}PHP/selected_card.php?document_id=${item.id}'`);
 
                     const cardImage = document.createElement('div');
                     cardImage.className = '_card_image';
@@ -505,7 +489,7 @@
     async function fetchNewest() {
         try {
             const main = document.getElementById('main');
-            const response = await fetch(configPath + 'DATA/API/getNewest.php');
+            const response = await fetch(configPath + 'API/getNewest.php');
             const data = await response.json();
             const cardResultElement = document.getElementById('card_result');
             cardResultElement.innerHTML = '';
@@ -530,7 +514,7 @@
                     card.id = "_card_"+counter;
                     // console.log(card.id);
 
-                    card.setAttribute('onclick', `window.location.href='${configPath}DATA/PHP/selected_card.php?document_id=${item.id}'`);
+                    card.setAttribute('onclick', `window.location.href='${configPath}PHP/selected_card.php?document_id=${item.id}'`);
 
                     const cardImage = document.createElement('div');
                     cardImage.className = '_card_image';
@@ -593,7 +577,7 @@
             showAllBtn.style.backgroundColor = "#1e0049";
             showAllBtn.style.color= "white";
             showAllBtn.onclick = function(){
-                window.location.href = configPath + "DATA/PHP/home.php/search//tttt";
+                window.location.href = configPath + "PHP/home.php/search//tttt";
             }
             showAllDiv.appendChild(showAllBtn);
             main.appendChild(showAllDiv);
@@ -690,7 +674,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch(configPath + 'DATA/API/filterAPI.php', {
+            fetch(configPath + 'API/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -718,7 +702,7 @@
 
                     const card = document.createElement('div');
                     card.className = '_card';
-                    card.setAttribute('onclick', `window.location.href='${configPath}DATA/PHP/selected_card.php?document_id=${item.id}'`);
+                    card.setAttribute('onclick', `window.location.href='${configPath}PHP/selected_card.php?document_id=${item.id}'`);
 
                     const cardImage = document.createElement('div');
                     cardImage.className = '_card_image';
@@ -960,7 +944,7 @@
             // Delete all card elements by setting the innerHTML to an empty string
             cardResultElement.innerHTML = '';
 
-            fetch(configPath + 'DATA/API/filterAPI.php', {
+            fetch(configPath + 'API/filterAPI.php', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -986,7 +970,7 @@
 
                         const card = document.createElement('div');
                         card.className = '_card';
-                        card.setAttribute('onclick', `window.location.href='${configPath}DATA/PHP/selected_card.php?document_id=${item.id}'`);
+                        card.setAttribute('onclick', `window.location.href='${configPath}PHP/selected_card.php?document_id=${item.id}'`);
 
                         const cardContent = document.createElement('div');
                         cardContent.className = '_card_content';

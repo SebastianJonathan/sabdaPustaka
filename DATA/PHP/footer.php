@@ -85,3 +85,23 @@
     </p>
   </div>
 </footer>
+
+<script>
+  var configPath = "<?php echo $configPath?>"
+</script>
+
+<script src="<?php echo $configPath?>vendor/jquery/jquery-3.6.1.min.js"></script>
+<script src="<?php echo $configPath?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="<?php echo $configPath?>vendor/pdfjs/pdf.min.js"></script>
+<script>
+  const events = <?php echo isset($events) ? json_encode($events) : "-1";?>;
+  const narasumbers = <?php echo isset($narasumbers) ? json_encode($narasumbers) : "-1";?>;
+  const keyword = "<?php echo isset($_POST['keyword']) ? $_POST['keyword'] : ''; ?>";
+  const narsum = "<?php echo isset($_POST['narasumber']) ? $_POST['narasumber'] : ''; ?>";
+  
+</script>
+<script src="<?php echo $configPath?>JS/script.js"></script>
+
+
+</body>
+</html>

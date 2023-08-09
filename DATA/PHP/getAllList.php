@@ -66,8 +66,6 @@ sort($narasumbers);
     <?php
     include 'header.php';
     ?>
-    <!-- Add your CSS styles and other head elements here -->
-    <link rel="stylesheet" href="getalllist.css">
 </head>
 
 <body>
@@ -125,6 +123,16 @@ sort($narasumbers);
 
     <script>
         // Get the container and the "V" shaped button
+        loadCustomStyles();
+        function loadCustomStyles() {
+            addStyleSheet(configPath + "CSS/getalllist.css");
+        }
+        function addStyleSheet(href) {
+            var link = document.createElement("link");
+            link.rel = "stylesheet";
+            link.href = href;
+            document.head.appendChild(link);
+        }
         const containerExpandable = document.querySelector('.container-expandable');
         const expandToggle = document.querySelector('.expand-toggle');
 		const events = <?php echo json_encode($events); ?>;
@@ -143,7 +151,7 @@ sort($narasumbers);
         function generateEventLinks() {
 			const eventListContainer = document.getElementById('eventList');
 			events.forEach((event) => {
-				const eventUrl = configPath + 'DATA/PHP/related_results.php?event=' + encodeURIComponent(event);
+				const eventUrl = configPath + 'PHP/related_results.php?event=' + encodeURIComponent(event);
 				const eventDiv = document.createElement('li');
 				eventDiv.className = 'event-li';
 				// eventDiv.style.width = "150px";
@@ -155,7 +163,7 @@ sort($narasumbers);
 		function generateNarasumberLinks() {
 			const narasumberListContainer = document.getElementById('narasumberList');
 			narasumbers.forEach((narasumber) => {
-				const narasumberUrl = configPath + 'DATA/PHP/related_results.php?narasumber=' + encodeURIComponent(narasumber);
+				const narasumberUrl = configPath + 'PHP/related_results.php?narasumber=' + encodeURIComponent(narasumber);
 				const narasumberDiv = document.createElement('li');
 				narasumberDiv.className = 'narsum-li';
 				// narasumberDiv.style.width = '150px';

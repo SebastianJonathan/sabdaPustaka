@@ -1,8 +1,4 @@
-body {
-    /* background-color: #ffffff;
-    background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%); */
-    /* line-height: 1.6; */
-
+#p2_selectedCard {
     background: linear-gradient(to right top, #1e0049, #211045, #251c3f, #2a2638, #2f2f2f);
 
 }
@@ -25,6 +21,28 @@ a.link-gap {
     margin-bottom: 30px;
     border-radius: 10px;
     /* padding: 20px; */
+}
+
+/* ._hidden {
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(40%);
+  transition: all 0.6s;
+}
+
+._show {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateX(0);
+} */
+
+.unduh h6 {
+  font-weight: bold;
+  font-size: small;
+  text-decoration: underline;
+  text-align: center;
+  color: #DF2935;
+  margin-top: 10px;
 }
 
 .materi-text h3{

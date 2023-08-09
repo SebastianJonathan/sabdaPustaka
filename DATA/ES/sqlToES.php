@@ -1,10 +1,18 @@
 <?php
-    $namaIndex = "pustaka8";
+    $namaIndex = "dev-sabda-pustaka-2";
+    
+    //$host = 'localhost';  // Your MySQL server hostname
+    //$username = 'root';  // Your MySQL username
+    //$password = '';  // Your MySQL password
+    //$database = 'sabda_pustaka';  // Your database name
     
     $host = 'localhost';  // Your MySQL server hostname
-    $username = 'root';  // Your MySQL username
-    $password = '';  // Your MySQL password
-    $database = 'sabda_pustaka';  // Your database name
+    $username = 'sabda';  // Your MySQL username
+    $password = 'password';  // Your MySQL password
+    $database = 'dev_data';  // Your database name
+    
+    
+    
     $tablename = "sabda_list_youtube_done"; // Your table name
 
     function query($url, $method, $param = null)
@@ -29,7 +37,7 @@
 
 
     // Define the Elasticsearch index URL and document data
-    $url = 'http://localhost:9200/'.$namaIndex;  // Replace with your desired index and type
+    $url = 'http://charis.sabda.ylsa:9200/'.$namaIndex;  // Replace with your desired index and type
     $jsonUrl = 'mapping_es_nested_completion.json';
 
     // Fetch the JSON data
@@ -194,7 +202,7 @@ if ($result->num_rows > 0) {
         // "[" . implode(", ", explode(" ", $narasumber)) . "]";
 
         $url_static = $row['url_static'];
-        $url_slideshare = $row['URL_Slideshare'];
+        $url_slideshare = $row['url_slideshare'];
         $url_yt = $row['url_youtube'];
 
         $short_desc = $row['short_desc'];
@@ -213,7 +221,7 @@ if ($result->num_rows > 0) {
         $exp_keyword = explode(", ", $keywords);
         $jadi_keyword = multiv_comp($exp_keyword);
 
-        $pertanyaan = $row['Pertanyaan'];
+        $pertanyaan = $row['pertanyaan'];
         $pertanyaan = str_replace('"', "'", $pertanyaan);
         $pertanyaan = implode("", explode("\r\n", $pertanyaan));
         $pertanyaan = implode("", explode("\n", $pertanyaan));
@@ -238,7 +246,7 @@ $connection->close();
 /*====**===*/
 
 // Define the Elasticsearch index URL and document data
-$url = 'http://localhost:9200/_bulk';  // Replace with your desired index and type
+$url = 'http://charis.sabda.ylsa:9200/_bulk';  // Replace with your desired index and type
 
 function listFolderFiles($dir){
     $files = [];

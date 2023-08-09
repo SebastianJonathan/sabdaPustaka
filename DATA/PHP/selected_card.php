@@ -1,70 +1,6 @@
-<?php include '../CONFIG/config.php' ?>
-<!DOCTYPE html>
-<html lang="en">
+<?php include 'header.php' ?>
 
-<head>
-  <title>Document</title>
-  <?php include 'header.php' ?>
-  <script>
-    loadCustomStyles();
-
-    function loadCustomStyles() {
-        addStyleSheet(configPath + "DATA/CSS/selected_card.css");
-    }
-
-    function addStyleSheet(href) {
-        var link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.href = href;
-        document.head.appendChild(link);
-    }
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.7.570/build/pdf.min.js"></script>
-  <script defer>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('_show');
-        } else {
-          entry.target.classList.remove('_show');
-        }
-      });
-      threshold = 0.1;
-    });
-
-    document.addEventListener("DOMContentLoaded", function () {
-      const hiddenElements = document.querySelectorAll('._hidden');
-      hiddenElements.forEach((el) => observer.observe(el));
-      // Rest of your code here...
-    });
-  </script>
-  <style>
-    ._hidden {
-      opacity: 0;
-      filter: blur(6px);
-      transform: translateY(40%);
-      transition: all 0.6s;
-    }
-
-    ._show {
-      opacity: 1;
-      filter: blur(0);
-      transform: translateX(0);
-    }
-
-    .unduh h6 {
-      font-weight: bold;
-      font-size: small;
-      text-decoration: underline;
-      text-align: center;
-      color: #DF2935;
-      margin-top: 10px;
-    }
-  </style>
-</head>
-
-<body>
-  <?php include 'navbar.php'; ?>
+<div id="p2_selectedCard">
   <?php
   function getSlideShareKey($url)
   {
@@ -145,7 +81,7 @@
               $filename_with_slash = strrchr($url_static, '/');
               $filename = ltrim($filename_with_slash, '/');
               $new_filename = str_replace('.pdf', '.png', $filename);
-              $image_url = $configPath . "DATA/img/" . $new_filename;
+              $image_url = $configPath . "img/" . $new_filename;
               
               if (file_exists("../img/".$new_filename)){
               ?>
@@ -318,11 +254,14 @@
   }
   ?>
 
-          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</div>
+
+          <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
           <script>
             /* 
           FETCH KEYWORD DI BUTTON > PINDAH KE RELATED_RESULTS.PHP
       */
+      			var configPath = "<?php echo $configPath;?>"
             const keywordLinks = document.querySelectorAll('.keyword-link');
             keywordLinks.forEach(link => {
               link.addEventListener('click', (e) => {
@@ -386,7 +325,7 @@
             function fetchRelatedDocuments() {
               const documentId = '<?php echo $_GET['document_id']; ?>';
 
-              fetch(configPath + `DATA/API/getRelated.php?document_id=${encodeURIComponent(documentId)}`)
+              fetch(configPath + `API/getRelated.php?document_id=${encodeURIComponent(documentId)}`)
                 .then(response => response.text())
                 .then(data => {
                   const relatedResultsContainer = document.getElementById('related-results-container');
@@ -401,7 +340,7 @@
             function fetchRelatedJudul() {
               const documentId = '<?php echo $_GET['document_id']; ?>';
 
-              fetch(configPath + `DATA/API/getRelatedJudul.php?document_id=${encodeURIComponent(documentId)}`)
+              fetch(configPath + `API/getRelatedJudul.php?document_id=${encodeURIComponent(documentId)}`)
                 .then(response => response.text())
                 .then(data => {
                   const relatedResultsContainer = document.getElementById('related-judul-container');
@@ -419,8 +358,8 @@
           <?php
           include 'footer.php';
           ?>
-</body>
+<!-- </body>
 
 
 
-</html>
+</html> -->

@@ -327,7 +327,6 @@
                 ];
             }
             $query = json_encode($params);
-            error_log($query,3,$logFile);
             $response = query($url, $query);
             $hits = $response['hits']['hits'];
             $narasumberr = array();

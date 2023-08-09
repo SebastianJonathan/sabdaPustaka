@@ -91,6 +91,21 @@ img {
     }
 }
 
+.col-konten-head>h2 {
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+
+.centered-text {
+    text-align: center;
+}
+
+.large_text {
+    font-size: 24px;
+    font-weight: bold;
+}
+
 ._cards {
     display: flex;
     flex-wrap: wrap;

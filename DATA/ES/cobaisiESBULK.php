@@ -20,7 +20,7 @@
     }
 
     // Define the Elasticsearch index URL and document data
-    $url = 'http://localhost:9200/_bulk';  // Replace with your desired index and type
+    $url = 'http://charis.sabda.ylsa:9200/_bulk';  // Replace with your desired index and type
 
     function listFolderFiles($dir){
         $files = [];
