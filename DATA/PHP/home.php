@@ -178,11 +178,9 @@
 						<div class="row">
 							<button id="ex-naras-btn" onclick="expandNarasumber()">show more</button>
 						</div>
-
 					</div>
 				</div>
 			</div>
-
 		</div><!-- COL Card -->
 		<!-- Spacer -->
 		<div class="row" style="height: 20px;"></div>

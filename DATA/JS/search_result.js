@@ -22,7 +22,7 @@ function setMaxPage(total_data){
     maxPage = Math.ceil(total_data / pageSize);
 }
 
-function createListItem2(pageNumber) {
+function createListItem2(pageNumber, clickFunc = -1) {
     const li = document.createElement('li');
     li.className = "page-item";
 
@@ -43,52 +43,58 @@ function createListItem2(pageNumber) {
         a.setAttribute("style","color: gold;")
         a.style.backgroundColor = "#1e0049";
     }
-    a.onclick = function(){
-        if (pageNumber != currPage){
-            if (pageNumber === "Show All"){
-                if(a.innerText == "Show All"){
-                    pageSize = maxPage * 12;
-                    showAll = true;
+    if (clickFunc != -1){
+        a.onclick = clickFunc;
+    }else{
+        a.onclick = function(){
+            if (pageNumber != currPage){
+                if (pageNumber === "Show All"){
+                    if(a.innerText == "Show All"){
+                        pageSize = maxPage * 12;
+                        showAll = true;
+                    }else{
+                        pageSize = 12;
+                        showAll = false;
+                    }
+                    currPage = 1;
+                }
+                else if(pageNumber == "Next"){
+                    if((currPage + 1) <= maxPage){
+                        currPage += 1;
+                    }
+                }
+                else if(pageNumber == "Prev"){
+                    if((currPage - 1) >= 1){
+                        currPage -= 1;
+                    }
+                }
+                else{
+                    currPage = pageNumber;
+                }
+                if(sessionStorage.getItem("mode") == "list"){
+                    if(filterNarasumber.length != 0 || filterEvent.length != 0 || filterTanggal.length != 0){
+                        clrAllFilterCheckbox()
+                        fetchSearchResult2();
+                    }else{
+                        fetchSearchResult2();
+                    }
                 }else{
-                    pageSize = 12;
-                    showAll = false;
+                    if(filterNarasumber.length != 0 || filterEvent.length != 0 || filterTanggal.length != 0){
+                        clrAllFilterCheckbox()
+                        fetchSearchResult();
+                    }else{
+                        fetchSearchResult();
+                    }
                 }
-                currPage = 1;
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                })
             }
-            else if(pageNumber == "Next"){
-                if((currPage + 1) <= maxPage){
-                    currPage += 1;
-                }
-            }
-            else if(pageNumber == "Prev"){
-                if((currPage - 1) >= 1){
-                    currPage -= 1;
-                }
-            }
-            else{
-                currPage = pageNumber;
-            }
-            if(sessionStorage.getItem("mode") == "list"){
-                if(filterNarasumber.length != 0 || filterEvent.length != 0 || filterTanggal.length != 0){
-                    clrAllFilterCheckbox()
-                    fetchSearchResult2();
-                }else{
-                    fetchSearchResult2();
-                }
-            }else{
-                if(filterNarasumber.length != 0 || filterEvent.length != 0 || filterTanggal.length != 0){
-                    clrAllFilterCheckbox()
-                    fetchSearchResult();
-                }else{
-                    fetchSearchResult();
-                }
-            }
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            })
-        }
+        };
     }
+
+    
 
     li.appendChild(a);
     return li;
@@ -485,101 +491,103 @@ function fetchSearchFilterResult() {
     }
 }
 
-async function fetchNewest() {
+function fetchNewest() {
     try {
         const main = document.getElementById('main');
-        const response = await fetch(configPath + 'API/getNewest.php');
-        const data = await response.json();
-        const cardResultElement = document.getElementById('card_result');
-        cardResultElement.innerHTML = '';
-        if (data.hasil.length > 0) {
-            hs_head.innerHTML = ''; 
-            counter = 0;                
-            data.hasil.forEach(function (item) {
-                counter = counter + 1;
-                // console.log(counter);
+        fetch(configPath + 'API/getNewest.php')
+        .then(response => response.json())
+        .then(data => {
+            const cardResultElement = document.getElementById('card_result');
+            cardResultElement.innerHTML = '';
+            if (data.hasil.length > 0) {
+                hs_head.innerHTML = ''; 
+                counter = 0;                
+                data.hasil.forEach(function (item) {
+                    counter = counter + 1;
+                    // console.log(counter);
+
+                    hs_head.innerHTML = '';
+                    const hs_head_t = document.createElement('h5');
+                    hs_head_t.textContent = "Terkini:";
+                    hs_head_t.style.fontWeight = "bold";
+                    hs_head.appendChild(hs_head_t);    
+
+                    const cardItem = document.createElement('li');
+                    cardItem.className = '_cards_item';
+
+                    const card = document.createElement('div');
+                    card.className = '_card';
+                    card.id = "_card_"+counter;
+                    // console.log(card.id);
+
+                    card.setAttribute('onclick', `window.location.href='${configPath}PHP/selected_card.php?document_id=${item.id}'`);
+
+                    const cardImage = document.createElement('div');
+                    cardImage.className = '_card_image';
+
+                    if (item.youtube) {
+                        const youtubeUrl = item.youtube;
+                        const videoId = getYoutubeVideoId(youtubeUrl);
+                        if (videoId) {
+                            const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                            const thumbnailImg = document.createElement('img');
+                            thumbnailImg.src = thumbnailUrl;
+                            cardImage.appendChild(thumbnailImg);
+                        }
+                    }
+
+                    const cardContent = document.createElement('div');
+                    cardContent.className = '_card_content';
+
+                    const cardTitle = document.createElement('h2');
+                    cardTitle.className = '_card_title';
+                    cardTitle.textContent = item.judul;
+
+                    const cardText = document.createElement('p');
+                    cardText.className = '_card_text';
+                    cardText.textContent = item.narasumber;
+
+                    // Append the card content to the card element
+                    card.appendChild(cardImage);
+                    card.appendChild(cardContent);
+
+                    cardContent.appendChild(cardTitle);
+                    cardContent.appendChild(cardText);
+
+                    cardItem.appendChild(card);
+                    cardResultElement.appendChild(cardItem);
+
+                    FilterColumnCanvas.innerHTML = '';
+                    FilterOpenCanvas.innerHTML = '';
+                });
+            } else {
+                FilterColumnCanvas.innerHTML = '';
+                FilterOpenCanvas.innerHTML = '';
 
                 hs_head.innerHTML = '';
                 const hs_head_t = document.createElement('h5');
-                hs_head_t.textContent = "Terkini:";
+                hs_head_t.textContent = "No Results Found";
                 hs_head_t.style.fontWeight = "bold";
-                hs_head.appendChild(hs_head_t);    
+                hs_head.appendChild(hs_head_t);  
+            }
 
-                const cardItem = document.createElement('li');
-                cardItem.className = '_cards_item';
+            const showAllDiv = document.createElement('div');
+            showAllDiv.setAttribute("style", "display: flex; justify-content: center; margin-top: 15px;");
 
-                const card = document.createElement('div');
-                card.className = '_card';
-                card.id = "_card_"+counter;
-                // console.log(card.id);
-
-                card.setAttribute('onclick', `window.location.href='${configPath}PHP/selected_card.php?document_id=${item.id}'`);
-
-                const cardImage = document.createElement('div');
-                cardImage.className = '_card_image';
-
-                if (item.youtube) {
-                    const youtubeUrl = item.youtube;
-                    const videoId = getYoutubeVideoId(youtubeUrl);
-                    if (videoId) {
-                        const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-                        const thumbnailImg = document.createElement('img');
-                        thumbnailImg.src = thumbnailUrl;
-                        cardImage.appendChild(thumbnailImg);
-                    }
-                }
-
-                const cardContent = document.createElement('div');
-                cardContent.className = '_card_content';
-
-                const cardTitle = document.createElement('h2');
-                cardTitle.className = '_card_title';
-                cardTitle.textContent = item.judul;
-
-                const cardText = document.createElement('p');
-                cardText.className = '_card_text';
-                cardText.textContent = item.narasumber;
-
-                // Append the card content to the card element
-                card.appendChild(cardImage);
-                card.appendChild(cardContent);
-
-                cardContent.appendChild(cardTitle);
-                cardContent.appendChild(cardText);
-
-                cardItem.appendChild(card);
-                cardResultElement.appendChild(cardItem);
-
-                FilterColumnCanvas.innerHTML = '';
-                FilterOpenCanvas.innerHTML = '';
-            });
-        } else {
-            FilterColumnCanvas.innerHTML = '';
-            FilterOpenCanvas.innerHTML = '';
-
-            hs_head.innerHTML = '';
-            const hs_head_t = document.createElement('h5');
-            hs_head_t.textContent = "No Results Found";
-            hs_head_t.style.fontWeight = "bold";
-            hs_head.appendChild(hs_head_t);  
-        }
-
-        const showAllDiv = document.createElement('div');
-        showAllDiv.setAttribute("style", "display: flex; justify-content: center; margin-top: 15px;");
-
-        const showAllBtn = document.createElement('button');
-        showAllBtn.type = "button";
-        showAllBtn.className = "button";
-        showAllBtn.style.width = "150px";
-        showAllBtn.style.height = "40px";
-        showAllBtn.textContent = "Show All Data";
-        showAllBtn.style.backgroundColor = "#1e0049";
-        showAllBtn.style.color= "white";
-        showAllBtn.onclick = function(){
-            window.location.href = configPath + "PHP/home.php/search//tttt";
-        }
-        showAllDiv.appendChild(showAllBtn);
-        main.appendChild(showAllDiv);
+            const showAllBtn = document.createElement('button');
+            showAllBtn.type = "button";
+            showAllBtn.className = "button";
+            showAllBtn.style.width = "150px";
+            showAllBtn.style.height = "40px";
+            showAllBtn.textContent = "Show All Data";
+            showAllBtn.style.backgroundColor = "#1e0049";
+            showAllBtn.style.color= "white";
+            showAllBtn.onclick = function(){
+                window.location.href = configPath + "PHP/home.php/search//tttt";
+            }
+            showAllDiv.appendChild(showAllBtn);
+            main.appendChild(showAllDiv);
+        })
         
     } catch (error) {
         console.error('Terjadi kesalahan:', error);
@@ -690,8 +698,8 @@ function fetchSearchResult() {
             cardResultElement.innerHTML = '';
             if (data.result.data_result.length > 0) {
                                     
-                                    setHeadSearch(query);
-                                    setPagination();
+                setHeadSearch(query);
+                setPagination();
 
                 // FOR EACH
                 data.result.data_result.forEach(function (item) {
@@ -1206,7 +1214,7 @@ function fetchSearchResult2() {
         hs_head.appendChild(hs_head_col2);
     }
 
-    function setPagination(){
+    function setPagination(click_func = -1){
         const showDiv = document.getElementById("show");//document.createElement("div");
         showDiv.innerHTML = '';
 
@@ -1221,7 +1229,7 @@ function fetchSearchResult2() {
 
         // Mengisi Pagination
         if ((currPage - 1) > 0){
-            pagiUl.appendChild(createListItem2("Prev"));
+            pagiUl.appendChild(createListItem2("Prev", click_func));
         }
         c_pagi = 0;
         p_pagi = -2;
@@ -1230,15 +1238,15 @@ function fetchSearchResult2() {
                     break;
             }
             if ((currPage + p_pagi) > 0){
-                    pagiUl.appendChild(createListItem2(currPage + p_pagi));
+                    pagiUl.appendChild(createListItem2(currPage + p_pagi, click_func));
                     c_pagi += 1;
             }
             p_pagi += 1;
         }
         if ((currPage + 1) < maxPage ){
-            pagiUl.appendChild(createListItem2("Next"));
+            pagiUl.appendChild(createListItem2("Next", click_func));
         }
-        pagiUl.appendChild(createListItem2("Show All"));
+        pagiUl.appendChild(createListItem2("Show All", click_func));
         pagiCont.appendChild(pagiUl);
         showDiv.appendChild(pagiCont);
 

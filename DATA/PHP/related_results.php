@@ -32,13 +32,7 @@
                                 </ul>
                                 <div id="show"></div>
                             </div>
-
                         </div>
-
-
-
-
-                        <?php //include 'search_result.php'; ?>
                     </div>
                 </div> <!-- row konten -->
 

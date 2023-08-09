@@ -347,8 +347,6 @@ window.addEventListener('DOMContentLoaded', updateRekomendasiPosition);
 
 document.getElementById('query').addEventListener('input', fetchRecommendations);
 
-
-
 /*
         FUNCTION GETALLLLIST.PHP
 */
@@ -410,7 +408,7 @@ function expandNarasumber(){
     var barHeight = 200;
 
     if (prevHeight === barHeight){
-        narasCont.style.height = "auto";//setAttribute("style","height: auto;");
+        narasCont.style.height = "auto";
         exBtn.textContent = "Show Less"
     }else if (prevHeight > barHeight){
         exBtn.textContent = "Show More"

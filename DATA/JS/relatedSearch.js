@@ -1,11 +1,4 @@
-
-
-
-
-
 if (keyword) {
-    // Fetch the related results using the getKeyword.php API
-
     fetch(configPath + `API/getKeyword.php?query=${encodeURIComponent(keyword)}`)
         .then(response => response.json())
         .then(data => {
@@ -83,12 +76,31 @@ if (narsumParam) {
     console.log("No event parameter provided.");
 }
 
+var pageSize = 12;
+var currPage = 1;
+var maxPage = 1;
 
 function showResults(results) {
+
+    console.log();
+    setMaxPage(results.length);
+    setPagination(function(){
+        console.log("123456");
+        // console.log(pageNumber);
+        generateCard(paginate(results, currPage, pageSize));
+    });
+    generateCard(paginate(results, currPage, pageSize));
+}
+
+function paginate(array, page, pageSize) {
+    return array.slice((page - 1) * pageSize, page * pageSize);
+}
+
+function generateCard(results){
+    
     // Get the card_result container element
     const cardResultElement = document.querySelector('#p3_relatedResult #card_result');
 
-    
     const colKontenHeadElement = document.querySelector('.col-konten-head.terkait');
 
     // Delete all card elements by setting the innerHTML to an empty string
@@ -102,8 +114,6 @@ function showResults(results) {
     if (narsumParam) {
         testParagraph.innerHTML = '<h2 class="centered-text">Pencarian Terkait</h2><h4 class="centered-text large-text">' + narsumParam + '</h4>';
     }
-
-
 
     if (results.length > 0) {
         results.forEach(function (item) {
