@@ -107,6 +107,7 @@ function onChangeResponsiveRelated(){
     }
     updateSessionCheckboxFirst();
 }
+
 function scrollToBottom() {
     const fullHeight = Math.max(
         document.body.scrollHeight,
@@ -216,7 +217,7 @@ async function fetchRecommendations() {
         const response = await fetch(configPath + `API/autocomplete.php?query=${query}&fields=${fields}`);
         const data = await response.json();
         // console.log(data.rekomendasi);
-        console.log(data);
+        // console.log(data);
         tampilkanRekomendasi(data.rekomendasi);
     } catch (error) {
         console.error('Terjadi kesalahan:', error);
@@ -342,10 +343,7 @@ document.addEventListener('click', function(event) {
     }
 });
 
-window.addEventListener('resize', updateRekomendasiPosition);
-window.addEventListener('DOMContentLoaded', updateRekomendasiPosition);
 
-document.getElementById('query').addEventListener('input', fetchRecommendations);
 
 /*
         FUNCTION GETALLLLIST.PHP
@@ -517,4 +515,8 @@ function hideFilterSM() {
 				// document.activeElement.blur();
 		} catch {}
 }
+
+updateRekomendasiPosition();
 window.addEventListener('resize', hideFilterSM);
+window.addEventListener('resize', updateRekomendasiPosition);
+document.getElementById('query').addEventListener('input', fetchRecommendations);
