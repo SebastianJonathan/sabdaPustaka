@@ -542,7 +542,7 @@ function fetchNewest() {
             showAllBtn.style.backgroundColor = "#1e0049";
             showAllBtn.style.color= "white";
             showAllBtn.onclick = function(){
-                window.location.href = configPath + "PHP/home.php/search//tttt";
+                window.location.href = configPath + "PHP/home.php/search/ ";
             }
             showAllDiv.appendChild(showAllBtn);
             main.appendChild(showAllDiv);
