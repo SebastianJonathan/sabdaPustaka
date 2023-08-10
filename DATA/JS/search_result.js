@@ -1,4 +1,3 @@
-var now_show = 10;
 const hs_head = document.getElementById("hs-header");
 const FilterOpenCanvas = document.getElementById("ffv-filter");
 const FilterColumnCanvas = document.getElementById("ffc-filter");
@@ -13,6 +12,7 @@ const fopen_tgl = document.createElement('div');
 let filterNarasumber = [];
 let filterEvent = [];
 let filterTanggal = [];
+
 var pageSize = 12;
 var currPage = 1;
 var maxPage = 1;
@@ -333,7 +333,6 @@ function fetchSearchFilterResult2() {
 }
 
 function fetchSearchFilterResult() {
-    now_show = 10;
     console.log(filterEvent,filterNarasumber,filterTanggal);
     const fullURL = window.location.href;
     const segments = fullURL.split('/');
