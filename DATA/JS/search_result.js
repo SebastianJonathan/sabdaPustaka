@@ -197,6 +197,7 @@ function initFetchSearchFilter(isFilter){
     const segments = fullURL.split('/');
     let query = segments[segments.length - 1];
     query = query.replace(/%20/g, ' ');
+    document.getElementById("query").value = query;
     if(query != null){
         let fieldSearch = [];
 
@@ -257,7 +258,7 @@ function initFetchSearchFilter(isFilter){
 }
 
 function fetchSearchFilterResult2() {
-    var fetchinit = initFetchSearchFilter(false);
+    var fetchinit = initFetchSearchFilter(true);
     const filterJson = fetchinit[0];
     let query = fetchinit[1];
 
@@ -347,7 +348,7 @@ function fetchSearchFilterResult2() {
 
 
 function fetchSearchFilterResult() {
-    var fetchinit = initFetchSearchFilter(false);
+    var fetchinit = initFetchSearchFilter(true);
     const filterJson = fetchinit[0];
     let query = fetchinit[1];
 
