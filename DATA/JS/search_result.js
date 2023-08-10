@@ -95,7 +95,7 @@ function createListItem2(pageNumber) {
     return li;
 }
 
-function createCheckbox(id, nama, div_filter,arr) {
+function createCheckbox(id, nama, div_filter, arr) {
     var containerDiv = document.createElement("div");
     containerDiv.className = "checkbox-container";
     var label = document.createElement("label");
@@ -127,9 +127,7 @@ function createCheckbox(id, nama, div_filter,arr) {
     };
 
     label.appendChild(input);
-
-    label.appendChild(document.createTextNode(nama + " (" + arr[nama] + ")"     ));
-
+    label.appendChild(document.createTextNode(nama + " (" + arr[nama] + ")"));
     containerDiv.appendChild(label);
 
     div_filter.appendChild(containerDiv);
@@ -164,7 +162,7 @@ function clrAllFilterCheckbox(){
     }
 }
 
-function onChangeFilterCheckbox(value,type,checked){
+function onChangeFilterCheckbox(value, type, checked){
     if(type == "narasumber"){
         if(checked == true){
             filterNarasumber.push(value);
@@ -194,13 +192,12 @@ function onChangeFilterCheckbox(value,type,checked){
     }
 }
 
-function fetchSearchFilterResult2() {
+function initFetchSearchFilter(isFilter){
     const fullURL = window.location.href;
     const segments = fullURL.split('/');
-    let query = segments[segments.length - 2];
+    let query = segments[segments.length - 1];
     query = query.replace(/%20/g, ' ');
     if(query != null){
-        // Initialize fieldSearch array
         let fieldSearch = [];
 
         // Check if the respective checkboxes are checked and add fields to fieldSearch array
@@ -220,10 +217,10 @@ function fetchSearchFilterResult2() {
             fieldSearch.push('judul_completion.input');
         }
         // Create the filter object
-        let filter = ""
-        if(query == ""){
+        let filter = "";
+        if(isFilter){
             filter = {
-                "query": "Kosong",
+                "query": query == "" ? "Kosong" : query, //Kalau query kosong
                 "size": pageSize,
                 "API": "searchFilter",
                 "fields": fieldSearch,
@@ -233,22 +230,38 @@ function fetchSearchFilterResult2() {
                 "currPage": (currPage - 1) * 12
             };
         }else{
-            filter = {
-                "query": query,
-                "size": pageSize,
-                "API": "searchFilter",
-                "fields": fieldSearch,
-                "narasumber": filterNarasumber,
-                "event": filterEvent,
-                "tanggal": filterTanggal,
-                "currPage": (currPage - 1) * 12
-            };
+            if(query == ""){
+                filter = {
+                    "size": pageSize,
+                    "API": "getAll",
+                    "currPage": (currPage - 1) * 12,
+                    "fields": fieldSearch
+                };
+            }else{
+                filter = {
+                    "query": query,
+                    "size": pageSize,
+                    "API": "search",
+                    "fields": fieldSearch,
+                    "currPage": (currPage - 1) * 12
+                };
+            }
         }
-
-        // Convert the filter object to JSON
         const filterJson = JSON.stringify(filter);
 
-        // Get the card_result container element
+        return [filterJson, query];
+    }else{
+        return ["-1"];
+    }
+
+}
+
+function fetchSearchFilterResult2() {
+    var fetchinit = initFetchSearchFilter(false);
+    const filterJson = fetchinit[0];
+    let query = fetchinit[1];
+
+    if (filterJson != "-1"){
         const cardResultElement = document.getElementById('card_result');
         cardResultElement.classList.add('container-list');
         cardResultElement.classList.add('_card2');
@@ -287,6 +300,7 @@ function fetchSearchFilterResult2() {
 
                 const cardText = document.createElement('p');
                 cardText.className = '_card_text';
+                console.log(fecthNarsum(item.narasumber));
                 cardText.textContent = item.narasumber;
 
                 // Append the card content to the card element
@@ -326,69 +340,18 @@ function fetchSearchFilterResult2() {
             }
         })
         .catch(error => {
-        // Handle any errors
         console.error(error);
         });
     }
 }
 
+
 function fetchSearchFilterResult() {
-    console.log(filterEvent,filterNarasumber,filterTanggal);
-    const fullURL = window.location.href;
-    const segments = fullURL.split('/');
-    let query = segments[segments.length - 2];
-    query = query.replace(/%20/g, ' ');
-    if(query != null){
-        // Initialize fieldSearch array
-        let fieldSearch = [];
+    var fetchinit = initFetchSearchFilter(false);
+    const filterJson = fetchinit[0];
+    let query = fetchinit[1];
 
-        // Check if the respective checkboxes are checked and add fields to fieldSearch array
-        if (sessionStorage.getItem("checkboxJudul") == "true") {
-            fieldSearch.push('judul_completion.input');
-        }
-        if (sessionStorage.getItem("checkboxNarasumber") == "true") {
-            fieldSearch.push('narasumber_completion.input');
-        }
-        if (sessionStorage.getItem("checkboxEvent") == "true") {
-            fieldSearch.push('event_completion.input');
-        }
-        if (sessionStorage.getItem("checkboxRelated") == "true") {
-            fieldSearch.push('deskripsi_pendek');
-            fieldSearch.push('ringkasan');
-            fieldSearch.push('kata_kunci');
-            fieldSearch.push('judul_completion.input');
-        }
-        // Create the filter object
-        let filter = "";
-        if(query == ""){
-            filter = {
-                "query": "Kosong",
-                "size": pageSize,
-                "API": "searchFilter",
-                "fields": fieldSearch,
-                "narasumber": filterNarasumber,
-                "event": filterEvent,
-                "tanggal": filterTanggal,
-                "currPage": (currPage - 1) * 12
-            };
-            console.log("Masuk");
-        }else{
-            filter = {
-                "query": query,
-                "size": pageSize,
-                "API": "searchFilter",
-                "fields": fieldSearch,
-                "narasumber": filterNarasumber,
-                "event": filterEvent,
-                "tanggal": filterTanggal,
-                "currPage": (currPage - 1) * 12
-            };
-        }
-
-        // Convert the filter object to JSON
-        const filterJson = JSON.stringify(filter);
-
-        // Get the card_result container element
+    if (filterJson != "-1"){
         const cardResultElement = document.getElementById('card_result');
         cardResultElement.classList.remove('container-list');
         cardResultElement.classList.remove('_card2');
@@ -440,6 +403,7 @@ function fetchSearchFilterResult() {
 
                 const cardText = document.createElement('p');
                 cardText.className = '_card_text';
+                console.log(fecthNarsum(item.narasumber));
                 cardText.textContent = item.narasumber;
 
                 // Append the card content to the card element
@@ -485,6 +449,7 @@ function fetchSearchFilterResult() {
     }
 }
 
+
 function fetchNewest() {
     try {
         const main = document.getElementById('main');
@@ -498,7 +463,6 @@ function fetchNewest() {
                 counter = 0;                
                 data.hasil.forEach(function (item) {
                     counter = counter + 1;
-                    // console.log(counter);
 
                     hs_head.innerHTML = '';
                     const hs_head_t = document.createElement('h5');
@@ -512,7 +476,6 @@ function fetchNewest() {
                     const card = document.createElement('div');
                     card.className = '_card';
                     card.id = "_card_"+counter;
-                    // console.log(card.id);
 
                     card.setAttribute('onclick', `window.location.href='${configPath}PHP/selected_card.php?document_id=${item.id}'`);
 
@@ -539,6 +502,7 @@ function fetchNewest() {
 
                     const cardText = document.createElement('p');
                     cardText.className = '_card_text';
+                    console.log(fecthNarsum(item.narasumber));
                     cardText.textContent = item.narasumber;
 
                     // Append the card content to the card element
@@ -587,7 +551,6 @@ function fetchNewest() {
         console.error('Terjadi kesalahan:', error);
     }
     resizeListEN()
-    // console.log(document.getElementById('contEvent') === null);
 }
 
 function resizeListEN(){
@@ -596,10 +559,8 @@ function resizeListEN(){
     if (c1 != null){
         var colFilter = document.getElementById('col-filter-md');
         var kontenS = document.getElementById('kontenS');
-        
         var contEvent = document.getElementById('contEvent');
         var contNarsum = document.getElementById('contNarsum');
-        
         
         var unitL = c1.clientWidth + 32;
         var availSpace = kontenS.clientWidth - colFilter.clientWidth - 16;
@@ -610,8 +571,6 @@ function resizeListEN(){
         contEvent.setAttribute("style","width:"+totalWidth+"px");
         contNarsum.setAttribute("style","width:"+totalWidth+"px");
     }
-
-    // console.log(contEvent.clientWidth);
 }
 window.addEventListener('resize', resizeListEN);
 
@@ -619,52 +578,11 @@ function fetchSearchResult() {
     filterNarasumber.length = 0;
     filterEvent.length = 0;
     filterTanggal.length = 0;
-    const fullURL = window.location.href;
-    const segments = fullURL.split('/');
-    let query = segments[segments.length - 2];
-    query = query.replace(/%20/g, ' ');
-    if(query != null){
-        document.getElementById('query').value = query;
-        // Initialize fieldSearch array
-        let fieldSearch = [];
 
-        // Check if the respective checkboxes are checked and add fields to fieldSearch array
-        if (sessionStorage.getItem("checkboxJudul") == "true") {
-            fieldSearch.push('judul_completion.input');
-        }
-        if (sessionStorage.getItem("checkboxNarasumber") == "true") {
-            fieldSearch.push('narasumber_completion.input');
-        }
-        if (sessionStorage.getItem("checkboxEvent") == "true") {
-            fieldSearch.push('event_completion.input');
-        }
-        if (sessionStorage.getItem("checkboxRelated") == "true") {
-            fieldSearch.push('deskripsi_pendek');
-            fieldSearch.push('ringkasan');
-            fieldSearch.push('kata_kunci');
-            fieldSearch.push('judul_completion.input');
-        }
-        // Create the filter object
-        let filter = "";
-        if(query == ""){
-            filter = {
-                "size": pageSize,
-                "API": "getAll",
-                "currPage": (currPage - 1) * 12,
-                "fields": fieldSearch
-            };
-        }else{
-            filter = {
-                "query": query,
-                "size": pageSize,
-                "API": "search",
-                "fields": fieldSearch,
-                "currPage": (currPage - 1) * 12
-            };
-        }
-
-        // Convert the filter object to JSON
-        const filterJson = JSON.stringify(filter);
+    var fetchinit = initFetchSearchFilter(false);
+    const filterJson = fetchinit[0];
+    let query = fetchinit[1];
+    if (filterJson != "-1"){
 
         // Get the card_result container element
         const cardResultElement = document.getElementById('card_result');
@@ -728,9 +646,9 @@ function fetchSearchResult() {
 
                 const cardText = document.createElement('p');
                 cardText.className = '_card_text';
+                console.log(fecthNarsum(item.narasumber));
                 cardText.textContent = item.narasumber;
 
-                // Append the card content to the card element
                 card.appendChild(cardImage);
                 card.appendChild(cardContent);
 
@@ -751,7 +669,6 @@ function fetchSearchResult() {
                 hs_head.appendChild(hs_head_t);  
             }
                 
-
             FilterColumnCanvas.innerHTML = '';
             FilterOpenCanvas.innerHTML = '';
             const titleFFC = document.createElement('h5');
@@ -884,59 +801,30 @@ function fetchSearchResult() {
     }
 }
 
+function fecthNarsum(narsum_ori){
+    let pembicara = narsum_ori;
+    pembicara = pembicara.replace(/,S\./g, '|S.');
+    pembicara = pembicara.replace(/, S\./g, '| S.');
+    pembicara = pembicara.replace(/,B\./g, '|B.');
+    pembicara = pembicara.replace(/, B\./g, '| B.');
+    pembicara = pembicara.replace(/,M\./g, '|M.');
+    pembicara = pembicara.replace(/, M\./g, '| M.');
+    pembicara = pembicara.replace(/,Ph\./g, '|Ph.');
+    pembicara = pembicara.replace(/, Ph\./g, '| Ph.');
+    pembicara = pembicara.split(',');
+    pembicara = pembicara.map(item => item.replace("|", ","));
+    return pembicara;
+}
+
 function fetchSearchResult2() {
     filterNarasumber.length = 0;
     filterEvent.length = 0;
     filterTanggal.length = 0;
-    const fullURL = window.location.href;
-    const segments = fullURL.split('/');
-    let query = segments[segments.length - 2];
-    query = query.replace(/%20/g, ' ');
-    if(query != null){
-        document.getElementById('query').value = query;
-        // Initialize fieldSearch array
-        let fieldSearch = [];
+    var fetchinit = initFetchSearchFilter(false);
+    const filterJson = fetchinit[0];
+    let query = fetchinit[1];
 
-        // Check if the respective checkboxes are checked and add fields to fieldSearch array
-        if (sessionStorage.getItem("checkboxJudul") == "true") {
-            fieldSearch.push('judul_completion.input');
-        }
-        if (sessionStorage.getItem("checkboxNarasumber") == "true") {
-            fieldSearch.push('narasumber_completion.input');
-        }
-        if (sessionStorage.getItem("checkboxEvent") == "true") {
-            fieldSearch.push('event_completion.input');
-        }
-        if (sessionStorage.getItem("checkboxRelated") == "true") {
-            fieldSearch.push('deskripsi_pendek');
-            fieldSearch.push('ringkasan');
-            fieldSearch.push('kata_kunci');
-            fieldSearch.push('judul_completion.input');
-        }
-        
-        // Create the filter object
-        let filter = "";
-        if(query == ""){
-            filter = {
-                "size": pageSize,
-                "API": "getAll",
-                "currPage": (currPage - 1) * 12,
-                "fields": fieldSearch
-            };
-        }else{
-            filter = {
-                "query": query,
-                "size": pageSize,
-                "API": "search",
-                "fields": fieldSearch,
-                "currPage": (currPage - 1) * 12
-            };
-        }
-
-        // Convert the filter object to JSON
-        const filterJson = JSON.stringify(filter);
-
-        // Get the card_result container element
+    if (filterJson != "-1"){
         const cardResultElement = document.getElementById('card_result');
         cardResultElement.classList.add('container-list');
         cardResultElement.classList.remove('_cards');
@@ -960,7 +848,7 @@ function fetchSearchResult2() {
             cardResultElement.innerHTML = '';
             if (data.result.data_result.length > 0) {
                 
-                                    setHeadSearch(query);
+                setHeadSearch(query);
                 setPagination();
 
                 // FOR EACH
@@ -982,6 +870,7 @@ function fetchSearchResult2() {
 
                     const cardText = document.createElement('p');
                     cardText.className = '_card_text';
+                    console.log(fecthNarsum(item.narasumber));
                     cardText.textContent = item.narasumber;
 
                     // Append the card content to the card element
@@ -1092,12 +981,10 @@ function fetchSearchResult2() {
                 titleFFV.textContent = "Tahun";
                 titleFFV.id = "ffv-tanggal";
                 titleFFV.className = "ffv_head";
-                // titleFFV.style.fontWeight = "bold";
                 const titleFFC = document.createElement('h6');
                 titleFFC.textContent = "Tahun";
                 titleFFC.id = "ffc-tanggal";
                 titleFFC.className = "ffc_head";
-                // titleFFC.style.fontWeight = "bold";
                 FilterOpenCanvas.appendChild(titleFFV);
                 FilterColumnCanvas.appendChild(titleFFC);
 
@@ -1134,7 +1021,6 @@ function fetchSearchResult2() {
             }
         })
         .catch(error => {
-        // Handle any errors
         console.error(error);
         });
     }
@@ -1183,8 +1069,8 @@ function setHeadSearch(query){
     dropLi_Grid.textContent = "Grid";
     dropLi_Grid.style.color = "black";
     dropLi_Grid.onclick = function(){
-            sessionStorage.setItem("mode", "card");
-            fetchSearchFilterResult();
+        sessionStorage.setItem("mode", "card");
+        fetchSearchFilterResult();
     }
     dropLi1.appendChild(dropLi_Grid);
 
@@ -1194,8 +1080,8 @@ function setHeadSearch(query){
     dropLi_List.textContent = "List";
     dropLi_List.style.color = "black";
     dropLi_List.onclick = function(){
-            sessionStorage.setItem("mode", "list");
-            fetchSearchFilterResult2();
+        sessionStorage.setItem("mode", "list");
+        fetchSearchFilterResult2();
     }
     dropLi2.appendChild(dropLi_List);
 
@@ -1209,7 +1095,7 @@ function setHeadSearch(query){
 }
 
 function setPagination(){
-    const showDiv = document.getElementById("show");//document.createElement("div");
+    const showDiv = document.getElementById("show");
     showDiv.innerHTML = '';
 
     const pagiCont = document.createElement("div");
@@ -1221,7 +1107,6 @@ function setPagination(){
     const pagiUl = document.createElement("ul");
     pagiUl.className = "pagination"
 
-    // Mengisi Pagination
     if ((currPage - 1) > 0){
         pagiUl.appendChild(createListItem2("Prev"));
     }

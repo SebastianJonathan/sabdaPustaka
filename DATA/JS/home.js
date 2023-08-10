@@ -2,8 +2,6 @@ $('.fsv input[type=checkbox]').change(function() {
     var id = this.id;
     var is_checked = this.checked;
     var fsc_id = id.split("-")[1];
-    // console.log(id + " -- " + fsc_id);
-    // console.log(this.checked);
     $('#' + fsc_id).prop('checked', is_checked);
     updateFields();
 });
@@ -12,8 +10,6 @@ $('.fsc input[type=checkbox]').change(function() {
     var id = this.id;
     var is_checked = this.checked;
     var fsv_id = "fsv-" + id;
-    // console.log(id + " -- " + fsv_id);
-    // console.log(this.checked);
     $('#' + fsv_id).prop('checked', is_checked);
     updateFields();
 });
@@ -152,7 +148,6 @@ function updateFields() {
         fields.push('ringkasan');
         fields.push('kata_kunci');
     }
-    
 
     const queryInput = document.getElementById('query');
     queryInput.dataset.fields = fields.join(',');
@@ -174,39 +169,15 @@ function updateOnChecked() {
     checkbox_related.checked = checkbox_related2.checked;
     updateFields();
 }
-function getSearchByState(){
-    let searchBy = "";
-    if(sessionStorage.getItem("checkboxJudul") == "true"){
-        searchBy += "t";
-    }else{
-        searchBy += "f";
-    }
-    if(sessionStorage.getItem("checkboxEvent") == "true"){
-        searchBy += "t";
-    }else{
-        searchBy += "f";
-    }
-    if(sessionStorage.getItem("checkboxNarasumber") == "true"){
-        searchBy += "t";
-    }else{
-        searchBy += "f";
-    }
-    if(sessionStorage.getItem("checkboxRelated") == "true"){
-        searchBy += "t";
-    }else{
-        searchBy += "f";
-    }
-    return searchBy;
-}
+
 function goSearch() {
-    let searchBy = getSearchByState();
     const fullURL = window.location.href;
     const segments = fullURL.split('/');
-    if(segments[segments.length - 3] == "search" && document.getElementById('query').value == ""){
-        window.location.href = configPath + "PHP/home.php/search/" + segments[segments.length - 2] + "/" + searchBy;
-        sessionStorage.setItem("query",segments[segments.length - 2]);
+    if(segments[segments.length - 2] == "search" && document.getElementById('query').value == ""){
+        window.location.href = configPath + "PHP/home.php/search/ ";
+        sessionStorage.setItem("query",segments[segments.length - 1]);
     }else{
-        window.location.href = configPath + "PHP/home.php/search/" + document.getElementById('query').value + "/" + searchBy;
+        window.location.href = configPath + "PHP/home.php/search/" + document.getElementById('query').value;
     }
 }
 async function fetchRecommendations() {
@@ -216,8 +187,6 @@ async function fetchRecommendations() {
     try {
         const response = await fetch(configPath + `API/autocomplete.php?query=${query}&fields=${fields}`);
         const data = await response.json();
-        // console.log(data.rekomendasi);
-        // console.log(data);
         tampilkanRekomendasi(data.rekomendasi);
     } catch (error) {
         console.error('Terjadi kesalahan:', error);
@@ -230,7 +199,6 @@ async function fetchRecommendations2() {
     try {
         const response = await fetch(configPath + `API/autocomplete.php?query=${query}&fields=${fields}`);
         const data = await response.json();
-        // console.log(data.rekomendasi);
         tampilkanRekomendasi(data.rekomendasi);
     } catch (error) {
         console.error('Terjadi kesalahan:', error);
@@ -302,7 +270,7 @@ function updateSessionCheckbox() {
     updateFields();
     const fullURL = window.location.href;
     const segments = fullURL.split('/');
-    if(sessionStorage.getItem("changeSearchBy") == "1" && segments[segments.length - 3] == "search"){
+    if(sessionStorage.getItem("changeSearchBy") == "1" && segments[segments.length - 2] == "search"){
         sessionStorage.setItem("changeSearchBy", "0");
         goSearch();
     }
@@ -318,7 +286,6 @@ function updateRekomendasiPosition() {
     const searchInput = document.getElementById('query');
     const rekomendasiDiv = document.getElementById('rekomendasi');
 
-
     const inputRect = searchInput.getBoundingClientRect();
     const inputTop = inputRect.top + window.scrollY;
     const inputHeight = inputRect.height;
@@ -326,14 +293,12 @@ function updateRekomendasiPosition() {
 
     rekomendasiDiv.style.width = inputWidth + 'px';
     rekomendasiDiv.style.left = inputRect.left + 'px';
-    // rekomendasiContainer.style.top = (inputTop + inputHeight) + 'px';
 }
 
 document.addEventListener('click', function(event) {
     const target = event.target;
     const queryInput = document.getElementById('query');
     const rekomendasiDiv = document.getElementById('rekomendasi');
-    // window.alert("WWW");
 
     if (target !== queryInput && !rekomendasiDiv.contains(target)) {
         hideRekomendasi();
@@ -343,23 +308,12 @@ document.addEventListener('click', function(event) {
     }
 });
 
-
-
-/*
-        FUNCTION GETALLLLIST.PHP
-*/
-
-// Events data from PHP
-
-
-// Function to generate HTML elements for events and narasumbers
 function generateEventLinks() {
     const eventListContainer = document.getElementById('eventList');
     events.forEach((event) => {
         const eventUrl = configPath + 'PHP/related_results.php?event=' + encodeURIComponent(event);
         const eventDiv = document.createElement('li');
         eventDiv.className = 'event-li';
-        // eventDiv.style.width = "150px";
         eventDiv.innerHTML = `<a href="${eventUrl}">${event}</a>`;
         eventListContainer.appendChild(eventDiv);
     });
@@ -371,7 +325,6 @@ function generateNarasumberLinks() {
         const narasumberUrl = configPath + 'PHP/related_results.php?narasumber=' + encodeURIComponent(narasumber);
         const narasumberDiv = document.createElement('li');
         narasumberDiv.className = 'narsum-li';
-        // narasumberDiv.style.width = '150px';
         narasumberDiv.innerHTML = `<a href="${narasumberUrl}">${narasumber}</a>`;
         narasumberListContainer.appendChild(narasumberDiv);
     });
@@ -420,11 +373,9 @@ document.getElementById('search').addEventListener('submit', function(event) {
     event.preventDefault();
     goSearch();
     hideRekomendasi();
-    // regenerateLinks(); // Regenerate the links after search
 });
 function removeAllElements() {
     const container = document.getElementById('contEventNarsum');
-    // Function to remove all elements inside a container
     function removeAllChildElements(container) {
         while (container.firstChild) {
             container.removeChild(container.firstChild);
@@ -432,87 +383,50 @@ function removeAllElements() {
     }
     removeAllChildElements(container);
 }
-function checkingBool(bools){
-    let boolean = false;
-    for(let i = 0; i <= 3; i++){
-    if(bools.substring(i,i+1) == "t" || bools.substring(i,i+1) == "f"){
-        boolean = true;
-    }else{
-        boolean = false;
-        break;
-    }
-    }
-    return boolean;
-}
 
 function startupAndSearch() {
     const fullURL = window.location.href;
     sessionStorage.setItem("lastUrl", fullURL);
     const segments = fullURL.split('/');
-    if (segments[segments.length - 3] == "search" && segments[segments.length - 1].length == 4 && checkingBool(segments[segments.length - 1])) {
-        const checkboxJudul = document.getElementById("checkbox_judul");
-        const checkboxEvent = document.getElementById("checkbox_event");
-        const checkboxNarasumber = document.getElementById("checkbox_narasumber");
-        const checkboxRelated = document.getElementById("checkbox_related");
-        if(segments[segments.length - 1].substring(0,1) == "t"){
-            checkboxJudul.checked = true;
-        }else{
-            checkboxJudul.checked = false;
-        }
-        if(segments[segments.length - 1].substring(1,2) == "t"){
-            checkboxEvent.checked = true;
-        }else{
-            checkboxEvent.checked = false;
-        }
-        if(segments[segments.length - 1].substring(2,3) == "t"){
-            checkboxNarasumber.checked = true;
-        }else{
-            checkboxNarasumber.checked = false;
-        }
-        if(segments[segments.length - 1].substring(3,4) == "t"){
-            checkboxRelated.checked = true;
-        }else{
-            checkboxRelated.checked = false;
-        }
-        updateSessionCheckbox();
-        if(sessionStorage.getItem("mode") == null){
+    try{
+        if (segments[segments.length - 2] == "search"){
+            document.getElementById('query').value = segments[segments.length - 1];
+            updateSessionCheckbox();
+            if(sessionStorage.getItem("mode") == null){
+                sessionStorage.setItem("mode","card");
+            }
+            if(sessionStorage.getItem("changeSearchBy") == null){
+                updateSessionCheckboxFirst();
+            }
+            removeAllElements();
+            if(sessionStorage.getItem("mode") == "card"){
+                fetchSearchResult();
+            }else if(sessionStorage.getItem("mode") == "list"){
+                fetchSearchResult2();
+            }
+        } else {
             sessionStorage.setItem("mode","card");
+            selectAll();
+            fetchNewest();
+            generateEventLinks();
+            generateNarasumberLinks();
+            expandEvent();
+            expandNarasumber();
         }
-        if(sessionStorage.getItem("changeSearchBy") == null){
-            updateSessionCheckboxFirst();
-        }
-        removeAllElements();
-        if(sessionStorage.getItem("mode") == "card"){
-            fetchSearchResult();
-        }else if(sessionStorage.getItem("mode") == "list"){
-            fetchSearchResult2();
-        }
-    } else {
-        sessionStorage.setItem("mode","card");
-        selectAll();
-        try {
-            fetchNewest(); // call the function
-        } catch (error) {
-            // console.error(error); // log the error
-            location.reload(); // reload the website
-        }
-        // fetchNewest();
-        generateEventLinks();
-        generateNarasumberLinks();
-        expandEvent();
-        expandNarasumber();
+    } catch (error){
+        location.reload();
     }
 }
 startupAndSearch()
 updateFields();
+
 
 const filter_sm = document.getElementById('filter-sm');
 
 function hideFilterSM() {
 		let openedCanvas = bootstrap.Offcanvas.getInstance(filter_sm);
 		try {
-				openedCanvas.hide();
-				// document.activeElement.blur();
+			openedCanvas.hide();
 		} catch {}
 }
 

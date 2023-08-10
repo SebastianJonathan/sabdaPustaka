@@ -128,11 +128,18 @@
                   </p>
                   <?php
                   echo "Narasumber / Pembicara:   ";
-                  foreach ($pembicara as $item) {
-                    $item = trim($item); // Trim any extra whitespace
+
+                  $len_pembicara = count($pembicara);
+                  for ($i = 0; $i < $len_pembicara; $i++) {
+                    $item = $pembicara[$i];
+                    $item = trim($item);
                     if ($item !== '') {
                       $link = 'javascript:void(0);'; // Set the link to javascript:void(0);
-                      echo "<a href=\"$link\" class=\"narsum-link\" data-keyword=\"$item\"\">$item</a> " . ". ";
+                      if ($i == ($len_pembicara-1)){
+                        echo "<a href=\"$link\" class=\"narsum-link\" data-keyword=\"$item\"\">$item</a> ";
+                      }else{
+                        echo "<a href=\"$link\" class=\"narsum-link\" data-keyword=\"$item\"\">$item</a> " . ", ";
+                      }
                     }
                   }
                   ?>
