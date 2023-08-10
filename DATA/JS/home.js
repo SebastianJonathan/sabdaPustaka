@@ -492,7 +492,13 @@ function startupAndSearch() {
     } else {
         sessionStorage.setItem("mode","card");
         selectAll();
-        fetchNewest();
+        try {
+            fetchNewest(); // call the function
+        } catch (error) {
+            // console.error(error); // log the error
+            location.reload(); // reload the website
+        }
+        // fetchNewest();
         generateEventLinks();
         generateNarasumberLinks();
         expandEvent();

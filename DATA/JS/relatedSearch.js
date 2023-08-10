@@ -76,24 +76,130 @@ if (narsumParam) {
     console.log("No event parameter provided.");
 }
 
-var pageSize = 12;
-var currPage = 1;
-var maxPage = 1;
+var pageSizeRel = 12;
+var currPageRel = 1;
+var maxPageRel = 1;
+var showAllRel = false;
 
-function showResults(results) {
+function PageRel(pageNumber) {
+    const li = document.createElement('li');
+    li.className = "page-item";
 
-    console.log();
-    setMaxPage(results.length);
-    setPagination(function(){
-        console.log("123456");
-        // console.log(pageNumber);
-        generateCard(paginate(results, currPage, pageSize));
-    });
-    generateCard(paginate(results, currPage, pageSize));
+    var a = document.createElement('a');
+    a.className = "page-link";
+    a.id = "pagiRel_"+pageNumber;
+    if (pageNumber === "Show All"){
+        if (showAllRel){
+            a.innerText = "Unshow All";
+        }else {
+            a.innerText = pageNumber;
+        }
+    }else{
+        a.innerText = pageNumber;
+    }
+    
+    if (pageNumber === currPageRel){
+        a.setAttribute("style","color: gold;")
+        a.style.backgroundColor = "#1e0049";
+    }
+
+    a.onclick = function(event){
+        if (pageNumber != currPageRel){
+            if (pageNumber === "Show All"){
+                if(!showAllRel){
+                    pageSizeRel = maxPageRel * 12;
+                    showAllRel = true;
+                }else{
+                    pageSizeRel = 12;
+                    showAllRel = false;
+                }
+                currPageRel = 1;
+                showResults(relResult);
+            }
+            else if(pageNumber == "Next"){
+                if((currPageRel + 1) <= maxPageRel){
+                    currPageRel += 1;
+                }
+            }
+            else if(pageNumber == "Prev"){
+                if((currPageRel - 1) >= 1){
+                    currPageRel -= 1;
+                }
+            }
+            else{
+                currPageRel = pageNumber;
+            }
+            generateCard(paginate(relResult, currPageRel, pageSizeRel ));
+            setPagiRel();
+
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            })
+            
+        }
+    };
+    
+    li.appendChild(a);
+    return li;
+}  
+
+function setPagiRel(){
+    const showDiv = document.getElementById("show");//document.createElement("div");
+    showDiv.innerHTML = '';
+
+    const pagiCont = document.createElement("div");
+    pagiCont.innerHTML = '';
+    pagiCont.id = "showRel";
+    pagiCont.style.display = "flex";
+    pagiCont.style.justifyContent = "end";
+
+    const pagiUl = document.createElement("ul");
+    pagiUl.className = "pagination"
+
+    // Mengisi Pagination
+    if ((currPageRel - 1) > 0){
+        pagiUl.appendChild(PageRel("Prev"));
+    }
+    c_pagi = 0;
+    p_pagi = -2;
+    while (c_pagi < 5){
+        if ((currPageRel + p_pagi) > maxPageRel){
+                break;
+        }
+        if ((currPageRel + p_pagi) > 0){
+                pagiUl.appendChild(PageRel(currPageRel + p_pagi));
+                c_pagi += 1;
+        }
+        p_pagi += 1;
+    }
+    if ((currPageRel + 1) < maxPageRel ){
+        pagiUl.appendChild(PageRel("Next"));
+    }
+    pagiUl.appendChild(PageRel("Show All"));
+    pagiCont.appendChild(pagiUl);
+    showDiv.appendChild(pagiCont);
+
+    // Menampilkan nomer halaman sekarang dan terakhir
+    var showPagiProg = document.createElement("p");
+    showPagiProg.id = "dispPagiRel";
+    showPagiProg.style.textAlign = "end";
+    showPagiProg.style.marginRight = "16px";
+    showPagiProg.textContent = "Page " + currPageRel + " of " + maxPageRel;
+    showDiv.appendChild(showPagiProg);
 }
 
-function paginate(array, page, pageSize) {
-    return array.slice((page - 1) * pageSize, page * pageSize);
+var relResult = [];
+function showResults(results) {
+    relResult = results
+    console.log(results.length);
+    maxPageRel = Math.ceil(results.length / pageSizeRel);
+    setPagiRel()
+    generateCard(paginate(results, currPageRel, pageSizeRel ));
+}
+
+function paginate(array, page, pageSizeRel ) {
+    return array.slice((page - 1) * pageSizeRel , page * pageSizeRel );
 }
 
 function generateCard(results){
