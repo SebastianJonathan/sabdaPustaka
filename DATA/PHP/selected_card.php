@@ -152,7 +152,7 @@
                     }
                   }
                   ?>
-                  <p><span class="label"></span><span class="value"> <strong>Tanggal Pelaksanaan:</strong>
+                  <p><span class="label"></span><span class="value"> <strong>Tanggal:</strong>
                       <?php
                       function getMonthNameInBahasa($month)
                       {
