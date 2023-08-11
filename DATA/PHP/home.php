@@ -261,12 +261,14 @@
 	$hits = $response['hits']['hits'];
 	$narasumbers = extractUniqueSpeakers($hits);
 	$events = [];
+	$eventList = [];
 
 	foreach ($hits as $hit) {
 		$source = $hit['_source'];
 
-		if (isset($source['event']) && !in_array($source['event'], $events)) {
+		if (isset($source['event']) && !in_array(strtoupper($source['event']), $eventList)) {
 			$events[] = $source['event'];
+			$eventList[] = strtoupper($source['event']);
 		}
 	}
 	sort($events);
