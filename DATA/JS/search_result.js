@@ -302,22 +302,37 @@ function fetchSearchFilterResult2() {
                     window.location.href = configPath+'PHP/related_results.php?event='+item.event;
                     event.stopPropagation();
                 }
+                cardEvent.style.textDecoration = 'none';
 
                 const cardTitle = document.createElement('h2');
                 cardTitle.className = '_card_title';
                 cardTitle.textContent = item.judul;
-
-                const cardText = document.createElement('a');
-                cardText.className = '_card_text';
-                console.log(fecthNarsum(item.narasumber));
-                cardText.textContent = item.narasumber;
 
                 // Append the card content to the card element
                 card.appendChild(cardContent);
 
                 cardContent.appendChild(cardEvent);
                 cardContent.appendChild(cardTitle);
-                cardContent.appendChild(cardText);
+                const divNarsum = document.createElement('div');
+                var count = 0;
+                fetchNarsum(item.narasumber).forEach(element => {
+                    const cardText = document.createElement('a');
+                    cardText.className = '_card_text';
+                    if(fetchNarsum(item.narasumber).length - 1 == count){
+                        cardText.textContent = element;
+                    }else{
+                        cardText.textContent = element + ", ";
+                    }
+                    count++;
+                    cardText.onclick = function(event){
+                        window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
+                        event.stopPropagation();
+                    }
+                    cardText.style.textDecoration = 'none';
+                    divNarsum.appendChild(cardText);
+                });
+                divNarsum.style.display = 'block'
+                cardContent.appendChild(divNarsum);
 
                 // Append the card to the main container
                 cardItem.appendChild(card);
@@ -414,15 +429,11 @@ function fetchSearchFilterResult() {
                     window.location.href = configPath+'PHP/related_results.php?event='+item.event;
                     event.stopPropagation();
                 }
+                cardEvent.style.textDecoration = 'none';
 
                 const cardTitle = document.createElement('h2');
                 cardTitle.className = '_card_title';
                 cardTitle.textContent = item.judul;
-
-                const cardText = document.createElement('p');
-                cardText.className = '_card_text';
-                console.log(fecthNarsum(item.narasumber));
-                cardText.textContent = item.narasumber;
 
                 // Append the card content to the card element
                 card.appendChild(cardImage);
@@ -430,7 +441,26 @@ function fetchSearchFilterResult() {
 
                 cardContent.appendChild(cardEvent);
                 cardContent.appendChild(cardTitle);
-                cardContent.appendChild(cardText);
+                const divNarsum = document.createElement('div');
+                var count = 0;
+                fetchNarsum(item.narasumber).forEach(element => {
+                    const cardText = document.createElement('a');
+                    cardText.className = '_card_text';
+                    if(fetchNarsum(item.narasumber).length - 1 == count){
+                        cardText.textContent = element;
+                    }else{
+                        cardText.textContent = element + ", ";
+                    }
+                    count++;
+                    cardText.onclick = function(event){
+                        window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
+                        event.stopPropagation();
+                    }
+                    cardText.style.textDecoration = 'none';
+                    divNarsum.appendChild(cardText);
+                });
+                divNarsum.style.display = 'block'
+                cardContent.appendChild(divNarsum);
 
                 cardItem.appendChild(card);
                 cardResultElement.appendChild(cardItem);
@@ -522,15 +552,11 @@ function fetchNewest() {
                         window.location.href = configPath+'PHP/related_results.php?event='+item.event;
                         event.stopPropagation();
                     }
+                    cardEvent.style.textDecoration = 'none';
 
                     const cardTitle = document.createElement('h2');
                     cardTitle.className = '_card_title';
                     cardTitle.textContent = item.judul;
-
-                    const cardText = document.createElement('p');
-                    cardText.className = '_card_text';
-                    console.log(fecthNarsum(item.narasumber));
-                    cardText.textContent = item.narasumber;
 
                     // Append the card content to the card element
                     card.appendChild(cardImage);
@@ -538,7 +564,26 @@ function fetchNewest() {
 
                     cardContent.appendChild(cardEvent);
                     cardContent.appendChild(cardTitle);
-                    cardContent.appendChild(cardText);
+                    const divNarsum = document.createElement('div');
+                    var count = 0;
+                    fetchNarsum(item.narasumber).forEach(element => {
+                        const cardText = document.createElement('a');
+                        cardText.className = '_card_text';
+                        if(fetchNarsum(item.narasumber).length - 1 == count){
+                            cardText.textContent = element;
+                        }else{
+                            cardText.textContent = element + ", ";
+                        }
+                        count++;
+                        cardText.onclick = function(event){
+                            window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
+                            event.stopPropagation();
+                        }
+                        cardText.style.textDecoration = 'none';
+                        divNarsum.appendChild(cardText);
+                    });
+                    divNarsum.style.display = 'block'
+                    cardContent.appendChild(divNarsum);
 
                     cardItem.appendChild(card);
                     cardResultElement.appendChild(cardItem);
@@ -668,7 +713,7 @@ function fetchSearchResult() {
 
                 const cardContent = document.createElement('div');
                 cardContent.className = '_card_content';
-
+       
                 const cardEvent = document.createElement('a');
                 cardEvent.className = '_card_text';
                 cardEvent.textContent = item.event;
@@ -676,22 +721,37 @@ function fetchSearchResult() {
                     window.location.href = configPath+'PHP/related_results.php?event='+item.event;
                     event.stopPropagation();
                 }
+                cardEvent.style.textDecoration = 'none';
 
                 const cardTitle = document.createElement('h2');
                 cardTitle.className = '_card_title';
                 cardTitle.textContent = item.judul;
-
-                const cardText = document.createElement('p');
-                cardText.className = '_card_text';
-                console.log(fecthNarsum(item.narasumber));
-                cardText.textContent = item.narasumber;
 
                 card.appendChild(cardImage);
                 card.appendChild(cardContent);
 
                 cardContent.appendChild(cardEvent);
                 cardContent.appendChild(cardTitle);
-                cardContent.appendChild(cardText);
+                const divNarsum = document.createElement('div');
+                var count = 0;
+                fetchNarsum(item.narasumber).forEach(element => {
+                    const cardText = document.createElement('a');
+                    cardText.className = '_card_text';
+                    if(fetchNarsum(item.narasumber).length - 1 == count){
+                        cardText.textContent = element;
+                    }else{
+                        cardText.textContent = element + ", ";
+                    }
+                    count++;
+                    cardText.onclick = function(event){
+                        window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
+                        event.stopPropagation();
+                    }
+                    cardText.style.textDecoration = 'none';
+                    divNarsum.appendChild(cardText);
+                });
+                divNarsum.style.display = 'block'
+                cardContent.appendChild(divNarsum);
 
                 cardItem.appendChild(card);
                 cardResultElement.appendChild(cardItem);
@@ -817,8 +877,6 @@ function fetchSearchResult() {
                 const clrFilterBtn = document.createElement('button');
                 clrFilterBtn.type = 'button';
                 clrFilterBtn.className = "button clrfilter_btn";
-                clrFilterBtn.style.maxWidth = "200px";
-                clrFilterBtn.style.width = "155px";
                 clrFilterBtn.textContent = 'Hapus Semua Filter';
                 clrFilterBtn.style.color = 'black';
                 clrFilterBtn.onclick = clrAllFilterCheckbox;
@@ -827,8 +885,6 @@ function fetchSearchResult() {
                 const clrFilterBtn2 = document.createElement('button');
                 clrFilterBtn2.type = 'button';
                 clrFilterBtn2.className = "button clrfilter_btn";
-                clrFilterBtn2.style.maxWidth = "200px";
-                clrFilterBtn2.style.width = "155px";
                 clrFilterBtn2.textContent = 'Hapus Semua Filter';
                 clrFilterBtn2.style.color = 'black';
                 clrFilterBtn2.onclick = clrAllFilterCheckbox;
@@ -843,7 +899,7 @@ function fetchSearchResult() {
     }
 }
 
-function fecthNarsum(narsum_ori){
+function fetchNarsum(narsum_ori){
     let pembicara = narsum_ori;
     pembicara = pembicara.replace(/,S\./g, '|S.');
     pembicara = pembicara.replace(/, S\./g, '| S.');
@@ -854,7 +910,7 @@ function fecthNarsum(narsum_ori){
     pembicara = pembicara.replace(/,Ph\./g, '|Ph.');
     pembicara = pembicara.replace(/, Ph\./g, '| Ph.');
     pembicara = pembicara.split(',');
-    pembicara = pembicara.map(item => item.replace("|", ","));
+    pembicara = pembicara.map(item => item.replace("|", ",").trim());
     return pembicara;
 }
 
@@ -913,22 +969,37 @@ function fetchSearchResult2() {
                         window.location.href = configPath+'PHP/related_results.php?event='+item.event;
                         event.stopPropagation();
                     }
+                    cardEvent.style.textDecoration = 'none';
 
                     const cardTitle = document.createElement('h2');
                     cardTitle.className = '_card_title';
                     cardTitle.textContent = item.judul;
-
-                    const cardText = document.createElement('p');
-                    cardText.className = '_card_text';
-                    console.log(fecthNarsum(item.narasumber));
-                    cardText.textContent = item.narasumber;
 
                     // Append the card content to the card element
                     card.appendChild(cardContent);
 
                     cardContent.appendChild(cardEvent);
                     cardContent.appendChild(cardTitle);
-                    cardContent.appendChild(cardText);
+                    const divNarsum = document.createElement('div');
+                    var count = 0;
+                    fetchNarsum(item.narasumber).forEach(element => {
+                        const cardText = document.createElement('a');
+                        cardText.className = '_card_text';
+                        if(fetchNarsum(item.narasumber).length - 1 == count){
+                            cardText.textContent = element;
+                        }else{
+                            cardText.textContent = element + ", ";
+                        }
+                        count++;
+                        cardText.onclick = function(event){
+                            window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
+                            event.stopPropagation();
+                        }
+                        cardText.style.textDecoration = 'none';
+                        divNarsum.appendChild(cardText);
+                    });
+                    divNarsum.style.display = 'block'
+                    cardContent.appendChild(divNarsum);
 
                     // Append the card to the main container
                     cardItem.appendChild(card);
@@ -1057,8 +1128,6 @@ function fetchSearchResult2() {
                 const clrFilterBtn = document.createElement('button');
                 clrFilterBtn.type = 'button';
                 clrFilterBtn.className = "button clrfilter_btn";
-                clrFilterBtn.style.maxWidth = "200px";
-                clrFilterBtn.style.width = "155px";
                 clrFilterBtn.textContent = 'Hapus Semua Filter';
                 clrFilterBtn.style.color = 'black';
                 clrFilterBtn.onclick = clrAllFilterCheckbox;
@@ -1066,8 +1135,6 @@ function fetchSearchResult2() {
                 const clrFilterBtn2 = document.createElement('button');
                 clrFilterBtn2.type = 'button';
                 clrFilterBtn2.className = "button clrfilter_btn";
-                clrFilterBtn2.style.maxWidth = "200px";
-                clrFilterBtn2.style.width = "155px";
                 clrFilterBtn2.textContent = 'Hapus Semua Filter';
                 clrFilterBtn2.style.color = 'black';
                 clrFilterBtn2.onclick = clrAllFilterCheckbox;
