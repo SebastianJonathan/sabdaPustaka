@@ -266,6 +266,10 @@ function generateCard(results){
 
             const cardContent = document.createElement('div');
             cardContent.className = '_card_content';
+            
+            const cardEvent = document.createElement('p');
+            cardEvent.className = '_card_text';
+            cardEvent.textContent = item.event;
 
             const cardTitle = document.createElement('h2');
             cardTitle.className = '_card_title';
@@ -279,6 +283,7 @@ function generateCard(results){
             card.appendChild(cardImage);
             card.appendChild(cardContent);
 
+            cardContent.appendChild(cardEvent);
             cardContent.appendChild(cardTitle);
             cardContent.appendChild(cardText);
 
