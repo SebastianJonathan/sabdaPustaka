@@ -43,6 +43,7 @@
       $slideshare_key = getSlideShareKey($url_slideshare);
       $narasumber = $source['narasumber'];
       $narasumber = str_replace('*', '.', $source['narasumber']);
+      $event_ = $source['event'];
 
       $ringkasan = $source['ringkasan'];
       $ringkasan = str_replace('*', "<br>", $ringkasan);
@@ -82,9 +83,9 @@
               $filename = ltrim($filename_with_slash, '/');
               $new_filename = str_replace('.pdf', '.png', $filename);
               $image_url = $configPath . "img/" . $new_filename;
-              
-              if (file_exists("../img/".$new_filename)){
-              ?>
+
+              if (file_exists("../img/" . $new_filename)) {
+                ?>
                 <div id="pdfViewer" style="display: none;">
                   <iframe src="<?php echo $url_static; ?>" width="100%" height="400px"></iframe>
                 </div>
@@ -94,8 +95,8 @@
                 <div class="unduh">
                   <h6>Klik pada gambar untuk melihat presentasi dalam PDF</h6>
                 </div>
-              <?php
-              }else{
+                <?php
+              } else {
                 ?>
                 <div id="pdfViewer">
                   <iframe src="<?php echo $url_static; ?>" width="100%" height="400px"></iframe>
@@ -106,15 +107,15 @@
               <?php
             } else {
               ?>
-                  <!-- <div class="error-message" style="padding:7px;">
-                    <p class="text-center">Tampilan Presentasi belum tersedia, silahkan pergi ke <a
-                        href="<?php echo $url_slideshare ?>" target="_blank">link ini</a></p>
-                  </div> -->
-                  <div id="pdfViewer">
-                    <?php if (!empty($url_youtube)) { ?>
-                      <iframe src="<?php echo $url_youtube; ?>" width="100%" height="400px"></iframe>
-                    <?php } ?>
-                  </div>
+              <!-- <div class="error-message" style="padding:7px;">
+                <p class="text-center">Tampilan Presentasi belum tersedia, silahkan pergi ke <a
+                    href="<?php echo $url_slideshare ?>" target="_blank">link ini</a></p>
+              </div> -->
+              <div id="pdfViewer">
+                <?php if (!empty($url_youtube)) { ?>
+                  <iframe src="<?php echo $url_youtube; ?>" width="100%" height="400px"></iframe>
+                <?php } ?>
+              </div>
               <?php
             }
             ?>
@@ -143,16 +144,16 @@
                     $item = trim($item);
                     if ($item !== '') {
                       $link = 'javascript:void(0);'; // Set the link to javascript:void(0);
-                      if ($i == ($len_pembicara-1)){
+                      if ($i == ($len_pembicara - 1)) {
                         echo "<a href=\"$link\" class=\"narsum-link\" data-keyword=\"$item\"\">$item</a> ";
-                      }else{
+                      } else {
                         echo "<a href=\"$link\" class=\"narsum-link\" data-keyword=\"$item\"\">$item</a> " . ", ";
                       }
                     }
                   }
                   ?>
                   <p><span class="label"></span><span class="value"> Tanggal:
-                       <?php
+                      <?php
                       function getMonthNameInBahasa($month)
                       {
                         $bahasaMonths = array(
@@ -201,7 +202,7 @@
                     <?php
                   }
                   ?>
-                   <?php
+                  <?php
                   if ($url_static) {
                     ?>
                     <button type="button" class="btn-ln">
@@ -209,7 +210,7 @@
                     </button>
                     <?php
                   }
-                  ?> 
+                  ?>
                 </span>
               </div>
             </div>
@@ -262,7 +263,7 @@
             <section class="_hidden">
               <!-- <h3>Materi Terkait</h3> -->
               <div id="related-results-container">
-                
+
               </div>
             </section>
           </div>
@@ -285,23 +286,23 @@
       ?>
       <br>
       <h1 style="color: white;">Document not found</h1><br>
-          <?php
+      <?php
     }
   } else {
     ?>
-      <br>
-      <h1>Document not found</h1><br>
-          <?php
+    <br>
+    <h1>Document not found</h1><br>
+    <?php
   }
   ?>
 
 </div>
 
-          <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
-          
-          <?php
-          include 'footer.php';
-          ?>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+
+<?php
+include 'footer.php';
+?>
 <!-- </body>
 
 
