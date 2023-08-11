@@ -33,6 +33,25 @@ if (narsum) {
     console.log("No keyword provided.");
 }
 
+if (event_) {
+    // Fetch the related results using the getEvent_.php API
+    console.log(event_)
+    fetch(configPath + `API/getEvent.php?query=${encodeURIComponent(event_)}`)
+        .then(response => response.json())
+        .then(data => {
+            const hasil = data.hasil;
+
+            // Display the results
+            console.log(data);
+            showResults(hasil);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+} else {
+    console.log("No keyword provided.");
+}
+
 /*
     CODE UNTUK LIST SEMUA NARASUMBER DAN EVENT
 */
