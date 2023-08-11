@@ -17,6 +17,12 @@
                                 $narsum = $_POST['narasumber'];
                                 echo '<h2 class="centered-text">Pencarian Terkait</h2><h4 class="centered-text large-text">' . ucfirst($narsum) . '</h4>';
                             }
+
+                            
+                            if (isset($_POST['event'])) {
+                                $event_ = $_POST['event'];
+                                echo '<h2 class="centered-text">Pencarian Terkait</h2><h4 class="centered-text large-text">' . ucfirst($event_) . '</h4>';
+                            }
                             ?>
                         </div>
 
