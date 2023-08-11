@@ -19,7 +19,7 @@
           <a class="nav-link classB" href="<?php echo $configPath?>PHP/services.php">Layanan</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link classB" href="<?php echo $configPath?>PHP/contact.php">Kontak</a>
+          <a class="nav-link classB" href="https://kontak.sabda.org/" target="_blank">Kontak</a>
         </li>
       </ul>
     </div>

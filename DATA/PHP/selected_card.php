@@ -191,7 +191,7 @@
                 <!-- Button YT & SlideShare -->
                 <span>
                   <button type="button" class="btn-ln tonton">
-                    <a href="<?php echo $url_youtube ?>" class="btn-ln-a" target="_blank">Youtube</a>
+                    <a href="<?php echo $url_youtube ?>" class="btn-ln-a" target="_blank">YouTube</a>
                   </button>
                   <?php
                   if ($url_slideshare) {
