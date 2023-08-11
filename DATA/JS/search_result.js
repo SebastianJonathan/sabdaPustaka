@@ -627,7 +627,7 @@ function fetchSearchResult() {
             cardResultElement.innerHTML = '';
             if (data.result.data_result.length > 0) {
                                     
-                setHeadSearch(query);
+                setHeadSearch(query,data.result.total);
                 setPagination();
 
                 // FOR EACH
@@ -801,7 +801,7 @@ function fetchSearchResult() {
                 const clrFilterBtn = document.createElement('button');
                 clrFilterBtn.type = 'button';
                 clrFilterBtn.className = "button clrfilter_btn";
-                clrFilterBtn.textContent = 'Clear All Filter';
+                clrFilterBtn.textContent = 'Hapus Semua Filter';
                 clrFilterBtn.style.color = 'black';
                 clrFilterBtn.onclick = clrAllFilterCheckbox;
                 FilterOpenCanvas.appendChild(clrFilterBtn);
@@ -809,7 +809,7 @@ function fetchSearchResult() {
                 const clrFilterBtn2 = document.createElement('button');
                 clrFilterBtn2.type = 'button';
                 clrFilterBtn2.className = "button clrfilter_btn";
-                clrFilterBtn2.textContent = 'Clear All Filter';
+                clrFilterBtn2.textContent = 'Hapus Semua Filter';
                 clrFilterBtn2.style.color = 'black';
                 clrFilterBtn2.onclick = clrAllFilterCheckbox;
                 FilterOpenCanvas.appendChild(clrFilterBtn2);
@@ -870,7 +870,7 @@ function fetchSearchResult2() {
             cardResultElement.innerHTML = '';
             if (data.result.data_result.length > 0) {
                 
-                setHeadSearch(query);
+                setHeadSearch(query,data.result.total);
                 setPagination();
 
                 // FOR EACH
@@ -1033,14 +1033,14 @@ function fetchSearchResult2() {
                 const clrFilterBtn = document.createElement('button');
                 clrFilterBtn.type = 'button';
                 clrFilterBtn.className = "button clrfilter_btn";
-                clrFilterBtn.textContent = 'Clear All Filter';
+                clrFilterBtn.textContent = 'Hapus Semua Filter';
                 clrFilterBtn.style.color = 'black';
                 clrFilterBtn.onclick = clrAllFilterCheckbox;
                 FilterOpenCanvas.appendChild(clrFilterBtn);
                 const clrFilterBtn2 = document.createElement('button');
                 clrFilterBtn2.type = 'button';
                 clrFilterBtn2.className = "button clrfilter_btn";
-                clrFilterBtn2.textContent = 'Clear All Filter';
+                clrFilterBtn2.textContent = 'Hapus Semua Filter';
                 clrFilterBtn2.style.color = 'black';
                 clrFilterBtn2.onclick = clrAllFilterCheckbox;
                 FilterOpenCanvas.appendChild(clrFilterBtn2);
@@ -1053,7 +1053,7 @@ function fetchSearchResult2() {
     }
 }
 
-function setHeadSearch(query){
+function setHeadSearch(query,jumlah){
     hs_head.innerHTML = '';
 
     const hs_head_col1 = document.createElement('div');
@@ -1061,9 +1061,9 @@ function setHeadSearch(query){
     
     const hs_head_t = document.createElement('h5');
     if (query === ""){
-            hs_head_t.textContent = "Hasil Pencarian untuk Semua Data";
+            hs_head_t.textContent = "Hasil Pencarian untuk Semua Data (" + jumlah + " data)";
     }else {
-            hs_head_t.textContent = "Hasil Pencarian untuk : " + query;
+            hs_head_t.textContent = "Hasil Pencarian untuk : " + query + " (" + jumlah + " data)";
     }
 
     hs_head_t.style.fontWeight = "bold";
