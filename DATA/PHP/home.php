@@ -57,8 +57,8 @@
 								</label>
 							</div>
 							<div class="buttons">
-								<button type="button" class="button fs-btn" onclick="selectAll()">Select all</button>
-								<button type="button" class="button fs-btn" onclick="clearSelection()">Clear selection</button>
+								<button type="button" class="button fs-btn" onclick="selectAll()">Pilih Semua</button>
+								<button type="button" class="button fs-btn" onclick="clearSelection()">Hapus Semua</button>
 							</div>
 						</div>
 
@@ -72,9 +72,6 @@
 			<!-- COL Card -->
 			<div class="col">
 				<div>
-					<!-- Off-Canvas Sidebar Button -->
-					<!-- <button class="btn filter-sm-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#filter-sm" aria-controls="filter-sm">Filter</button> -->
-					<!-- Off-Canvas Sidebar-->
 					<div class="offcanvas offcanvas-start sect-cont-sidebar" data-bs-scroll="true" tabindex="-1" id="filter-sm" aria-labelledby="filter-sm-label" style="max-width:300px">
 						<div class="offcanvas-header" style="align-items: end; padding-bottom: 0px;">
 							<div style="height: 40px;"></div>
@@ -119,8 +116,8 @@
 									</label>
 								</div>
 								<div class="buttons">
-									<button type="button" class="button fs-btn" onclick="selectAll()">Select all</button>
-									<button type="button" class="button fs-btn" onclick="clearSelection()">Clear selection</button>
+									<button type="button" class="button fs-btn" onclick="selectAll()">Pilih Semua</button>
+									<button type="button" class="button fs-btn" onclick="clearSelection()">Hapus Semua</button>
 								</div>
 							</div>
 
