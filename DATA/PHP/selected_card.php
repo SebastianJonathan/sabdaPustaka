@@ -136,7 +136,7 @@
                       ?>
                   </p>
                   <?php
-                  echo "Narasumber / Pembicara:   ";
+                  echo "<strong>Narasumber / Pembicara:   </strong>";
 
                   $len_pembicara = count($pembicara);
                   for ($i = 0; $i < $len_pembicara; $i++) {
@@ -152,7 +152,7 @@
                     }
                   }
                   ?>
-                  <p><span class="label"></span><span class="value"> Tanggal:
+                  <p><span class="label"></span><span class="value"> <strong>Tanggal Pelaksanaan:</strong>
                       <?php
                       function getMonthNameInBahasa($month)
                       {
