@@ -185,7 +185,6 @@ function goSearch() {
     const segments = fullURL.split('/');
     if(segments[segments.length - 2] == "search" && document.getElementById('query').value == ""){
         window.location.href = configPath + "PHP/home.php/search/ ";
-        sessionStorage.setItem("query",segments[segments.length - 1]);
     }else{
         window.location.href = configPath + "PHP/home.php/search/" + document.getElementById('query').value;
     }

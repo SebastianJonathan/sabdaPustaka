@@ -1,7 +1,7 @@
 <?php //include '../CONFIG/config.php' ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fix">
   <div class="container-fluid">
-    <a class="navbar-brand navbar-brands" href="http://dev.sabda.its/sabdapustaka/PHP/home.php" style="padding-left:10px;">
+    <a class="navbar-brand navbar-brands" href="<?php echo $configPath?>PHP/home.php" style="padding-left:10px;">
       <img class="hoverable" src="<?php echo $configPath?>img/logo.png" alt="Logo Sabda">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
