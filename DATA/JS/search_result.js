@@ -542,7 +542,7 @@ function fetchNewest() {
             showAllBtn.style.backgroundColor = "#1e0049";
             showAllBtn.style.color= "white";
             showAllBtn.onclick = function(){
-                window.location.href = configPath + "PHP/home.php/search/ ";
+                window.location.href = configPath + "PHP/home.php/search//tttt";
             }
             showAllDiv.appendChild(showAllBtn);
             main.appendChild(showAllDiv);
@@ -673,7 +673,7 @@ function fetchSearchResult() {
             FilterColumnCanvas.innerHTML = '';
             FilterOpenCanvas.innerHTML = '';
             const titleFFC = document.createElement('h5');
-            titleFFC.textContent = 'Filter By';
+            titleFFC.textContent = 'Filter';
             titleFFC.style.marginTop = '20px';
             titleFFC.style.marginBottom = '18px';
             titleFFC.style.fontWeight = 'bold';
@@ -683,7 +683,7 @@ function fetchSearchResult() {
             FilterColumnCanvas.appendChild(titleFFC);
 
             const titleFFV = document.createElement('h5');
-            titleFFV.textContent = 'Filter By';
+            titleFFV.textContent = 'Filter';
             titleFFV.style.marginTop = '20px';
             titleFFV.style.marginBottom = '20px';
             titleFFV.style.fontWeight = 'bold';
@@ -899,7 +899,7 @@ function fetchSearchResult2() {
             FilterColumnCanvas.innerHTML = '';
             FilterOpenCanvas.innerHTML = '';
             const titleFFC = document.createElement('h5');
-            titleFFC.textContent = 'Filter By';
+            titleFFC.textContent = 'Filter';
             titleFFC.style.marginTop = '20px';
             titleFFC.style.marginBottom = '18px';
             titleFFC.style.fontWeight = 'bold';
@@ -909,7 +909,7 @@ function fetchSearchResult2() {
             FilterColumnCanvas.appendChild(titleFFC);
 
             const titleFFV = document.createElement('h5');
-            titleFFV.textContent = 'Filter By';
+            titleFFV.textContent = 'Filter';
             titleFFV.style.marginTop = '20px';
             titleFFV.style.marginBottom = '20px';
             titleFFV.style.fontWeight = 'bold';
