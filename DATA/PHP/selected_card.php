@@ -89,7 +89,7 @@
                 <div id="pdfViewer" style="display: none;">
                   <iframe src="<?php echo $url_static; ?>" width="100%" height="400px"></iframe>
                 </div>
-                <a href="#" onclick="togglePdfViewer();">
+                <a onclick="togglePdfViewer();">
                   <img id="image" src="<?php echo $image_url; ?>" alt="Your Image Description" width="1280">
                 </a>
                 <div class="unduh">
