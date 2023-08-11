@@ -99,6 +99,7 @@
   const narasumbers = <?php echo isset($narasumbers) ? json_encode($narasumbers) : "-1";?>;
   const keyword = "<?php echo isset($_POST['keyword']) ? $_POST['keyword'] : ''; ?>";
   const narsum = "<?php echo isset($_POST['narasumber']) ? $_POST['narasumber'] : ''; ?>";
+  const event_ = "<?php echo isset($_POST['event']) ? $_POST['event'] : ''; ?>";
 </script>
 <script src="<?php echo $configPath?>JS/script.js"></script>
 
