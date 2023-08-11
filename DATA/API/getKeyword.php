@@ -40,6 +40,7 @@ if (strlen($_GET['query']) >= 3) {
             if (strtolower($namaKeyword) == strtolower($queryy)) {
                 $youtubeUrl = isset($source['url_youtube']) ? $source['url_youtube'] : '';
                 $hasil[] = [
+                    'event' => $source['event'],
                     'narasumber' => $source['narasumber'],
                     'judul' => $source['judul'],
                     'deskripsi_pendek' => $source['deskripsi_pendek'],
