@@ -106,10 +106,15 @@
               <?php
             } else {
               ?>
-                <div class="error-message" style="padding:7px;">
-                  <p class="text-center">Tampilan Presentasi belum tersedia, silahkan pergi ke <a
-                      href="<?php echo $url_slideshare ?>" target="_blank">link ini</a></p>
-                </div>
+                  <!-- <div class="error-message" style="padding:7px;">
+                    <p class="text-center">Tampilan Presentasi belum tersedia, silahkan pergi ke <a
+                        href="<?php echo $url_slideshare ?>" target="_blank">link ini</a></p>
+                  </div> -->
+                  <div id="pdfViewer">
+                    <?php if (!empty($url_youtube)) { ?>
+                      <iframe src="<?php echo $url_youtube; ?>" width="100%" height="400px"></iframe>
+                    <?php } ?>
+                  </div>
               <?php
             }
             ?>
