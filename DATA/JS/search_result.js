@@ -295,15 +295,19 @@ function fetchSearchFilterResult2() {
                 const cardContent = document.createElement('div');
                 cardContent.className = '_card_content';
 
-                const cardEvent = document.createElement('p');
+                const cardEvent = document.createElement('a');
                 cardEvent.className = '_card_text';
                 cardEvent.textContent = item.event;
+                cardEvent.onclick = function(event){
+                    window.location.href = configPath+'PHP/related_results.php?event='+item.event;
+                    event.stopPropagation();
+                }
 
                 const cardTitle = document.createElement('h2');
                 cardTitle.className = '_card_title';
                 cardTitle.textContent = item.judul;
 
-                const cardText = document.createElement('p');
+                const cardText = document.createElement('a');
                 cardText.className = '_card_text';
                 console.log(fecthNarsum(item.narasumber));
                 cardText.textContent = item.narasumber;
@@ -403,9 +407,13 @@ function fetchSearchFilterResult() {
                 const cardContent = document.createElement('div');
                 cardContent.className = '_card_content';
 
-                const cardEvent = document.createElement('p');
+                const cardEvent = document.createElement('a');
                 cardEvent.className = '_card_text';
                 cardEvent.textContent = item.event;
+                cardEvent.onclick = function(event){
+                    window.location.href = configPath+'PHP/related_results.php?event='+item.event;
+                    event.stopPropagation();
+                }
 
                 const cardTitle = document.createElement('h2');
                 cardTitle.className = '_card_title';
@@ -507,9 +515,13 @@ function fetchNewest() {
                     const cardContent = document.createElement('div');
                     cardContent.className = '_card_content';
 
-                    const cardEvent = document.createElement('p');
+                    const cardEvent = document.createElement('a');
                     cardEvent.className = '_card_text';
                     cardEvent.textContent = item.event;
+                    cardEvent.onclick = function(event){
+                        window.location.href = configPath+'PHP/related_results.php?event='+item.event;
+                        event.stopPropagation();
+                    }
 
                     const cardTitle = document.createElement('h2');
                     cardTitle.className = '_card_title';
@@ -657,9 +669,13 @@ function fetchSearchResult() {
                 const cardContent = document.createElement('div');
                 cardContent.className = '_card_content';
 
-                const cardEvent = document.createElement('p');
+                const cardEvent = document.createElement('a');
                 cardEvent.className = '_card_text';
                 cardEvent.textContent = item.event;
+                cardEvent.onclick = function(event){
+                    window.location.href = configPath+'PHP/related_results.php?event='+item.event;
+                    event.stopPropagation();
+                }
 
                 const cardTitle = document.createElement('h2');
                 cardTitle.className = '_card_title';
@@ -801,6 +817,8 @@ function fetchSearchResult() {
                 const clrFilterBtn = document.createElement('button');
                 clrFilterBtn.type = 'button';
                 clrFilterBtn.className = "button clrfilter_btn";
+                clrFilterBtn.style.maxWidth = "200px";
+                clrFilterBtn.style.width = "155px";
                 clrFilterBtn.textContent = 'Hapus Semua Filter';
                 clrFilterBtn.style.color = 'black';
                 clrFilterBtn.onclick = clrAllFilterCheckbox;
@@ -809,6 +827,8 @@ function fetchSearchResult() {
                 const clrFilterBtn2 = document.createElement('button');
                 clrFilterBtn2.type = 'button';
                 clrFilterBtn2.className = "button clrfilter_btn";
+                clrFilterBtn2.style.maxWidth = "200px";
+                clrFilterBtn2.style.width = "155px";
                 clrFilterBtn2.textContent = 'Hapus Semua Filter';
                 clrFilterBtn2.style.color = 'black';
                 clrFilterBtn2.onclick = clrAllFilterCheckbox;
@@ -886,9 +906,13 @@ function fetchSearchResult2() {
                     const cardContent = document.createElement('div');
                     cardContent.className = '_card_content';
 
-                    const cardEvent = document.createElement('p');
+                    const cardEvent = document.createElement('a');
                     cardEvent.className = '_card_text';
                     cardEvent.textContent = item.event;
+                    cardEvent.onclick = function(event){
+                        window.location.href = configPath+'PHP/related_results.php?event='+item.event;
+                        event.stopPropagation();
+                    }
 
                     const cardTitle = document.createElement('h2');
                     cardTitle.className = '_card_title';
@@ -1033,6 +1057,8 @@ function fetchSearchResult2() {
                 const clrFilterBtn = document.createElement('button');
                 clrFilterBtn.type = 'button';
                 clrFilterBtn.className = "button clrfilter_btn";
+                clrFilterBtn.style.maxWidth = "200px";
+                clrFilterBtn.style.width = "155px";
                 clrFilterBtn.textContent = 'Hapus Semua Filter';
                 clrFilterBtn.style.color = 'black';
                 clrFilterBtn.onclick = clrAllFilterCheckbox;
@@ -1040,6 +1066,8 @@ function fetchSearchResult2() {
                 const clrFilterBtn2 = document.createElement('button');
                 clrFilterBtn2.type = 'button';
                 clrFilterBtn2.className = "button clrfilter_btn";
+                clrFilterBtn2.style.maxWidth = "200px";
+                clrFilterBtn2.style.width = "155px";
                 clrFilterBtn2.textContent = 'Hapus Semua Filter';
                 clrFilterBtn2.style.color = 'black';
                 clrFilterBtn2.onclick = clrAllFilterCheckbox;
