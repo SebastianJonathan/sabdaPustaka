@@ -35,6 +35,7 @@ foreach ($hits as $hit) {
     $youtubeUrl = isset($source['url_youtube']) ? $source['url_youtube'] : '';
 
     $hasil[] = [
+        'event' => $source['event'],
         'narasumber' => $source['narasumber'],
         'judul' => $source['judul'],
         'deskripsi_pendek' => $source['deskripsi_pendek'],
