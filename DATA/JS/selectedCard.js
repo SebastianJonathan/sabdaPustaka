@@ -77,8 +77,14 @@ function togglePdfViewer() {
     }
 }
 
+function getQueryParameterValue(url, parameterName) {
+    const params = new URLSearchParams(new URL(url).search);
+    return params.get(parameterName);
+}
+
 function fetchRelatedDocuments() {
-    const documentId = "<?php echo $_GET['document_id']; ?>";
+
+    const documentId = getQueryParameterValue(location.href, "document_id");
 
     fetch(configPath + `API/getRelated.php?document_id=${encodeURIComponent(documentId)}`)
     .then(response => response.text())
@@ -93,7 +99,7 @@ function fetchRelatedDocuments() {
 
 
 function fetchRelatedJudul() {
-    const documentId = "<?php echo $_GET['document_id']; ?>";
+    const documentId = getQueryParameterValue(location.href, "document_id");
 
     fetch(configPath + `API/getRelatedJudul.php?document_id=${encodeURIComponent(documentId)}`)
     .then(response => response.text())
