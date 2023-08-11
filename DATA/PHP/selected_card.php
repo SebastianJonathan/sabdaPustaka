@@ -152,7 +152,33 @@
                   }
                   ?>
                   <p><span class="label"></span><span class="value"> Tanggal:
-                      <?php echo date('j F Y', strtotime($tanggal)); ?>
+                       <?php
+                      function getMonthNameInBahasa($month)
+                      {
+                        $bahasaMonths = array(
+                          'January' => 'Januari',
+                          'February' => 'Februari',
+                          'March' => 'Maret',
+                          'April' => 'April',
+                          'May' => 'Mei',
+                          'June' => 'Juni',
+                          'July' => 'Juli',
+                          'August' => 'Agustus',
+                          'September' => 'September',
+                          'October' => 'Oktober',
+                          'November' => 'November',
+                          'December' => 'Desember'
+                        );
+                        return $bahasaMonths[$month];
+                      }
+
+                      $tanggal = date('j F Y', strtotime($tanggal)); // Replace with your date
+                      $englishMonth = date('F', strtotime($tanggal));
+                      $bahasaMonth = getMonthNameInBahasa($englishMonth);
+
+                      echo date('j', strtotime($tanggal)) . ' ' . $bahasaMonth . ' ' . date('Y', strtotime($tanggal));
+
+                      ?>
                   </p>
                 </div>
 
