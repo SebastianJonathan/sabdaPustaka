@@ -14,6 +14,57 @@ if (keyword) {
     console.log("No keyword provided.");
 }
 
+function scrollToBottom() {
+    const fullHeight = Math.max(
+        document.body.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.clientHeight,
+        document.documentElement.scrollHeight,
+        document.documentElement.offsetHeight
+    );
+
+    window.scrollTo({
+        top: fullHeight,
+        behavior: 'smooth'
+    });
+}
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+function buttonVisibility() {
+    const buttonScrollDown = document.getElementById('down-button');
+    const buttonScrollUp = document.getElementById('up-button');
+    const windowHeight = window.innerHeight;
+    const scrollPosition = window.scrollY;
+    const bodyHeight = document.body.scrollHeight;
+
+    // Menghitung batas atas dan bawah untuk menampilkan tombol scroll
+    const scrollDownThreshold = bodyHeight - windowHeight - 100;
+    const scrollUpThreshold = 100; 
+
+    if (scrollPosition > scrollDownThreshold) {
+        buttonScrollDown.style.display = 'none';
+    } else {
+        buttonScrollDown.style.display = 'block';
+    }
+
+    if (scrollPosition > scrollUpThreshold) {
+        buttonScrollUp.style.display = 'block';
+    } else {
+        buttonScrollUp.style.display = 'none';
+    }
+}
+
+window.addEventListener('scroll', buttonVisibility);
+
+const buttonScrollUp = document.getElementById('up-button')
+buttonScrollUp.style.display = 'none';
+
 if (narsum) {
     // Fetch the related results using the getKeyword.php API
     console.log(narsum)

@@ -128,17 +128,27 @@ function scrollToTop() {
 
 function buttonVisibility() {
     const buttonScrollDown = document.getElementById('down-button');
-    const buttonScrollUp = document.getElementById('up-button')
+    const buttonScrollUp = document.getElementById('up-button');
     const windowHeight = window.innerHeight;
+    const scrollPosition = window.scrollY;
+    const bodyHeight = document.body.scrollHeight;
 
-    if (window.scrollY + windowHeight < document.body.scrollHeight) {
-        buttonScrollDown.style.display = 'block';
-        buttonScrollUp.style.display = 'none';
-    } else {
+    const scrollDownThreshold = bodyHeight - windowHeight - 100;
+    const scrollUpThreshold = 100; 
+
+    if (scrollPosition > scrollDownThreshold) {
         buttonScrollDown.style.display = 'none';
+    } else {
+        buttonScrollDown.style.display = 'block';
+    }
+
+    if (scrollPosition > scrollUpThreshold) {
         buttonScrollUp.style.display = 'block';
+    } else {
+        buttonScrollUp.style.display = 'none';
     }
 }
+
 window.addEventListener('scroll', buttonVisibility);
 
 function updateFields() {
