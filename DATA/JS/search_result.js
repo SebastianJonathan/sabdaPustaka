@@ -536,13 +536,14 @@ function fetchNewest() {
             const showAllBtn = document.createElement('button');
             showAllBtn.type = "button";
             showAllBtn.className = "button";
-            showAllBtn.style.width = "150px";
+            showAllBtn.style.maxWidth = "210px";
+            showAllBtn.style.width = "200px";
             showAllBtn.style.height = "40px";
-            showAllBtn.textContent = "Show All Data";
+            showAllBtn.textContent = "Tampilkan Semua Data";
             showAllBtn.style.backgroundColor = "#1e0049";
             showAllBtn.style.color= "white";
             showAllBtn.onclick = function(){
-                window.location.href = configPath + "PHP/home.php/search//tttt";
+                window.location.href = configPath + "PHP/home.php/search/ ";
             }
             showAllDiv.appendChild(showAllBtn);
             main.appendChild(showAllDiv);
@@ -1035,9 +1036,9 @@ function setHeadSearch(query){
     
     const hs_head_t = document.createElement('h5');
     if (query === ""){
-            hs_head_t.textContent = "Hasil Search untuk Semua Data";
+            hs_head_t.textContent = "Hasil Pencarian untuk Semua Data";
     }else {
-            hs_head_t.textContent = "Hasil Search untuk : " + query;
+            hs_head_t.textContent = "Hasil Pencarian untuk : " + query;
     }
 
     hs_head_t.style.fontWeight = "bold";
