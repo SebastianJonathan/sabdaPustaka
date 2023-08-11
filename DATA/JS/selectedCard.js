@@ -42,6 +42,29 @@ narsumLinks.forEach(link => {
     });
 });
 
+const eventLinks = document.querySelectorAll('.event-link');
+eventLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const query = link.dataset.keyword;
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'related_results.php';
+
+    const eventInput = document.createElement('input');
+    eventInput.type = 'hidden';
+    eventInput.name = 'event';
+    eventInput.value = query;
+
+    form.appendChild(eventInput);
+
+    document.body.appendChild(form);
+    form.submit(); // <-- Add parentheses to call the form submission function
+    });
+}); 
+
+
 function togglePdfViewer() {
     var pdfViewer = document.getElementById('pdfViewer');
     var image = document.getElementById('image');
