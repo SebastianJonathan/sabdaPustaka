@@ -25,6 +25,19 @@
     text-decoration: none;
 }
 
+.floating-btn-wa {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;  
+    color: #fff;
+    text-decoration: none;
+    background: none;
+    border: none;
+    outline: none;
+    width: 4%;
+    height: auto;
+}
+
 .floating-btn:hover {
     background-color: #0056b3;
 }

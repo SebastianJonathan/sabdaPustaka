@@ -185,6 +185,9 @@
 	</div> <!-- Container -->
 	<a class="floating-btn" id="down-button" onclick="scrollToBottom()">&#8595</a>
 	<a class="floating-btn" id="up-button" onclick="scrollToTop()">&#8593</a>
+	<a href="https://api.whatsapp.com/send?phone=628812979100&text=Halo%20saya%20ingin%20bertanya%20terkait%20website%20SABDA%20Pustaka" target="_blank" class="floating-btn-wa">
+		<img src="<?php echo $configPath?>img/wa.png" alt="WhatsApp">
+	</a>
 
 
 
