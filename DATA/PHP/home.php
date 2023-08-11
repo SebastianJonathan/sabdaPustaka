@@ -28,7 +28,7 @@
 						<!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
 
 						<div class="row">
-							<h5 style="margin-bottom: 10px; font-weight:bold; color:gold;">Search By</h5>
+							<h5 style="margin-bottom: 10px; font-weight:bold; color:gold;">Dasar Pencarian</h5>
 						</div>
 						<!-- Search By -->
 						<div class="row fsc">
@@ -85,7 +85,7 @@
 							<div class="row fsv">
 								<div class="row">
 									<div class="col">
-										<h5 style="margin-bottom: 10px; font-weight:bold; color:gold;">Search By</h5>
+										<h5 style="margin-bottom: 10px; font-weight:bold; color:gold;">Dasar Pencarian</h5>
 									</div>
 									<div class="col" style="display:flex; justify-content:right;">
 										<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" style="color: gold;"></button>
@@ -136,9 +136,6 @@
 						<div class="main" id="main">
 							<button class="btn filter-sm-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#filter-sm" aria-controls="filter-sm" style="margin-left: 16px;">Filter</button>
 							<div class="row" id="hs-header" style="padding-left: 16px;">
-								<!-- <div id="show">
-
-								</div> -->
 							</div> 
 							<ul class="_cards" id="card_result">
 							<!-- Card results will be dynamically added here -->
@@ -260,14 +257,12 @@
 	$hits = $response['hits']['hits'];
 	$narasumbers = extractUniqueSpeakers($hits);
 	$events = [];
-	$checkEvent = [];
 
 	foreach ($hits as $hit) {
 		$source = $hit['_source'];
 
-		if (isset($source['event']) && !in_array(strtoupper($source['event']), $checkEvent)) {
+		if (isset($source['event']) && !in_array($source['event'], $events)) {
 			$events[] = $source['event'];
-			$checkEvent[] = strtoupper($source['event']);
 		}
 	}
 	sort($events);
