@@ -295,6 +295,10 @@ function fetchSearchFilterResult2() {
                 const cardContent = document.createElement('div');
                 cardContent.className = '_card_content';
 
+                const cardEvent = document.createElement('p');
+                cardEvent.className = '_card_text';
+                cardEvent.textContent = item.event;
+
                 const cardTitle = document.createElement('h2');
                 cardTitle.className = '_card_title';
                 cardTitle.textContent = item.judul;
@@ -307,6 +311,7 @@ function fetchSearchFilterResult2() {
                 // Append the card content to the card element
                 card.appendChild(cardContent);
 
+                cardContent.appendChild(cardEvent);
                 cardContent.appendChild(cardTitle);
                 cardContent.appendChild(cardText);
 
@@ -398,6 +403,10 @@ function fetchSearchFilterResult() {
                 const cardContent = document.createElement('div');
                 cardContent.className = '_card_content';
 
+                const cardEvent = document.createElement('p');
+                cardEvent.className = '_card_text';
+                cardEvent.textContent = item.event;
+
                 const cardTitle = document.createElement('h2');
                 cardTitle.className = '_card_title';
                 cardTitle.textContent = item.judul;
@@ -411,6 +420,7 @@ function fetchSearchFilterResult() {
                 card.appendChild(cardImage);
                 card.appendChild(cardContent);
 
+                cardContent.appendChild(cardEvent);
                 cardContent.appendChild(cardTitle);
                 cardContent.appendChild(cardText);
 
@@ -497,6 +507,10 @@ function fetchNewest() {
                     const cardContent = document.createElement('div');
                     cardContent.className = '_card_content';
 
+                    const cardEvent = document.createElement('p');
+                    cardEvent.className = '_card_text';
+                    cardEvent.textContent = item.event;
+
                     const cardTitle = document.createElement('h2');
                     cardTitle.className = '_card_title';
                     cardTitle.textContent = item.judul;
@@ -510,6 +524,7 @@ function fetchNewest() {
                     card.appendChild(cardImage);
                     card.appendChild(cardContent);
 
+                    cardContent.appendChild(cardEvent);
                     cardContent.appendChild(cardTitle);
                     cardContent.appendChild(cardText);
 
@@ -642,6 +657,10 @@ function fetchSearchResult() {
                 const cardContent = document.createElement('div');
                 cardContent.className = '_card_content';
 
+                const cardEvent = document.createElement('p');
+                cardEvent.className = '_card_text';
+                cardEvent.textContent = item.event;
+
                 const cardTitle = document.createElement('h2');
                 cardTitle.className = '_card_title';
                 cardTitle.textContent = item.judul;
@@ -654,6 +673,7 @@ function fetchSearchResult() {
                 card.appendChild(cardImage);
                 card.appendChild(cardContent);
 
+                cardContent.appendChild(cardEvent);
                 cardContent.appendChild(cardTitle);
                 cardContent.appendChild(cardText);
 
@@ -866,6 +886,10 @@ function fetchSearchResult2() {
                     const cardContent = document.createElement('div');
                     cardContent.className = '_card_content';
 
+                    const cardEvent = document.createElement('p');
+                    cardEvent.className = '_card_text';
+                    cardEvent.textContent = item.event;
+
                     const cardTitle = document.createElement('h2');
                     cardTitle.className = '_card_title';
                     cardTitle.textContent = item.judul;
@@ -878,6 +902,7 @@ function fetchSearchResult2() {
                     // Append the card content to the card element
                     card.appendChild(cardContent);
 
+                    cardContent.appendChild(cardEvent);
                     cardContent.appendChild(cardTitle);
                     cardContent.appendChild(cardText);
 
