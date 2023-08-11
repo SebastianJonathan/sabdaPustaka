@@ -318,17 +318,18 @@ function generateCard(results){
             const cardContent = document.createElement('div');
             cardContent.className = '_card_content';
             
-            const cardEvent = document.createElement('p');
+            const cardEvent = document.createElement('a');
             cardEvent.className = '_card_text';
             cardEvent.textContent = item.event;
+            cardEvent.onclick = function(event){
+                window.location.href = configPath+'PHP/related_results.php?event='+item.event;
+                event.stopPropagation();
+            }
+            cardEvent.style.textDecoration = 'none';
 
             const cardTitle = document.createElement('h2');
             cardTitle.className = '_card_title';
             cardTitle.textContent = item.judul;
-
-            const cardText = document.createElement('p');
-            cardText.className = '_card_text';
-            cardText.textContent = item.narasumber;
 
             // Append the card content to the card element
             card.appendChild(cardImage);
@@ -336,7 +337,26 @@ function generateCard(results){
 
             cardContent.appendChild(cardEvent);
             cardContent.appendChild(cardTitle);
-            cardContent.appendChild(cardText);
+            const divNarsum = document.createElement('div');
+            var count = 0;
+            fetchNarsum(item.narasumber).forEach(element => {
+                const cardText = document.createElement('a');
+                cardText.className = '_card_text';
+                if(fetchNarsum(item.narasumber).length - 1 == count){
+                    cardText.textContent = element;
+                }else{
+                    cardText.textContent = element + ", ";
+                }
+                count++;
+                cardText.onclick = function(event){
+                    window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
+                    event.stopPropagation();
+                }
+                cardText.style.textDecoration = 'none';
+                divNarsum.appendChild(cardText);
+            });
+            divNarsum.style.display = 'block'
+            cardContent.appendChild(divNarsum);
 
             cardItem.appendChild(card);
             cardResultElement.appendChild(cardItem);
