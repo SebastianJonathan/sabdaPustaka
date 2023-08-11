@@ -124,7 +124,10 @@
                 <!-- Narasumer & Tanggal -->
                 <div class="narsum-tanggal">
                   <p><span class="label"></span><span class="value" style="font-weight: bold;">
-                      <?php echo $event; ?>
+                      <?php
+                      $link = 'javascript:void(0);'; // Set the link to javascript:void(0);
+                      echo "<a href=\"$link\" class=\"event-link\" data-keyword=\"$event_\"\">$event_</a> ";
+                      ?>
                   </p>
                   <?php
                   echo "Narasumber / Pembicara:   ";
