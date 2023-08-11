@@ -26,20 +26,3 @@
   </div>
 </nav>
 <div style="height: 56px;"><!-- Spacer --></div> 
-<!-- <script>
-  function home(){
-    window.location.href = configPath + 'PHP/home.php';
-  }
-  function getAllList(){
-    window.location.href = configPath + 'PHP/getAllList.php';
-  }
-  function about(){
-    window.location.href = configPath + 'PHP/about.php';
-  }
-  function services(){
-    window.location.href = configPath + 'PHP/services.php';
-  }
-  function contact(){
-    window.location.href = 'https://s.id/medsosYLSA';
-  }
-</script> -->

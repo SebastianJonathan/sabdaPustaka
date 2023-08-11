@@ -2,17 +2,23 @@
 <div id="p1_home">
 
 	<div class="container-fluid">
+		<!-- Penjelasan Website: Silahkan mencari dan menjelajahi materi yang telah disediakan oleh SABDA! -->
+		<div class="row text-center penjelasan-web">
+			<h4><strong>Silahkan Mencari dan Menjelajahi Materi yang telah Disediakan oleh SABDA!</strong></h4>
+		</div>
+
 		<!-- Row Search Bar -->
 		<div class="row">
 			<form action="" id="search" class="content sect-search">
 				<div class="rekomendasi-container">
 					<div class="col-md-6 InputContainer" style="background-color: #1e0049; ">
-						<input placeholder="Search.." id="query" class="query form-control form-input" name="query" type="text" autocomplete="off">
-						<button type="button" class="search-button" onclick="goSearch()" style="background-color: #1e0049; color: white;">Search</button>
+						<input placeholder="Cari di SABDA Pustaka" id="query" class="query form-control form-input" name="query" type="text" autocomplete="off">
+						<button type="button" class="search-button" onclick="goSearch()" style="background-color: #1e0049; color: white;">Cari</button>
 					</div>
 					<div id="rekomendasi">
 						<ul id="rekomendasi-list"></ul>
 					</div>
+				</div>
 			</form>
 		</div>
 
