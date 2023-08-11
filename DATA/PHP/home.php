@@ -183,7 +183,8 @@
 		<div class="row" style="height: 20px;"></div>
 	</div><!-- row konten -->
 	</div> <!-- Container -->
-	<a class="floating-btn" id="down-button" onclick="scrollToBottom()">v</a>
+	<a class="floating-btn" id="down-button" onclick="scrollToBottom()">&#8595</a>
+	<a class="floating-btn" id="up-button" onclick="scrollToTop()">&#8593</a>
 
 
 

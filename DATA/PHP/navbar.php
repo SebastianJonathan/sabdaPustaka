@@ -10,16 +10,16 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo $configPath?>PHP/home.php">Home</a>
+          <a class="nav-link classB" href="<?php echo $configPath?>PHP/home.php">Beranda</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo $configPath?>PHP/about.php">About</a>
+          <a class="nav-link classB" href="<?php echo $configPath?>PHP/about.php">Tentang</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo $configPath?>PHP/services.php">Services</a>
+          <a class="nav-link classB" href="<?php echo $configPath?>PHP/services.php">Layanan</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo $configPath?>PHP/contact.php">Contact</a>
+          <a class="nav-link classB" href="<?php echo $configPath?>PHP/contact.php">Kontak</a>
         </li>
       </ul>
     </div>

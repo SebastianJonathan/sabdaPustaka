@@ -5,5 +5,5 @@
     }
     
     $configElasticPath = "http://localhost:9200/";
-    $indexName = "dev-sabda-pustaka-2";
+    $indexName = "pustaka6";
 ?>

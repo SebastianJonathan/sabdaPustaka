@@ -314,3 +314,7 @@ body {
     justify-content: center;
     gap: 10px;
 }
+
+.classB {
+    font-weight: bold;
+}
