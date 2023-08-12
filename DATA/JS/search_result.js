@@ -66,6 +66,12 @@ function createListItem2(pageNumber) {
                     currPage -= 1;
                 }
             }
+            else if(pageNumber == "<<"){
+                currPage = 1;
+            }
+            else if(pageNumber == ">>"){
+                currPage = maxPage;
+            }
             else{
                 currPage = pageNumber;
             }
@@ -1234,6 +1240,9 @@ function setPagination(){
     }
     c_pagi = 0;
     p_pagi = -2;
+
+    pagiUl.appendChild(createListItem2("<<"));
+
     while (c_pagi < 5){
         if ((currPage + p_pagi) > maxPage ){
                 break;
@@ -1244,6 +1253,9 @@ function setPagination(){
         }
         p_pagi += 1;
     }
+
+    pagiUl.appendChild(createListItem2(">>"));
+
     if ((currPage + 1) < maxPage ){
         pagiUl.appendChild(createListItem2("Next"));
     }

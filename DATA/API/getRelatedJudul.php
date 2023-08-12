@@ -73,9 +73,37 @@ if (isset($_GET['document_id'])) {
             
             echo '</div>';
             echo '<div class="_card_content">';
-            echo '<p class="_card_text">' . $event . '</p>';
+            echo '<a class="_card_text" href="' . $configPath . 'PHP/related_results.php?event=' . urlencode($event) . '" style="text-decoration: none;">' . $event . '</a>';
             echo '<h2 class="_card_title">' . $judul . '</h2>';
-            echo '<p class="_card_text">' . $narasumber . '</p>';
+            // echo '<p class="_card_text">' . $narasumber . '</p>';
+
+             // narasumber
+             $narasumberArray = explode(',', $narasumber); // Split values into an array
+             echo '<div style="display: block;" id="divNarsum">';
+             $count = 0;
+             foreach ($narasumberArray as $element) {
+                 echo '<a class="_card_text" style="text-decoration: none;">';
+             
+                 if ($count < count($narasumberArray) - 1) {
+                     echo $element . ', ';
+                 } else {
+                     echo $element;
+                 }
+             
+                 echo '</a>';
+             
+                 // You might need to adjust the URL structure and paths based on your needs
+                 echo '<script>
+                         document.querySelector("._card_text:last-child").onclick = function(event){
+                             window.location.href = "' . $configPath . 'PHP/related_results.php?narasumber=' . urlencode($element) . '";
+                             event.stopPropagation();
+                         };
+                       </script>';
+                 $count++;
+             }
+             echo '</div>';
+
+
             echo '</div>';
             echo '</div>';
             echo '</li>';
