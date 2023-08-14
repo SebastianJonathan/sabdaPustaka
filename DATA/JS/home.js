@@ -329,27 +329,67 @@ document.addEventListener('click', function(event) {
 
 function generateEventLinks() {
     const eventListContainer = document.getElementById('eventList');
-    events.forEach((event) => {
-        const eventUrl = configPath + 'PHP/related_results.php?event=' + encodeURIComponent(event);
-        const eventDiv = document.createElement('li');
-        eventDiv.className = 'event-li';
-        eventDiv.innerHTML = `<a href="${eventUrl}">${event}</a>`;
-        eventListContainer.appendChild(eventDiv);
+    fetch(configPath + 'API/filterAPI.php', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "API": "getAllEvent",
+        })
+    })
+    .then(response => 
+        response.json()
+    )
+    .then(data => {
+        if (data.result === "E-CONN"){
+            location.href = configPath+"PHP/errorConn.php";
+        }else{
+            data.result.forEach(function (event) {
+                const eventUrl = configPath + 'PHP/related_results.php?event=' + encodeURIComponent(event);
+                const eventDiv = document.createElement('li');
+                eventDiv.className = 'event-li';
+                eventDiv.innerHTML = `<a href="${eventUrl}">${event}</a>`;
+                eventListContainer.appendChild(eventDiv);
+            });
+        }
+    })
+    .catch(error => {
+        console.error(error);
     });
 }
 
 function generateNarasumberLinks() {
     const narasumberListContainer = document.getElementById('narasumberList');
-    narasumbers.forEach((narasumber) => {
-        const narasumberUrl = configPath + 'PHP/related_results.php?narasumber=' + encodeURIComponent(narasumber);
-        const narasumberDiv = document.createElement('li');
-        narasumberDiv.className = 'narsum-li';
-        narasumberDiv.innerHTML = `<a href="${narasumberUrl}">${narasumber}</a>`;
-        narasumberListContainer.appendChild(narasumberDiv);
+    fetch(configPath + 'API/filterAPI.php', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "API": "getAllNarsum",
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.result === "E-CONN"){
+            location.href = configPath+"PHP/errorConn.php";
+        }else{
+            data.result.forEach(function (narasumber) {
+                const narasumberUrl = configPath + 'PHP/related_results.php?narasumber=' + encodeURIComponent(narasumber);
+                const narasumberDiv = document.createElement('li');
+                narasumberDiv.className = 'narsum-li';
+                narasumberDiv.innerHTML = `<a href="${narasumberUrl}">${narasumber}</a>`;
+                narasumberListContainer.appendChild(narasumberDiv);
+            });
+        }
+    })
+    .catch(error => {
+        console.error(error);
     });
 }
 
-function expandEvent(){
+function expandEvent(forceHide = false){
     var eventCont = document.getElementById('eventList');
     var exBtn = document.getElementById('ex-event-btn');
     var prevHeight = eventCont.clientHeight;
@@ -358,7 +398,7 @@ function expandEvent(){
     if (prevHeight === barHeight){
         exBtn.textContent = "Show Less"
         eventCont.style.height = "auto";
-    }else if (prevHeight > barHeight){
+    }else if (prevHeight > barHeight || forceHide){
         exBtn.textContent = "Show More"
         eventCont.style.height = barHeight+"px";
         eventCont.style.overflowY = "clip";
@@ -371,7 +411,7 @@ function updateSessionCheckboxFirst(){
     updateSessionCheckbox();
 }
 
-function expandNarasumber(){
+function expandNarasumber(forceHide = false){
     var narasCont = document.getElementById('narasumberList');
     var exBtn = document.getElementById('ex-naras-btn');
     var prevHeight = narasCont.clientHeight;
@@ -380,7 +420,7 @@ function expandNarasumber(){
     if (prevHeight === barHeight){
         narasCont.style.height = "auto";
         exBtn.textContent = "Show Less"
-    }else if (prevHeight > barHeight){
+    }else if (prevHeight > barHeight || forceHide){
         exBtn.textContent = "Show More"
         narasCont.style.height = barHeight+"px";
         narasCont.style.overflowY = "clip";
@@ -431,8 +471,8 @@ function startupAndSearch() {
             fetchNewest();
             generateEventLinks();
             generateNarasumberLinks();
-            expandEvent();
-            expandNarasumber();
+            expandEvent(true);
+            expandNarasumber(true);
         }
     } catch (error){
         location.reload();

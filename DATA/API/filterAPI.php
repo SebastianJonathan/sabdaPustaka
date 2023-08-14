@@ -551,6 +551,91 @@
             echo json_encode(['result' => $results]);
         }
     }
+
+	function extractUniqueSpeakers($hits)
+	{
+		$uniqueNames = [];
+
+		foreach ($hits as $hit) {
+			$source = $hit['_source'];
+			$names = "";
+			$name = $source['narasumber'];
+			$name = str_replace(",S.","|S.",$name);
+			$name = str_replace(", S.","| S.",$name);
+			$name = str_replace(",M.","|M.",$name);
+			$name = str_replace(", M.","| M.",$name);
+			$name = str_replace(",Ph.","|Ph.",$name);
+			$name = str_replace(", Ph.","| Ph.",$name);
+			$names = $name;
+			$names = explode(", ", $names);
+
+			foreach ($names as $participantName) {
+				$cleanedName = trim($participantName);
+				$cleanedName = str_replace("|",",",$cleanedName);
+				if (!in_array($cleanedName, $uniqueNames)) {
+					$uniqueNames[] = $cleanedName;
+				}
+			}
+		}
+
+		return $uniqueNames;
+	}
+
+    function getAllEvent($url){
+        // Query to retrieve all documents
+        $params = [
+            'size' => 1000, // Adjust the size to match the maximum number of documents to retrieve
+            'query' => [
+                'match_all' => new \stdClass() // Empty query to retrieve all documents
+            ],
+            '_source' => ['event'] // Include only 'narasumber' and 'event' fields in the response
+        ];
+
+        $query = json_encode($params);
+        $response = query($url, $query);
+        if ($response === "E-CONN"){
+            echo json_encode(['result' => $response]);
+        }else{
+            $hits = $response['hits']['hits'];
+            $events = [];
+            $eventList = [];
+
+            foreach ($hits as $hit) {
+                $source = $hit['_source'];
+
+                if (isset($source['event']) && !in_array(strtoupper($source['event']), $eventList)) {
+                    $events[] = $source['event'];
+                    $eventList[] = strtoupper($source['event']);
+                }
+            }
+            sort($events);
+            echo json_encode(['result' => $events]);
+        }
+    }
+
+    function getAllNarsum($url){
+        // Query to retrieve all documents
+        $params = [
+            'size' => 1000, // Adjust the size to match the maximum number of documents to retrieve
+            'query' => [
+                'match_all' => new \stdClass() // Empty query to retrieve all documents
+            ],
+            '_source' => ['narasumber'] // Include only 'narasumber' and 'event' fields in the response
+        ];
+
+        $query = json_encode($params);
+        $response = query($url, $query);
+        if ($response === "E-CONN"){
+            echo json_encode(['result' => $response]);
+        }else{
+            $hits = $response['hits']['hits'];
+            $narasumbers = extractUniqueSpeakers($hits);
+            sort($narasumbers);
+            echo json_encode(['result' => $narasumbers]);
+        }
+    }
+
+
     $jsonData = file_get_contents('php://input');
     $jsonDataDecoded = json_decode($jsonData, true);
     if($jsonDataDecoded["API"] == "getAll"){
@@ -559,5 +644,9 @@
         search($jsonDataDecoded, $url);
     } else if($jsonDataDecoded["API"] == "searchFilter"){
         searchFilter($jsonDataDecoded, $url);
-    }
+    } else if($jsonDataDecoded["API"] === "getAllEvent"){
+        getAllEvent($url);
+    } else if($jsonDataDecoded["API"] == "getAllNarsum"){
+        getAllNarsum($url);
+    } 
 ?>
