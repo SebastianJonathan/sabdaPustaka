@@ -196,12 +196,6 @@ function PageRel(pageNumber) {
                     currPageRel -= 1;
                 }
             }
-            else if(pageNumber == "<<"){
-                currPage = 1;
-            }
-            else if(pageNumber == ">>"){
-                currPage = maxPage;
-            }
             else{
                 currPageRel = pageNumber;
             }
@@ -239,7 +233,6 @@ function setPagiRel(){
     }
     c_pagi = 0;
     p_pagi = -2;
-    pagiUl.appendChild(PageRel("<<"));
     while (c_pagi < 5){
         if ((currPageRel + p_pagi) > maxPageRel){
                 break;
@@ -250,7 +243,6 @@ function setPagiRel(){
         }
         p_pagi += 1;
     }
-    pagiUl.appendChild(PageRel(">>"));
     if ((currPageRel + 1) < maxPageRel ){
         pagiUl.appendChild(PageRel("Next"));
     }
