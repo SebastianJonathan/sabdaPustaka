@@ -72,6 +72,12 @@ function createListItem2(pageNumber) {
                     currPage -= 1;
                 }
             }
+            else if(pageNumber == "<<"){
+                currPage = 1;
+            }
+            else if(pageNumber == ">>"){
+                currPage = maxPage;
+            }
             else{
                 currPage = pageNumber;
             }
@@ -1239,6 +1245,7 @@ function setPagination(){
     const pagiUl = document.createElement("ul");
     pagiUl.className = "pagination"
 
+    pagiUl.appendChild(createListItem2("<<"));
     if ((currPage - 1) > 0){
         pagiUl.appendChild(createListItem2("Prev"));
     }
@@ -1257,6 +1264,7 @@ function setPagination(){
     if ((currPage + 1) < maxPage ){
         pagiUl.appendChild(createListItem2("Next"));
     }
+    pagiUl.appendChild(createListItem2(">>"));
     pagiUl.appendChild(createListItem2("Show All"));
     pagiCont.appendChild(pagiUl);
     showDiv.appendChild(pagiCont);
