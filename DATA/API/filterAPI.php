@@ -40,7 +40,7 @@
             ];
             $query2 = json_encode($params2);
             $response2 = query($url, $query2);
-            if ($response === "E-CONN"){
+            if ($response2 === "E-CONN"){
                 echo json_encode(['result' => $response]);
             }else{
                 $totalHits = 0;
@@ -161,7 +161,7 @@
             ];
             $query2 = json_encode($params2);
             $response2 = query($url, $query2);
-            if ($response === "E-CONN"){
+            if ($response2 === "E-CONN"){
                 echo json_encode(['result' => $response]);
             }else{
                 $totalHits = 0;
@@ -308,7 +308,7 @@
             }
             $query2 = json_encode($params2);
             $response2 = query($url, $query2);
-            if ($response === "E-CONN"){
+            if ($response2 === "E-CONN"){
                 echo json_encode(['result' => $response]);
             }else{
                 $totalHits = 0;
