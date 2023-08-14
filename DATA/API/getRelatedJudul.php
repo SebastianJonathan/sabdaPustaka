@@ -75,28 +75,34 @@ if (isset($_GET['document_id'])) {
             echo '<div class="_card_content">';
             echo '<a class="_card_text" href="' . $configPath . 'PHP/related_results.php?event=' . urlencode($event) . '" style="text-decoration: none;">' . $event . '</a>';
             echo '<h2 class="_card_title">' . $judul . '</h2>';
-            // echo '<a class="_card_text" href="' . $configPath . 'PHP/related_results.php?narasumber=' . urlencode($narasumber) . '" style="text-decoration: none;">' . $narasumber . '</a>';
+            // echo '<p class="_card_text">' . $narasumber . '</p>';
 
             // narasumber
-
-            $narasumberArray = explode(', ', $narasumber); // Split values into an array
+            $narasumberArray = explode(',', $narasumber); // Split values into an array
             echo '<div style="display: block;" id="divNarsum">';
             $count = 0;
-            $totalNarasumbers = count($narasumberArray);
-
             foreach ($narasumberArray as $element) {
-                echo '<a class="_card_text" href="' . $configPath . 'php/related_results.php?narasumber=' . urlencode($element) . '" style="text-decoration: none;">';
+                echo '<a class="_card_text" style="text-decoration: none;">';
 
-                echo $element;
-
-                if ($count < $totalNarasumbers - 1) {
-                    echo ', ';
+                if ($count < count($narasumberArray) - 1) {
+                    echo $element . ', ';
+                } else {
+                    echo $element;
                 }
 
                 echo '</a>';
 
+                // Generate a unique click event listener for each _card_text element
+                echo '<script>
+                        document.querySelector("#divNarsum a:nth-child(' . ($count + 1) . ')").onclick = function(event){
+                        window.location.href = "' . $configPath . 'PHP/related_results.php?narasumber=' . urlencode($element) . '";
+                        event.stopPropagation();
+                        };
+                      </script>';
                 $count++;
             }
+            echo '</div>';
+
             echo '</div>';
             echo '</div>';
             echo '</li>';
