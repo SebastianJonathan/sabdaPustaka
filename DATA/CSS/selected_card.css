@@ -156,6 +156,18 @@ h3 {
   text-align: center;
 }
 
+.event-link{
+  text-decoration: none;
+  color: #1481BA;
+  font-weight: 600;
+}
+
+.event-link:hover{
+  color: #2F2D2F;
+  text-decoration: underline;
+}
+
+
 .narsum-link{
   text-decoration: none;
   color: #1481BA;
