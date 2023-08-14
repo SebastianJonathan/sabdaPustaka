@@ -196,6 +196,12 @@ function PageRel(pageNumber) {
                     currPageRel -= 1;
                 }
             }
+            else if(pageNumber == "<<"){
+                currPage = 1;
+            }
+            else if(pageNumber == ">>"){
+                currPage = maxPage;
+            }
             else{
                 currPageRel = pageNumber;
             }
@@ -228,6 +234,9 @@ function setPagiRel(){
     pagiUl.className = "pagination"
 
     // Mengisi Pagination
+
+    pagiUl.appendChild(PageRel("<<"));
+
     if ((currPageRel - 1) > 0){
         pagiUl.appendChild(PageRel("Prev"));
     }
@@ -246,6 +255,9 @@ function setPagiRel(){
     if ((currPageRel + 1) < maxPageRel ){
         pagiUl.appendChild(PageRel("Next"));
     }
+
+    pagiUl.appendChild(PageRel(">>"));
+
     
     pagiUl.appendChild(PageRel("Show All"));
     pagiCont.appendChild(pagiUl);
