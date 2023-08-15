@@ -14,6 +14,21 @@ $('.fsc input[type=checkbox]').change(function() {
     updateFields();
 });
 
+var errorConn = false;
+
+function errorConnHandling(){
+    if (!errorConn){
+        alert("Terjadi Kesalahan dalam Koneksi Data");
+        location.reload();
+    }
+    errorConn = true;
+}
+
+function errorConnNoMore(){
+    errorConn = false;
+}
+
+
 if (sessionStorage.getItem('checkboxJudul') === 'true') {
     document.getElementById('checkbox_judul').checked = true;
     document.getElementById('fsv-checkbox_judul').checked = true;
@@ -343,10 +358,9 @@ function generateEventLinks() {
     )
     .then(data => {
         if (data.result === "E-CONN"){
-            // location.href = configPath+"PHP/errorConn.php";
-            alert("Terjadi Kesalahan dalam Koneksi Data");
-            location.reload();
+            errorConnHandling();
         }else{
+            errorConnNoMore();
             data.result.forEach(function (event) {
                 const eventUrl = configPath + 'PHP/related_results.php?event=' + encodeURIComponent(event);
                 const eventDiv = document.createElement('li');
@@ -375,10 +389,9 @@ function generateNarasumberLinks() {
     .then(response => response.json())
     .then(data => {
         if (data.result === "E-CONN"){
-            // location.href = configPath+"PHP/errorConn.php";
-            alert("Terjadi Kesalahan dalam Koneksi Data");
-            location.reload();
+            errorConnHandling();
         }else{
+            errorConnNoMore();
             data.result.forEach(function (narasumber) {
                 const narasumberUrl = configPath + 'PHP/related_results.php?narasumber=' + encodeURIComponent(narasumber);
                 const narasumberDiv = document.createElement('li');

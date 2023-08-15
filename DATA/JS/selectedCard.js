@@ -1,3 +1,17 @@
+var errorConn = false;
+
+function errorConnHandling(){
+    if (!errorConn){
+        alert("Terjadi Kesalahan dalam Koneksi Data");
+        location.reload();
+    }
+    errorConn = true;
+}
+
+function errorConnNoMore(){
+    errorConn = false;
+}
+
 const keywordLinks = document.querySelectorAll('.keyword-link');
 keywordLinks.forEach(link => {
     link.addEventListener('click', (e) => {
@@ -90,9 +104,9 @@ function fetchRelatedDocuments() {
     .then(response => response.text())
     .then(data => {
         if (data === "E-CONN"){
-            window.alert("Terjadi Kesalahan dalam Koneksi Data");
-            location.reload;
+            errorConnHandling();
         }else{
+            errorConnNoMore();
             const relatedResultsContainer = document.getElementById('related-results-container');
             relatedResultsContainer.innerHTML = data;
         }
@@ -110,9 +124,9 @@ function fetchRelatedJudul() {
     .then(response => response.text())
     .then(data => {
         if (data === "E-CONN"){
-            window.alert("Terjadi Kesalahan dalam Koneksi Data");
-            location.reload;
+            errorConnHandling();
         }else{
+            errorConnNoMore();
             const relatedResultsContainer = document.getElementById('related-judul-container');
             relatedResultsContainer.innerHTML = data;
         }

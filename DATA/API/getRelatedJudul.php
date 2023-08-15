@@ -3,6 +3,7 @@ include '../CONFIG/config.php';
 $url = $configElasticPath . $indexName . '/_search';
 include 'query.php';
 
+
 if (isset($_GET['document_id'])) {
     $documentId = $_GET['document_id'];
 

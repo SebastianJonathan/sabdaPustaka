@@ -18,10 +18,18 @@ var currPage = 1;
 var maxPage = 1;
 var showAll = false;
 
+var errorConn = false;
+
 function errorConnHandling(){
-    // location.href = configPath+"PHP/errorConn.php";
-    alert("Terjadi Kesalahan dalam Koneksi Data");
-    location.reload();
+    if (!errorConn){
+        alert("Terjadi Kesalahan dalam Koneksi Data");
+        location.reload();
+    }
+    errorConn = true;
+}
+
+function errorConnNoMore(){
+    errorConn = false;
 }
 
 function setMaxPage(total_data){
@@ -296,6 +304,7 @@ function fetchSearchFilterResult2() {
                 // location.href = configPath+"PHP/errorConn.php";
                 errorConnHandling();
             }else{
+                errorConnNoMore();
                 const cardResultElement = document.getElementById('card_result');
                 cardResultElement.innerHTML = '';
 
@@ -415,6 +424,7 @@ function fetchSearchFilterResult() {
                 // location.href = configPath+"PHP/errorConn.php";
                 errorConnHandling();
             }else{
+                errorConnNoMore();
                 const cardResultElement = document.getElementById('card_result');
                 cardResultElement.innerHTML = '';
 
@@ -531,6 +541,7 @@ function fetchNewest() {
                 // location.href = configPath+"PHP/errorConn.php";
                 errorConnHandling();
             }else{
+                errorConnNoMore();
                 const cardResultElement = document.getElementById('card_result');
                 cardResultElement.innerHTML = '';
                 if (data.hasil.length > 0) {
@@ -707,7 +718,7 @@ function fetchSearchResult() {
                 // location.href = configPath+"PHP/errorConn.php";
                 errorConnHandling();
             }else{
-                // console.log(data.result.total);
+                errorConnNoMore();
                 setMaxPage(data.result.total);
 
                 const cardResultElement = document.getElementById('card_result');
@@ -973,9 +984,9 @@ function fetchSearchResult2() {
         .then(response => response.json())
         .then(data => {
             if (data.result === "E-CONN"){
-                // location.href = configPath+"PHP/errorConn.php";
                 errorConnHandling();
             }else{
+                errorConnNoMore();
                 setMaxPage(data.result.total);
 
                 const cardResultElement = document.getElementById('card_result');
