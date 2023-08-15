@@ -18,8 +18,9 @@ var errorConn = false;
 
 function errorConnHandling(){
     if (!errorConn){
-        alert("Terjadi Kesalahan dalam Koneksi Data");
-        location.reload();
+        // alert("Terjadi Kesalahan dalam Koneksi Data");
+        // location.reload();
+        location.href = configPath + "PHP/errorConn.php";
     }
     errorConn = true;
 }
