@@ -24,21 +24,27 @@
     ];
     $query = json_encode($params);
     $response = query($url, $query);
-    $hits = $response['hits']['hits'];
 
-    $hasil = array();
+    if ($response === "E-CONN"){
+        echo json_encode(['hasil' => $response]);
+    }else{
 
-    foreach ($hits as $hit) {
-        $source = $hit['_source'];
-        $youtubeUrl = isset($source['url_youtube']) ? $source['url_youtube'] : '';
-        $hasil[] = [
-            'event' => $source['event'],
-            'narasumber' => $source['narasumber'],
-            'judul' => $source['judul'],
-            'deskripsi_pendek' => $source['deskripsi_pendek'],
-            'id' => $hit['_id'],
-            'youtube' => $youtubeUrl
-        ];
+        $hits = $response['hits']['hits'];
+
+        $hasil = array();
+
+        foreach ($hits as $hit) {
+            $source = $hit['_source'];
+            $youtubeUrl = isset($source['url_youtube']) ? $source['url_youtube'] : '';
+            $hasil[] = [
+                'event' => $source['event'],
+                'narasumber' => $source['narasumber'],
+                'judul' => $source['judul'],
+                'deskripsi_pendek' => $source['deskripsi_pendek'],
+                'id' => $hit['_id'],
+                'youtube' => $youtubeUrl
+            ];
+        }
+        echo json_encode(['hasil' => $hasil]);
     }
-    echo json_encode(['hasil' => $hasil]);
 ?>

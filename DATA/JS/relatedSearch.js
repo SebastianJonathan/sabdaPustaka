@@ -3,9 +3,14 @@ if (keyword) {
         .then(response => response.json())
         .then(data => {
             const hasil = data.hasil;
-
+            if (hasil === "E-CONN"){
+                window.alert("Terjadi Kesalahan dalam Koneksi Data");
+                location.reload;
+            }else{
+                showResults(hasil);
+            }
             // Display the results
-            showResults(hasil);
+            
         })
         .catch(error => {
             console.error(error);
@@ -72,10 +77,12 @@ if (narsum) {
         .then(response => response.json())
         .then(data => {
             const hasil = data.hasil;
-
-            // Display the results
-            console.log(data);
-            showResults(hasil);
+            if (hasil === "E-CONN"){
+                window.alert("Terjadi Kesalahan dalam Koneksi Data");
+                location.reload;
+            }else{
+                showResults(hasil);
+            }
         })
         .catch(error => {
             console.error(error);
@@ -91,10 +98,14 @@ if (event_) {
         .then(response => response.json())
         .then(data => {
             const hasil = data.hasil;
-
+            if (hasil === "E-CONN"){
+                window.alert("Terjadi Kesalahan dalam Koneksi Data");
+                location.reload;
+            }else{
             // Display the results
-            console.log(data);
-            showResults(hasil);
+            // console.log(data);
+                showResults(hasil);
+            }
         })
         .catch(error => {
             console.error(error);
@@ -118,9 +129,13 @@ if (eventParam) {
         .then(response => response.json())
         .then(data => {
             const hasil = data.hasil;
-
+            if (hasil === "E-CONN"){
+                window.alert("Terjadi Kesalahan dalam Koneksi Data");
+                location.reload;
+            }else{
             // Display the results
-            showResults(hasil);
+                showResults(hasil);
+            }
         })
         .catch(error => {
             console.error(error);
@@ -135,9 +150,12 @@ if (narsumParam) {
         .then(response => response.json())
         .then(data => {
             const hasil = data.hasil;
-            $narsumparam = narsumParam;
-
-            showResults(hasil);
+            if (hasil === "E-CONN"){
+                window.alert("Terjadi Kesalahan dalam Koneksi Data");
+                location.reload;
+            }else{
+                showResults(hasil);
+            }
         })
         .catch(error => {
             console.error(error);

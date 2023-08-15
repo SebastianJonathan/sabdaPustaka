@@ -1,12 +1,10 @@
 <?php
 include '../CONFIG/config.php';
+$url = $configElasticPath . $indexName . '/_search';
+include 'query.php';
+
 if (isset($_GET['document_id'])) {
     $documentId = $_GET['document_id'];
-
-    // Set up Elasticsearch connection
-    $hostPort = $configElasticPath;
-    $index = $indexName;
-    $url = "{$hostPort}{$index}/_search";
 
     // Prepare the query parameters
     $params = [
@@ -15,7 +13,7 @@ if (isset($_GET['document_id'])) {
                 'fields' => ['judul'], // Adjust the fields based on your preference
                 'like' => [
                     [
-                        '_index' => $index,
+                        '_index' => $indexName,
                         '_id' => $documentId
                     ]
                 ],
@@ -27,84 +25,76 @@ if (isset($_GET['document_id'])) {
         'size' => 4 // Adjust the number of related documents to retrieve
     ];
 
-    // Execute the Elasticsearch query
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json',
-        'Content-Length: ' . strlen(json_encode($params))
-    ]);
-    $response = curl_exec($ch);
-    curl_close($ch);
-
-    // Parse the Elasticsearch response
-    $result = json_decode($response, true);
+    $query = json_encode($params);
+    $response = query($url, $query);
 
     // Extract the related documents
-    $relatedDocuments = $result['hits']['hits'];
 
-    if (sizeof($relatedDocuments) > 0){
-        echo '<h3>Judul Terkait</h3>';
-        echo '<div class = "_cards-container">';
-        echo '<div class = "main">';
-        echo '<ul class = "_cards" id="card_result">';
-    
-        // Output the related documents
-        foreach ($relatedDocuments as $document) {
-            $event = $document['_source']['event'];
-            $judul = $document['_source']['judul'];
-            $narasumber = $document['_source']['narasumber'];
-    
-            echo '<li class="_cards_item">';
-            echo '<div class="_card" onclick="window.location.href=\'selected_card.php?document_id=' . $document['_id'] . '\'">';
-            echo '<div class="_card_image">';
-            
-            if (isset($document['_source']['url_youtube'])) {
-                $youtubeUrl = $document['_source']['url_youtube'];
-                $videoId = getYoutubeVideoId($youtubeUrl);
-                if ($videoId) {
-                    $thumbnailUrl = 'https://img.youtube.com/vi/' . $videoId . '/hqdefault.jpg';
-                    echo '<img src="' . $thumbnailUrl . '" alt="Card Image">';
+    if ($response === "E-CONN"){
+        echo $response;
+    }else{
+        $relatedDocuments = $response['hits']['hits'];
+
+        if (sizeof($relatedDocuments) > 0){
+            echo '<h3>Judul Terkait</h3>';
+            echo '<div class = "_cards-container">';
+            echo '<div class = "main">';
+            echo '<ul class = "_cards" id="card_result">';
+        
+            // Output the related documents
+            foreach ($relatedDocuments as $document) {
+                $event = $document['_source']['event'];
+                $judul = $document['_source']['judul'];
+                $narasumber = $document['_source']['narasumber'];
+        
+                echo '<li class="_cards_item">';
+                echo '<div class="_card" onclick="window.location.href=\'selected_card.php?document_id=' . $document['_id'] . '\'">';
+                echo '<div class="_card_image">';
+                
+                if (isset($document['_source']['url_youtube'])) {
+                    $youtubeUrl = $document['_source']['url_youtube'];
+                    $videoId = getYoutubeVideoId($youtubeUrl);
+                    if ($videoId) {
+                        $thumbnailUrl = 'https://img.youtube.com/vi/' . $videoId . '/hqdefault.jpg';
+                        echo '<img src="' . $thumbnailUrl . '" alt="Card Image">';
+                    }
                 }
-            }
-            
-            echo '</div>';
-            echo '<div class="_card_content">';
-            echo '<a class="_card_text" href="' . $configPath . 'PHP/related_results.php?event=' . urlencode($event) . '" style="text-decoration: none;">' . $event . '</a>';
-            echo '<h2 class="_card_title">' . $judul . '</h2>';
-            // echo '<p class="_card_text">' . $narasumber . '</p>';
+                
+                echo '</div>';
+                echo '<div class="_card_content">';
+                echo '<a class="_card_text" href="' . $configPath . 'PHP/related_results.php?event=' . urlencode($event) . '" style="text-decoration: none;">' . $event . '</a>';
+                echo '<h2 class="_card_title">' . $judul . '</h2>';
+                // echo '<p class="_card_text">' . $narasumber . '</p>';
 
-            // narasumber
-            $narasumberArray = explode(', ', $narasumber); // Split values into an array
-            echo '<div style="display: block;" id="divNarsum">';
-            $count = 0;
-            $totalNarasumbers = count($narasumberArray);
-            
-            foreach ($narasumberArray as $element) {
-                echo '<a class="_card_text" href="' . $configPath . 'php/related_results.php?narasumber=' . urlencode($element) . '" style="text-decoration: none;">';
-            
-                echo $element;
-            
-                if ($count < $totalNarasumbers - 1) {
-                    echo ',';
+                // narasumber
+                $narasumberArray = explode(', ', $narasumber); // Split values into an array
+                echo '<div style="display: block;" id="divNarsum">';
+                $count = 0;
+                $totalNarasumbers = count($narasumberArray);
+                
+                foreach ($narasumberArray as $element) {
+                    echo '<a class="_card_text" href="' . $configPath . 'php/related_results.php?narasumber=' . urlencode($element) . '" style="text-decoration: none;">';
+                
+                    echo $element;
+                
+                    if ($count < $totalNarasumbers - 1) {
+                        echo ',';
+                    }
+                
+                    echo '</a>';
+                
+                    $count++;
                 }
-            
-                echo '</a>';
-            
-                $count++;
-            }
 
+                echo '</div>';
+                echo '</div>';
+                echo '</li>';
+            }
             echo '</div>';
             echo '</div>';
-            echo '</li>';
+            echo '</div>';
+        
         }
-        echo '</div>';
-        echo '</div>';
-        echo '</div>';
-    
     }
 
 

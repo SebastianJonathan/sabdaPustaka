@@ -41,7 +41,7 @@
             $query2 = json_encode($params2);
             $response2 = query($url, $query2);
             if ($response2 === "E-CONN"){
-                echo json_encode(['result' => $response]);
+                echo json_encode(['result' => $response2]);
             }else{
                 $totalHits = 0;
                 foreach($response2['hits']['hits'] as $datas){
@@ -162,7 +162,7 @@
             $query2 = json_encode($params2);
             $response2 = query($url, $query2);
             if ($response2 === "E-CONN"){
-                echo json_encode(['result' => $response]);
+                echo json_encode(['result' => $response2]);
             }else{
                 $totalHits = 0;
                 foreach($response2['hits']['hits'] as $datas){
@@ -309,7 +309,7 @@
             $query2 = json_encode($params2);
             $response2 = query($url, $query2);
             if ($response2 === "E-CONN"){
-                echo json_encode(['result' => $response]);
+                echo json_encode(['result' => $response2]);
             }else{
                 $totalHits = 0;
                 foreach($response2['hits']['hits'] as $datas){

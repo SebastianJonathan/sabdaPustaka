@@ -25,25 +25,28 @@ $params = [
 
 $query = json_encode($params);
 $response = query($url, $query);
-
+if ($response === "E-CONN"){
+    echo json_encode(['hasil' => $response]);
+}else{
 // Extract search results
-$hits = $response['hits']['hits'];
-$hasil = [];
+    $hits = $response['hits']['hits'];
+    $hasil = [];
 
-foreach ($hits as $hit) {
-    $source = $hit['_source'];
-    $youtubeUrl = isset($source['url_youtube']) ? $source['url_youtube'] : '';
+    foreach ($hits as $hit) {
+        $source = $hit['_source'];
+        $youtubeUrl = isset($source['url_youtube']) ? $source['url_youtube'] : '';
 
-    $hasil[] = [
-        'event' => $source['event'],
-        'narasumber' => $source['narasumber'],
-        'judul' => $source['judul'],
-        'deskripsi_pendek' => $source['deskripsi_pendek'],
-        'id' => $hit['_id'],
-        'youtube' => $youtubeUrl,
-    ];
+        $hasil[] = [
+            'event' => $source['event'],
+            'narasumber' => $source['narasumber'],
+            'judul' => $source['judul'],
+            'deskripsi_pendek' => $source['deskripsi_pendek'],
+            'id' => $hit['_id'],
+            'youtube' => $youtubeUrl,
+        ];
+    }
+
+    // Echo the search results
+    echo json_encode(['hasil' => $hasil]);
 }
-
-// Echo the search results
-echo json_encode(['hasil' => $hasil]);
 ?>

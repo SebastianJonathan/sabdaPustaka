@@ -343,7 +343,9 @@ function generateEventLinks() {
     )
     .then(data => {
         if (data.result === "E-CONN"){
-            location.href = configPath+"PHP/errorConn.php";
+            // location.href = configPath+"PHP/errorConn.php";
+            alert("Terjadi Kesalahan dalam Koneksi Data");
+            location.reload();
         }else{
             data.result.forEach(function (event) {
                 const eventUrl = configPath + 'PHP/related_results.php?event=' + encodeURIComponent(event);
@@ -373,7 +375,9 @@ function generateNarasumberLinks() {
     .then(response => response.json())
     .then(data => {
         if (data.result === "E-CONN"){
-            location.href = configPath+"PHP/errorConn.php";
+            // location.href = configPath+"PHP/errorConn.php";
+            alert("Terjadi Kesalahan dalam Koneksi Data");
+            location.reload();
         }else{
             data.result.forEach(function (narasumber) {
                 const narasumberUrl = configPath + 'PHP/related_results.php?narasumber=' + encodeURIComponent(narasumber);

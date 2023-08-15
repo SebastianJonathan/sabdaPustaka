@@ -89,8 +89,13 @@ function fetchRelatedDocuments() {
     fetch(configPath + `API/getRelated.php?document_id=${encodeURIComponent(documentId)}`)
     .then(response => response.text())
     .then(data => {
-        const relatedResultsContainer = document.getElementById('related-results-container');
-        relatedResultsContainer.innerHTML = data;
+        if (data === "E-CONN"){
+            window.alert("Terjadi Kesalahan dalam Koneksi Data");
+            location.reload;
+        }else{
+            const relatedResultsContainer = document.getElementById('related-results-container');
+            relatedResultsContainer.innerHTML = data;
+        }
     })
     .catch(error => {
         console.error(error);
@@ -104,8 +109,13 @@ function fetchRelatedJudul() {
     fetch(configPath + `API/getRelatedJudul.php?document_id=${encodeURIComponent(documentId)}`)
     .then(response => response.text())
     .then(data => {
-        const relatedResultsContainer = document.getElementById('related-judul-container');
-        relatedResultsContainer.innerHTML = data;
+        if (data === "E-CONN"){
+            window.alert("Terjadi Kesalahan dalam Koneksi Data");
+            location.reload;
+        }else{
+            const relatedResultsContainer = document.getElementById('related-judul-container');
+            relatedResultsContainer.innerHTML = data;
+        }
     })
     .catch(error => {
         console.error(error);

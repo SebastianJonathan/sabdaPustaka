@@ -293,7 +293,8 @@ function fetchSearchFilterResult2() {
         .then(response => response.json())
         .then(data => {
             if (data.result === "E-CONN"){
-                location.href = configPath+"PHP/errorConn.php";
+                // location.href = configPath+"PHP/errorConn.php";
+                errorConnHandling();
             }else{
                 const cardResultElement = document.getElementById('card_result');
                 cardResultElement.innerHTML = '';
@@ -410,138 +411,19 @@ function fetchSearchFilterResult() {
         })
         .then(response => response.json())
         .then(data => {
-            const cardResultElement = document.getElementById('card_result');
-            cardResultElement.innerHTML = '';
+            if (data.result === "E-CONN"){
+                // location.href = configPath+"PHP/errorConn.php";
+                errorConnHandling();
+            }else{
+                const cardResultElement = document.getElementById('card_result');
+                cardResultElement.innerHTML = '';
 
-            data.result.data.forEach(function (item) {
-                const cardItem = document.createElement('li');
-                cardItem.className = '_cards_item';
-
-                const card = document.createElement('div');
-                card.className = '_card';
-                card.setAttribute('onclick', `window.location.href='${configPath}PHP/selected_card.php?document_id=${item.id}'`);
-
-                const cardImage = document.createElement('div');
-                cardImage.className = '_card_image';
-
-                if (item.youtube) {
-                    const youtubeUrl = item.youtube;
-                    const videoId = getYoutubeVideoId(youtubeUrl);
-                    if (videoId) {
-                        const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-                        const thumbnailImg = document.createElement('img');
-                        thumbnailImg.src = thumbnailUrl;
-                        cardImage.appendChild(thumbnailImg);
-                    }
-                }
-
-                const cardContent = document.createElement('div');
-                cardContent.className = '_card_content';
-
-                const cardEvent = document.createElement('a');
-                cardEvent.className = '_card_text';
-                cardEvent.textContent = item.event;
-                cardEvent.onclick = function(event){
-                    window.location.href = configPath+'PHP/related_results.php?event='+item.event;
-                    event.stopPropagation();
-                }
-                cardEvent.style.textDecoration = 'none';
-
-                const cardTitle = document.createElement('h2');
-                cardTitle.className = '_card_title';
-                cardTitle.textContent = item.judul;
-
-                // Append the card content to the card element
-                card.appendChild(cardImage);
-                card.appendChild(cardContent);
-
-                cardContent.appendChild(cardEvent);
-                cardContent.appendChild(cardTitle);
-                const divNarsum = document.createElement('div');
-                var count = 0;
-                fetchNarsum(item.narasumber).forEach(element => {
-                    const cardText = document.createElement('a');
-                    cardText.className = '_card_text';
-                    if(fetchNarsum(item.narasumber).length - 1 == count){
-                        cardText.textContent = element;
-                    }else{
-                        cardText.textContent = element + ", ";
-                    }
-                    count++;
-                    cardText.onclick = function(event){
-                        window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
-                        event.stopPropagation();
-                    }
-                    cardText.style.textDecoration = 'none';
-                    divNarsum.appendChild(cardText);
-                });
-                divNarsum.style.display = 'block'
-                cardContent.appendChild(divNarsum);
-
-                cardItem.appendChild(card);
-                cardResultElement.appendChild(cardItem);
-            });
-            fopen_narasumber.innerHTML = '';
-            fcolumn_narasumber.innerHTML = '';
-            fopen_event.innerHTML = '';
-            fcolumn_event.innerHTML = '';
-            fopen_tgl.innerHTML = '';
-            fcolumn_tgl.innerHTML = '';
-
-            if(data.result.narasumber.length > 0){
-                data.result.narasumber.forEach(function (item,index){
-                    createCheckbox("ffv-n" + index,item,fopen_narasumber,data.result.countNarasumber);
-                    createCheckbox("ffc-n" + index,item,fcolumn_narasumber,data.result.countNarasumber);
-                });
-            }
-            if(data.result.event.length > 0){
-                data.result.event.forEach(function (item,index){
-                    createCheckbox("ffv-e" + index,item,fopen_event,data.result.countEvent);
-                    createCheckbox("ffc-e" + index,item,fcolumn_event,data.result.countEvent);
-                });
-            }
-            if(data.result.tahun.length > 0){
-                data.result.tahun.forEach(function (item,index){
-                    createCheckbox("ffv-t" + index,item.substring(0,4),fopen_tgl,data.result.countTahun);
-                    createCheckbox("ffc-t" + index,item.substring(0,4),fcolumn_tgl,data.result.countTahun);
-                });
-            }
-        })
-        .catch(error => {
-        // Handle any errors
-        console.error(error);
-        });
-    }
-}
-
-
-function fetchNewest() {
-    try {
-        const main = document.getElementById('main');
-        fetch(configPath + 'API/getNewest.php')
-        .then(response => response.json())
-        .then(data => {
-            const cardResultElement = document.getElementById('card_result');
-            cardResultElement.innerHTML = '';
-            if (data.hasil.length > 0) {
-                hs_head.innerHTML = ''; 
-                counter = 0;                
-                data.hasil.forEach(function (item) {
-                    counter = counter + 1;
-
-                    hs_head.innerHTML = '';
-                    const hs_head_t = document.createElement('h5');
-                    hs_head_t.textContent = "Terkini:";
-                    hs_head_t.style.fontWeight = "bold";
-                    hs_head.appendChild(hs_head_t);    
-
+                data.result.data.forEach(function (item) {
                     const cardItem = document.createElement('li');
                     cardItem.className = '_cards_item';
 
                     const card = document.createElement('div');
                     card.className = '_card';
-                    card.id = "_card_"+counter;
-
                     card.setAttribute('onclick', `window.location.href='${configPath}PHP/selected_card.php?document_id=${item.id}'`);
 
                     const cardImage = document.createElement('div');
@@ -603,38 +485,167 @@ function fetchNewest() {
 
                     cardItem.appendChild(card);
                     cardResultElement.appendChild(cardItem);
+                });
+                fopen_narasumber.innerHTML = '';
+                fcolumn_narasumber.innerHTML = '';
+                fopen_event.innerHTML = '';
+                fcolumn_event.innerHTML = '';
+                fopen_tgl.innerHTML = '';
+                fcolumn_tgl.innerHTML = '';
 
+                if(data.result.narasumber.length > 0){
+                    data.result.narasumber.forEach(function (item,index){
+                        createCheckbox("ffv-n" + index,item,fopen_narasumber,data.result.countNarasumber);
+                        createCheckbox("ffc-n" + index,item,fcolumn_narasumber,data.result.countNarasumber);
+                    });
+                }
+                if(data.result.event.length > 0){
+                    data.result.event.forEach(function (item,index){
+                        createCheckbox("ffv-e" + index,item,fopen_event,data.result.countEvent);
+                        createCheckbox("ffc-e" + index,item,fcolumn_event,data.result.countEvent);
+                    });
+                }
+                if(data.result.tahun.length > 0){
+                    data.result.tahun.forEach(function (item,index){
+                        createCheckbox("ffv-t" + index,item.substring(0,4),fopen_tgl,data.result.countTahun);
+                        createCheckbox("ffc-t" + index,item.substring(0,4),fcolumn_tgl,data.result.countTahun);
+                    });
+                }
+            }
+        })
+        .catch(error => {
+        // Handle any errors
+        console.error(error);
+        });
+    }
+}
+
+
+function fetchNewest() {
+    try {
+        const main = document.getElementById('main');
+        fetch(configPath + 'API/getNewest.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.result === "E-CONN"){
+                // location.href = configPath+"PHP/errorConn.php";
+                errorConnHandling();
+            }else{
+                const cardResultElement = document.getElementById('card_result');
+                cardResultElement.innerHTML = '';
+                if (data.hasil.length > 0) {
+                    hs_head.innerHTML = ''; 
+                    counter = 0;                
+                    data.hasil.forEach(function (item) {
+                        counter = counter + 1;
+
+                        hs_head.innerHTML = '';
+                        const hs_head_t = document.createElement('h5');
+                        hs_head_t.textContent = "Terkini:";
+                        hs_head_t.style.fontWeight = "bold";
+                        hs_head.appendChild(hs_head_t);    
+
+                        const cardItem = document.createElement('li');
+                        cardItem.className = '_cards_item';
+
+                        const card = document.createElement('div');
+                        card.className = '_card';
+                        card.id = "_card_"+counter;
+
+                        card.setAttribute('onclick', `window.location.href='${configPath}PHP/selected_card.php?document_id=${item.id}'`);
+
+                        const cardImage = document.createElement('div');
+                        cardImage.className = '_card_image';
+
+                        if (item.youtube) {
+                            const youtubeUrl = item.youtube;
+                            const videoId = getYoutubeVideoId(youtubeUrl);
+                            if (videoId) {
+                                const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                                const thumbnailImg = document.createElement('img');
+                                thumbnailImg.src = thumbnailUrl;
+                                cardImage.appendChild(thumbnailImg);
+                            }
+                        }
+
+                        const cardContent = document.createElement('div');
+                        cardContent.className = '_card_content';
+
+                        const cardEvent = document.createElement('a');
+                        cardEvent.className = '_card_text';
+                        cardEvent.textContent = item.event;
+                        cardEvent.onclick = function(event){
+                            window.location.href = configPath+'PHP/related_results.php?event='+item.event;
+                            event.stopPropagation();
+                        }
+                        cardEvent.style.textDecoration = 'none';
+
+                        const cardTitle = document.createElement('h2');
+                        cardTitle.className = '_card_title';
+                        cardTitle.textContent = item.judul;
+
+                        // Append the card content to the card element
+                        card.appendChild(cardImage);
+                        card.appendChild(cardContent);
+
+                        cardContent.appendChild(cardEvent);
+                        cardContent.appendChild(cardTitle);
+                        const divNarsum = document.createElement('div');
+                        var count = 0;
+                        fetchNarsum(item.narasumber).forEach(element => {
+                            const cardText = document.createElement('a');
+                            cardText.className = '_card_text';
+                            if(fetchNarsum(item.narasumber).length - 1 == count){
+                                cardText.textContent = element;
+                            }else{
+                                cardText.textContent = element + ", ";
+                            }
+                            count++;
+                            cardText.onclick = function(event){
+                                window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
+                                event.stopPropagation();
+                            }
+                            cardText.style.textDecoration = 'none';
+                            divNarsum.appendChild(cardText);
+                        });
+                        divNarsum.style.display = 'block'
+                        cardContent.appendChild(divNarsum);
+
+                        cardItem.appendChild(card);
+                        cardResultElement.appendChild(cardItem);
+
+                        FilterColumnCanvas.innerHTML = '';
+                        FilterOpenCanvas.innerHTML = '';
+                    });
+                } else {
                     FilterColumnCanvas.innerHTML = '';
                     FilterOpenCanvas.innerHTML = '';
-                });
-            } else {
-                FilterColumnCanvas.innerHTML = '';
-                FilterOpenCanvas.innerHTML = '';
 
-                hs_head.innerHTML = '';
-                const hs_head_t = document.createElement('h5');
-                hs_head_t.textContent = "No Results Found";
-                hs_head_t.style.fontWeight = "bold";
-                hs_head.appendChild(hs_head_t);  
+                    hs_head.innerHTML = '';
+                    const hs_head_t = document.createElement('h5');
+                    hs_head_t.textContent = "No Results Found";
+                    hs_head_t.style.fontWeight = "bold";
+                    hs_head.appendChild(hs_head_t);  
+                }
+
+                const showAllDiv = document.createElement('div');
+                showAllDiv.setAttribute("style", "display: flex; justify-content: center; margin-top: 15px;");
+
+                const showAllBtn = document.createElement('button');
+                showAllBtn.type = "button";
+                showAllBtn.className = "button";
+                showAllBtn.style.maxWidth = "210px";
+                showAllBtn.style.width = "200px";
+                showAllBtn.style.height = "40px";
+                showAllBtn.textContent = "Tampilkan Semua Data";
+                showAllBtn.style.backgroundColor = "#1e0049";
+                showAllBtn.style.color= "white";
+                showAllBtn.onclick = function(){
+                    window.location.href = configPath + "PHP/home.php/search/ ";
+                }
+                showAllDiv.appendChild(showAllBtn);
+                main.appendChild(showAllDiv);
             }
-
-            const showAllDiv = document.createElement('div');
-            showAllDiv.setAttribute("style", "display: flex; justify-content: center; margin-top: 15px;");
-
-            const showAllBtn = document.createElement('button');
-            showAllBtn.type = "button";
-            showAllBtn.className = "button";
-            showAllBtn.style.maxWidth = "210px";
-            showAllBtn.style.width = "200px";
-            showAllBtn.style.height = "40px";
-            showAllBtn.textContent = "Tampilkan Semua Data";
-            showAllBtn.style.backgroundColor = "#1e0049";
-            showAllBtn.style.color= "white";
-            showAllBtn.onclick = function(){
-                window.location.href = configPath + "PHP/home.php/search/ ";
-            }
-            showAllDiv.appendChild(showAllBtn);
-            main.appendChild(showAllDiv);
         })
         
     } catch (error) {
@@ -692,220 +703,225 @@ function fetchSearchResult() {
         })
         .then(response => response.json())
         .then(data => {
-            // console.log(data.result.total);
-            setMaxPage(data.result.total);
+            if (data.result === "E-CONN"){
+                // location.href = configPath+"PHP/errorConn.php";
+                errorConnHandling();
+            }else{
+                // console.log(data.result.total);
+                setMaxPage(data.result.total);
 
-            const cardResultElement = document.getElementById('card_result');
-            cardResultElement.classList.remove('container-list');
-            cardResultElement.innerHTML = '';
-            if (data.result.data_result.length > 0) {
-                                    
-                setHeadSearch(query,data.result.total);
-                setPagination();
+                const cardResultElement = document.getElementById('card_result');
+                cardResultElement.classList.remove('container-list');
+                cardResultElement.innerHTML = '';
+                if (data.result.data_result.length > 0) {
+                                        
+                    setHeadSearch(query,data.result.total);
+                    setPagination();
 
-                // FOR EACH
-                data.result.data_result.forEach(function (item) {
+                    // FOR EACH
+                    data.result.data_result.forEach(function (item) {
 
-                const cardItem = document.createElement('li');
-                cardItem.className = '_cards_item';
+                    const cardItem = document.createElement('li');
+                    cardItem.className = '_cards_item';
 
-                const card = document.createElement('div');
-                card.className = '_card';
-                card.setAttribute('onclick', `window.location.href='${configPath}PHP/selected_card.php?document_id=${item.id}'`);
+                    const card = document.createElement('div');
+                    card.className = '_card';
+                    card.setAttribute('onclick', `window.location.href='${configPath}PHP/selected_card.php?document_id=${item.id}'`);
 
-                const cardImage = document.createElement('div');
-                cardImage.className = '_card_image';
+                    const cardImage = document.createElement('div');
+                    cardImage.className = '_card_image';
 
-                if (item.youtube) {
-                    const youtubeUrl = item.youtube;
-                    const videoId = getYoutubeVideoId(youtubeUrl);
-                    if (videoId) {
-                    const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-                    const thumbnailImg = document.createElement('img');
-                    thumbnailImg.src = thumbnailUrl;
-                    cardImage.appendChild(thumbnailImg);
+                    if (item.youtube) {
+                        const youtubeUrl = item.youtube;
+                        const videoId = getYoutubeVideoId(youtubeUrl);
+                        if (videoId) {
+                        const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                        const thumbnailImg = document.createElement('img');
+                        thumbnailImg.src = thumbnailUrl;
+                        cardImage.appendChild(thumbnailImg);
+                        }
                     }
-                }
 
-                const cardContent = document.createElement('div');
-                cardContent.className = '_card_content';
-       
-                const cardEvent = document.createElement('a');
-                cardEvent.className = '_card_text';
-                cardEvent.textContent = item.event;
-                cardEvent.onclick = function(event){
-                    window.location.href = configPath+'PHP/related_results.php?event='+item.event;
-                    event.stopPropagation();
-                }
-                cardEvent.style.textDecoration = 'none';
-
-                const cardTitle = document.createElement('h2');
-                cardTitle.className = '_card_title';
-                cardTitle.textContent = item.judul;
-
-                card.appendChild(cardImage);
-                card.appendChild(cardContent);
-
-                cardContent.appendChild(cardEvent);
-                cardContent.appendChild(cardTitle);
-                const divNarsum = document.createElement('div');
-                var count = 0;
-                fetchNarsum(item.narasumber).forEach(element => {
-                    const cardText = document.createElement('a');
-                    cardText.className = '_card_text';
-                    if(fetchNarsum(item.narasumber).length - 1 == count){
-                        cardText.textContent = element;
-                    }else{
-                        cardText.textContent = element + ", ";
-                    }
-                    count++;
-                    cardText.onclick = function(event){
-                        window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
+                    const cardContent = document.createElement('div');
+                    cardContent.className = '_card_content';
+        
+                    const cardEvent = document.createElement('a');
+                    cardEvent.className = '_card_text';
+                    cardEvent.textContent = item.event;
+                    cardEvent.onclick = function(event){
+                        window.location.href = configPath+'PHP/related_results.php?event='+item.event;
                         event.stopPropagation();
                     }
-                    cardText.style.textDecoration = 'none';
-                    divNarsum.appendChild(cardText);
-                });
-                divNarsum.style.display = 'block'
-                cardContent.appendChild(divNarsum);
+                    cardEvent.style.textDecoration = 'none';
 
-                cardItem.appendChild(card);
-                cardResultElement.appendChild(cardItem);
-            });
-            } else {
+                    const cardTitle = document.createElement('h2');
+                    cardTitle.className = '_card_title';
+                    cardTitle.textContent = item.judul;
+
+                    card.appendChild(cardImage);
+                    card.appendChild(cardContent);
+
+                    cardContent.appendChild(cardEvent);
+                    cardContent.appendChild(cardTitle);
+                    const divNarsum = document.createElement('div');
+                    var count = 0;
+                    fetchNarsum(item.narasumber).forEach(element => {
+                        const cardText = document.createElement('a');
+                        cardText.className = '_card_text';
+                        if(fetchNarsum(item.narasumber).length - 1 == count){
+                            cardText.textContent = element;
+                        }else{
+                            cardText.textContent = element + ", ";
+                        }
+                        count++;
+                        cardText.onclick = function(event){
+                            window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
+                            event.stopPropagation();
+                        }
+                        cardText.style.textDecoration = 'none';
+                        divNarsum.appendChild(cardText);
+                    });
+                    divNarsum.style.display = 'block'
+                    cardContent.appendChild(divNarsum);
+
+                    cardItem.appendChild(card);
+                    cardResultElement.appendChild(cardItem);
+                });
+                } else {
+                    FilterColumnCanvas.innerHTML = '';
+                    FilterOpenCanvas.innerHTML = '';
+
+                    hs_head.innerHTML = '';
+                    const hs_head_t = document.createElement('h5');
+                    hs_head_t.textContent = "No Results Found";
+                    hs_head_t.style.fontWeight = "bold";
+                    hs_head.appendChild(hs_head_t);  
+                }
+                    
                 FilterColumnCanvas.innerHTML = '';
                 FilterOpenCanvas.innerHTML = '';
-
-                hs_head.innerHTML = '';
-                const hs_head_t = document.createElement('h5');
-                hs_head_t.textContent = "No Results Found";
-                hs_head_t.style.fontWeight = "bold";
-                hs_head.appendChild(hs_head_t);  
-            }
-                
-            FilterColumnCanvas.innerHTML = '';
-            FilterOpenCanvas.innerHTML = '';
-            const titleFFC = document.createElement('h5');
-            titleFFC.textContent = 'Filter';
-            titleFFC.style.marginTop = '20px';
-            titleFFC.style.marginBottom = '18px';
-            titleFFC.style.fontWeight = 'bold';
-            titleFFC.style.paddingTop = '15px';
-            titleFFC.style.borderTop = '2px goldenrod solid';
-            titleFFC.style.color = 'gold';
-            FilterColumnCanvas.appendChild(titleFFC);
-
-            const titleFFV = document.createElement('h5');
-            titleFFV.textContent = 'Filter';
-            titleFFV.style.marginTop = '20px';
-            titleFFV.style.marginBottom = '20px';
-            titleFFV.style.fontWeight = 'bold';
-            titleFFV.style.paddingTop = '10px';
-            titleFFV.style.borderTop = '2px goldenrod solid';
-            titleFFV.style.color = 'gold';
-            FilterOpenCanvas.appendChild(titleFFV);
-
-            if(data.result.unique_narasumber.length > 0){
-
-                const titleFFC = document.createElement('h6');
-                titleFFC.textContent = "Narasumber";
-                titleFFC.id = "ffc-narasumber";
-                titleFFC.className = "ffc_head";
+                const titleFFC = document.createElement('h5');
+                titleFFC.textContent = 'Filter';
+                titleFFC.style.marginTop = '20px';
+                titleFFC.style.marginBottom = '18px';
+                titleFFC.style.fontWeight = 'bold';
+                titleFFC.style.paddingTop = '15px';
+                titleFFC.style.borderTop = '2px goldenrod solid';
+                titleFFC.style.color = 'gold';
                 FilterColumnCanvas.appendChild(titleFFC);
 
-                const titleFFV = document.createElement('h6');
-                titleFFV.textContent = "Narasumber";
-                titleFFV.id = "ffv-narasumber";
-                titleFFV.className = "ffv_head";
+                const titleFFV = document.createElement('h5');
+                titleFFV.textContent = 'Filter';
+                titleFFV.style.marginTop = '20px';
+                titleFFV.style.marginBottom = '20px';
+                titleFFV.style.fontWeight = 'bold';
+                titleFFV.style.paddingTop = '10px';
+                titleFFV.style.borderTop = '2px goldenrod solid';
+                titleFFV.style.color = 'gold';
                 FilterOpenCanvas.appendChild(titleFFV);
 
-                fcolumn_narasumber.innerHTML = '';
-                fcolumn_narasumber.className = "row ffc ";
-                fcolumn_narasumber.id = 'ffc-filter-naras';
-                FilterColumnCanvas.appendChild(fcolumn_narasumber);
+                if(data.result.unique_narasumber.length > 0){
 
-                fopen_narasumber.innerHTML = '';
-                fopen_narasumber.className = "row ffv";
-                fopen_narasumber.id = 'ffv-filter-naras';
-                FilterOpenCanvas.appendChild(fopen_narasumber);
+                    const titleFFC = document.createElement('h6');
+                    titleFFC.textContent = "Narasumber";
+                    titleFFC.id = "ffc-narasumber";
+                    titleFFC.className = "ffc_head";
+                    FilterColumnCanvas.appendChild(titleFFC);
 
-                data.result.unique_narasumber.forEach(function (item,index){
-                    createCheckbox("ffv-n" + index,item,fopen_narasumber,data.result.countNarasumber);
-                    createCheckbox("ffc-n" + index,item,fcolumn_narasumber,data.result.countNarasumber);
-                });
-            }
-            if(data.result.unique_event.length > 0){
-                const titleFFV = document.createElement('h6');
-                titleFFV.textContent = "Event";
-                titleFFV.id = "ffv-event";
-                titleFFV.className = "ffv_head";
-                FilterOpenCanvas.appendChild(titleFFV);
+                    const titleFFV = document.createElement('h6');
+                    titleFFV.textContent = "Narasumber";
+                    titleFFV.id = "ffv-narasumber";
+                    titleFFV.className = "ffv_head";
+                    FilterOpenCanvas.appendChild(titleFFV);
 
-                const titleFFC = document.createElement('h6');
-                titleFFC.textContent = "Event";
-                titleFFC.id = "ffc-event";
-                titleFFC.className = "ffc_head";
-                FilterColumnCanvas.appendChild(titleFFC);
+                    fcolumn_narasumber.innerHTML = '';
+                    fcolumn_narasumber.className = "row ffc ";
+                    fcolumn_narasumber.id = 'ffc-filter-naras';
+                    FilterColumnCanvas.appendChild(fcolumn_narasumber);
 
-                fcolumn_event.innerHTML = '';
-                fcolumn_event.className = "row ffc";
-                fcolumn_event.id = 'ffc-filter-event';
-                FilterColumnCanvas.appendChild(fcolumn_event);
+                    fopen_narasumber.innerHTML = '';
+                    fopen_narasumber.className = "row ffv";
+                    fopen_narasumber.id = 'ffv-filter-naras';
+                    FilterOpenCanvas.appendChild(fopen_narasumber);
 
-                fopen_event.innerHTML = '';
-                fopen_event.className = "row ffv";
-                fopen_event.id = 'ffv-filter-event';
-                FilterOpenCanvas.appendChild(fopen_event);
+                    data.result.unique_narasumber.forEach(function (item,index){
+                        createCheckbox("ffv-n" + index,item,fopen_narasumber,data.result.countNarasumber);
+                        createCheckbox("ffc-n" + index,item,fcolumn_narasumber,data.result.countNarasumber);
+                    });
+                }
+                if(data.result.unique_event.length > 0){
+                    const titleFFV = document.createElement('h6');
+                    titleFFV.textContent = "Event";
+                    titleFFV.id = "ffv-event";
+                    titleFFV.className = "ffv_head";
+                    FilterOpenCanvas.appendChild(titleFFV);
 
-                data.result.unique_event.forEach(function (item,index){
-                    createCheckbox("ffv-e" + index,item,fopen_event,data.result.countEvent);
-                    createCheckbox("ffc-e" + index,item,fcolumn_event,data.result.countEvent);
-                });
-            }
-            if(data.result.unique_tanggal.length > 0){
-                const titleFFV = document.createElement('h6');
-                titleFFV.textContent = "Tahun";
-                titleFFV.id = "ffv-tanggal";
-                titleFFV.className = "ffv_head";
-                const titleFFC = document.createElement('h6');
-                titleFFC.textContent = "Tahun";
-                titleFFC.id = "ffc-tanggal";
-                titleFFC.className = "ffc_head";
-                FilterOpenCanvas.appendChild(titleFFV);
-                FilterColumnCanvas.appendChild(titleFFC);
+                    const titleFFC = document.createElement('h6');
+                    titleFFC.textContent = "Event";
+                    titleFFC.id = "ffc-event";
+                    titleFFC.className = "ffc_head";
+                    FilterColumnCanvas.appendChild(titleFFC);
 
-                fcolumn_tgl.innerHTML = '';
-                fcolumn_tgl.className = "row ffc";
-                
-                fcolumn_tgl.id = 'ffc-filter-tgl';
-                FilterColumnCanvas.appendChild(fcolumn_tgl);
+                    fcolumn_event.innerHTML = '';
+                    fcolumn_event.className = "row ffc";
+                    fcolumn_event.id = 'ffc-filter-event';
+                    FilterColumnCanvas.appendChild(fcolumn_event);
 
-                fopen_tgl.innerHTML = '';
-                fopen_tgl.className = "row ffv";
-                fopen_tgl.id = 'ffv-filter-tgl';
-                FilterOpenCanvas.appendChild(fopen_tgl);
+                    fopen_event.innerHTML = '';
+                    fopen_event.className = "row ffv";
+                    fopen_event.id = 'ffv-filter-event';
+                    FilterOpenCanvas.appendChild(fopen_event);
 
-                data.result.unique_tanggal.forEach(function (item,index){
-                    createCheckbox("ffv-t" + index,item,fopen_tgl,data.result.countTahun);
-                    createCheckbox("ffc-t" + index,item,fcolumn_tgl,data.result.countTahun);
-                });
+                    data.result.unique_event.forEach(function (item,index){
+                        createCheckbox("ffv-e" + index,item,fopen_event,data.result.countEvent);
+                        createCheckbox("ffc-e" + index,item,fcolumn_event,data.result.countEvent);
+                    });
+                }
+                if(data.result.unique_tanggal.length > 0){
+                    const titleFFV = document.createElement('h6');
+                    titleFFV.textContent = "Tahun";
+                    titleFFV.id = "ffv-tanggal";
+                    titleFFV.className = "ffv_head";
+                    const titleFFC = document.createElement('h6');
+                    titleFFC.textContent = "Tahun";
+                    titleFFC.id = "ffc-tanggal";
+                    titleFFC.className = "ffc_head";
+                    FilterOpenCanvas.appendChild(titleFFV);
+                    FilterColumnCanvas.appendChild(titleFFC);
 
-                const clrFilterBtn = document.createElement('button');
-                clrFilterBtn.type = 'button';
-                clrFilterBtn.className = "button clrfilter_btn";
-                clrFilterBtn.textContent = 'Hapus Semua Filter';
-                clrFilterBtn.style.color = 'black';
-                clrFilterBtn.onclick = clrAllFilterCheckbox;
-                FilterOpenCanvas.appendChild(clrFilterBtn);
-                FilterOpenCanvas.appendChild(clrFilterBtn);
-                const clrFilterBtn2 = document.createElement('button');
-                clrFilterBtn2.type = 'button';
-                clrFilterBtn2.className = "button clrfilter_btn";
-                clrFilterBtn2.textContent = 'Hapus Semua Filter';
-                clrFilterBtn2.style.color = 'black';
-                clrFilterBtn2.onclick = clrAllFilterCheckbox;
-                FilterOpenCanvas.appendChild(clrFilterBtn2);
-                FilterColumnCanvas.appendChild(clrFilterBtn2);
+                    fcolumn_tgl.innerHTML = '';
+                    fcolumn_tgl.className = "row ffc";
+                    
+                    fcolumn_tgl.id = 'ffc-filter-tgl';
+                    FilterColumnCanvas.appendChild(fcolumn_tgl);
+
+                    fopen_tgl.innerHTML = '';
+                    fopen_tgl.className = "row ffv";
+                    fopen_tgl.id = 'ffv-filter-tgl';
+                    FilterOpenCanvas.appendChild(fopen_tgl);
+
+                    data.result.unique_tanggal.forEach(function (item,index){
+                        createCheckbox("ffv-t" + index,item,fopen_tgl,data.result.countTahun);
+                        createCheckbox("ffc-t" + index,item,fcolumn_tgl,data.result.countTahun);
+                    });
+
+                    const clrFilterBtn = document.createElement('button');
+                    clrFilterBtn.type = 'button';
+                    clrFilterBtn.className = "button clrfilter_btn";
+                    clrFilterBtn.textContent = 'Hapus Semua Filter';
+                    clrFilterBtn.style.color = 'black';
+                    clrFilterBtn.onclick = clrAllFilterCheckbox;
+                    FilterOpenCanvas.appendChild(clrFilterBtn);
+                    FilterOpenCanvas.appendChild(clrFilterBtn);
+                    const clrFilterBtn2 = document.createElement('button');
+                    clrFilterBtn2.type = 'button';
+                    clrFilterBtn2.className = "button clrfilter_btn";
+                    clrFilterBtn2.textContent = 'Hapus Semua Filter';
+                    clrFilterBtn2.style.color = 'black';
+                    clrFilterBtn2.onclick = clrAllFilterCheckbox;
+                    FilterOpenCanvas.appendChild(clrFilterBtn2);
+                    FilterColumnCanvas.appendChild(clrFilterBtn2);
+                }
             }
         })
         .catch(error => {
@@ -956,206 +972,211 @@ function fetchSearchResult2() {
         })
         .then(response => response.json())
         .then(data => {
-            setMaxPage(data.result.total);
+            if (data.result === "E-CONN"){
+                // location.href = configPath+"PHP/errorConn.php";
+                errorConnHandling();
+            }else{
+                setMaxPage(data.result.total);
 
-            const cardResultElement = document.getElementById('card_result');
-            cardResultElement.innerHTML = '';
-            if (data.result.data_result.length > 0) {
-                
-                setHeadSearch(query,data.result.total);
-                setPagination();
+                const cardResultElement = document.getElementById('card_result');
+                cardResultElement.innerHTML = '';
+                if (data.result.data_result.length > 0) {
+                    
+                    setHeadSearch(query,data.result.total);
+                    setPagination();
 
-                // FOR EACH
-                data.result.data_result.forEach(function (item) {
-                    // Create a card element
-                    const cardItem = document.createElement('div');
-                    cardItem.className = '_cards_item2';
+                    // FOR EACH
+                    data.result.data_result.forEach(function (item) {
+                        // Create a card element
+                        const cardItem = document.createElement('div');
+                        cardItem.className = '_cards_item2';
 
-                    const card = document.createElement('div');
-                    card.className = '_card';
-                    card.setAttribute('onclick', `window.location.href='${configPath}PHP/selected_card.php?document_id=${item.id}'`);
+                        const card = document.createElement('div');
+                        card.className = '_card';
+                        card.setAttribute('onclick', `window.location.href='${configPath}PHP/selected_card.php?document_id=${item.id}'`);
 
-                    const cardContent = document.createElement('div');
-                    cardContent.className = '_card_content';
+                        const cardContent = document.createElement('div');
+                        cardContent.className = '_card_content';
 
-                    const cardEvent = document.createElement('a');
-                    cardEvent.className = '_card_text';
-                    cardEvent.textContent = item.event;
-                    cardEvent.onclick = function(event){
-                        window.location.href = configPath+'PHP/related_results.php?event='+item.event;
-                        event.stopPropagation();
-                    }
-                    cardEvent.style.textDecoration = 'none';
-
-                    const cardTitle = document.createElement('h2');
-                    cardTitle.className = '_card_title';
-                    cardTitle.textContent = item.judul;
-
-                    // Append the card content to the card element
-                    card.appendChild(cardContent);
-
-                    cardContent.appendChild(cardEvent);
-                    cardContent.appendChild(cardTitle);
-                    const divNarsum = document.createElement('div');
-                    var count = 0;
-                    fetchNarsum(item.narasumber).forEach(element => {
-                        const cardText = document.createElement('a');
-                        cardText.className = '_card_text';
-                        if(fetchNarsum(item.narasumber).length - 1 == count){
-                            cardText.textContent = element;
-                        }else{
-                            cardText.textContent = element + ", ";
-                        }
-                        count++;
-                        cardText.onclick = function(event){
-                            window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
+                        const cardEvent = document.createElement('a');
+                        cardEvent.className = '_card_text';
+                        cardEvent.textContent = item.event;
+                        cardEvent.onclick = function(event){
+                            window.location.href = configPath+'PHP/related_results.php?event='+item.event;
                             event.stopPropagation();
                         }
-                        cardText.style.textDecoration = 'none';
-                        divNarsum.appendChild(cardText);
-                    });
-                    divNarsum.style.display = 'block'
-                    cardContent.appendChild(divNarsum);
+                        cardEvent.style.textDecoration = 'none';
 
-                    // Append the card to the main container
-                    cardItem.appendChild(card);
-                    cardResultElement.appendChild(cardItem);
-                });
-            }
-            else {
+                        const cardTitle = document.createElement('h2');
+                        cardTitle.className = '_card_title';
+                        cardTitle.textContent = item.judul;
+
+                        // Append the card content to the card element
+                        card.appendChild(cardContent);
+
+                        cardContent.appendChild(cardEvent);
+                        cardContent.appendChild(cardTitle);
+                        const divNarsum = document.createElement('div');
+                        var count = 0;
+                        fetchNarsum(item.narasumber).forEach(element => {
+                            const cardText = document.createElement('a');
+                            cardText.className = '_card_text';
+                            if(fetchNarsum(item.narasumber).length - 1 == count){
+                                cardText.textContent = element;
+                            }else{
+                                cardText.textContent = element + ", ";
+                            }
+                            count++;
+                            cardText.onclick = function(event){
+                                window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
+                                event.stopPropagation();
+                            }
+                            cardText.style.textDecoration = 'none';
+                            divNarsum.appendChild(cardText);
+                        });
+                        divNarsum.style.display = 'block'
+                        cardContent.appendChild(divNarsum);
+
+                        // Append the card to the main container
+                        cardItem.appendChild(card);
+                        cardResultElement.appendChild(cardItem);
+                    });
+                }
+                else {
+                    FilterColumnCanvas.innerHTML = '';
+                    FilterOpenCanvas.innerHTML = '';
+
+                    hs_head.innerHTML = '';
+                    const hs_head_t = document.createElement('h5');
+                    hs_head_t.textContent = "No Results Found";
+                    hs_head_t.style.fontWeight = "bold";
+                    hs_head.appendChild(hs_head_t);  
+                }
+
                 FilterColumnCanvas.innerHTML = '';
                 FilterOpenCanvas.innerHTML = '';
-
-                hs_head.innerHTML = '';
-                const hs_head_t = document.createElement('h5');
-                hs_head_t.textContent = "No Results Found";
-                hs_head_t.style.fontWeight = "bold";
-                hs_head.appendChild(hs_head_t);  
-            }
-
-            FilterColumnCanvas.innerHTML = '';
-            FilterOpenCanvas.innerHTML = '';
-            const titleFFC = document.createElement('h5');
-            titleFFC.textContent = 'Filter';
-            titleFFC.style.marginTop = '20px';
-            titleFFC.style.marginBottom = '18px';
-            titleFFC.style.fontWeight = 'bold';
-            titleFFC.style.paddingTop = '15px';
-            titleFFC.style.borderTop = '2px goldenrod solid';
-            titleFFC.style.color = 'gold';
-            FilterColumnCanvas.appendChild(titleFFC);
-
-            const titleFFV = document.createElement('h5');
-            titleFFV.textContent = 'Filter';
-            titleFFV.style.marginTop = '20px';
-            titleFFV.style.marginBottom = '20px';
-            titleFFV.style.fontWeight = 'bold';
-            titleFFV.style.paddingTop = '10px';
-            titleFFV.style.borderTop = '2px goldenrod solid';
-            titleFFV.style.color = 'gold';
-            FilterOpenCanvas.appendChild(titleFFV);
-
-            if(data.result.unique_narasumber.length > 0){
-
-                const titleFFC = document.createElement('h6');
-                titleFFC.textContent = "Narasumber";
-                titleFFC.id = "ffc-narasumber";
-                titleFFC.className = "ffc_head";
-                // titleFFC.style.fontWeight = "bold";
+                const titleFFC = document.createElement('h5');
+                titleFFC.textContent = 'Filter';
+                titleFFC.style.marginTop = '20px';
+                titleFFC.style.marginBottom = '18px';
+                titleFFC.style.fontWeight = 'bold';
+                titleFFC.style.paddingTop = '15px';
+                titleFFC.style.borderTop = '2px goldenrod solid';
+                titleFFC.style.color = 'gold';
                 FilterColumnCanvas.appendChild(titleFFC);
 
-                const titleFFV = document.createElement('h6');
-                titleFFV.textContent = "Narasumber";
-                titleFFV.id = "ffv-narasumber";
-                titleFFV.className = "ffv_head";
-                // titleFFV.style.fontWeight = "bold";
+                const titleFFV = document.createElement('h5');
+                titleFFV.textContent = 'Filter';
+                titleFFV.style.marginTop = '20px';
+                titleFFV.style.marginBottom = '20px';
+                titleFFV.style.fontWeight = 'bold';
+                titleFFV.style.paddingTop = '10px';
+                titleFFV.style.borderTop = '2px goldenrod solid';
+                titleFFV.style.color = 'gold';
                 FilterOpenCanvas.appendChild(titleFFV);
 
-                fcolumn_narasumber.innerHTML = '';
-                fcolumn_narasumber.className = "row ffc ";
-                fcolumn_narasumber.id = 'ffc-filter-naras';
-                FilterColumnCanvas.appendChild(fcolumn_narasumber);
+                if(data.result.unique_narasumber.length > 0){
 
-                fopen_narasumber.innerHTML = '';
-                fopen_narasumber.className = "row ffv";
-                fopen_narasumber.id = 'ffv-filter-naras';
-                FilterOpenCanvas.appendChild(fopen_narasumber);
+                    const titleFFC = document.createElement('h6');
+                    titleFFC.textContent = "Narasumber";
+                    titleFFC.id = "ffc-narasumber";
+                    titleFFC.className = "ffc_head";
+                    // titleFFC.style.fontWeight = "bold";
+                    FilterColumnCanvas.appendChild(titleFFC);
 
-                data.result.unique_narasumber.forEach(function (item,index){
-                    createCheckbox("ffv-n" + index,item,fopen_narasumber,data.result.countNarasumber);
-                    createCheckbox("ffc-n" + index,item,fcolumn_narasumber,data.result.countNarasumber);
-                });
-            }
-            if(data.result.unique_event.length > 0){
-                const titleFFV = document.createElement('h6');
-                titleFFV.textContent = "Event";
-                titleFFV.id = "ffv-event";
-                titleFFV.className = "ffv_head";
-                FilterOpenCanvas.appendChild(titleFFV);
+                    const titleFFV = document.createElement('h6');
+                    titleFFV.textContent = "Narasumber";
+                    titleFFV.id = "ffv-narasumber";
+                    titleFFV.className = "ffv_head";
+                    // titleFFV.style.fontWeight = "bold";
+                    FilterOpenCanvas.appendChild(titleFFV);
 
-                const titleFFC = document.createElement('h6');
-                titleFFC.textContent = "Event";
-                titleFFC.id = "ffc-event";
-                titleFFC.className = "ffc_head";
-                FilterColumnCanvas.appendChild(titleFFC);
+                    fcolumn_narasumber.innerHTML = '';
+                    fcolumn_narasumber.className = "row ffc ";
+                    fcolumn_narasumber.id = 'ffc-filter-naras';
+                    FilterColumnCanvas.appendChild(fcolumn_narasumber);
 
-                fcolumn_event.innerHTML = '';
-                fcolumn_event.className = "row ffc";
-                fcolumn_event.id = 'ffc-filter-event';
-                FilterColumnCanvas.appendChild(fcolumn_event);
+                    fopen_narasumber.innerHTML = '';
+                    fopen_narasumber.className = "row ffv";
+                    fopen_narasumber.id = 'ffv-filter-naras';
+                    FilterOpenCanvas.appendChild(fopen_narasumber);
 
-                fopen_event.innerHTML = '';
-                fopen_event.className = "row ffv";
-                fopen_event.id = 'ffv-filter-event';
-                FilterOpenCanvas.appendChild(fopen_event);
+                    data.result.unique_narasumber.forEach(function (item,index){
+                        createCheckbox("ffv-n" + index,item,fopen_narasumber,data.result.countNarasumber);
+                        createCheckbox("ffc-n" + index,item,fcolumn_narasumber,data.result.countNarasumber);
+                    });
+                }
+                if(data.result.unique_event.length > 0){
+                    const titleFFV = document.createElement('h6');
+                    titleFFV.textContent = "Event";
+                    titleFFV.id = "ffv-event";
+                    titleFFV.className = "ffv_head";
+                    FilterOpenCanvas.appendChild(titleFFV);
 
-                data.result.unique_event.forEach(function (item,index){
-                    createCheckbox("ffv-e" + index,item,fopen_event,data.result.countEvent);
-                    createCheckbox("ffc-e" + index,item,fcolumn_event,data.result.countEvent);
-                });
-            }
-            if(data.result.unique_tanggal.length > 0){
-                const titleFFV = document.createElement('h6');
-                titleFFV.textContent = "Tahun";
-                titleFFV.id = "ffv-tanggal";
-                titleFFV.className = "ffv_head";
-                const titleFFC = document.createElement('h6');
-                titleFFC.textContent = "Tahun";
-                titleFFC.id = "ffc-tanggal";
-                titleFFC.className = "ffc_head";
-                FilterOpenCanvas.appendChild(titleFFV);
-                FilterColumnCanvas.appendChild(titleFFC);
+                    const titleFFC = document.createElement('h6');
+                    titleFFC.textContent = "Event";
+                    titleFFC.id = "ffc-event";
+                    titleFFC.className = "ffc_head";
+                    FilterColumnCanvas.appendChild(titleFFC);
 
-                fcolumn_tgl.innerHTML = '';
-                fcolumn_tgl.className = "row ffc";
-                fcolumn_tgl.id = 'ffc-filter-tgl';
-                FilterColumnCanvas.appendChild(fcolumn_tgl);
+                    fcolumn_event.innerHTML = '';
+                    fcolumn_event.className = "row ffc";
+                    fcolumn_event.id = 'ffc-filter-event';
+                    FilterColumnCanvas.appendChild(fcolumn_event);
 
-                fopen_tgl.innerHTML = '';
-                fopen_tgl.className = "row ffv";
-                fopen_tgl.id = 'ffv-filter-tgl';
-                FilterOpenCanvas.appendChild(fopen_tgl);
+                    fopen_event.innerHTML = '';
+                    fopen_event.className = "row ffv";
+                    fopen_event.id = 'ffv-filter-event';
+                    FilterOpenCanvas.appendChild(fopen_event);
 
-                data.result.unique_tanggal.forEach(function (item,index){
-                    createCheckbox("ffv-t" + index,item,fopen_tgl,data.result.countTahun);
-                    createCheckbox("ffc-t" + index,item,fcolumn_tgl,data.result.countTahun);
-                });
+                    data.result.unique_event.forEach(function (item,index){
+                        createCheckbox("ffv-e" + index,item,fopen_event,data.result.countEvent);
+                        createCheckbox("ffc-e" + index,item,fcolumn_event,data.result.countEvent);
+                    });
+                }
+                if(data.result.unique_tanggal.length > 0){
+                    const titleFFV = document.createElement('h6');
+                    titleFFV.textContent = "Tahun";
+                    titleFFV.id = "ffv-tanggal";
+                    titleFFV.className = "ffv_head";
+                    const titleFFC = document.createElement('h6');
+                    titleFFC.textContent = "Tahun";
+                    titleFFC.id = "ffc-tanggal";
+                    titleFFC.className = "ffc_head";
+                    FilterOpenCanvas.appendChild(titleFFV);
+                    FilterColumnCanvas.appendChild(titleFFC);
 
-                const clrFilterBtn = document.createElement('button');
-                clrFilterBtn.type = 'button';
-                clrFilterBtn.className = "button clrfilter_btn";
-                clrFilterBtn.textContent = 'Hapus Semua Filter';
-                clrFilterBtn.style.color = 'black';
-                clrFilterBtn.onclick = clrAllFilterCheckbox;
-                FilterOpenCanvas.appendChild(clrFilterBtn);
-                const clrFilterBtn2 = document.createElement('button');
-                clrFilterBtn2.type = 'button';
-                clrFilterBtn2.className = "button clrfilter_btn";
-                clrFilterBtn2.textContent = 'Hapus Semua Filter';
-                clrFilterBtn2.style.color = 'black';
-                clrFilterBtn2.onclick = clrAllFilterCheckbox;
-                FilterOpenCanvas.appendChild(clrFilterBtn2);
-                FilterColumnCanvas.appendChild(clrFilterBtn2);
+                    fcolumn_tgl.innerHTML = '';
+                    fcolumn_tgl.className = "row ffc";
+                    fcolumn_tgl.id = 'ffc-filter-tgl';
+                    FilterColumnCanvas.appendChild(fcolumn_tgl);
+
+                    fopen_tgl.innerHTML = '';
+                    fopen_tgl.className = "row ffv";
+                    fopen_tgl.id = 'ffv-filter-tgl';
+                    FilterOpenCanvas.appendChild(fopen_tgl);
+
+                    data.result.unique_tanggal.forEach(function (item,index){
+                        createCheckbox("ffv-t" + index,item,fopen_tgl,data.result.countTahun);
+                        createCheckbox("ffc-t" + index,item,fcolumn_tgl,data.result.countTahun);
+                    });
+
+                    const clrFilterBtn = document.createElement('button');
+                    clrFilterBtn.type = 'button';
+                    clrFilterBtn.className = "button clrfilter_btn";
+                    clrFilterBtn.textContent = 'Hapus Semua Filter';
+                    clrFilterBtn.style.color = 'black';
+                    clrFilterBtn.onclick = clrAllFilterCheckbox;
+                    FilterOpenCanvas.appendChild(clrFilterBtn);
+                    const clrFilterBtn2 = document.createElement('button');
+                    clrFilterBtn2.type = 'button';
+                    clrFilterBtn2.className = "button clrfilter_btn";
+                    clrFilterBtn2.textContent = 'Hapus Semua Filter';
+                    clrFilterBtn2.style.color = 'black';
+                    clrFilterBtn2.onclick = clrAllFilterCheckbox;
+                    FilterOpenCanvas.appendChild(clrFilterBtn2);
+                    FilterColumnCanvas.appendChild(clrFilterBtn2);
+                }
             }
         })
         .catch(error => {
