@@ -92,15 +92,13 @@ function createListItem2(pageNumber) {
             }
             if(sessionStorage.getItem("mode") == "list"){
                 if(filterNarasumber.length != 0 || filterEvent.length != 0 || filterTanggal.length != 0){
-                    clrAllFilterCheckbox()
-                    fetchSearchResult2();
+                    fetchSearchFilterResult2();
                 }else{
                     fetchSearchResult2();
                 }
             }else{
                 if(filterNarasumber.length != 0 || filterEvent.length != 0 || filterTanggal.length != 0){
-                    clrAllFilterCheckbox()
-                    fetchSearchResult();
+                    fetchSearchFilterResult();
                 }else{
                     fetchSearchResult();
                 }
@@ -130,6 +128,7 @@ function createCheckbox(id, nama, div_filter, arr) {
     input.name = id;
     input.value = nama;
     input.onchange = function() {
+        currPage = 1;
         first = false;
         syncCheckbox(input.id,input.checked);
         if(id.substring(4,5) == "n"){
@@ -306,6 +305,10 @@ function fetchSearchFilterResult2() {
                 errorConnHandling();
             }else{
                 errorConnNoMore();
+                setMaxPage(data.result.total);
+                setPagination();
+                console.log(data.result.total);
+                console.log(maxPage);
                 const cardResultElement = document.getElementById('card_result');
                 cardResultElement.innerHTML = '';
 
@@ -426,6 +429,8 @@ function fetchSearchFilterResult() {
                 errorConnHandling();
             }else{
                 errorConnNoMore();
+                setMaxPage(data.result.total);
+                setPagination();
                 const cardResultElement = document.getElementById('card_result');
                 cardResultElement.innerHTML = '';
 
@@ -688,6 +693,7 @@ function resizeListEN(){
 window.addEventListener('resize', resizeListEN);
 
 function fetchSearchResult() {
+    // clrAllFilterCheckbox();
     filterNarasumber.length = 0;
     filterEvent.length = 0;
     filterTanggal.length = 0;
@@ -959,6 +965,7 @@ function fetchNarsum(narsum_ori){
 }
 
 function fetchSearchResult2() {
+    // clrAllFilterCheckbox();
     filterNarasumber.length = 0;
     filterEvent.length = 0;
     filterTanggal.length = 0;
@@ -1283,8 +1290,8 @@ function setPagination(){
         pagiUl.appendChild(createListItem2("Prev"));
     }
     c_pagi = 0;
-    p_pagi = -2;
-    while (c_pagi < 5){
+    p_pagi = -8;
+    while (c_pagi < 17){
         if ((currPage + p_pagi) > maxPage ){
                 break;
         }

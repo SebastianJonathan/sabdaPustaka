@@ -271,8 +271,8 @@ function setPagiRel(){
         pagiUl.appendChild(PageRel("Prev"));
     }
     c_pagi = 0;
-    p_pagi = -2;
-    while (c_pagi < 5){
+    p_pagi = -8;
+    while (c_pagi < 17){
         if ((currPageRel + p_pagi) > maxPageRel){
                 break;
         }
