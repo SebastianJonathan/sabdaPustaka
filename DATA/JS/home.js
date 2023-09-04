@@ -16,18 +16,20 @@ $('.fsc input[type=checkbox]').change(function() {
 
 
 const spSideB = document.getElementById('sp-top-filter');
-
+var cardFilter = document.getElementById('card-filter');
+var cardRow = document.getElementById('kontenS');
 // Define the maximum height to which you want to increase the element
-const maxHeight = 500; // Adjust this value as needed
+var maxHeight = cardRow.clientHeight - cardFilter.clientHeight + 200; // Adjust this value as needed
 
 // Add an event listener to the window's scroll event
 window.addEventListener('scroll', function() {
   // Get the current scroll position
   const scrollPosition = window.scrollY;
 
+  
   // Calculate the new height based on the scroll position
-//   const newHeight = Math.min(maxHeight,  scrollPosition);
-  const newHeight = scrollPosition;
+  const newHeight = Math.min(maxHeight,  scrollPosition);
+//   const newHeight = scrollPosition;
   // Set the new height to the element
   spSideB.style.height = (newHeight)+ 'px';
   console.log(newHeight);
