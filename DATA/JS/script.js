@@ -13,4 +13,5 @@ $(document).ready(function() {
     else if($("#p4_allList").length){
 		$.getScript(configPath+"JS/getAllList.js");
     }
+	$.getScript(configPath+"JS/navbar.js");
 });

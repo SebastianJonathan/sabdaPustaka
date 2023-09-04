@@ -317,19 +317,6 @@ document.getElementById("search").addEventListener("submit", function(event) {
     hideRekomendasi();
 });
 
-function updateRekomendasiPosition() {
-    const searchInput = document.getElementById('query');
-    const rekomendasiDiv = document.getElementById('rekomendasi');
-
-    const inputRect = searchInput.getBoundingClientRect();
-    const inputTop = inputRect.top + window.scrollY;
-    const inputHeight = inputRect.height;
-    const inputWidth = inputRect.width;
-
-    rekomendasiDiv.style.width = inputWidth + 'px';
-    rekomendasiDiv.style.left = inputRect.left + 'px';
-}
-
 document.addEventListener('click', function(event) {
     const target = event.target;
     const queryInput = document.getElementById('query');
@@ -509,7 +496,5 @@ function hideFilterSM() {
 		} catch {}
 }
 
-updateRekomendasiPosition();
 window.addEventListener('resize', hideFilterSM);
-window.addEventListener('resize', updateRekomendasiPosition);
 document.getElementById('query').addEventListener('input', fetchRecommendations);
