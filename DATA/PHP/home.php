@@ -8,7 +8,7 @@
 		</div>
 
 		<!-- Row Search Bar -->
-		<div class="row">
+		<!-- <div class="row">
 			<form action="" id="search" class="content sect-search">
 				<div class="rekomendasi-container">
 					<div class="col-md-6 InputContainer" style="background-color: #1e0049; ">
@@ -20,7 +20,7 @@
 					</div>
 				</div>
 			</form>
-		</div>
+		</div> -->
 
 
 		<!-- Konten Website -->
