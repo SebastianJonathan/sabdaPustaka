@@ -85,6 +85,26 @@ img {
     }
 }
 
+.nav-search-btn{
+    border: transparent;
+    background-color: transparent;
+    font-size: var(--bs-navbar-toggler-font-size);
+}
+
+@media (max-width: 680px){
+    .sect-search{
+        display: none;
+    }
+    /* .nav-search-btn{
+        display: unset;
+    } */
+}
+@media (min-width: 680px){
+    .nav-search-btn{
+        display: none;
+    }
+}
+
 @media (max-width: 600px) {
     .hshc1 h5{
         width: 90%;

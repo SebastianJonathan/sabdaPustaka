@@ -3,13 +3,13 @@
   <div class="container-fluid">
     <div class="row" style="width: 100%">
     
-      <div class="col col-lg-4" style="min-width: 100px; left: 0;">
+      <div class="col col-md-2 col-lg-2 col-sm-3" style="min-width: 100px; left: 0;">
         <a class="navbar-brand navbar-brands" href="<?php echo $configPath?>PHP/home.php" style="padding-left:10px;">
           <img class="hoverable" src="<?php echo $configPath?>img/logo.png" alt="Logo Sabda">
         </a>
       </div>
 
-      <div class="col">
+      <div class="col ">
         <form action="" id="search" class="content sect-search">
           <div class="rekomendasi-container">
             <div class="col-md-6 InputContainer" style="background-color: #1e0049; ">
@@ -26,8 +26,12 @@
         </form>
       </div>
 
-      <div class="col tog-nav" style="width: 300px; right: 0;"> 
+      <div class="col col-lg-2 col-md-2 col-sm-3 tog-nav" style="min-width: 100px; right: 0;"> 
 
+
+        <button class="nav-search-btn" style="padding-right:13px;" type="button">
+          <img style="width: 28px;" src="<?php echo $configPath?>img\search-symbol.png" alt="Search">
+        </button>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -40,7 +44,7 @@
       </div>
     </div>
 
-    
+
     <div class="row">
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav ml-auto">
