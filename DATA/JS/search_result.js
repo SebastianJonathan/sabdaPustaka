@@ -12,11 +12,15 @@ const fopen_tgl = document.createElement('div');
 let filterNarasumber = [];
 let filterEvent = [];
 let filterTanggal = [];
+let rowsPassed = 0;
+let cardHeight = window.innerHeight / 2;
 
 var pageSize = 12;
 var currPage = 1;
 var maxPage = 1;
 var showAll = false;
+var loadPage = 8;
+var totalPage = 0;
 
 var errorConn = false;
 
@@ -37,82 +41,82 @@ function setMaxPage(total_data){
     maxPage = Math.ceil(total_data / pageSize);
 }
 
-function createListItem2(pageNumber) {
-    const li = document.createElement('li');
-    li.className = "page-item";
+// function createListItem2(pageNumber) {
+//     const li = document.createElement('li');
+//     li.className = "page-item";
 
-    var a = document.createElement('a');
-    a.className = "page-link";
-    a.id = "pagi_"+pageNumber;
-    if (pageNumber === "Show All"){
-        if (showAll){
-            a.innerText = "Unshow All";
-        }else {
-            a.innerText = pageNumber;
-        }
-    }else{
-        a.innerText = pageNumber;
-    }
+//     var a = document.createElement('a');
+//     a.className = "page-link";
+//     a.id = "pagi_"+pageNumber;
+//     if (pageNumber === "Show All"){
+//         if (showAll){
+//             a.innerText = "Unshow All";
+//         }else {
+//             a.innerText = pageNumber;
+//         }
+//     }else{
+//         a.innerText = pageNumber;
+//     }
     
-    if (pageNumber === currPage){
-        a.setAttribute("style","color: gold;")
-        a.style.backgroundColor = "#1e0049";
-    }
+//     if (pageNumber === currPage){
+//         a.setAttribute("style","color: gold;")
+//         a.style.backgroundColor = "#1e0049";
+//     }
 
-    a.onclick = function(){
-        if (pageNumber != currPage){
-            if (pageNumber === "Show All"){
-                if(a.innerText == "Show All"){
-                    pageSize = maxPage * 12;
-                    showAll = true;
-                }else{
-                    pageSize = 12;
-                    showAll = false;
-                }
-                currPage = 1;
-            }
-            else if(pageNumber == "Next"){
-                if((currPage + 1) <= maxPage){
-                    currPage += 1;
-                }
-            }
-            else if(pageNumber == "Prev"){
-                if((currPage - 1) >= 1){
-                    currPage -= 1;
-                }
-            }
-            else if(pageNumber == "<<"){
-                currPage = 1;
-            }
-            else if(pageNumber == ">>"){
-                currPage = maxPage;
-            }
-            else{
-                currPage = pageNumber;
-            }
-            if(sessionStorage.getItem("mode") == "list"){
-                if(filterNarasumber.length != 0 || filterEvent.length != 0 || filterTanggal.length != 0){
-                    fetchSearchFilterResult2();
-                }else{
-                    fetchSearchResult2();
-                }
-            }else{
-                if(filterNarasumber.length != 0 || filterEvent.length != 0 || filterTanggal.length != 0){
-                    fetchSearchFilterResult();
-                }else{
-                    fetchSearchResult();
-                }
-            }
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            })
-        }
-    };
+//     a.onclick = function(){
+//         if (pageNumber != currPage){
+//             if (pageNumber === "Show All"){
+//                 if(a.innerText == "Show All"){
+//                     pageSize = maxPage * 12;
+//                     showAll = true;
+//                 }else{
+//                     pageSize = 12;
+//                     showAll = false;
+//                 }
+//                 currPage = 1;
+//             }
+//             else if(pageNumber == "Next"){
+//                 if((currPage + 1) <= maxPage){
+//                     currPage += 1;
+//                 }
+//             }
+//             else if(pageNumber == "Prev"){
+//                 if((currPage - 1) >= 1){
+//                     currPage -= 1;
+//                 }
+//             }
+//             else if(pageNumber == "<<"){
+//                 currPage = 1;
+//             }
+//             else if(pageNumber == ">>"){
+//                 currPage = maxPage;
+//             }
+//             else{
+//                 currPage = pageNumber;
+//             }
+//             if(sessionStorage.getItem("mode") == "list"){
+//                 if(filterNarasumber.length != 0 || filterEvent.length != 0 || filterTanggal.length != 0){
+//                     fetchSearchFilterResult2();
+//                 }else{
+//                     fetchSearchResult2();
+//                 }
+//             }else{
+//                 if(filterNarasumber.length != 0 || filterEvent.length != 0 || filterTanggal.length != 0){
+//                     fetchSearchFilterResult();
+//                 }else{
+//                     fetchSearchResult();
+//                 }
+//             }
+//             window.scrollTo({
+//                 top: 0,
+//                 behavior: 'smooth'
+//             })
+//         }
+//     };
 
-    li.appendChild(a);
-    return li;
-}
+//     li.appendChild(a);
+//     return li;
+// }
 
 function createCheckbox(id, nama, div_filter, arr) {
     var containerDiv = document.createElement("div");
@@ -306,11 +310,7 @@ function fetchSearchFilterResult2() {
             }else{
                 errorConnNoMore();
                 setMaxPage(data.result.total);
-                setPagination();
-                console.log(data.result.total);
-                console.log(maxPage);
                 const cardResultElement = document.getElementById('card_result');
-                cardResultElement.innerHTML = '';
 
                 data.result.data.forEach(function (item) {
                     // Create a card element
@@ -430,7 +430,6 @@ function fetchSearchFilterResult() {
             }else{
                 errorConnNoMore();
                 setMaxPage(data.result.total);
-                setPagination();
                 const cardResultElement = document.getElementById('card_result');
                 cardResultElement.innerHTML = '';
 
@@ -699,19 +698,26 @@ function fetchSearchResult() {
     filterTanggal.length = 0;
 
     var fetchinit = initFetchSearchFilter(false);
-    const filterJson = fetchinit[0];
+    var filterJson = fetchinit[0];
+    if(pageSize > 12){
+        filterJson = JSON.parse(filterJson);
+        filterJson.currPage = pageSize - loadPage;
+        filterJson.size = loadPage;
+        filterJson = JSON.stringify(filterJson);
+    }
     let query = fetchinit[1];
     if (filterJson != "-1"){
 
         // Get the card_result container element
         const cardResultElement = document.getElementById('card_result');
-        cardResultElement.classList.remove('container-list');
-        cardResultElement.classList.add('_cards');
-        cardResultElement.classList.remove('_cards2');
+        if(pageSize == 12){
+            cardResultElement.classList.remove('container-list');
+            cardResultElement.classList.add('_cards');
+            cardResultElement.classList.remove('_cards2');
 
-        // Delete all card elements by setting the innerHTML to an empty string
-        cardResultElement.innerHTML = '';
-
+            // Delete all card elements by setting the innerHTML to an empty string
+            cardResultElement.innerHTML = '';
+        }
         fetch(configPath + 'API/filterAPI.php', {
             method: 'POST',
             headers: {
@@ -726,16 +732,13 @@ function fetchSearchResult() {
                 errorConnHandling();
             }else{
                 errorConnNoMore();
-                setMaxPage(data.result.total);
+                // setMaxPage(data.result.total);
 
                 const cardResultElement = document.getElementById('card_result');
-                cardResultElement.classList.remove('container-list');
-                cardResultElement.innerHTML = '';
-                if (data.result.data_result.length > 0) {
-                                        
+                // cardResultElement.classList.remove('container-list');
+                // cardResultElement.innerHTML = '';
+                if (data.result.data_result.length > 0) {      
                     setHeadSearch(query,data.result.total);
-                    setPagination();
-
                     // FOR EACH
                     data.result.data_result.forEach(function (item) {
 
@@ -806,14 +809,16 @@ function fetchSearchResult() {
                     cardResultElement.appendChild(cardItem);
                 });
                 } else {
-                    FilterColumnCanvas.innerHTML = '';
-                    FilterOpenCanvas.innerHTML = '';
+                    if(pageSize == 12){
+                        FilterColumnCanvas.innerHTML = '';
+                        FilterOpenCanvas.innerHTML = '';
 
-                    hs_head.innerHTML = '';
-                    const hs_head_t = document.createElement('h5');
-                    hs_head_t.textContent = "No Results Found";
-                    hs_head_t.style.fontWeight = "bold";
-                    hs_head.appendChild(hs_head_t);  
+                        hs_head.innerHTML = '';
+                        const hs_head_t = document.createElement('h5');
+                        hs_head_t.textContent = "No Results Found";
+                        hs_head_t.style.fontWeight = "bold";
+                        hs_head.appendChild(hs_head_t);  
+                    }
                 }
                     
                 FilterColumnCanvas.innerHTML = '';
@@ -970,17 +975,25 @@ function fetchSearchResult2() {
     filterEvent.length = 0;
     filterTanggal.length = 0;
     var fetchinit = initFetchSearchFilter(false);
-    const filterJson = fetchinit[0];
+    var filterJson = fetchinit[0];
+    if(pageSize > 12){
+        filterJson = JSON.parse(filterJson);
+        filterJson.currPage = pageSize - loadPage;
+        filterJson.size = loadPage;
+        filterJson = JSON.stringify(filterJson);
+        console.log(filterJson);
+    }
     let query = fetchinit[1];
 
     if (filterJson != "-1"){
         const cardResultElement = document.getElementById('card_result');
-        cardResultElement.classList.add('container-list');
-        cardResultElement.classList.remove('_cards');
-        cardResultElement.classList.add('_cards2');
-
-        // Delete all card elements by setting the innerHTML to an empty string
-        cardResultElement.innerHTML = '';
+        if(pageSize == 12){
+            cardResultElement.classList.add('container-list');
+            cardResultElement.classList.remove('_cards');
+            cardResultElement.classList.add('_cards2');
+            // Delete all card elements by setting the innerHTML to an empty string
+            cardResultElement.innerHTML = '';
+        }
 
         fetch(configPath + 'API/filterAPI.php', {
             method: 'POST',
@@ -995,17 +1008,12 @@ function fetchSearchResult2() {
                 errorConnHandling();
             }else{
                 errorConnNoMore();
-                setMaxPage(data.result.total);
-
+                // setMaxPage(data.result.total);
                 const cardResultElement = document.getElementById('card_result');
-                cardResultElement.innerHTML = '';
                 if (data.result.data_result.length > 0) {
-                    
-                    setHeadSearch(query,data.result.total);
-                    setPagination();
 
-                    // FOR EACH
                     data.result.data_result.forEach(function (item) {
+                        setHeadSearch(query,data.result.total);
                         // Create a card element
                         const cardItem = document.createElement('div');
                         cardItem.className = '_cards_item2';
@@ -1062,14 +1070,16 @@ function fetchSearchResult2() {
                     });
                 }
                 else {
-                    FilterColumnCanvas.innerHTML = '';
-                    FilterOpenCanvas.innerHTML = '';
+                    if(pageSize == 12){
+                        FilterColumnCanvas.innerHTML = '';
+                        FilterOpenCanvas.innerHTML = '';
 
-                    hs_head.innerHTML = '';
-                    const hs_head_t = document.createElement('h5');
-                    hs_head_t.textContent = "No Results Found";
-                    hs_head_t.style.fontWeight = "bold";
-                    hs_head.appendChild(hs_head_t);  
+                        hs_head.innerHTML = '';
+                        const hs_head_t = document.createElement('h5');
+                        hs_head_t.textContent = "No Results Found";
+                        hs_head_t.style.fontWeight = "bold";
+                        hs_head.appendChild(hs_head_t);  
+                    }
                 }
 
                 FilterColumnCanvas.innerHTML = '';
@@ -1248,7 +1258,13 @@ function setHeadSearch(query,jumlah){
     dropLi_Grid.style.color = "black";
     dropLi_Grid.onclick = function(){
         sessionStorage.setItem("mode", "card");
-        fetchSearchFilterResult();
+        pageSize = 12;
+        rowsPassed = 0;
+        if(filterEvent.length == 0 && filterNarasumber == 0 && filterTanggal == 0){
+            fetchSearchResult();
+        }else{
+            fetchSearchFilterResult();
+        }
     }
     dropLi1.appendChild(dropLi_Grid);
 
@@ -1259,7 +1275,13 @@ function setHeadSearch(query,jumlah){
     dropLi_List.style.color = "black";
     dropLi_List.onclick = function(){
         sessionStorage.setItem("mode", "list");
-        fetchSearchFilterResult2();
+        pageSize = 12;
+        rowsPassed = 0;
+        if(filterEvent.length == 0 && filterNarasumber == 0 && filterTanggal == 0){
+            fetchSearchResult2();
+        }else{
+            fetchSearchFilterResult2();
+        }
     }
     dropLi2.appendChild(dropLi_List);
 
@@ -1272,50 +1294,50 @@ function setHeadSearch(query,jumlah){
     hs_head.appendChild(hs_head_col2);
 }
 
-function setPagination(){
-    const showDiv = document.getElementById("show");
-    showDiv.innerHTML = '';
+// function setPagination(){
+//     const showDiv = document.getElementById("show");
+//     showDiv.innerHTML = '';
 
-    const pagiCont = document.createElement("div");
-    pagiCont.innerHTML = '';
-    pagiCont.id = "show";
-    pagiCont.style.display = "flex";
-    pagiCont.style.justifyContent = "end";
+//     const pagiCont = document.createElement("div");
+//     pagiCont.innerHTML = '';
+//     pagiCont.id = "show";
+//     pagiCont.style.display = "flex";
+//     pagiCont.style.justifyContent = "end";
 
-    const pagiUl = document.createElement("ul");
-    pagiUl.className = "pagination"
+//     const pagiUl = document.createElement("ul");
+//     pagiUl.className = "pagination"
 
-    pagiUl.appendChild(createListItem2("<<"));
-    if ((currPage - 1) > 0){
-        pagiUl.appendChild(createListItem2("Prev"));
-    }
-    c_pagi = 0;
-    p_pagi = -8;
-    while (c_pagi < 17){
-        if ((currPage + p_pagi) > maxPage ){
-                break;
-        }
-        if ((currPage + p_pagi) > 0){
-                pagiUl.appendChild(createListItem2(currPage + p_pagi));
-                c_pagi += 1;
-        }
-        p_pagi += 1;
-    }
-    if ((currPage + 1) < maxPage ){
-        pagiUl.appendChild(createListItem2("Next"));
-    }
-    pagiUl.appendChild(createListItem2(">>"));
-    pagiUl.appendChild(createListItem2("Show All"));
-    pagiCont.appendChild(pagiUl);
-    showDiv.appendChild(pagiCont);
+//     pagiUl.appendChild(createListItem2("<<"));
+//     if ((currPage - 1) > 0){
+//         pagiUl.appendChild(createListItem2("Prev"));
+//     }
+//     c_pagi = 0;
+//     p_pagi = -8;
+//     while (c_pagi < 17){
+//         if ((currPage + p_pagi) > maxPage ){
+//                 break;
+//         }
+//         if ((currPage + p_pagi) > 0){
+//                 pagiUl.appendChild(createListItem2(currPage + p_pagi));
+//                 c_pagi += 1;
+//         }
+//         p_pagi += 1;
+//     }
+//     if ((currPage + 1) < maxPage ){
+//         pagiUl.appendChild(createListItem2("Next"));
+//     }
+//     pagiUl.appendChild(createListItem2(">>"));
+//     pagiUl.appendChild(createListItem2("Show All"));
+//     pagiCont.appendChild(pagiUl);
+//     showDiv.appendChild(pagiCont);
 
-    // Menampilkan nomer halaman sekarang dan terakhir
-    var showPagiProg = document.createElement("p");
-    showPagiProg.style.textAlign = "end";
-    showPagiProg.style.marginRight = "16px";
-    showPagiProg.textContent = "Page " + currPage + " of " + maxPage;
-    showDiv.appendChild(showPagiProg);
-}
+//     // Menampilkan nomer halaman sekarang dan terakhir
+//     var showPagiProg = document.createElement("p");
+//     showPagiProg.style.textAlign = "end";
+//     showPagiProg.style.marginRight = "16px";
+//     showPagiProg.textContent = "Page " + currPage + " of " + maxPage;
+//     showDiv.appendChild(showPagiProg);
+// }
 
 function getYoutubeVideoId(url) {
     const pattern = /(?:youtube(?:-nocookie)?\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
@@ -1327,3 +1349,24 @@ function getYoutubeVideoId(url) {
         return null; // Invalid YouTube URL or ID not found
     }
 }
+
+window.addEventListener('scroll', () => {
+    // Dapatkan posisi scroll dari window
+    const scrolled = window.scrollY;
+
+    // Hitung jumlah baris yang sudah dilewati
+    const passedRows = Math.floor(scrolled / cardHeight);
+
+    // Cek apakah jumlah baris yang sudah dilewati berubah
+    if (passedRows > rowsPassed) {
+        pageSize += loadPage;
+        if(filterEvent.length == 0 && filterNarasumber.length == 0 && filterTanggal == 0){
+            if(sessionStorage.getItem("mode") == "card"){
+                fetchSearchResult();
+            }else if(sessionStorage.getItem("mode") == "list"){
+                fetchSearchResult2();
+            }
+        }
+        rowsPassed = passedRows;
+    }
+});
