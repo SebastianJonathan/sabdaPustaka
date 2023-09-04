@@ -167,29 +167,6 @@ function buttonVisibility() {
 
 window.addEventListener('scroll', buttonVisibility);
 
-function updateFields() {
-    let fields = [];
-
-    if (sessionStorage.getItem("checkboxJudul") == "true") {
-        fields.push('judul_completion.input');
-    }
-    if (sessionStorage.getItem("checkboxNarasumber") == "true") {
-        fields.push('narasumber_completion.input');
-    }
-    if (sessionStorage.getItem("checkboxEvent") == "true") {
-        fields.push('event_completion.input');
-    }
-    if (sessionStorage.getItem("checkboxRelated") == "true") {
-        fields.push('deskripsi_pendek');
-        fields.push('ringkasan');
-        fields.push('kata_kunci');
-    }
-
-    const queryInput = document.getElementById('query');
-    queryInput.dataset.fields = fields.join(',');
-    fetchRecommendations2();
-}
-
 function updateOnChecked() {
     const checkbox_judul = document.getElementById('checkbox_judul');
     const checkbox_narasumber = document.getElementById('checkbox_narasumber');
@@ -205,72 +182,6 @@ function updateOnChecked() {
     checkbox_related.checked = checkbox_related2.checked;
     updateFields();
 }
-
-function goSearch() {
-    const fullURL = window.location.href;
-    const segments = fullURL.split('/');
-    if(segments[segments.length - 2] == "search" && document.getElementById('query').value == ""){
-        window.location.href = configPath + "PHP/home.php/search/ ";
-    }else{
-        window.location.href = configPath + "PHP/home.php/search/" + document.getElementById('query').value;
-    }
-}
-
-async function fetchRecommendations2() {
-    const query = document.getElementById('query').value;
-    const fields = document.getElementById('query').dataset.fields;
-    try {
-        const response = await fetch(configPath + `API/autocomplete.php?query=${query}&fields=${fields}`);
-        const data = await response.json();
-        tampilkanRekomendasi(data.rekomendasi);
-    } catch (error) {
-        console.error('Terjadi kesalahan:', error);
-    }
-    hideRekomendasi();
-}
-
-function addSection(item, className, rekomendasiList) {
-    const li = document.createElement('li');
-    li.className = className;
-    li.textContent = item;
-    li.addEventListener('click', function() {
-        document.getElementById('query').value = item
-        hideRekomendasi();
-        updateSessionCheckbox();
-        goSearch();
-    });
-    rekomendasiList.appendChild(li);
-}
-
-function hideRekomendasi() {
-    const rekomendasiDiv = document.getElementById('rekomendasi');
-    rekomendasiDiv.style.display = 'none';
-}
-
-function updateSessionCheckbox() {
-    const checkboxJudul = document.getElementById("checkbox_judul");
-    const checkboxEvent = document.getElementById("checkbox_event");
-    const checkboxNarasumber = document.getElementById("checkbox_narasumber");
-    const checkboxRelated = document.getElementById("checkbox_related");
-
-    sessionStorage.setItem("checkboxJudul", checkboxJudul.checked);
-    sessionStorage.setItem("checkboxEvent", checkboxEvent.checked);
-    sessionStorage.setItem("checkboxNarasumber", checkboxNarasumber.checked);
-    sessionStorage.setItem("checkboxRelated", checkboxRelated.checked);
-    updateFields();
-    const fullURL = window.location.href;
-    const segments = fullURL.split('/');
-    if(sessionStorage.getItem("changeSearchBy") == "1" && segments[segments.length - 2] == "search"){
-        sessionStorage.setItem("changeSearchBy", "0");
-        goSearch();
-    }
-}
-
-document.getElementById("search").addEventListener("submit", function(event) {
-    event.preventDefault();
-    goSearch();
-    hideRekomendasi();
-});
 
 document.addEventListener('click', function(event) {
     const target = event.target;
@@ -388,11 +299,6 @@ function expandNarasumber(forceHide = false){
     }
 }
 
-document.getElementById('search').addEventListener('submit', function(event) {
-    event.preventDefault();
-    goSearch();
-    hideRekomendasi();
-});
 function removeAllElements() {
     const container = document.getElementById('contEventNarsum');
     function removeAllChildElements(container) {
@@ -438,8 +344,7 @@ function startupAndSearch() {
         location.reload();
     }
 }
-startupAndSearch()
-updateFields();
+startupAndSearch();
 
 
 const filter_sm = document.getElementById('filter-sm');
