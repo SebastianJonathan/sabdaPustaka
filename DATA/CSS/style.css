@@ -73,6 +73,16 @@ img {
     .hshc2 button{
         margin-right: 8px;
     }
+    .tog-nav{
+        display: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .tog-nav{
+        display: flex;
+        justify-content: right;
+    }
 }
 
 @media (max-width: 600px) {
