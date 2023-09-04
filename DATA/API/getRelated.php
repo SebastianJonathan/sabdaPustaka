@@ -30,6 +30,7 @@ if (isset($_GET['document_id'])) {
             ],
         ],
         'size' => 4, // Adjust the number of related documents to retrieve
+        '_source' => ['event','narasumber', 'judul', 'deskripsi_pendek', 'url_youtube', 'ringkasan'],
     ];
 
     $query = json_encode($params);
@@ -56,6 +57,7 @@ if (isset($_GET['document_id'])) {
                 $event = $document['_source']['event'];
                 $judul = $document['_source']['judul'];
                 $narasumber = $document['_source']['narasumber'];
+                $ringkasan = $document['_source']['deskripsi_pendek'];
 
                 echo '<li class="_cards_item">';
                 echo '<div class="_card" onclick="window.location.href=\'selected_card.php?document_id=' . $document['_id'] . '\'">';
@@ -98,6 +100,8 @@ if (isset($_GET['document_id'])) {
                 }
 
                 echo '</div>';
+
+                echo '<button class="show-summary-button" data-ringkasan="' . $ringkasan . '">V</button>';
 
                 echo '</div>';
                 echo '</div>';

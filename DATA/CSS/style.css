@@ -355,6 +355,20 @@ img {
     background-color: gold;
 }
 
+.show-summary-button {
+    background-color: transparent;
+    color: white; /* Change button color as needed */
+    border: none;
+    cursor: pointer;
+    font-size: 10px;
+    margin-top: 3px;
+}
+
+.show-summary-button:hover {
+    color: #272727; /* Change button color on hover as needed */
+}
+
+
 
 @media (max-width: 1200px) {
     ._cards_item {

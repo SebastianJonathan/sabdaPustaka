@@ -374,6 +374,12 @@ function generateCard(results){
             cardTitle.className = '_card_title';
             cardTitle.textContent = item.judul;
 
+
+            // Create a button to show item.ringkasan
+            const showSummaryButton = document.createElement('button');
+            showSummaryButton.className = 'show-summary-button';
+            showSummaryButton.textContent = 'V';
+
             // Append the card content to the card element
             card.appendChild(cardImage);
             card.appendChild(cardContent);
@@ -403,6 +409,42 @@ function generateCard(results){
 
             cardItem.appendChild(card);
             cardResultElement.appendChild(cardItem);
+
+            const cardRingkasan = document.createElement('p');
+            cardRingkasan.className = '_card_ringkasan';
+            cardRingkasan.textContent = item.deskripsi_pendek;
+            cardRingkasan.style.color = 'white'; // Set the text color to white
+
+            cardRingkasan.style.maxHeight = '15em'; // Adjust the height as needed
+            cardRingkasan.style.overflow = 'hidden';        
+            cardRingkasan.style.textOverflow = 'ellipsis';
+
+            cardContent.appendChild(showSummaryButton);
+
+
+
+            showSummaryButton.addEventListener('mouseenter', function () {
+                // Display the item.ringkasan content in cardContent
+                card.innerHTML = "";
+                card.appendChild(cardContent);
+                cardContent.removeChild(cardEvent);
+                cardContent.removeChild(cardTitle);
+                cardContent.removeChild(divNarsum);
+                cardContent.appendChild(cardRingkasan);
+                cardContent.appendChild(showSummaryButton);
+            });
+            
+            showSummaryButton.addEventListener('mouseleave', function () {
+                // Remove the item.ringkasan content when the mouse leaves the button
+                cardContent.innerHTML = "";
+                card.appendChild(cardContent);
+                card.appendChild(cardImage);
+                card.appendChild(cardContent);
+                cardContent.appendChild(cardEvent);
+                cardContent.appendChild(cardTitle);
+                cardContent.appendChild(divNarsum);
+                cardContent.appendChild(showSummaryButton);
+            });  
         });
     } else {
         const noResults = document.createElement('p');
