@@ -2,7 +2,8 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fix">
   <div class="container-fluid">
     <div class="row" style="width: 100%">
-      <div class="col" style="width: 100px; left: 0;">
+    
+      <div class="col col-lg-4" style="min-width: 100px; left: 0;">
         <a class="navbar-brand navbar-brands" href="<?php echo $configPath?>PHP/home.php" style="padding-left:10px;">
           <img class="hoverable" src="<?php echo $configPath?>img/logo.png" alt="Logo Sabda">
         </a>
@@ -25,7 +26,7 @@
         </form>
       </div>
 
-      <div class="col" style="width: 300px; right: 0;"> 
+      <div class="col tog-nav" style="width: 300px; right: 0;"> 
 
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,45 +34,31 @@
         </button>
 
 
+      </div>
+
 
       </div>
     </div>
+
+    
     <div class="row">
-
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link classB" href="<?php echo $configPath?>PHP/home.php">Beranda</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link classB" href="<?php echo $configPath?>PHP/about.php">Tentang</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link classB" href="<?php echo $configPath?>PHP/services.php">Layanan</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link classB" href="https://kontak.sabda.org/" target="_blank">Kontak</a>
-              </li>
-            </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link classB" href="<?php echo $configPath?>PHP/home.php">Beranda</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link classB" href="<?php echo $configPath?>PHP/about.php">Tentang</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link classB" href="<?php echo $configPath?>PHP/services.php">Layanan</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link classB" href="https://kontak.sabda.org/" target="_blank">Kontak</a>
+          </li>
+        </ul>
       </div>
+
     </div>
-
-
-
-
-    <!-- <div class="container mt-5">
-    <div class="input-group">
-        <input type="text" class="form-control rounded-pill" placeholder="Search...">
-        <button class="btn btn-primary rounded-pill" type="button">Search</button>
-    </div>
-</div> -->
-
-
-
-
-
-
-
-  </div>
 </nav>
 <div style="height: 80px;"><!-- Spacer --></div> 
