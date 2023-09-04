@@ -27,7 +27,10 @@
 		<div class="row" id="kontenS">
 			<!--COL Search & Filter  -->
 			<div class="col-lg-2 col-md-3 col-filter" id="col-filter-md" style="padding-right: 5px; padding-left:10px; min-width:210px;">
-				<div class="card sect-cont-sidebar">
+			
+			<div id="sp-top-filter"></div>
+			
+			<div class="card sect-cont-sidebar" id="card-filter">
 					<!-- <img src="..." class="card-img-top" alt="..."> -->
 					<div class="card-body card-sidebar">
 						<!-- <h5 class="card-title">Search</h5> -->
@@ -74,6 +77,9 @@
 					</div>
 				</div>
 			</div><!-- COL Search & Filter  -->
+
+			<!-- <div class="col-lg-2 col-md-3 sp-filter" style="margin-right: 29px;">
+			</div> -->
 
 			<!-- COL Card -->
 			<div class="col">
@@ -183,7 +189,7 @@
 			</div>
 		</div><!-- COL Card -->
 		<!-- Spacer -->
-		<div class="row" style="height: 20px;"></div>
+		<div class="row end-row" id="end-row" style="height: 20px;"></div>
 	</div><!-- row konten -->
 	</div> <!-- Container -->
 	<a class="floating-btn" id="down-button" onclick="scrollToBottom()">&#8595</a>

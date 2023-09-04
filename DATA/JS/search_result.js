@@ -337,6 +337,12 @@ function fetchSearchFilterResult2() {
                     cardTitle.className = '_card_title';
                     cardTitle.textContent = item.judul;
 
+                    // Create a button to show item.ringkasan
+                    const showSummaryButton = document.createElement('button');
+                    showSummaryButton.className = 'show-summary-button';
+                    showSummaryButton.textContent = 'V';
+
+
                     // Append the card content to the card element
                     card.appendChild(cardContent);
 
@@ -366,7 +372,42 @@ function fetchSearchFilterResult2() {
                     // Append the card to the main container
                     cardItem.appendChild(card);
                     cardResultElement.appendChild(cardItem);
+
+                    const cardRingkasan = document.createElement('p');
+                    cardRingkasan.className = '_card_ringkasan';
+                    cardRingkasan.textContent = item.deskripsi_pendek;
+                    cardRingkasan.style.color = 'white'; // Set the text color to white
+
+                    cardRingkasan.style.maxHeight = '15em'; // Adjust the height as needed
+                    cardRingkasan.style.overflow = 'hidden';        
+                    cardRingkasan.style.textOverflow = 'ellipsis';
+
+                    cardContent.appendChild(showSummaryButton);
+
+                    showSummaryButton.addEventListener('mouseenter', function () {
+                        // Display the item.ringkasan content in cardContent
+                        card.innerHTML = "";
+                        card.appendChild(cardContent);
+                        cardContent.removeChild(cardEvent);
+                        cardContent.removeChild(cardTitle);
+                        cardContent.removeChild(divNarsum);
+                        cardContent.appendChild(cardRingkasan);
+                        cardContent.appendChild(showSummaryButton);
+                    });
+                    
+                    showSummaryButton.addEventListener('mouseleave', function () {
+                        // Remove the item.ringkasan content when the mouse leaves the button
+                        cardContent.innerHTML = "";
+                        card.appendChild(cardContent);
+                        card.appendChild(cardImage);
+                        card.appendChild(cardContent);
+                        cardContent.appendChild(cardEvent);
+                        cardContent.appendChild(cardTitle);
+                        cardContent.appendChild(divNarsum);
+                        cardContent.appendChild(showSummaryButton);
+                    });  
                 });
+
                 fopen_narasumber.innerHTML = '';
                 fcolumn_narasumber.innerHTML = '';
                 fopen_event.innerHTML = '';
@@ -471,6 +512,11 @@ function fetchSearchFilterResult() {
                     cardTitle.className = '_card_title';
                     cardTitle.textContent = item.judul;
 
+                    // Create a button to show item.ringkasan
+                    const showSummaryButton = document.createElement('button');
+                    showSummaryButton.className = 'show-summary-button';
+                    showSummaryButton.textContent = 'V';
+
                     // Append the card content to the card element
                     card.appendChild(cardImage);
                     card.appendChild(cardContent);
@@ -500,6 +546,44 @@ function fetchSearchFilterResult() {
 
                     cardItem.appendChild(card);
                     cardResultElement.appendChild(cardItem);
+
+                    const cardRingkasan = document.createElement('p');
+
+                    cardRingkasan.className = '_card_ringkasan';
+                    cardRingkasan.textContent = item.deskripsi_pendek;
+                    cardRingkasan.style.color = 'white'; // Set the text color to white
+
+                    cardRingkasan.style.maxHeight = '15em'; // Adjust the height as needed
+                    cardRingkasan.style.overflow = 'hidden';        
+                    cardRingkasan.style.textOverflow = 'ellipsis';
+
+                    cardContent.appendChild(showSummaryButton);
+
+                    showSummaryButton.addEventListener('mouseenter', function () {
+                        // Display the item.ringkasan content in cardContent
+                        card.innerHTML = "";
+                        card.appendChild(cardContent);
+                        cardContent.removeChild(cardEvent);
+                        cardContent.removeChild(cardTitle);
+                        cardContent.removeChild(divNarsum);
+                        cardContent.appendChild(cardRingkasan);
+                        cardContent.appendChild(showSummaryButton);
+                    });
+                    
+                    showSummaryButton.addEventListener('mouseleave', function () {
+                        // Remove the item.ringkasan content when the mouse leaves the button
+                        cardContent.innerHTML = "";
+                        card.appendChild(cardContent);
+                        card.appendChild(cardImage);
+                        card.appendChild(cardContent);
+                        cardContent.appendChild(cardEvent);
+                        cardContent.appendChild(cardTitle);
+                        cardContent.appendChild(divNarsum);
+                        cardContent.appendChild(showSummaryButton);
+                    });  
+
+
+
                 });
                 fopen_narasumber.innerHTML = '';
                 fcolumn_narasumber.innerHTML = '';
@@ -600,6 +684,11 @@ function fetchNewest() {
                         cardTitle.className = '_card_title';
                         cardTitle.textContent = item.judul;
 
+                        // Create a button to show item.ringkasan
+                        const showSummaryButton = document.createElement('button');
+                        showSummaryButton.className = 'show-summary-button';
+                        showSummaryButton.textContent = 'V';
+
                         // Append the card content to the card element
                         card.appendChild(cardImage);
                         card.appendChild(cardContent);
@@ -629,6 +718,40 @@ function fetchNewest() {
 
                         cardItem.appendChild(card);
                         cardResultElement.appendChild(cardItem);
+
+                        const cardRingkasan = document.createElement('p');
+                        cardRingkasan.className = '_card_ringkasan';
+                        cardRingkasan.textContent = item.deskripsi_pendek;
+                        cardRingkasan.style.color = 'white'; // Set the text color to white
+
+                        cardRingkasan.style.maxHeight = '15em'; // Adjust the height as needed
+                        cardRingkasan.style.overflow = 'hidden';        
+                        cardRingkasan.style.textOverflow = 'ellipsis';
+
+                        cardContent.appendChild(showSummaryButton);
+
+                        showSummaryButton.addEventListener('mouseenter', function () {
+                            // Display the item.ringkasan content in cardContent
+                            card.innerHTML = "";
+                            card.appendChild(cardContent);
+                            cardContent.removeChild(cardEvent);
+                            cardContent.removeChild(cardTitle);
+                            cardContent.removeChild(divNarsum);
+                            cardContent.appendChild(cardRingkasan);
+                            cardContent.appendChild(showSummaryButton);
+                        });
+                        
+                        showSummaryButton.addEventListener('mouseleave', function () {
+                            // Remove the item.ringkasan content when the mouse leaves the button
+                            cardContent.innerHTML = "";
+                            card.appendChild(cardContent);
+                            card.appendChild(cardImage);
+                            card.appendChild(cardContent);
+                            cardContent.appendChild(cardEvent);
+                            cardContent.appendChild(cardTitle);
+                            cardContent.appendChild(divNarsum);
+                            cardContent.appendChild(showSummaryButton);
+                        });  
 
                         FilterColumnCanvas.innerHTML = '';
                         FilterOpenCanvas.innerHTML = '';
@@ -779,6 +902,11 @@ function fetchSearchResult() {
                     cardTitle.className = '_card_title';
                     cardTitle.textContent = item.judul;
 
+                     // Create a button to show item.ringkasan
+                    const showSummaryButton = document.createElement('button');
+                    showSummaryButton.className = 'show-summary-button';
+                    showSummaryButton.textContent = 'V';
+
                     card.appendChild(cardImage);
                     card.appendChild(cardContent);
 
@@ -807,6 +935,41 @@ function fetchSearchResult() {
 
                     cardItem.appendChild(card);
                     cardResultElement.appendChild(cardItem);
+
+                    const cardRingkasan = document.createElement('p');
+                    cardRingkasan.className = '_card_ringkasan';
+                    cardRingkasan.textContent = item.deskripsi_pendek;
+                    cardRingkasan.style.color = 'white'; // Set the text color to white
+
+                    cardRingkasan.style.maxHeight = '15em'; // Adjust the height as needed
+                    cardRingkasan.style.overflow = 'hidden';        
+                    cardRingkasan.style.textOverflow = 'ellipsis';
+
+                    cardContent.appendChild(showSummaryButton);
+
+                    showSummaryButton.addEventListener('mouseenter', function () {
+                        // Display the item.ringkasan content in cardContent
+                        card.innerHTML = "";
+                        card.appendChild(cardContent);
+                        cardContent.removeChild(cardEvent);
+                        cardContent.removeChild(cardTitle);
+                        cardContent.removeChild(divNarsum);
+                        cardContent.appendChild(cardRingkasan);
+                        cardContent.appendChild(showSummaryButton);
+                    });
+                    
+                    showSummaryButton.addEventListener('mouseleave', function () {
+                        // Remove the item.ringkasan content when the mouse leaves the button
+                        cardContent.innerHTML = "";
+                        card.appendChild(cardContent);
+                        card.appendChild(cardImage);
+                        card.appendChild(cardContent);
+                        cardContent.appendChild(cardEvent);
+                        cardContent.appendChild(cardTitle);
+                        cardContent.appendChild(divNarsum);
+                        cardContent.appendChild(showSummaryButton);
+                    });  
+
                 });
                 } else {
                     if(pageSize == 12){
@@ -1038,6 +1201,11 @@ function fetchSearchResult2() {
                         cardTitle.className = '_card_title';
                         cardTitle.textContent = item.judul;
 
+                        // Create a button to show item.ringkasan
+                        const showSummaryButton = document.createElement('button');
+                        showSummaryButton.className = 'show-summary-button';
+                        showSummaryButton.textContent = 'V';
+
                         // Append the card content to the card element
                         card.appendChild(cardContent);
 
@@ -1067,6 +1235,40 @@ function fetchSearchResult2() {
                         // Append the card to the main container
                         cardItem.appendChild(card);
                         cardResultElement.appendChild(cardItem);
+
+                        const cardRingkasan = document.createElement('p');
+                        cardRingkasan.className = '_card_ringkasan';
+                        cardRingkasan.textContent = item.deskripsi_pendek;
+                        cardRingkasan.style.color = 'white'; // Set the text color to white
+
+                        cardRingkasan.style.maxHeight = '15em'; // Adjust the height as needed
+                        cardRingkasan.style.overflow = 'hidden';        
+                        cardRingkasan.style.textOverflow = 'ellipsis';
+
+                        cardContent.appendChild(showSummaryButton);
+
+                        showSummaryButton.addEventListener('mouseenter', function () {
+                            // Display the item.ringkasan content in cardContent
+                            card.innerHTML = "";
+                            card.appendChild(cardContent);
+                            cardContent.removeChild(cardEvent);
+                            cardContent.removeChild(cardTitle);
+                            cardContent.removeChild(divNarsum);
+                            cardContent.appendChild(cardRingkasan);
+                            cardContent.appendChild(showSummaryButton);
+                        });
+                        
+                        showSummaryButton.addEventListener('mouseleave', function () {
+                            // Remove the item.ringkasan content when the mouse leaves the button
+                            cardContent.innerHTML = "";
+                            card.appendChild(cardContent);
+                            card.appendChild(cardImage);
+                            card.appendChild(cardContent);
+                            cardContent.appendChild(cardEvent);
+                            cardContent.appendChild(cardTitle);
+                            cardContent.appendChild(divNarsum);
+                            cardContent.appendChild(showSummaryButton);
+                        });  
                     });
                 }
                 else {

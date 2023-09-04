@@ -355,6 +355,20 @@ img {
     background-color: gold;
 }
 
+.show-summary-button {
+    background-color: transparent;
+    color: white; /* Change button color as needed */
+    border: none;
+    cursor: pointer;
+    font-size: 10px;
+    margin-top: 3px;
+}
+
+.show-summary-button:hover {
+    color: #272727; /* Change button color on hover as needed */
+}
+
+
 
 @media (max-width: 1200px) {
     ._cards_item {
@@ -383,7 +397,7 @@ img {
         display: none;
     }
 
-    .col-filter{
+    .col-filter, .sp-filter{
         display: unset;
     }
 
@@ -393,7 +407,7 @@ img {
 }
 
 @media (max-width: 992px){
-    .col-filter{
+    .col-filter, .sp-filter{
         display: none;
     }
     .filter-sm-btn{
@@ -416,8 +430,12 @@ img {
     }
 }
 
+/* .col-filter{
+    position: fixed;
+} */
+
 @media (max-width: 768px){
-    .col-filter{
+    .col-filter, .sp-filter{
         display: none;
     }
     .filter-sm-btn{

@@ -37,7 +37,7 @@ if (isset($_GET['document_id'])) {
         $relatedDocuments = $response['hits']['hits'];
 
         if (sizeof($relatedDocuments) > 0){
-            echo '<h3>Kata Kunci Terkait</h3>';
+            echo '<h3>Kata Terkait</h3>';
             echo '<div class = "_cards-container">';
             echo '<div class = "main">';
             echo '<ul class = "_cards" id="card_result">';

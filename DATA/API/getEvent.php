@@ -20,7 +20,7 @@ $params = [
             'event' => $eventParam,
         ],
     ],
-    '_source' => ['event','narasumber', 'judul', 'deskripsi_pendek', 'url_youtube'],
+    '_source' => ['event','narasumber', 'judul', 'deskripsi_pendek', 'url_youtube', 'ringkasan'],
 ];
 
 $query = json_encode($params);
@@ -43,6 +43,7 @@ if ($response === "E-CONN"){
             'deskripsi_pendek' => $source['deskripsi_pendek'],
             'id' => $hit['_id'],
             'youtube' => $youtubeUrl,
+            'ringkasan' => $source['ringkasan']
         ];
     }
 
