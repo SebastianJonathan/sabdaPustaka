@@ -11,7 +11,7 @@ if (isset($_GET['document_id'])) {
     $params = [
         'query' => [
             'more_like_this' => [
-                'fields' => ['judul'], // Adjust the fields based on your preference
+                'fields' => ['kata_kunci'], // Adjust the fields based on your preference
                 'like' => [
                     [
                         '_index' => $indexName,
@@ -19,8 +19,8 @@ if (isset($_GET['document_id'])) {
                     ]
                 ],
                 'min_term_freq' => 1,
-                'max_query_terms' => 12, // Adjust the number of terms based on your preference
-                'minimum_should_match' => '30%'
+                'max_query_terms' => 4, // Adjust the number of terms based on your preference
+                'minimum_should_match' => '60%'
             ]
         ],
         'size' => 4 // Adjust the number of related documents to retrieve
@@ -37,7 +37,7 @@ if (isset($_GET['document_id'])) {
         $relatedDocuments = $response['hits']['hits'];
 
         if (sizeof($relatedDocuments) > 0){
-            echo '<h3>Judul Terkait</h3>';
+            echo '<h3>Kata Kunci Terkait</h3>';
             echo '<div class = "_cards-container">';
             echo '<div class = "main">';
             echo '<ul class = "_cards" id="card_result">';

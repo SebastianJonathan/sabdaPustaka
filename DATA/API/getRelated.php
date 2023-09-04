@@ -8,20 +8,28 @@ if (isset($_GET['document_id'])) {
     // Prepare the query parameters
     $params = [
         'query' => [
-            'more_like_this' => [
-                'fields' => ['ringkasan'], // Adjust the fields based on your preference
-                'like' => [
-                    [
-                        '_index' => $indexName,
-                        '_id' => $documentId
+            'function_score' => [
+                'query' => [
+                    'more_like_this' => [
+                        'fields' => ['judul'], // Adjust the fields based on your preference
+                        'like' => [
+                            [
+                                '_index' => $indexName,
+                                '_id' => $documentId
+                            ]
+                        ],
+                        'min_term_freq' => 1,
+                        'max_query_terms' => 5, // Adjust the number of terms based on your preference
+                        'minimum_should_match' => '50%'
                     ]
                 ],
-                'min_term_freq' => 1,
-                'max_query_terms' => 12, // Adjust the number of terms based on your preference
-                'minimum_should_match' => '30%'
-            ]
+                'random_score' => [
+                    'seed' => time(), // Use a seed for randomization
+                ],
+                'boost_mode' => 'multiply', // This will maintain the minimum_should_match condition
+            ],
         ],
-        'size' => 4 // Adjust the number of related documents to retrieve
+        'size' => 4, // Adjust the number of related documents to retrieve
     ];
 
     $query = json_encode($params);
@@ -38,7 +46,7 @@ if (isset($_GET['document_id'])) {
         $relatedDocuments = $response['hits']['hits'];
 
         if (sizeof($relatedDocuments) > 0 ){
-            echo '<h3>Materi Terkait</h3>';
+            // echo '<h3>Materi Terkait</h3>';
             echo '<div class = "_cards-container">';
             echo '<div class = "main">';
             echo '<ul class = "_cards" id="card_result">';
