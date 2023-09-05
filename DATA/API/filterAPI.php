@@ -111,7 +111,7 @@
                         'narasumber' => $source['narasumber'],
                         'deskripsi_pendek' => $source['deskripsi_pendek'],
                         'id' => $hit['_id'],
-                        'youtube' => $source['url_youtube']
+                        'youtube' => $source['url_youtube'],
                     ];
                 }
                 $jsonData = [
@@ -291,7 +291,7 @@
         }else{
             if($jsonSearch["query"] === "Kosong"){
                 $params2 = [
-                    '_source' => ['judul', 'event', 'narasumber', 'url_youtube', 'tanggal'],
+                    '_source' => ['judul', 'event', 'narasumber', 'url_youtube', 'tanggal', 'deskripsi_pendek'],
                     'size' => 10000,
                     'query' => [
                         'bool' => [
@@ -307,7 +307,7 @@
                 ];
             }else{
                 $params2 = [
-                    '_source' => ['judul', 'event', 'narasumber', 'url_youtube', 'tanggal'],
+                    '_source' => ['judul', 'event', 'narasumber', 'url_youtube', 'tanggal', 'deskripsi_pendek'],
                     'size' => 10000,
                     'query' => [
                         'bool' => [
@@ -435,7 +435,7 @@
                 
                 if($jsonSearch["query"] === "Kosong"){
                     $params = [
-                        '_source' => ['judul', 'event', 'narasumber', 'url_youtube', 'tanggal'],
+                        '_source' => ['judul', 'event', 'narasumber', 'url_youtube', 'tanggal', 'deskripsi_pendek'],
                         'size' => $jsonSearch["size"],
                         'query' => [
                             'bool' => [
@@ -452,7 +452,7 @@
                     ];
                 }else{
                     $params = [
-                        '_source' => ['judul', 'event', 'narasumber', 'url_youtube', 'tanggal'],
+                        '_source' => ['judul', 'event', 'narasumber', 'url_youtube', 'tanggal', 'deskripsi_pendek'],
                         'size' => $jsonSearch["size"],
                         'query' => [
                             'bool' => [
@@ -511,9 +511,10 @@
                         'event' => $source['event'],
                         'judul' => $source['judul'],
                         'narasumber' => $source['narasumber'],
-                        // 'deskripsi_pendek' => $source['deskripsi_pendek'],
+                        'deskripsi_pendek' => $source['deskripsi_pendek'],
                         'id' => $data['_id'],
                         'youtube' => $source['url_youtube']
+
                     ];
                 }
 

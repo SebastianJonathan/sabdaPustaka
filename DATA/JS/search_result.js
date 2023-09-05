@@ -1241,7 +1241,7 @@ function fetchSearchResult2() {
                         cardRingkasan.textContent = item.deskripsi_pendek;
                         cardRingkasan.style.color = 'white'; // Set the text color to white
 
-                        cardRingkasan.style.maxHeight = '15em'; // Adjust the height as needed
+                        cardRingkasan.style.maxHeight = '4.4em'; // Adjust the height as needed
                         cardRingkasan.style.overflow = 'hidden';        
                         cardRingkasan.style.textOverflow = 'ellipsis';
 
