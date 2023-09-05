@@ -18,6 +18,7 @@
 
               <button type="button" class="search-button" onclick="goSearch()" style="background-color: #1e0049; color: white;">Cari</button>
             </div>
+            
 
             <div id="rekomendasi">
               <ul id="rekomendasi-list"></ul>

@@ -113,14 +113,7 @@ body {
 }
 
 .form-input {
-    height: 26px;
-    text-indent: 2%;
-    border-radius: 5px;
-}
-
-.form-input:focus {
     box-shadow: none;
-    border: none;
 }
 
 .navbar-brand {
@@ -248,7 +241,7 @@ body {
 .InputContainer {
     width: 90%;
     max-width: 600px;
-    height: 30px;
+    height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -256,12 +249,12 @@ body {
     border-radius: 5px;
     overflow: hidden;
     cursor: pointer;
-    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.075);
+    /* box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.075); */
     margin: auto;
     margin-top: 1%;
     padding-left: 2px;
     position: relative;
-    border: 1.5px rgb(51, 51, 51) solid;
+    border: 3.5px rgb(30, 0, 73) solid;
 }
 
 .search-button {
