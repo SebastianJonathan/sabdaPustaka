@@ -206,7 +206,7 @@
                   if ($url_static) {
                     ?>
                     <button type="button" class="btn-ln">
-                      <a href="<?php echo $url_static ?>" class="btn-ln-a" target="_blank">Presentasi</a>
+                      <a href="<?php echo $url_static ?>" class="btn-ln-a" target="_blank">PDF</a>
                     </button>
                     <?php
                   }
