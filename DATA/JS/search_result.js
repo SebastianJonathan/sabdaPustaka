@@ -133,6 +133,8 @@ function createCheckbox(id, nama, div_filter, arr) {
     input.value = nama;
     input.onchange = function() {
         currPage = 1;
+        pageSize = 12;
+        rowsPassed = 0;
         first = false;
         syncCheckbox(input.id,input.checked);
         if(id.substring(4,5) == "n"){
@@ -283,18 +285,25 @@ function initFetchSearchFilter(isFilter){
 
 function fetchSearchFilterResult2() {
     var fetchinit = initFetchSearchFilter(true);
-    const filterJson = fetchinit[0];
+    var filterJson = fetchinit[0];
+    if(pageSize > 12){
+        filterJson = JSON.parse(filterJson);
+        filterJson.currPage = pageSize - loadPage;
+        filterJson.size = loadPage;
+        filterJson = JSON.stringify(filterJson);
+    }
     let query = fetchinit[1];
 
     if (filterJson != "-1"){
         const cardResultElement = document.getElementById('card_result');
-        cardResultElement.classList.add('container-list');
-        cardResultElement.classList.add('_card2');
-        cardResultElement.classList.remove('_cards');
+        if(pageSize == 12){
+            cardResultElement.classList.add('container-list');
+            cardResultElement.classList.add('_card2');
+            cardResultElement.classList.remove('_cards');
 
-        // Delete all card elements by setting the innerHTML to an empty string
-        cardResultElement.innerHTML = '';
-
+            // Delete all card elements by setting the innerHTML to an empty string
+            cardResultElement.innerHTML = '';
+        }
         fetch(configPath + 'API/filterAPI.php', {
             method: 'POST',
             headers: {
@@ -442,18 +451,25 @@ function fetchSearchFilterResult2() {
 
 function fetchSearchFilterResult() {
     var fetchinit = initFetchSearchFilter(true);
-    const filterJson = fetchinit[0];
+    var filterJson = fetchinit[0];
+    if(pageSize > 12){
+        filterJson = JSON.parse(filterJson);
+        filterJson.currPage = pageSize - loadPage;
+        filterJson.size = loadPage;
+        filterJson = JSON.stringify(filterJson);
+    }
     let query = fetchinit[1];
 
     if (filterJson != "-1"){
         const cardResultElement = document.getElementById('card_result');
-        cardResultElement.classList.remove('container-list');
-        cardResultElement.classList.remove('_card2');
-        cardResultElement.classList.add('_cards');
+        if(pageSize == 12){
+            cardResultElement.classList.remove('container-list');
+            cardResultElement.classList.remove('_card2');
+            cardResultElement.classList.add('_cards');
 
-        // Delete all card elements by setting the innerHTML to an empty string
-        cardResultElement.innerHTML = '';
-
+            // Delete all card elements by setting the innerHTML to an empty string
+            cardResultElement.innerHTML = '';
+        }
         fetch(configPath + 'API/filterAPI.php', {
             method: 'POST',
             headers: {
@@ -470,7 +486,6 @@ function fetchSearchFilterResult() {
                 errorConnNoMore();
                 setMaxPage(data.result.total);
                 const cardResultElement = document.getElementById('card_result');
-                cardResultElement.innerHTML = '';
 
                 data.result.data.forEach(function (item) {
                     const cardItem = document.createElement('li');
@@ -1563,6 +1578,12 @@ window.addEventListener('scroll', () => {
                 fetchSearchResult();
             }else if(sessionStorage.getItem("mode") == "list"){
                 fetchSearchResult2();
+            }
+        }else{
+            if(sessionStorage.getItem("mode") == "card"){
+                fetchSearchFilterResult();
+            }else if(sessionStorage.getItem("mode") == "list"){
+                fetchSearchFilterResult2();
             }
         }
         rowsPassed = passedRows;
