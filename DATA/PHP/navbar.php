@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <div class="row" style="width: 100%">
     
-      <div class="col col-md-2 col-lg-2 col-sm-3" style="min-width: 100px; left: 0;">
+      <div class="col col-md-2 col-lg-2 col-sm-3" style="min-width: 100px; left: 0;" id="logo">
         <a class="navbar-brand navbar-brands" href="<?php echo $configPath?>PHP/home.php" style="padding-left:10px;">
           <img class="hoverable" src="<?php echo $configPath?>img/logo.png" alt="Logo Sabda">
         </a>
@@ -29,11 +29,11 @@
       <div class="col col-lg-2 col-md-2 col-sm-3 tog-nav" style="min-width: 100px; right: 0;"> 
 
 
-        <button class="nav-search-btn" style="padding-right:13px;" type="button">
+        <button class="nav-search-btn" id="search-icon" style="padding-right:13px;" type="button" onclick="toogleNavbar()">
           <img style="width: 28px;" src="<?php echo $configPath?>img\search-symbol.png" alt="Search">
         </button>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" id="toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 

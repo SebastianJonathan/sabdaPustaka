@@ -238,37 +238,6 @@ function goSearch() {
     }
 }
 
-async function fetchRecommendations2() {
-    const query = document.getElementById('query').value;
-    const fields = document.getElementById('query').dataset.fields;
-    try {
-        const response = await fetch(configPath + `API/autocomplete.php?query=${query}&fields=${fields}`);
-        const data = await response.json();
-        tampilkanRekomendasi(data.rekomendasi);
-    } catch (error) {
-        console.error('Terjadi kesalahan:', error);
-    }
-    hideRekomendasi();
-}
-
-function addSection(item, className, rekomendasiList) {
-    const li = document.createElement('li');
-    li.className = className;
-    li.textContent = item;
-    li.addEventListener('click', function() {
-        document.getElementById('query').value = item
-        hideRekomendasi();
-        updateSessionCheckbox();
-        goSearch();
-    });
-    rekomendasiList.appendChild(li);
-}
-
-function hideRekomendasi() {
-    const rekomendasiDiv = document.getElementById('rekomendasi');
-    rekomendasiDiv.style.display = 'none';
-}
-
 function updateSessionCheckbox() {
     const checkboxJudul = document.getElementById("checkbox_judul");
     const checkboxEvent = document.getElementById("checkbox_event");

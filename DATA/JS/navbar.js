@@ -138,8 +138,22 @@ function updateSessionCheckbox() {
     }
 }
 
+function toogleNavbar(){
+    document.getElementById("search-icon").style.display = 'none';
+    document.getElementById("toggle").style.display = 'none';
+    document.getElementById("logo").style.display = 'none';
+    document.getElementById("search").style.display = 'block';
+    document.getElementById("search").style.position = 'absolute';
+}
 document.getElementById("search").addEventListener("submit", function(event) {
     event.preventDefault();
+    if(document.getElementById("logo") == 'none'){
+        document.getElementById("search-icon").style.display = 'block';
+        document.getElementById("toggle").style.display = 'block';
+        document.getElementById("logo").style.display = 'block';
+        document.getElementById("search").style.display = 'none';
+        document.getElementById("search").style.position = 'fixed';
+    }
     goSearch();
     hideRekomendasi();
 });
