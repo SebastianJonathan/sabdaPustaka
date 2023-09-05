@@ -378,7 +378,7 @@ function fetchSearchFilterResult2() {
                     cardRingkasan.textContent = item.deskripsi_pendek;
                     cardRingkasan.style.color = 'white'; // Set the text color to white
 
-                    cardRingkasan.style.maxHeight = '15em'; // Adjust the height as needed
+                    cardRingkasan.style.maxHeight = '4.1em'; // Adjust the height as needed
                     cardRingkasan.style.overflow = 'hidden';        
                     cardRingkasan.style.textOverflow = 'ellipsis';
 
@@ -398,8 +398,6 @@ function fetchSearchFilterResult2() {
                     showSummaryButton.addEventListener('mouseleave', function () {
                         // Remove the item.ringkasan content when the mouse leaves the button
                         cardContent.innerHTML = "";
-                        card.appendChild(cardContent);
-                        card.appendChild(cardImage);
                         card.appendChild(cardContent);
                         cardContent.appendChild(cardEvent);
                         cardContent.appendChild(cardTitle);
