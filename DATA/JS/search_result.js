@@ -1262,8 +1262,6 @@ function fetchSearchResult2() {
                             // Remove the item.ringkasan content when the mouse leaves the button
                             cardContent.innerHTML = "";
                             card.appendChild(cardContent);
-                            card.appendChild(cardImage);
-                            card.appendChild(cardContent);
                             cardContent.appendChild(cardEvent);
                             cardContent.appendChild(cardTitle);
                             cardContent.appendChild(divNarsum);
