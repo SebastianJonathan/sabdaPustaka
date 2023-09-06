@@ -525,11 +525,6 @@ function fetchSearchFilterResult() {
                     cardTitle.className = '_card_title';
                     cardTitle.textContent = item.judul;
 
-                    // Create a button to show item.ringkasan
-                    const showSummaryButton = document.createElement('button');
-                    showSummaryButton.className = 'show-summary-button';
-                    showSummaryButton.textContent = 'V';
-
                     // Append the card content to the card element
                     card.appendChild(cardImage);
                     card.appendChild(cardContent);
@@ -570,9 +565,7 @@ function fetchSearchFilterResult() {
                     cardRingkasan.style.overflow = 'hidden';        
                     cardRingkasan.style.textOverflow = 'ellipsis';
 
-                    cardContent.appendChild(showSummaryButton);
-
-                    showSummaryButton.addEventListener('mouseenter', function () {
+                    cardTitle.addEventListener('mouseenter', function () {
                         // Display the item.ringkasan content in cardContent
                         card.innerHTML = "";
                         card.appendChild(cardContent);
@@ -583,7 +576,7 @@ function fetchSearchFilterResult() {
                         cardContent.appendChild(showSummaryButton);
                     });
                     
-                    showSummaryButton.addEventListener('mouseleave', function () {
+                    card.addEventListener('mouseleave', function () {
                         // Remove the item.ringkasan content when the mouse leaves the button
                         cardContent.innerHTML = "";
                         card.appendChild(cardContent);
@@ -697,11 +690,6 @@ function fetchNewest() {
                         cardTitle.className = '_card_title';
                         cardTitle.textContent = item.judul;
 
-                        // Create a button to show item.ringkasan
-                        const showSummaryButton = document.createElement('button');
-                        showSummaryButton.className = 'show-summary-button';
-                        showSummaryButton.textContent = 'V';
-
                         // Append the card content to the card element
                         card.appendChild(cardImage);
                         card.appendChild(cardContent);
@@ -735,15 +723,14 @@ function fetchNewest() {
                         const cardRingkasan = document.createElement('p');
                         cardRingkasan.className = '_card_ringkasan';
                         cardRingkasan.textContent = item.deskripsi_pendek;
+                        cardRingkasan.style.fontSize = '15px';
                         cardRingkasan.style.color = 'white'; // Set the text color to white
 
                         cardRingkasan.style.maxHeight = '15em'; // Adjust the height as needed
                         cardRingkasan.style.overflow = 'hidden';        
                         cardRingkasan.style.textOverflow = 'ellipsis';
 
-                        cardContent.appendChild(showSummaryButton);
-
-                        showSummaryButton.addEventListener('mouseenter', function () {
+                        cardTitle.addEventListener('mouseenter', function () {
                             // Display the item.ringkasan content in cardContent
                             card.innerHTML = "";
                             card.appendChild(cardContent);
@@ -751,10 +738,9 @@ function fetchNewest() {
                             cardContent.removeChild(cardTitle);
                             cardContent.removeChild(divNarsum);
                             cardContent.appendChild(cardRingkasan);
-                            cardContent.appendChild(showSummaryButton);
                         });
                         
-                        showSummaryButton.addEventListener('mouseleave', function () {
+                        card.addEventListener('mouseleave', function () {
                             // Remove the item.ringkasan content when the mouse leaves the button
                             cardContent.innerHTML = "";
                             card.appendChild(cardContent);
@@ -763,7 +749,6 @@ function fetchNewest() {
                             cardContent.appendChild(cardEvent);
                             cardContent.appendChild(cardTitle);
                             cardContent.appendChild(divNarsum);
-                            cardContent.appendChild(showSummaryButton);
                         });  
 
                         FilterColumnCanvas.innerHTML = '';
@@ -915,10 +900,10 @@ function fetchSearchResult() {
                     cardTitle.className = '_card_title';
                     cardTitle.textContent = item.judul;
 
-                     // Create a button to show item.ringkasan
-                    const showSummaryButton = document.createElement('button');
-                    showSummaryButton.className = 'show-summary-button';
-                    showSummaryButton.textContent = 'V';
+                    //  // Create a button to show item.ringkasan
+                    // const showSummaryButton = document.createElement('button');
+                    // showSummaryButton.className = 'show-summary-button';
+                    // showSummaryButton.textContent = 'V';
 
                     card.appendChild(cardImage);
                     card.appendChild(cardContent);
@@ -958,9 +943,9 @@ function fetchSearchResult() {
                     cardRingkasan.style.overflow = 'hidden';        
                     cardRingkasan.style.textOverflow = 'ellipsis';
 
-                    cardContent.appendChild(showSummaryButton);
+                    // cardContent.appendChild(showSummaryButton);
 
-                    showSummaryButton.addEventListener('mouseenter', function () {
+                    cardTitle.addEventListener('mouseenter', function () {
                         // Display the item.ringkasan content in cardContent
                         card.innerHTML = "";
                         card.appendChild(cardContent);
@@ -971,7 +956,7 @@ function fetchSearchResult() {
                         cardContent.appendChild(showSummaryButton);
                     });
                     
-                    showSummaryButton.addEventListener('mouseleave', function () {
+                    card.addEventListener('mouseleave', function () {
                         // Remove the item.ringkasan content when the mouse leaves the button
                         cardContent.innerHTML = "";
                         card.appendChild(cardContent);

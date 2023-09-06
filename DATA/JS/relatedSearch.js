@@ -381,12 +381,6 @@ function generateCard(results){
             cardTitle.className = '_card_title';
             cardTitle.textContent = item.judul;
 
-
-            // Create a button to show item.ringkasan
-            const showSummaryButton = document.createElement('button');
-            showSummaryButton.className = 'show-summary-button';
-            showSummaryButton.textContent = 'V';
-
             // Append the card content to the card element
             card.appendChild(cardImage);
             card.appendChild(cardContent);
@@ -424,13 +418,8 @@ function generateCard(results){
 
             cardRingkasan.style.maxHeight = '15em'; // Adjust the height as needed
             cardRingkasan.style.overflow = 'hidden';        
-            cardRingkasan.style.textOverflow = 'ellipsis';
 
-            cardContent.appendChild(showSummaryButton);
-
-
-
-            showSummaryButton.addEventListener('mouseenter', function () {
+            cardTitle.addEventListener('mouseenter', function () {
                 // Display the item.ringkasan content in cardContent
                 card.innerHTML = "";
                 card.appendChild(cardContent);
@@ -441,7 +430,7 @@ function generateCard(results){
                 cardContent.appendChild(showSummaryButton);
             });
             
-            showSummaryButton.addEventListener('mouseleave', function () {
+            card.addEventListener('mouseleave', function () {
                 // Remove the item.ringkasan content when the mouse leaves the button
                 cardContent.innerHTML = "";
                 card.appendChild(cardContent);
