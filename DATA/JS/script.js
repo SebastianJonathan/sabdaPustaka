@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	$.getScript(configPath+"JS/navbar.js");
     if ($("#p1_home").length) {
 		$.getScript(configPath+"JS/search_result.js");
 		$.getScript(configPath+"JS/home.js");
@@ -13,5 +14,5 @@ $(document).ready(function() {
     else if($("#p4_allList").length){
 		$.getScript(configPath+"JS/getAllList.js");
     }
-	$.getScript(configPath+"JS/navbar.js");
+	
 });

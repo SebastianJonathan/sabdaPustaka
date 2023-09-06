@@ -399,9 +399,9 @@ img {
         display: none;
     }
 
-    .col-filter, .sp-filter{
+    /* .col-filter, .sp-filter{
         display: unset;
-    }
+    } */
 
     #col-filter-sm{
         display: none;
@@ -409,9 +409,9 @@ img {
 }
 
 @media (max-width: 992px){
-    .col-filter, .sp-filter{
+    /* .col-filter, .sp-filter{
         display: none;
-    }
+    } */
     .filter-sm-btn{
         display: unset;
     }
@@ -436,13 +436,18 @@ img {
     position: fixed;
 } */
 
-@media (max-width: 768px){
+/* @media (max-width: 768px){
     .col-filter, .sp-filter{
         display: none;
     }
     .filter-sm-btn{
         display: unset;
     }
+} */
+
+#card-filter{
+    height: 82vh;
+    overflow-y: scroll;
 }
 
 @media (max-width: 768px) {

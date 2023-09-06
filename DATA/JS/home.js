@@ -14,26 +14,48 @@ $('.fsc input[type=checkbox]').change(function() {
     updateFields();
 });
 
+var colFilter = document.getElementById('col-filter-md');
+var spFilter = document.getElementById('sp-sidebar');
+var footer = document.getElementById('footer');
+var atFooter = 0;
+function scrollFilter(){
 
-const spSideB = document.getElementById('sp-top-filter');
-var cardFilter = document.getElementById('card-filter');
-var cardRow = document.getElementById('kontenS');
-// Define the maximum height to which you want to increase the element
-var maxHeight = cardRow.clientHeight - cardFilter.clientHeight + 200; // Adjust this value as needed
+    let screenWidth =window.innerWidth;
+    if (screenWidth > 992){
+        colFilter.style.display = "flex";
+        // spFilter.style.display = "block";
+        var scrollPosition = window.scrollY;
 
+        var rect = footer.getBoundingClientRect();
+        console.log(rect.top);
+
+        if (rect.top < 720){
+            colFilter.style.position = "relative";
+            colFilter.style.alignItems= "end";
+            spFilter.style.display = "none";
+            atFooter = 1;
+        }
+        else if (scrollPosition > 0){
+            spFilter.style.display = "block";
+            colFilter.style.position = "fixed";
+            if (atFooter == 1){
+                // window.scrollTo(700);
+                atFooter = 0;
+            }
+        }else{
+            colFilter.style.position = "relative";
+            colFilter.style.alignItems= "start";
+            spFilter.style.display = "none";
+        }
+    } else{
+        spFilter.style.display = "none";
+        colFilter.style.display = "none";
+    }
+}
+scrollFilter();
 // Add an event listener to the window's scroll event
-window.addEventListener('scroll', function() {
-  // Get the current scroll position
-  const scrollPosition = window.scrollY;
-
-  
-  // Calculate the new height based on the scroll position
-  const newHeight = Math.min(maxHeight,  scrollPosition);
-//   const newHeight = scrollPosition;
-  // Set the new height to the element
-  spSideB.style.height = (newHeight)+ 'px';
-  console.log(newHeight);
-});
+window.addEventListener('scroll', scrollFilter);
+window.addEventListener('resize', scrollFilter);
 
 
 var errorConn = false;
@@ -426,6 +448,7 @@ function startupAndSearch() {
             expandNarasumber(true);
         }
     } catch (error){
+        window.alert(error);
         location.reload();
     }
 }

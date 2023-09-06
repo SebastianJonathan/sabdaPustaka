@@ -7,28 +7,10 @@
 			<h4><strong>Silahkan Mencari dan Menjelajahi Materi yang telah Disediakan oleh SABDA!</strong></h4>
 		</div>
 
-		<!-- Row Search Bar -->
-		<!-- <div class="row">
-			<form action="" id="search" class="content sect-search">
-				<div class="rekomendasi-container">
-					<div class="col-md-6 InputContainer" style="background-color: #1e0049; ">
-						<input placeholder="Cari di SABDA Pustaka" id="query" class="query form-control form-input" name="query" type="text" autocomplete="off">
-						<button type="button" class="search-button" onclick="goSearch()" style="background-color: #1e0049; color: white;">Cari</button>
-					</div>
-					<div id="rekomendasi">
-						<ul id="rekomendasi-list"></ul>
-					</div>
-				</div>
-			</form>
-		</div> -->
-
-
 		<!-- Konten Website -->
 		<div class="row" id="kontenS">
 			<!--COL Search & Filter  -->
-			<div class="col-lg-2 col-md-3 col-filter" id="col-filter-md" style="padding-right: 5px; padding-left:10px; min-width:210px;">
-			
-			<div id="sp-top-filter"></div>
+			<div class="col-lg-2 col-md-3 col-filter" id="col-filter-md" style="padding-right: 5px; padding-left:10px; width: 213px;">
 			
 			<div class="card sect-cont-sidebar" id="card-filter">
 					<!-- <img src="..." class="card-img-top" alt="..."> -->
@@ -78,8 +60,8 @@
 				</div>
 			</div><!-- COL Search & Filter  -->
 
-			<!-- <div class="col-lg-2 col-md-3 sp-filter" style="margin-right: 29px;">
-			</div> -->
+			<div class="col-lg-2 col-md-3 sp-filter" id="sp-sidebar" style="width: 213px;">
+			</div>
 
 			<!-- COL Card -->
 			<div class="col">

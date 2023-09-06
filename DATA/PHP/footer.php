@@ -1,4 +1,4 @@
-<footer class="text-center text-lg-start text-white footer " style="background-color: #1c2331; overflow-x: hidden;" >
+<footer class="text-center text-lg-start text-white footer" id="footer" style="background-color: #1c2331; overflow-x: hidden;" >
   <div class="top-footer" style="margin-top: 10px; margin-bottom: 5px;">
     <div class="row mt-3 t-foot">
 
