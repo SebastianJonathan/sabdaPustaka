@@ -1,4 +1,7 @@
 var errorConn = false;
+var pageSizes = 12
+let rowsPasseds = 0;
+let cardHeights = window.innerHeight / 2;
 
 function errorConnHandling(){
     if (!errorConn){
@@ -235,7 +238,7 @@ function PageRel(pageNumber) {
             else{
                 currPageRel = pageNumber;
             }
-            generateCard(paginate(relResult, currPageRel, pageSizeRel ));
+            generateCard(paginate(relResult));
             setPagiRel();
 
             window.scrollTo({
@@ -308,11 +311,15 @@ function showResults(results) {
     console.log(results.length);
     maxPageRel = Math.ceil(results.length / pageSizeRel);
     setPagiRel()
-    generateCard(paginate(results, currPageRel, pageSizeRel ));
+    generateCard(paginate(results));
 }
 
-function paginate(array, page, pageSizeRel ) {
-    return array.slice((page - 1) * pageSizeRel , page * pageSizeRel );
+function paginate(array) {
+    if(pageSizes == 12){
+        return array.slice(0,pageSizes)
+    }else{
+        return array.slice(pageSizes - 4 , pageSizes);
+    }
 }
 
 function generateCard(results){
@@ -323,15 +330,15 @@ function generateCard(results){
     const colKontenHeadElement = document.querySelector('.col-konten-head.terkait');
 
     // Delete all card elements by setting the innerHTML to an empty string
-    cardResultElement.innerHTML = '';
-
     const testParagraph = document.getElementById('related-search');
-
-    if (eventParam) {
-        testParagraph.innerHTML = '<h2 class="centered-text">Pencarian Terkait</h2><h4 class="centered-text large-text">' + eventParam + '</h4>';
-    }
-    if (narsumParam) {
-        testParagraph.innerHTML = '<h2 class="centered-text">Pencarian Terkait</h2><h4 class="centered-text large-text">' + narsumParam + '</h4>';
+    if(pageSizes == 12){
+        cardResultElement.innerHTML = '';
+        if (eventParam) {
+            testParagraph.innerHTML = '<h2 class="centered-text">Pencarian Terkait</h2><h4 class="centered-text large-text">' + eventParam + '</h4>';
+        }
+        if (narsumParam) {
+            testParagraph.innerHTML = '<h2 class="centered-text">Pencarian Terkait</h2><h4 class="centered-text large-text">' + narsumParam + '</h4>';
+        }
     }
 
     if (results.length > 0) {
@@ -447,9 +454,11 @@ function generateCard(results){
             });  
         });
     } else {
-        const noResults = document.createElement('p');
-        noResults.textContent = 'No results found.';
-        cardResultElement.appendChild(noResults);
+        if(pageSizes == 12){
+            const noResults = document.createElement('p');
+            noResults.textContent = 'No results found.';
+            cardResultElement.appendChild(noResults);
+        }
         // sd
     }
 }
@@ -464,5 +473,19 @@ function getYoutubeVideoId(url) {
         return null; // Invalid YouTube URL or ID not found
     }
 }
+
+window.addEventListener('scroll', () => {
+    // Dapatkan posisi scroll dari window
+    const scrolled = window.scrollY;
+
+    // Hitung jumlah baris yang sudah dilewati
+    const passedRows = Math.floor(scrolled / cardHeights);
+
+    // Cek apakah jumlah baris yang sudah dilewati berubah
+    if (passedRows > rowsPasseds) {
+        pageSizes += 4;
+        generateCard(paginate(relResult))
+    }
+});
 
 
