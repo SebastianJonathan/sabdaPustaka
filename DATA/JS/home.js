@@ -448,7 +448,7 @@ function startupAndSearch() {
             expandNarasumber(true);
         }
     } catch (error){
-        window.alert(error);
+        // window.alert(error);
         location.reload();
     }
 }

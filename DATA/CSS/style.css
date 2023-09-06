@@ -310,22 +310,22 @@ img {
     scrollbar-width: 7px;
 }
 
-.ffc::-webkit-scrollbar, .ffv::-webkit-scrollbar, .offcvb::-webkit-scrollbar {
+.ffc::-webkit-scrollbar, .ffv::-webkit-scrollbar, .offcvb::-webkit-scrollbar,#card-filter::-webkit-scrollbar {
 	width: 7px;
 }
 
-.ffc::-webkit-scrollbar-track, .ffv::-webkit-scrollbar-track, .offcvb::-webkit-scrollbar-track {
+.ffc::-webkit-scrollbar-track, .ffv::-webkit-scrollbar-track, .offcvb::-webkit-scrollbar-track,#card-filter::-webkit-scrollbar-track {
 	background: transparent;
 }
 
-.ffc::-webkit-scrollbar-thumb, .ffv::-webkit-scrollbar-thumb, .offcvb::-webkit-scrollbar-thumb {
+.ffc::-webkit-scrollbar-thumb, .ffv::-webkit-scrollbar-thumb, .offcvb::-webkit-scrollbar-thumb,#card-filter::-webkit-scrollbar-thumb {
 	background-color: #4C4452;
 	border-radius: 20px;
 	border: 0px transparent;
 	transition: background-color 1s;
 }
 
-.ffc::-webkit-scrollbar-thumb:hover, .ffv::-webkit-scrollbar-thumb:hover, .offcvb::-webkit-scrollbar-thumb:hover {
+.ffc::-webkit-scrollbar-thumb:hover, .ffv::-webkit-scrollbar-thumb:hover, .offcvb::-webkit-scrollbar-thumb:hover,#card-filter::-webkit-scrollbar-thumb:hover {
     background-color: #FDF7FF;
     transition: background-color 1s;
 }
