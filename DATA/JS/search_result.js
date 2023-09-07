@@ -13,7 +13,7 @@ let filterNarasumber = [];
 let filterEvent = [];
 let filterTanggal = [];
 let rowsPassed = 0;
-let cardHeight = window.innerHeight / 2;
+let cardHeight = window.innerHeight / 4;
 
 var pageSize = 12;
 var currPage = 1;

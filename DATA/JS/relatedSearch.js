@@ -472,7 +472,7 @@ window.addEventListener('scroll', () => {
 
     // Cek apakah jumlah baris yang sudah dilewati berubah
     if (passedRows > rowsPasseds) {
-        pageSizes += 4;
+        pageSizes += 8;
         generateCard(paginate(relResult))
     }
 });
