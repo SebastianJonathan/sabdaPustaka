@@ -1,7 +1,7 @@
 var errorConn = false;
 var pageSizes = 12
 let rowsPasseds = 0;
-let cardHeights = window.innerHeight / 2;
+let cardHeights = window.innerHeight / 4;
 
 function errorConnHandling(){
     if (!errorConn){
@@ -238,7 +238,7 @@ function PageRel(pageNumber) {
             else{
                 currPageRel = pageNumber;
             }
-            generateCard(paginate(relResult));
+            generateCard(paginate(relResult,0));
             setPagiRel();
 
             window.scrollTo({
@@ -306,18 +306,22 @@ function setPagiRel(){
 }
 
 var relResult = [];
+var totals = 0
 function showResults(results) {
     relResult = results
+    totals = results.length
     console.log(results.length);
     maxPageRel = Math.ceil(results.length / pageSizeRel);
-    generateCard(paginate(results));
+    generateCard(paginate(results,0));
 }
 
-function paginate(array) {
+function paginate(array, beda) {
     if(pageSizes == 12){
         return array.slice(0,pageSizes)
+    }else if(beda == 0){
+        return array.slice(pageSizes - Math.ceil(window.innerWidth / 300) , pageSizes);
     }else{
-        return array.slice(pageSizes - 4 , pageSizes);
+        return array.slice(pageSizes - beda , pageSizes)
     }
 }
 
@@ -471,8 +475,14 @@ window.addEventListener('scroll', () => {
 
     // Cek apakah jumlah baris yang sudah dilewati berubah
     if (passedRows > rowsPasseds) {
-        pageSizes += 8;
-        generateCard(paginate(relResult))
+        if((pageSizes + Math.ceil(window.innerWidth / 300)) < totals){
+            pageSizes += Math.ceil(window.innerWidth / 300);
+            generateCard(paginate(relResult,0))
+        }else if((pageSizes + Math.ceil(window.innerWidth / 300)) > totals && pageSizes < totals){
+            var beda = totals - pageSizes
+            pageSizes = totals
+            generateCard(paginate(relResult,beda))
+        }
     }
 });
 

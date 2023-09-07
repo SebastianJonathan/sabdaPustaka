@@ -15,13 +15,11 @@ let filterTanggal = [];
 let rowsPassed = 0;
 let cardHeight = window.innerHeight / 4;
 
-var pageSize = 12;
 var currPage = 1;
-var maxPage = 1;
+var pageSize = 12;
 var showAll = false;
-var loadPage = 8;
-var totalPage = 0;
-
+var loadPage = Math.ceil(window.innerWidth / 300) * 3;
+var total = 0;
 var errorConn = false;
 
 function errorConnHandling(){
@@ -320,7 +318,7 @@ function fetchSearchFilterResult2() {
                 errorConnNoMore();
                 setMaxPage(data.result.total);
                 const cardResultElement = document.getElementById('card_result');
-
+                total = data.result.total
                 data.result.data.forEach(function (item) {
                     // Create a card element
                     const cardItem = document.createElement('div');
@@ -486,7 +484,7 @@ function fetchSearchFilterResult() {
                 errorConnNoMore();
                 setMaxPage(data.result.total);
                 const cardResultElement = document.getElementById('card_result');
-
+                total = data.result.total
                 data.result.data.forEach(function (item) {
                     const cardItem = document.createElement('li');
                     cardItem.className = '_cards_item';
@@ -854,7 +852,7 @@ function fetchSearchResult() {
             }else{
                 errorConnNoMore();
                 // setMaxPage(data.result.total);
-
+                total = data.result.total
                 const cardResultElement = document.getElementById('card_result');
                 // cardResultElement.classList.remove('container-list');
                 // cardResultElement.innerHTML = '';
@@ -1169,7 +1167,7 @@ function fetchSearchResult2() {
                 errorConnHandling();
             }else{
                 errorConnNoMore();
-                // setMaxPage(data.result.total);
+                total = data.result.total
                 const cardResultElement = document.getElementById('card_result');
                 if (data.result.data_result.length > 0) {
 
@@ -1548,6 +1546,22 @@ function getYoutubeVideoId(url) {
     }
 }
 
+function addCard(){
+    if(filterEvent.length == 0 && filterNarasumber.length == 0 && filterTanggal == 0){
+        if(sessionStorage.getItem("mode") == "card"){
+            fetchSearchResult();
+        }else if(sessionStorage.getItem("mode") == "list"){
+            fetchSearchResult2();
+        }
+    }else{
+        if(sessionStorage.getItem("mode") == "card"){
+            fetchSearchFilterResult();
+        }else if(sessionStorage.getItem("mode") == "list"){
+            fetchSearchFilterResult2();
+        }
+    }
+}
+
 window.addEventListener('scroll', () => {
     // Dapatkan posisi scroll dari window
     const scrolled = window.scrollY;
@@ -1557,19 +1571,12 @@ window.addEventListener('scroll', () => {
 
     // Cek apakah jumlah baris yang sudah dilewati berubah
     if (passedRows > rowsPassed) {
-        pageSize += loadPage;
-        if(filterEvent.length == 0 && filterNarasumber.length == 0 && filterTanggal == 0){
-            if(sessionStorage.getItem("mode") == "card"){
-                fetchSearchResult();
-            }else if(sessionStorage.getItem("mode") == "list"){
-                fetchSearchResult2();
-            }
-        }else{
-            if(sessionStorage.getItem("mode") == "card"){
-                fetchSearchFilterResult();
-            }else if(sessionStorage.getItem("mode") == "list"){
-                fetchSearchFilterResult2();
-            }
+        if((pageSize + loadPage) < total){
+            pageSize += loadPage;
+            addCard();
+        }else if((pageSize + loadPage) > total && pageSize < total){
+            pageSize = total
+            addCard();
         }
         rowsPassed = passedRows;
     }
