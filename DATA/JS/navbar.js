@@ -161,3 +161,4 @@ updateRekomendasiPosition();
 window.addEventListener('resize', updateRekomendasiPosition);
 document.getElementById('query').addEventListener('input', fetchRecommendations);
 updateFields();
+window.scrollTo(0, 0);

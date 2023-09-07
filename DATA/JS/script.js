@@ -1,4 +1,8 @@
 $(document).ready(function() {
+	window.onbeforeunload = function () {
+		console.log("halo")
+		window.scrollTo(0, 0);
+	}
 	$.getScript(configPath+"JS/navbar.js");
     if ($("#p1_home").length) {
 		$.getScript(configPath+"JS/search_result.js");
