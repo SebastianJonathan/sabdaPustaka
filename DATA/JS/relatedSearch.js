@@ -310,7 +310,6 @@ function showResults(results) {
     relResult = results
     console.log(results.length);
     maxPageRel = Math.ceil(results.length / pageSizeRel);
-    setPagiRel()
     generateCard(paginate(results));
 }
 
