@@ -216,6 +216,46 @@ function onChangeFilterCheckbox(value, type, checked){
     }
 }
 
+function getFilterBlock(){
+    var FltrBlk_div = document.getElementById('fltr-blk-row');
+    FltrBlk_div.innerHTML = '';
+    var allFltr = filterNarasumber.concat(filterEvent, filterTanggal);
+
+    allFltr.forEach(element => {
+        var FltrBlk_card = document.createElement('div')
+        FltrBlk_card.className = "card fltr-blk-card";
+
+        var text = document.createTextNode(element);
+        FltrBlk_card.appendChild(text); 
+
+        var button = document.createElement("button");
+        button.className = "fltr-blk-btn"; 
+        button.innerText = "X";
+        button.onclick = function(){
+            removeItemFromArray(filterNarasumber, element);
+            removeItemFromArray(filterEvent, element);
+            removeItemFromArray(filterTanggal, element);
+            
+            if(sessionStorage.getItem("mode") == "card"){
+                fetchSearchFilterResult();
+            }else if(sessionStorage.getItem("mode") == "list"){
+                fetchSearchFilterResult2();
+            }
+        };
+        FltrBlk_card.appendChild(button);
+
+        FltrBlk_div.appendChild(FltrBlk_card);
+    });
+}
+function removeItemFromArray(array, item) {
+    var index = array.indexOf(item); 
+    if (index !== -1) { 
+      array.splice(index, 1);
+    }
+}
+
+  
+
 function initFetchSearchFilter(isFilter){
     const fullURL = window.location.href;
     const segments = fullURL.split('/');
@@ -243,7 +283,9 @@ function initFetchSearchFilter(isFilter){
         }
         // Create the filter object
         let filter = "";
+
         if(isFilter){
+            getFilterBlock();
             filter = {
                 "query": query == "" ? "Kosong" : query, //Kalau query kosong
                 "size": pageSize,
@@ -399,7 +441,7 @@ function fetchSearchFilterResult2() {
                         cardContent.removeChild(cardTitle);
                         cardContent.removeChild(divNarsum);
                         cardContent.appendChild(cardRingkasan);
-                        cardContent.appendChild(showSummaryButton);
+                        // cardContent.appendChild(showSummaryButton);
                     });
                     
                     showSummaryButton.addEventListener('mouseleave', function () {
@@ -409,7 +451,7 @@ function fetchSearchFilterResult2() {
                         cardContent.appendChild(cardEvent);
                         cardContent.appendChild(cardTitle);
                         cardContent.appendChild(divNarsum);
-                        cardContent.appendChild(showSummaryButton);
+                        // cardContent.appendChild(showSummaryButton);
                     });  
                 });
 
@@ -571,7 +613,7 @@ function fetchSearchFilterResult() {
                         cardContent.removeChild(cardTitle);
                         cardContent.removeChild(divNarsum);
                         cardContent.appendChild(cardRingkasan);
-                        cardContent.appendChild(showSummaryButton);
+                        // cardContent.appendChild(showSummaryButton);
                     });
                     
                     card.addEventListener('mouseleave', function () {
@@ -583,7 +625,7 @@ function fetchSearchFilterResult() {
                         cardContent.appendChild(cardEvent);
                         cardContent.appendChild(cardTitle);
                         cardContent.appendChild(divNarsum);
-                        cardContent.appendChild(showSummaryButton);
+                        // cardContent.appendChild(showSummaryButton);
                     });  
 
 

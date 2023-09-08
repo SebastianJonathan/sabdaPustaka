@@ -10,7 +10,7 @@
       </div>
 
       <div class="col ">
-        <form action="" id="search" class="content sect-search">
+        <form action="" id="search" class="content sect-search ">
           <div class="rekomendasi-container">
             <div class="col-md-6 InputContainer" style="background-color: #1e0049; ">
 
@@ -34,7 +34,7 @@
           <img style="width: 28px;" src="<?php echo $configPath?>img\search-symbol.png" alt="Search">
         </button>
 
-        <button class="navbar-toggler" id="toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" id="toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="height: 40px;">
           <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -46,8 +46,8 @@
     </div>
 
 
-    <div class="row">
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <div>
+      <div class="collapse navbar-collapse justify-content-end" style="padding-left: 20px;" id="navbarNav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link classB" href="<?php echo $configPath?>PHP/home.php">Beranda</a>
@@ -66,4 +66,4 @@
 
     </div>
 </nav>
-<div style="height: 80px;"><!-- Spacer --></div> 
+<div style="height: 60px;"><!-- Spacer --></div> 

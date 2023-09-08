@@ -124,6 +124,33 @@ img {
     }
 }
 
+.fltr-blk-card{
+    height: 34px; 
+    padding-left: 10px; 
+    padding-right: 5px; 
+    margin-right: 5px; 
+    background-color: #1e0049; 
+    color: white;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row;
+}
+
+.fltr-blk-btn{
+    background-color: transparent;
+    font-size: small;
+    color: #c0c0c0;
+    border: none;
+    margin-left: 7px;
+}
+
+.fltr-blk-btn:hover{
+    color: gold;
+    background-color: #00000074;
+}
+
 .col-konten-head>h2 {
     margin-top: 30px;
     font-weight: bold;
@@ -338,10 +365,6 @@ img {
 
 .ffv div{
     max-width: 95%;
-}
-
-.sect-search{
-    margin-bottom: 20px;
 }
 
 .sect-konten-head{

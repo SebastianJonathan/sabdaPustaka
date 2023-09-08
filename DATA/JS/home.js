@@ -29,7 +29,7 @@ function scrollFilter(){
         var rect = footer.getBoundingClientRect();
         console.log(rect.top);
 
-        if (rect.top < 720){
+        if (rect.top < 720 && scrollPosition > 0){
             colFilter.style.position = "relative";
             colFilter.style.alignItems= "end";
             spFilter.style.display = "none";
