@@ -553,23 +553,24 @@
 			foreach ($names as $participantName) {
 				$cleanedName = trim($participantName);
 				$cleanedName = str_replace("|",",",$cleanedName);
-				if (!in_array($cleanedName, $uniqueNames)) {
-					$uniqueNames[] = $cleanedName;
-				}
+				if (!array_key_exists($cleanedName, $uniqueNames)) {
+					$uniqueNames[$cleanedName] = 1 ;
+				}else{
+                    $uniqueNames[$cleanedName]++;
+                }
 			}
 		}
-
 		return $uniqueNames;
 	}
 
     function getAllEvent($url){
         // Query to retrieve all documents
         $params = [
-            'size' => 1000, // Adjust the size to match the maximum number of documents to retrieve
+            'size' => 10000, 
             'query' => [
                 'match_all' => new \stdClass() // Empty query to retrieve all documents
             ],
-            '_source' => ['event'] // Include only 'narasumber' and 'event' fields in the response
+            '_source' => ['event'] 
         ];
 
         $query = json_encode($params);
@@ -579,18 +580,31 @@
         }else{
             $hits = $response['hits']['hits'];
             $events = [];
+            $eventCount = [];
             $eventList = [];
 
             foreach ($hits as $hit) {
                 $source = $hit['_source'];
 
-                if (isset($source['event']) && !in_array(strtoupper($source['event']), $eventList)) {
-                    $events[] = $source['event'];
-                    $eventList[] = strtoupper($source['event']);
+                if (isset($source['event'])) {
+                    if (!in_array(strtoupper($source['event']), $eventList)){
+                        $events[] = $source['event'];
+                        $eventCount[strtoupper($source['event'])] = 1; 
+                        $eventList[] = strtoupper($source['event']);
+                    }else{
+                        $eventCount[strtoupper($source['event'])]++;
+                    }
                 }
             }
-            sort($events);
-            echo json_encode(['result' => $events]);
+
+            $results = [];
+            foreach($events as $ev){
+                $count = $eventCount[strtoupper($ev)];
+                $results[$ev] = $count;
+            }
+
+
+            echo json_encode(['result' => $results]);
         }
     }
 
@@ -611,7 +625,7 @@
         }else{
             $hits = $response['hits']['hits'];
             $narasumbers = extractUniqueSpeakers($hits);
-            sort($narasumbers);
+            // sort($narasumbers);
             echo json_encode(['result' => $narasumbers]);
         }
     }

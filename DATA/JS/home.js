@@ -14,10 +14,12 @@ $('.fsc input[type=checkbox]').change(function() {
     updateFields();
 });
 
+var pageMode = "first";
+
 var colFilter = document.getElementById('col-filter-md');
 var spFilter = document.getElementById('sp-sidebar');
 var footer = document.getElementById('footer');
-var atFooter = 0;
+
 function scrollFilter(){
 
     let screenWidth =window.innerWidth;
@@ -27,21 +29,16 @@ function scrollFilter(){
         var scrollPosition = window.scrollY;
 
         var rect = footer.getBoundingClientRect();
-        console.log(rect.top);
+        // console.log(rect.top);
 
-        if (rect.top < 720 && scrollPosition > 0){
+        if (rect.top < 720 && pageMode != "first" && scrollPosition > 0 ){
             colFilter.style.position = "relative";
             colFilter.style.alignItems= "end";
             spFilter.style.display = "none";
-            atFooter = 1;
         }
         else if (scrollPosition > 0){
             spFilter.style.display = "block";
             colFilter.style.position = "fixed";
-            if (atFooter == 1){
-                // window.scrollTo(700);
-                atFooter = 0;
-            }
         }else{
             colFilter.style.position = "relative";
             colFilter.style.alignItems= "start";
@@ -298,8 +295,9 @@ document.addEventListener('click', function(event) {
     }
 });
 
-function generateEventLinks() {
+function generateEventLinks(sort = "alphabet") {
     const eventListContainer = document.getElementById('eventList');
+    eventListContainer.innerHTML = '';
     fetch(configPath + 'API/filterAPI.php', {
         method: 'POST',
         headers: {
@@ -317,13 +315,31 @@ function generateEventLinks() {
             errorConnHandling();
         }else{
             errorConnNoMore();
-            data.result.forEach(function (event) {
-                const eventUrl = configPath + 'PHP/related_results.php?event=' + encodeURIComponent(event);
-                const eventDiv = document.createElement('li');
-                eventDiv.className = 'event-li';
-                eventDiv.innerHTML = `<a href="${eventUrl}">${event}</a>`;
-                eventListContainer.appendChild(eventDiv);
-            });
+            if (sort=="alphabet"){
+                let sortedEvents = Object.keys(data.result).sort();
+                sortedEvents.forEach(function (event) {
+                    var count = data.result[event];
+                    var eventUrl = configPath + 'PHP/related_results.php?event=' + encodeURIComponent(event);
+                    var eventDiv = document.createElement('li');
+                    eventDiv.className = 'event-li';
+                    eventDiv.innerHTML = `<a href="${eventUrl}">${event}(${count})</a>`;
+                    eventListContainer.appendChild(eventDiv);
+                });
+            }else if (sort=="numEv"){
+                let sortedCount = Object.entries(data.result).sort((a, b) => b[1] - a[1]);
+                for (let [key, value] of sortedCount) {
+                    var eventUrl = configPath + 'PHP/related_results.php?event=' + encodeURIComponent(key);
+                    var eventDiv = document.createElement('li');
+                    eventDiv.className = 'event-li';
+                    eventDiv.innerHTML = `<a href="${eventUrl}">${key}(${value})</a>`;
+                    eventListContainer.appendChild(eventDiv);
+                }
+            }
+
+            if (Object.keys(data.result).length < 24){
+                expandEvent(false, true);
+                document.getElementById('ex-event-btn').style.display = "none";
+            }
         }
     })
     .catch(error => {
@@ -331,8 +347,9 @@ function generateEventLinks() {
     });
 }
 
-function generateNarasumberLinks() {
+function generateNarasumberLinks(sort="alphabet") {
     const narasumberListContainer = document.getElementById('narasumberList');
+    narasumberListContainer.innerHTML = '';
     fetch(configPath + 'API/filterAPI.php', {
         method: 'POST',
         headers: {
@@ -348,13 +365,31 @@ function generateNarasumberLinks() {
             errorConnHandling();
         }else{
             errorConnNoMore();
-            data.result.forEach(function (narasumber) {
-                const narasumberUrl = configPath + 'PHP/related_results.php?narasumber=' + encodeURIComponent(narasumber);
-                const narasumberDiv = document.createElement('li');
-                narasumberDiv.className = 'narsum-li';
-                narasumberDiv.innerHTML = `<a href="${narasumberUrl}">${narasumber}</a>`;
-                narasumberListContainer.appendChild(narasumberDiv);
-            });
+            if (sort=="alphabet"){
+                let sortedNarsum = Object.keys(data.result).sort();
+                sortedNarsum.forEach(function (narasumber) {
+                    var count = data.result[narasumber];
+                    var narasumberUrl = configPath + 'PHP/related_results.php?narasumber=' + encodeURIComponent(narasumber);
+                    var narasumberDiv = document.createElement('li');
+                    narasumberDiv.className = 'narsum-li';
+                    narasumberDiv.innerHTML = `<a href="${narasumberUrl}">${narasumber}(${count})</a>`;
+                    narasumberListContainer.appendChild(narasumberDiv);
+                });
+            }else if (sort=="numNarsum"){
+                let sortedCount = Object.entries(data.result).sort((a, b) => b[1] - a[1]);
+                for (let [key, value] of sortedCount) {
+                    var narasumberUrl = configPath + 'PHP/related_results.php?narasumber=' + encodeURIComponent(key);
+                    var narasumberDiv = document.createElement('li');
+                    narasumberDiv.className = 'narsum-li';
+                    narasumberDiv.innerHTML = `<a href="${narasumberUrl}">${key}(${value})</a>`;
+                    narasumberListContainer.appendChild(narasumberDiv);
+                }
+            }
+
+            if (Object.keys(data.result).length < 24){
+                expandEvent(false, true);
+                document.getElementById('ex-event-btn').style.display = "none";
+            }
         }
     })
     .catch(error => {
@@ -362,13 +397,13 @@ function generateNarasumberLinks() {
     });
 }
 
-function expandEvent(forceHide = false){
+function expandEvent(forceHide = false, forceShow = false){
     var eventCont = document.getElementById('eventList');
     var exBtn = document.getElementById('ex-event-btn');
     var prevHeight = eventCont.clientHeight;
     var barHeight = 200;
 
-    if (prevHeight === barHeight){
+    if (prevHeight === barHeight || forceShow){
         exBtn.textContent = "Show Less"
         eventCont.style.height = "auto";
     }else if (prevHeight > barHeight || forceHide){
@@ -377,20 +412,20 @@ function expandEvent(forceHide = false){
         eventCont.style.overflowY = "clip";
         eventCont.style.overflowX = "clip";
     }
-
 }
+
 function updateSessionCheckboxFirst(){
     sessionStorage.setItem("changeSearchBy","1");
     updateSessionCheckbox();
 }
 
-function expandNarasumber(forceHide = false){
+function expandNarasumber(forceHide = false, forceShow = false){
     var narasCont = document.getElementById('narasumberList');
     var exBtn = document.getElementById('ex-naras-btn');
     var prevHeight = narasCont.clientHeight;
     var barHeight = 200;
 
-    if (prevHeight === barHeight){
+    if (prevHeight === barHeight || forceShow){
         narasCont.style.height = "auto";
         exBtn.textContent = "Show Less"
     }else if (prevHeight > barHeight || forceHide){
@@ -424,6 +459,7 @@ function startupAndSearch() {
     buttonScrollUp.style.display = 'none';
     try{
         if (segments[segments.length - 2] == "search"){
+            pageMode = "search";
             document.getElementById('query').value = segments[segments.length - 1];
             updateSessionCheckbox();
             if(sessionStorage.getItem("mode") == null){
@@ -439,7 +475,9 @@ function startupAndSearch() {
                 fetchSearchResult2();
             }
         } else {
+            pageMode = "first";
             sessionStorage.setItem("mode","card");
+            document.getElementById('card-filter').style.height = "fit-content";
             selectAll();
             fetchNewest();
             generateEventLinks();
