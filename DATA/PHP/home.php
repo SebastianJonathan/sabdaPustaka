@@ -147,13 +147,12 @@
 				</div>
 
 				<div id="contEventNarsum" class="row">
-					<div class="row container-event" id="contEvent">
+					<!-- <div class="row container-event" id="contEvent">
 						<div class="row event-name" style="margin-bottom:20px;">
 							<div class="col">
 								<h2 class="text-center" >Semua Event</h2>
 							</div>
 							<div class="col-1" style="width: 4%">
-								<!-- <a style="text-align:end;"></a> -->
 								<div class="dropdown">
 									<button style="background-color: transparent; color: gold; border:none;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 										Sort
@@ -197,7 +196,10 @@
 						<div class="row">
 							<button id="ex-naras-btn" onclick="expandNarasumber()">show more</button>
 						</div>
-					</div>
+					</div> -->
+
+
+					
 				</div>
 			</div>
 		</div><!-- COL Card -->

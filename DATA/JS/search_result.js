@@ -39,83 +39,6 @@ function setMaxPage(total_data){
     maxPage = Math.ceil(total_data / pageSize);
 }
 
-// function createListItem2(pageNumber) {
-//     const li = document.createElement('li');
-//     li.className = "page-item";
-
-//     var a = document.createElement('a');
-//     a.className = "page-link";
-//     a.id = "pagi_"+pageNumber;
-//     if (pageNumber === "Show All"){
-//         if (showAll){
-//             a.innerText = "Unshow All";
-//         }else {
-//             a.innerText = pageNumber;
-//         }
-//     }else{
-//         a.innerText = pageNumber;
-//     }
-    
-//     if (pageNumber === currPage){
-//         a.setAttribute("style","color: gold;")
-//         a.style.backgroundColor = "#1e0049";
-//     }
-
-//     a.onclick = function(){
-//         if (pageNumber != currPage){
-//             if (pageNumber === "Show All"){
-//                 if(a.innerText == "Show All"){
-//                     pageSize = maxPage * 12;
-//                     showAll = true;
-//                 }else{
-//                     pageSize = 12;
-//                     showAll = false;
-//                 }
-//                 currPage = 1;
-//             }
-//             else if(pageNumber == "Next"){
-//                 if((currPage + 1) <= maxPage){
-//                     currPage += 1;
-//                 }
-//             }
-//             else if(pageNumber == "Prev"){
-//                 if((currPage - 1) >= 1){
-//                     currPage -= 1;
-//                 }
-//             }
-//             else if(pageNumber == "<<"){
-//                 currPage = 1;
-//             }
-//             else if(pageNumber == ">>"){
-//                 currPage = maxPage;
-//             }
-//             else{
-//                 currPage = pageNumber;
-//             }
-//             if(sessionStorage.getItem("mode") == "list"){
-//                 if(filterNarasumber.length != 0 || filterEvent.length != 0 || filterTanggal.length != 0){
-//                     fetchSearchFilterResult2();
-//                 }else{
-//                     fetchSearchResult2();
-//                 }
-//             }else{
-//                 if(filterNarasumber.length != 0 || filterEvent.length != 0 || filterTanggal.length != 0){
-//                     fetchSearchFilterResult();
-//                 }else{
-//                     fetchSearchResult();
-//                 }
-//             }
-//             window.scrollTo({
-//                 top: 0,
-//                 behavior: 'smooth'
-//             })
-//         }
-//     };
-
-//     li.appendChild(a);
-//     return li;
-// }
-
 function createCheckbox(id, nama, div_filter, arr) {
     var containerDiv = document.createElement("div");
     containerDiv.className = "checkbox-container";
@@ -247,14 +170,13 @@ function getFilterBlock(){
         FltrBlk_div.appendChild(FltrBlk_card);
     });
 }
+
 function removeItemFromArray(array, item) {
     var index = array.indexOf(item); 
     if (index !== -1) { 
       array.splice(index, 1);
     }
 }
-
-  
 
 function initFetchSearchFilter(isFilter){
     const fullURL = window.location.href;
@@ -377,7 +299,8 @@ function fetchSearchFilterResult2() {
                     cardEvent.className = '_card_text';
                     cardEvent.textContent = item.event;
                     cardEvent.onclick = function(event){
-                        window.location.href = configPath+'PHP/related_results.php?event='+item.event;
+                        // window.location.href = configPath+'PHP/related_results.php?event='+item.event;
+                        window.location.href = configPath+'PHP/home.php/search/'+item.event;
                         event.stopPropagation();
                     }
                     cardEvent.style.textDecoration = 'none';
@@ -409,7 +332,8 @@ function fetchSearchFilterResult2() {
                         }
                         count++;
                         cardText.onclick = function(event){
-                            window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
+                            // window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
+                            window.location.href = configPath+'PHP/home.php/search/'+element;
                             event.stopPropagation();
                         }
                         cardText.style.textDecoration = 'none';
@@ -441,7 +365,7 @@ function fetchSearchFilterResult2() {
                         cardContent.removeChild(cardTitle);
                         cardContent.removeChild(divNarsum);
                         cardContent.appendChild(cardRingkasan);
-                        // cardContent.appendChild(showSummaryButton);
+                        cardContent.appendChild(showSummaryButton);
                     });
                     
                     showSummaryButton.addEventListener('mouseleave', function () {
@@ -451,7 +375,7 @@ function fetchSearchFilterResult2() {
                         cardContent.appendChild(cardEvent);
                         cardContent.appendChild(cardTitle);
                         cardContent.appendChild(divNarsum);
-                        // cardContent.appendChild(showSummaryButton);
+                        cardContent.appendChild(showSummaryButton);
                     });  
                 });
 
@@ -556,7 +480,8 @@ function fetchSearchFilterResult() {
                     cardEvent.className = '_card_text';
                     cardEvent.textContent = item.event;
                     cardEvent.onclick = function(event){
-                        window.location.href = configPath+'PHP/related_results.php?event='+item.event;
+                        // window.location.href = configPath+'PHP/related_results.php?event='+item.event;
+                        window.location.href = configPath+'PHP/home.php/search/'+item.event;
                         event.stopPropagation();
                     }
                     cardEvent.style.textDecoration = 'none';
@@ -583,7 +508,8 @@ function fetchSearchFilterResult() {
                         }
                         count++;
                         cardText.onclick = function(event){
-                            window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
+                            window.location.href = configPath+'PHP/home.php/search/'+element;
+                            // window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
                             event.stopPropagation();
                         }
                         cardText.style.textDecoration = 'none';
@@ -605,7 +531,7 @@ function fetchSearchFilterResult() {
                     cardRingkasan.style.overflow = 'hidden';        
                     cardRingkasan.style.textOverflow = 'ellipsis';
 
-                    cardTitle.addEventListener('mouseenter', function () {
+                    cardImage.addEventListener('mouseenter', function () {
                         // Display the item.ringkasan content in cardContent
                         card.innerHTML = "";
                         card.appendChild(cardContent);
@@ -721,7 +647,8 @@ function fetchNewest() {
                         cardEvent.className = '_card_text';
                         cardEvent.textContent = item.event;
                         cardEvent.onclick = function(event){
-                            window.location.href = configPath+'PHP/related_results.php?event='+item.event;
+                            window.location.href = configPath+'PHP/home.php/search/'+item.event;
+                            // window.location.href = configPath+'PHP/related_results.php?event='+item.event;
                             event.stopPropagation();
                         }
                         cardEvent.style.textDecoration = 'none';
@@ -748,7 +675,8 @@ function fetchNewest() {
                             }
                             count++;
                             cardText.onclick = function(event){
-                                window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
+                                // window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
+                                window.location.href = configPath+'PHP/home.php/search/'+element;
                                 event.stopPropagation();
                             }
                             cardText.style.textDecoration = 'none';
@@ -770,7 +698,7 @@ function fetchNewest() {
                         cardRingkasan.style.overflow = 'hidden';        
                         cardRingkasan.style.textOverflow = 'ellipsis';
 
-                        cardTitle.addEventListener('mouseenter', function () {
+                        cardImage.addEventListener('mouseenter', function () {
                             // Display the item.ringkasan content in cardContent
                             card.innerHTML = "";
                             card.appendChild(cardContent);
@@ -828,29 +756,7 @@ function fetchNewest() {
     } catch (error) {
         console.error('Terjadi kesalahan:', error);
     }
-    resizeListEN()
 }
-
-function resizeListEN(){
-    var contEN = document.getElementById('contEventNarsum');
-    var c1 = document.getElementById('_card_1');
-    if (c1 != null){
-        var colFilter = document.getElementById('col-filter-md');
-        var kontenS = document.getElementById('kontenS');
-        var contEvent = document.getElementById('contEvent');
-        var contNarsum = document.getElementById('contNarsum');
-        
-        var unitL = c1.clientWidth + 32;
-        var availSpace = kontenS.clientWidth - colFilter.clientWidth - 16;
-        var totalUnit = Math.floor(availSpace / unitL);
-        var totalWidth = (totalUnit * unitL) - 25;
-        // console.log(availSpace);
-        contEN.setAttribute("style","width:"+availSpace+"px;");
-        contEvent.setAttribute("style","width:"+totalWidth+"px");
-        contNarsum.setAttribute("style","width:"+totalWidth+"px");
-    }
-}
-window.addEventListener('resize', resizeListEN);
 
 function fetchSearchResult() {
     // clrAllFilterCheckbox();
@@ -931,7 +837,8 @@ function fetchSearchResult() {
                     cardEvent.className = '_card_text';
                     cardEvent.textContent = item.event;
                     cardEvent.onclick = function(event){
-                        window.location.href = configPath+'PHP/related_results.php?event='+item.event;
+                        // window.location.href = configPath+'PHP/related_results.php?event='+item.event;
+                        window.location.href = configPath+'PHP/home.php/search/'+item.event;
                         event.stopPropagation();
                     }
                     cardEvent.style.textDecoration = 'none';
@@ -962,7 +869,8 @@ function fetchSearchResult() {
                         }
                         count++;
                         cardText.onclick = function(event){
-                            window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
+                            // window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
+                            window.location.href = configPath+'PHP/home.php/search/'+element;
                             event.stopPropagation();
                         }
                         cardText.style.textDecoration = 'none';
@@ -985,7 +893,7 @@ function fetchSearchResult() {
 
                     // cardContent.appendChild(showSummaryButton);
 
-                    cardTitle.addEventListener('mouseenter', function () {
+                    cardImage.addEventListener('mouseenter', function () {
                         // Display the item.ringkasan content in cardContent
                         card.innerHTML = "";
                         card.appendChild(cardContent);
@@ -993,7 +901,7 @@ function fetchSearchResult() {
                         cardContent.removeChild(cardTitle);
                         cardContent.removeChild(divNarsum);
                         cardContent.appendChild(cardRingkasan);
-                        cardContent.appendChild(showSummaryButton);
+                        // cardContent.appendChild(showSummaryButton);
                     });
                     
                     card.addEventListener('mouseleave', function () {
@@ -1005,7 +913,7 @@ function fetchSearchResult() {
                         cardContent.appendChild(cardEvent);
                         cardContent.appendChild(cardTitle);
                         cardContent.appendChild(divNarsum);
-                        cardContent.appendChild(showSummaryButton);
+                        // cardContent.appendChild(showSummaryButton);
                     });  
 
                 });
@@ -1230,7 +1138,8 @@ function fetchSearchResult2() {
                         cardEvent.className = '_card_text';
                         cardEvent.textContent = item.event;
                         cardEvent.onclick = function(event){
-                            window.location.href = configPath+'PHP/related_results.php?event='+item.event;
+                            // window.location.href = configPath+'PHP/related_results.php?event='+item.event;
+                            window.location.href = configPath+'PHP/home.php/search/'+item.event;
                             event.stopPropagation();
                         }
                         cardEvent.style.textDecoration = 'none';
@@ -1261,7 +1170,8 @@ function fetchSearchResult2() {
                             }
                             count++;
                             cardText.onclick = function(event){
-                                window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
+                                // window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
+                                window.location.href = configPath+'PHP/home.php/search/'+element;
                                 event.stopPropagation();
                             }
                             cardText.style.textDecoration = 'none';
@@ -1532,51 +1442,6 @@ function setHeadSearch(query,jumlah){
     hs_head.appendChild(hs_head_col2);
 }
 
-// function setPagination(){
-//     const showDiv = document.getElementById("show");
-//     showDiv.innerHTML = '';
-
-//     const pagiCont = document.createElement("div");
-//     pagiCont.innerHTML = '';
-//     pagiCont.id = "show";
-//     pagiCont.style.display = "flex";
-//     pagiCont.style.justifyContent = "end";
-
-//     const pagiUl = document.createElement("ul");
-//     pagiUl.className = "pagination"
-
-//     pagiUl.appendChild(createListItem2("<<"));
-//     if ((currPage - 1) > 0){
-//         pagiUl.appendChild(createListItem2("Prev"));
-//     }
-//     c_pagi = 0;
-//     p_pagi = -8;
-//     while (c_pagi < 17){
-//         if ((currPage + p_pagi) > maxPage ){
-//                 break;
-//         }
-//         if ((currPage + p_pagi) > 0){
-//                 pagiUl.appendChild(createListItem2(currPage + p_pagi));
-//                 c_pagi += 1;
-//         }
-//         p_pagi += 1;
-//     }
-//     if ((currPage + 1) < maxPage ){
-//         pagiUl.appendChild(createListItem2("Next"));
-//     }
-//     pagiUl.appendChild(createListItem2(">>"));
-//     pagiUl.appendChild(createListItem2("Show All"));
-//     pagiCont.appendChild(pagiUl);
-//     showDiv.appendChild(pagiCont);
-
-//     // Menampilkan nomer halaman sekarang dan terakhir
-//     var showPagiProg = document.createElement("p");
-//     showPagiProg.style.textAlign = "end";
-//     showPagiProg.style.marginRight = "16px";
-//     showPagiProg.textContent = "Page " + currPage + " of " + maxPage;
-//     showDiv.appendChild(showPagiProg);
-// }
-
 function getYoutubeVideoId(url) {
     const pattern = /(?:youtube(?:-nocookie)?\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
     const matches = url.match(pattern);
@@ -1604,6 +1469,26 @@ function addCard(){
     }
 }
 
+// function infiniteScroll(){
+//     var scrollPosition = window.scrollY;
+//     var footer = document.getElementById('footer');
+//     var rect = footer.getBoundingClientRect().top;
+
+//     if (rect < 600){
+//         console.log(rect);
+//         if((pageSize + loadPage) < total){
+//             pageSize += loadPage;
+//             addCard();
+//         }else if((pageSize + loadPage) > total && pageSize < total){
+//             pageSize = total
+//             addCard();
+//         }
+//         window.scrollY = 200;
+//     }
+    
+// }
+
+// window.addEventListener('scroll', infiniteScroll);
 window.addEventListener('scroll', () => {
     // Dapatkan posisi scroll dari window
     const scrolled = window.scrollY;

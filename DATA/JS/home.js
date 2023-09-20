@@ -87,6 +87,7 @@ if (sessionStorage.getItem('checkboxRelated') === 'true') {
     document.getElementById('checkbox_related').checked = true;
     document.getElementById('fsv-checkbox_related').checked = true;
 }
+
 function syncCheckbox(id, isChecked) {
     var split_id = id.split("-");
     var clan = split_id[0];
@@ -295,6 +296,61 @@ document.addEventListener('click', function(event) {
     }
 });
 
+function genEventNarsumCont(){
+    var cont = document.getElementById('contEventNarsum');
+    cont.innerHTML = `<div class="row container-event" id="contEvent">
+    <div class="row event-name" style="margin-bottom:20px;">
+        <h2 class="text-center" >Semua Event</h2>
+        <div class="dropdown">
+            <button class="btn-group" style="background-color: transparent; color: gold; border:none;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Sort:
+            </button>
+            <button class="btn-group dropdown-toggle" style="align-items: center;" id="sortEv" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Alphabet
+            </button>
+            <ul class="dropdown-menu dropdown-menu-start" >
+                <li><a class="dropdown-item" style="color: black;" onClick="generateEventLinks('alphabet')">Alphabet</a></li>
+                <li><a class="dropdown-item" style="color: black;" onClick="generateEventLinks('numEv')">Jumlah</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="">
+        <ul id="eventList" style="padding-left: 0px;"></ul>
+    </div>
+    <div style="display: flex; justify-content: center;">
+        <button id="ex-event-btn" type="button" onclick="expandEvent()">show more</button>
+    </div>
+</div>
+<div class="row container-event" id="contNarsum">
+    <div class="row event-name">
+        <h2 class="text-center" style="margin-bottom:20px;">Semua Narasumber</h2>
+        <div class="dropdown">
+            <button class="btn-group" style="background-color: transparent; color: gold; border:none;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Sort:
+            </button>
+            <button class="btn-group dropdown-toggle" style="align-items: center;" id="sortNarsum" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Alphabet
+            </button>
+            <ul class="dropdown-menu dropdown-menu-start" >
+                <li><a class="dropdown-item" style="color: black;" onClick="generateNarasumberLinks('alphabet')">Alphabet</a></li>
+                <li><a class="dropdown-item" style="color: black;" onClick="generateNarasumberLinks('numNarsum')">Jumlah</a></li>
+            </ul>
+        </div>
+            
+
+    </div>
+    <div class="row">
+        <ul id="narasumberList"></ul>
+    </div>
+    <div class="row" style="display: flex; justify-content: center;">
+        <button id="ex-naras-btn" onclick="expandNarasumber()">show more</button>
+    </div>
+</div>`
+}
+
+
+
 function generateEventLinks(sort = "alphabet") {
     const eventListContainer = document.getElementById('eventList');
     eventListContainer.innerHTML = '';
@@ -315,6 +371,7 @@ function generateEventLinks(sort = "alphabet") {
             errorConnHandling();
         }else{
             errorConnNoMore();
+            var sortEvbtn = document.getElementById('sortEv');
             if (sort=="alphabet"){
                 let sortedEvents = Object.keys(data.result).sort();
                 sortedEvents.forEach(function (event) {
@@ -325,6 +382,7 @@ function generateEventLinks(sort = "alphabet") {
                     eventDiv.innerHTML = `<a href="${eventUrl}">${event}(${count})</a>`;
                     eventListContainer.appendChild(eventDiv);
                 });
+                sortEvbtn.textContent = "Alphabet";
             }else if (sort=="numEv"){
                 let sortedCount = Object.entries(data.result).sort((a, b) => b[1] - a[1]);
                 for (let [key, value] of sortedCount) {
@@ -334,12 +392,13 @@ function generateEventLinks(sort = "alphabet") {
                     eventDiv.innerHTML = `<a href="${eventUrl}">${key}(${value})</a>`;
                     eventListContainer.appendChild(eventDiv);
                 }
+                sortEvbtn.textContent = "Jumlah";
             }
-
-            if (Object.keys(data.result).length < 24){
-                expandEvent(false, true);
-                document.getElementById('ex-event-btn').style.display = "none";
-            }
+            isExpandableEv();
+            // if (Object.keys(data.result).length < 24){
+            //     expandEvent(false, true);
+            //     document.getElementById('ex-event-btn').style.display = "none";
+            // }
         }
     })
     .catch(error => {
@@ -365,6 +424,7 @@ function generateNarasumberLinks(sort="alphabet") {
             errorConnHandling();
         }else{
             errorConnNoMore();
+            var sortNrbtn = document.getElementById('sortNarsum');
             if (sort=="alphabet"){
                 let sortedNarsum = Object.keys(data.result).sort();
                 sortedNarsum.forEach(function (narasumber) {
@@ -375,6 +435,7 @@ function generateNarasumberLinks(sort="alphabet") {
                     narasumberDiv.innerHTML = `<a href="${narasumberUrl}">${narasumber}(${count})</a>`;
                     narasumberListContainer.appendChild(narasumberDiv);
                 });
+                sortNrbtn.textContent = "Alphabet";
             }else if (sort=="numNarsum"){
                 let sortedCount = Object.entries(data.result).sort((a, b) => b[1] - a[1]);
                 for (let [key, value] of sortedCount) {
@@ -384,17 +445,46 @@ function generateNarasumberLinks(sort="alphabet") {
                     narasumberDiv.innerHTML = `<a href="${narasumberUrl}">${key}(${value})</a>`;
                     narasumberListContainer.appendChild(narasumberDiv);
                 }
+                sortNrbtn.textContent = "Jumlah";
             }
-
-            if (Object.keys(data.result).length < 24){
-                expandEvent(false, true);
-                document.getElementById('ex-event-btn').style.display = "none";
-            }
+            isExpandableNarsum();
+            // if (Object.keys(data.result).length < 24){
+            //     expandEvent(false, true);
+            //     document.getElementById('ex-event-btn').style.display = "none";
+            // }
         }
     })
     .catch(error => {
         console.error(error);
     });
+}
+
+var EvNrHeightLimit = 240;
+
+function isExpandableEv(){
+    var eventCont = document.getElementById('eventList');
+    var exBtn = document.getElementById('ex-event-btn');
+    var prevHeight = eventCont.clientHeight;
+
+    if (prevHeight < EvNrHeightLimit){
+        expandEvent(false, true);
+        exBtn.style.display = "none";
+    }else{
+        expandEvent(true);
+    }
+}
+
+function isExpandableNarsum(){
+    var narasCont = document.getElementById('narasumberList');
+    var exBtn = document.getElementById('ex-naras-btn');
+    var prevHeight = narasCont.clientHeight;
+
+    if (prevHeight < EvNrHeightLimit){
+        expandNarasumber(false, true);
+        exBtn.style.display = "none";
+    }else{
+        expandNarasumber(true);
+    }
 }
 
 function expandEvent(forceHide = false, forceShow = false){
@@ -423,7 +513,7 @@ function expandNarasumber(forceHide = false, forceShow = false){
     var narasCont = document.getElementById('narasumberList');
     var exBtn = document.getElementById('ex-naras-btn');
     var prevHeight = narasCont.clientHeight;
-    var barHeight = 200;
+    var barHeight = 240;
 
     if (prevHeight === barHeight || forceShow){
         narasCont.style.height = "auto";
@@ -450,6 +540,37 @@ function removeAllElements() {
     }
     removeAllChildElements(container);
 }
+
+function getRemValue() {
+    return parseFloat(getComputedStyle(document.documentElement).fontSize);
+}
+
+function resizeListEN(){
+    var contEN = document.getElementById('contEventNarsum');
+    if (contEN != null){
+        var kontenS = document.getElementById('kontenS');
+        var colFilter = document.getElementById('col-filter-md');
+        var spFilter = document.getElementById('sp-sidebar');
+        var sidebarWidth = Math.max(colFilter.clientWidth, spFilter.clientWidth)
+
+        // var card_li = document.getElementsByClassName('_cards_item')[0];
+        var availSpace = kontenS.clientWidth - sidebarWidth;
+        var unitL =  availSpace/3.0 - getRemValue();
+        
+        var totalUnit = Math.floor(availSpace / unitL);
+        var totalWidth = totalUnit * unitL - 16;
+
+        var contEvent = document.getElementById('contEvent');
+        var contNarsum = document.getElementById('contNarsum');
+        contEN.setAttribute("style","width:"+totalWidth+"px;");
+        contEvent.setAttribute("style","width:"+totalWidth+"px");
+        contNarsum.setAttribute("style","width:"+totalWidth+"px");
+    }
+}
+// 
+window.addEventListener('resize', resizeListEN);
+// window.addEventListener('resize', isExpandableEv);
+// window.addEventListener('resize', isExpandableNarsum);
 
 function startupAndSearch() {
     const fullURL = window.location.href;
@@ -480,10 +601,10 @@ function startupAndSearch() {
             document.getElementById('card-filter').style.height = "fit-content";
             selectAll();
             fetchNewest();
+            genEventNarsumCont();
+            resizeListEN();
             generateEventLinks();
             generateNarasumberLinks();
-            expandEvent(true);
-            expandNarasumber(true);
         }
     } catch (error){
         // window.alert(error);
