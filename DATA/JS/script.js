@@ -1,22 +1,64 @@
 $(document).ready(function() {
-	window.onbeforeunload = function () {
-		console.log("halo")
-		window.scrollTo(0, 0);
-	}
-	$.getScript(configPath+"JS/navbar.js");
-    if ($("#p1_home").length) {
-		$.getScript(configPath+"JS/search_result.js");
-		$.getScript(configPath+"JS/home.js");
+    window.onbeforeunload = function () {
+        console.log("halo")
+        window.scrollTo(0, 0);
     }
-	else if($("#p2_selectedCard").length){
-		$.getScript(configPath+"JS/selectedCard.js");
-	}
-    else if($("#p3_relatedResult").length){
-		$.getScript(configPath+"JS/search_result.js");
-		$.getScript(configPath+"JS/relatedSearch.js");
+
+    function loadScript(scriptPath) {
+        return new Promise(function(resolve, reject) {
+            $.getScript(scriptPath, function() {
+                resolve();
+            }).fail(function() {
+                reject(new Error('Failed to load script: ' + scriptPath));
+            });
+        });
     }
-    else if($("#p4_allList").length){
-		$.getScript(configPath+"JS/getAllList.js");
-    }
-	
+
+    loadScript(configPath + "JS/navbar.js")
+        .then(function() {
+            if ($("#p1_home").length) {
+                return Promise.all([
+                    loadScript(configPath + "JS/search_result.js"),
+                    loadScript(configPath + "JS/home.js")
+                ]);
+            } else if ($("#p2_selectedCard").length) {
+                return loadScript(configPath + "JS/selectedCard.js");
+            } else if ($("#p3_relatedResult").length) {
+                return Promise.all([
+                    loadScript(configPath + "JS/search_result.js"),
+                    loadScript(configPath + "JS/relatedSearch.js")
+                ]);
+            } else if ($("#p4_allList").length) {
+                return loadScript(configPath + "JS/getAllList.js");
+            }
+        })
+        .then(function() {
+            // Code that depends on the loaded scripts can go here
+        })
+        .catch(function(error) {
+            console.error(error);
+        });
 });
+
+// $(document).ready(function() {
+// 	window.onbeforeunload = function () {
+// 		console.log("halo")
+// 		window.scrollTo(0, 0);
+// 	}
+// 	$.getScript(configPath+"JS/navbar.js");
+//     if ($("#p1_home").length) {
+// 		$.getScript(configPath+"JS/search_result.js");
+// 		$.getScript(configPath+"JS/home.js");
+//     }
+// 	else if($("#p2_selectedCard").length){
+// 		$.getScript(configPath+"JS/selectedCard.js");
+// 	}
+//     else if($("#p3_relatedResult").length){
+// 		$.getScript(configPath+"JS/search_result.js");
+// 		$.getScript(configPath+"JS/relatedSearch.js");
+//     }
+//     else if($("#p4_allList").length){
+// 		$.getScript(configPath+"JS/getAllList.js");
+//     }
+	
+// });
