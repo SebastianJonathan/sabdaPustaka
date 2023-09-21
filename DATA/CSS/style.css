@@ -86,25 +86,25 @@ img {
     }
 }
 
-.nav-search-btn{
+.nav-search-btn, .back-search-btn{
     border: transparent;
     background-color: transparent;
     font-size: var(--bs-navbar-toggler-font-size);
 }
 
-@media (max-width: 680px){
+/* @media (max-width: 680px){
     .sect-search{
         display: none;
     }
-    /* .nav-search-btn{
+    .nav-search-btn{
         display: unset;
-    } */
-}
-@media (min-width: 680px){
+    }
+} */
+/* @media (min-width: 680px){
     .nav-search-btn{
         display: none;
     }
-}
+} */
 
 @media (max-width: 600px) {
     .hshc1 h5{

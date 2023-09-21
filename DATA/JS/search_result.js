@@ -1,3 +1,4 @@
+// window.alert("SEARCH RESULT LOADED");
 const hs_head = document.getElementById("hs-header");
 const FilterOpenCanvas = document.getElementById("ffv-filter");
 const FilterColumnCanvas = document.getElementById("ffc-filter");

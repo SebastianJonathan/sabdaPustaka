@@ -547,7 +547,7 @@ function getRemValue() {
 
 function resizeListEN(){
     var contEN = document.getElementById('contEventNarsum');
-    if (contEN != null){
+    if (contEN != null && pageMode == "first"){
         var kontenS = document.getElementById('kontenS');
         var colFilter = document.getElementById('col-filter-md');
         var spFilter = document.getElementById('sp-sidebar');
@@ -600,7 +600,17 @@ function startupAndSearch() {
             sessionStorage.setItem("mode","card");
             document.getElementById('card-filter').style.height = "fit-content";
             selectAll();
-            fetchNewest();
+            var attempt = 0;
+            while (attempt < 10){
+                try{
+                    fetchNewest();
+                    break;
+                }catch (error){
+                    attempt += 1;
+                    // console.log("ULANG FETCH"+error);
+                    // window.alert("WWWW"+error);
+                }
+            }
             genEventNarsumCont();
             resizeListEN();
             generateEventLinks();

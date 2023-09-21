@@ -138,13 +138,64 @@ function updateSessionCheckbox() {
     }
 }
 
-function toogleNavbar(){
-    document.getElementById("search-icon").style.display = 'none';
-    document.getElementById("toggle").style.display = 'none';
-    document.getElementById("logo").style.display = 'none';
-    document.getElementById("search").style.display = 'block';
-    document.getElementById("search").style.position = 'absolute';
+var navbarMode = "normal";
+
+function navbarResize(){
+    let width = window.innerWidth;
+    console.log("Width: "+ width);
+
+    var searchBtn = document.getElementById('search-icon');
+    var searchBar = document.getElementById('search');
+    // var backBtn = document.getElementById('back-search-icon');
+    var tognavCol = document.getElementById('togNav');
+    var navbarLogo = document.getElementById('logo');
+    var navbarToggle = document.getElementById('toggle');
+
+    if (width > 680){
+        navbarMode = "normal";
+        searchBtn.style.display = "none";
+        searchBar.style.display = "block";
+        tognavCol.style.display = "";
+        navbarLogo.style.display = "contents";
+        navbarToggle.style.display = "unset";
+        // backBtn.style.display = "none";
+    }else{
+        if (navbarMode == "tempSearchBar"){
+            searchBar.style.display = "block";
+            // backBtn.style.display = "block";
+            searchBtn.style.display = "none";
+            tognavCol.style.display = "none";
+            navbarLogo.style.display = "none";
+            navbarToggle.style.display = "none";
+        }else{
+            searchBar.style.display = "none";
+            // backBtn.style.display = "none";
+            searchBtn.style.display = "unset";
+            
+            navbarLogo.style.display = "contents";
+            navbarToggle.style.display = "unset";
+            tognavCol.style.display = "";
+
+        }
+
+    }
+    // searchBtn.style.display = "none";
 }
+
+function toogleNavbar(){
+    if (navbarMode == "normal"){
+        navbarMode = "tempSearchBar";
+    }else{
+        navbarMode == "normal";
+    }
+    navbarResize();
+    // document.getElementById("search-icon").style.display = 'none';
+    // document.getElementById("toggle").style.display = 'none';
+    // document.getElementById("logo").style.display = 'none';
+    // document.getElementById("search").style.display = 'block';
+    // document.getElementById("search").style.position = 'absolute';
+}
+
 document.getElementById("search").addEventListener("submit", function(event) {
     event.preventDefault();
     if(document.getElementById("logo") == 'none'){
@@ -158,6 +209,8 @@ document.getElementById("search").addEventListener("submit", function(event) {
     hideRekomendasi();
 });
 updateRekomendasiPosition();
+navbarResize();
+window.addEventListener('resize', navbarResize);
 window.addEventListener('resize', updateRekomendasiPosition);
 document.getElementById('query').addEventListener('input', fetchRecommendations);
 updateFields();
