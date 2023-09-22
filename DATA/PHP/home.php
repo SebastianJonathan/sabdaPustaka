@@ -147,60 +147,8 @@
 				</div>
 
 				<div id="contEventNarsum" class="row">
-					<!-- <div class="row container-event" id="contEvent">
-						<div class="row event-name" style="margin-bottom:20px;">
-							<div class="col">
-								<h2 class="text-center" >Semua Event</h2>
-							</div>
-							<div class="col-1" style="width: 4%">
-								<div class="dropdown">
-									<button style="background-color: transparent; color: gold; border:none;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-										Sort
-									</button>
-									<ul class="dropdown-menu dropdown-menu-end" >
-										<li><a class="dropdown-item" style="color: black;" onClick="generateEventLinks('alphabet')">Alphabet</a></li>
-										<li><a class="dropdown-item" style="color: black;" onClick="generateEventLinks('numEv')">Jumlah</a></li>
-									</ul>
-								</div>
-							</div>
-							
-						</div>
-							
-						<div class="">
-							<ul id="eventList" style="padding-left: 0px;"></ul>
-						</div>
-						<div class="">
-							<button id="ex-event-btn" type="button" onclick="expandEvent()">show more</button>
-						</div>
-					</div>
-					<div class="row container-event" id="contNarsum">
-						<div class="row event-name">
-							<div class="col">
-								<h2 class="text-center" style="margin-bottom:20px;">Semua Narasumber</h2>
-							</div>
-							<div class="col-1" style="width: 4%">
-								<div class="dropdown">
-									<button style="background-color: transparent; color: gold; border:none;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-										Sort
-									</button>
-									<ul class="dropdown-menu dropdown-menu-end" >
-										<li><a class="dropdown-item" style="color: black;" onClick="generateNarasumberLinks('alphabet')">Alphabet</a></li>
-										<li><a class="dropdown-item" style="color: black;" onClick="generateNarasumberLinks('numNarsum')">Jumlah</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<ul id="narasumberList"></ul>
-						</div>
-						<div class="row">
-							<button id="ex-naras-btn" onclick="expandNarasumber()">show more</button>
-						</div>
-					</div> -->
-
-
-					
 				</div>
+
 			</div>
 		</div><!-- COL Card -->
 		<!-- Spacer -->

@@ -8,6 +8,9 @@
           <img class="hoverable" src="<?php echo $configPath?>img/logo.png" alt="Logo Sabda">
         </a>
       </div>
+      <button class="back-search-btn" id="back-search-icon" style="width: fit-content;" type="button" onclick="toogleNavbar()">
+              <img style="width: 28px;" src="<?php echo $configPath?>img\aback.png" alt="Back">
+      </button>
 
       <div class="col ">
         <form action="" id="search" class="content sect-search ">
@@ -15,11 +18,9 @@
 
           <div class="rekomendasi-container">
 
-            <!-- <button class="back-search-btn" id="back-search-icon" type="button" onclick="toogleNavbar()">
-              <img style="width: 28px;" src="<?php //echo $configPath?>img\aback.png" alt="Back">
-            </button> -->
-
             <div class="col-md-6 InputContainer" style="background-color: #1e0049; ">
+
+
 
               <input placeholder="Cari di SABDA Pustaka" id="query" class="query form-control form-input" name="query" type="text" autocomplete="off">
 
