@@ -24,6 +24,7 @@ async function fetchRecommendations() {
 }
 
 function tampilkanRekomendasi(rekomendasi) {
+    updateRekomendasiPosition();
     const rekomendasiList = document.getElementById('rekomendasi-list');
     rekomendasiList.innerHTML = '';
 
@@ -205,7 +206,7 @@ document.getElementById("search").addEventListener("submit", function(event) {
 updateRekomendasiPosition();
 navbarResize();
 window.addEventListener('resize', navbarResize);
-window.addEventListener('resize', updateRekomendasiPosition);
+window.addEventListener('resize', hideRekomendasi);
 document.getElementById('query').addEventListener('input', fetchRecommendations);
 updateFields();
 window.scrollTo(0, 0);

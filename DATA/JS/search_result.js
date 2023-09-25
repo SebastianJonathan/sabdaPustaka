@@ -800,11 +800,12 @@ function fetchSearchResult() {
                 errorConnHandling();
             }else{
                 errorConnNoMore();
+
+                // console.log(pageSize)
                 // setMaxPage(data.result.total);
                 total = data.result.total
                 const cardResultElement = document.getElementById('card_result');
-                // cardResultElement.classList.remove('container-list');
-                // cardResultElement.innerHTML = '';
+
                 if (data.result.data_result.length > 0) {      
                     setHeadSearch(query,data.result.total);
                     // FOR EACH
