@@ -242,7 +242,7 @@
           </div>
           <div class="col-lg-3 q-col">
             <div class="pertanyaan-container _hidden" id="pertanyaan-container">
-              <h5 class="text-center">Pertanyaan Refleksi</h5>
+              <h5 class="text-center">Pertanyaan Lanjutan</h5>
               <div class="pertanyaan-content" id="pertanyaan-content">
                 <ul>
                   <?php
@@ -263,7 +263,6 @@
             <section class="_hidden">
               <!-- <h3>Materi Terkait</h3> -->
               <div id="related-results-container">
-
               </div>
             </section>
           </div>
