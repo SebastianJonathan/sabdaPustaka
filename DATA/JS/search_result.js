@@ -1575,25 +1575,6 @@ function addCard(){
     
 }
 
-
-function infiniteScroll(mode = "scroll"){
-    const scrollTop = window.scrollY;
-    const scrollHeight = window.scrollHeight;
-    const clientHeight = window.clientHeight;
-    if (scrollTop + clientHeight >= scrollHeight) {
-        console.log("test")
-        if((pageSize + loadPage) < total){
-            pageSize += loadPage;
-            addCard();
-        }else if((pageSize + loadPage) > total && pageSize < total){
-            pageSize = total
-            addCard();
-        }
-    }
-}
-infiniteScroll("fresh");
-window.addEventListener('scroll', infiniteScroll);
-
 window.addEventListener("scroll", () => {
     if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
         console.log("test")
