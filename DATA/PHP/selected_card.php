@@ -261,7 +261,7 @@
         <div class="row materi-terkait">
           <div class="materi-text">
             <section class="_hidden">
-              <!-- <h3>Materi Terkait</h3> -->
+              <h3>Materi Terkait</h3>
               <div id="related-results-container">
               </div>
             </section>
@@ -272,7 +272,7 @@
         <div class="row materi-terkait judul-terkait">
           <div class="materi-text">
             <section class="_hidden">
-              <!-- <h3>Judul Terkait</h3> -->
+              <h3>Kata Kunci Terkait</h3>
               <div id="related-judul-container"></div>
             </section>
           </div>

@@ -1,6 +1,7 @@
 <?php //include '../CONFIG/config.php' ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fix" id="navbar">
   <div class="container-fluid">
+    <div style="height:5px"></div>
     <div class="row" style="width: 100%">
     
       <div class="col col-md-2 col-lg-2 col-sm-3" style="min-width: 100px; left: 0;" id="logo">
@@ -12,7 +13,7 @@
               <img style="width: 28px;" src="<?php echo $configPath?>img\aback.png" alt="Back">
       </button>
 
-      <div class="col ">
+      <div class="col search-col">
         <form action="" id="search" class="content sect-search ">
 
 

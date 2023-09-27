@@ -83,6 +83,7 @@ body {
     left: 0;
     width: 100%;
     z-index: 9999;
+    box-shadow:0 2px 6px 0 rgba(0,0,0,.12), inset 0 -1px 0 0 #dadce0;
 }
 
 .form {
@@ -144,10 +145,6 @@ body {
     width: 90%;
     max-width: 600px;
     text-indent: 2%;
-}
-
-.rekomendasi-container {
-    margin-top: 1%;
 }
 
 #rekomendasi ul {
@@ -238,6 +235,16 @@ body {
     animation-duration: 2s;
 }
 
+.search-col{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#search{
+    width: 100%;
+}
+
 .InputContainer {
     width: 90%;
     max-width: 600px;
@@ -251,7 +258,7 @@ body {
     cursor: pointer;
     /* box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.075); */
     margin: auto;
-    margin-top: 1%;
+    /* margin-top: 1%; */
     padding-left: 2px;
     position: relative;
     border: 3px rgb(30, 0, 73) solid;

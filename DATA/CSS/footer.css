@@ -8,10 +8,7 @@ footer {
     background-color: black;
     color: #fff;
 }
-._cards_item2 {
-		margin-bottom: 10px; /* Adjust the spacing between cards */
-		display: block; /* Display each card as a block to make them vertical */
-}
+
 .container-list {
 		display: flex;
 		flex-direction: column;
