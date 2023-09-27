@@ -1577,24 +1577,35 @@ function addCard(){
 
 
 function infiniteScroll(mode = "scroll"){
-    var totalHeight = document.documentElement.scrollHeight; // tinggi dokumen (range scroll)
-    var scrolledHeight = window.scrollY; // tinggi bagian yang di atas 'window yang terlihat'
-    var windowHeight = window.innerHeight; // tinggi window yang bisa kita lihat
-    console.log(scrolledHeight);
-    if (scrolledHeight + windowHeight >= (totalHeight*0.9)){
-        if((pageSize + loadPage) < total || mode == "fresh"){
+    const scrollTop = window.scrollY;
+    const scrollHeight = window.scrollHeight;
+    const clientHeight = window.clientHeight;
+    if (scrollTop + clientHeight >= scrollHeight) {
+        console.log("test")
+        if((pageSize + loadPage) < total){
             pageSize += loadPage;
             addCard();
         }else if((pageSize + loadPage) > total && pageSize < total){
             pageSize = total
             addCard();
-
         }
-
     }
 }
 infiniteScroll("fresh");
 window.addEventListener('scroll', infiniteScroll);
+
+window.addEventListener("scroll", () => {
+    if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
+        console.log("test")
+        if((pageSize + loadPage) < total){
+            pageSize += loadPage;
+            addCard();
+        }else if((pageSize + loadPage) > total && pageSize < total){
+            pageSize = total
+            addCard();
+        }
+    }
+  });
 // window.addEventListener('scroll', function(){
 //     setTimeout(infiniteScroll,10000);
 // });
