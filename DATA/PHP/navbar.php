@@ -1,5 +1,5 @@
 <?php //include '../CONFIG/config.php' ?>
-<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fix">
+<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fix" id="navbar">
   <div class="container-fluid">
     <div class="row" style="width: 100%">
     
@@ -74,4 +74,4 @@
 
     </div>
 </nav>
-<div style="height: 60px;"><!-- Spacer --></div> 
+<div style="height: 60px;" id="navbar-sp"><!-- Spacer --></div> 

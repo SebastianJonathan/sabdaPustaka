@@ -141,6 +141,15 @@ function updateSessionCheckbox() {
 
 var navbarMode = "normal";
 
+function navbarSpacerHeight(){
+    var navbar = document.getElementById('navbar');
+    var navbar_sp = document.getElementById('navbar-sp');
+    navbar_sp.style.height = navbar.clientHeight + 5 + "px";
+}
+
+navbarSpacerHeight();
+window.addEventListener('resize', navbarSpacerHeight);
+
 function navbarResize(){
     let width = window.innerWidth;
     // console.log("Width: "+ width);

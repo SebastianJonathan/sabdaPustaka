@@ -10,9 +10,9 @@
 		<!-- Konten Website -->
 		<div class="row" id="kontenS">
 			<!--COL Search & Filter  -->
-			<div class="col-lg-2 col-md-3 col-filter" id="col-filter-md" style="padding-right: 5px; padding-left:10px; width: 213px;">
+			<div class="col-lg-2 col-md-3 col-filter" id="col-filter-md" style="padding-right: 5px; padding-left:10px; min-width: 213px; max-width:360px">
 			
-			<div class="card sect-cont-sidebar" id="card-filter">
+				<div class="card sect-cont-sidebar" id="card-filter">
 					<!-- <img src="..." class="card-img-top" alt="..."> -->
 					<div class="card-body card-sidebar">
 						<!-- <h5 class="card-title">Search</h5> -->
@@ -60,7 +60,7 @@
 				</div>
 			</div><!-- COL Search & Filter  -->
 
-			<div class="col-lg-2 col-md-3 sp-filter" id="sp-sidebar" style="width: 213px;">
+			<div class="col-lg-2 col-md-3 sp-filter" id="sp-sidebar" style="min-width: 213px; max-width:360px"">
 			</div>
 
 			<!-- COL Card -->

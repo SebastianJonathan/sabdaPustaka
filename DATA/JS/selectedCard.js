@@ -40,20 +40,25 @@ narsumLinks.forEach(link => {
     link.addEventListener('click', (e) => {
     e.preventDefault();
     const query = link.dataset.keyword;
+    // window.alert(query);
+    sessionStorage.setItem("SpecificType", "narsum");
+    sessionStorage.setItem("SpecificFilter", query);
+    window.location.href = configPath+'PHP/home.php/search/'+query;
 
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = 'related_results.php';
 
-    const narsumInput = document.createElement('input');
-    narsumInput.type = 'hidden';
-    narsumInput.name = 'narasumber';
-    narsumInput.value = query;
+    // const form = document.createElement('form');
+    // form.method = 'POST';
+    // form.action = 'related_results.php';
 
-    form.appendChild(narsumInput);
+    // const narsumInput = document.createElement('input');
+    // narsumInput.type = 'hidden';
+    // narsumInput.name = 'narasumber';
+    // narsumInput.value = query;
 
-    document.body.appendChild(form);
-    form.submit(); // <-- Add parentheses to call the form submission function
+    // form.appendChild(narsumInput);
+
+    // document.body.appendChild(form);
+    // form.submit(); // <-- Add parentheses to call the form submission function
     });
 });
 
@@ -62,20 +67,25 @@ eventLinks.forEach(link => {
     link.addEventListener('click', (e) => {
     e.preventDefault();
     const query = link.dataset.keyword;
+    window.alert(query);
 
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = 'related_results.php';
+    sessionStorage.setItem("SpecificType", "event");
+    sessionStorage.setItem("SpecificFilter", query);
+    window.location.href = configPath+'PHP/home.php/search/'+query;
 
-    const eventInput = document.createElement('input');
-    eventInput.type = 'hidden';
-    eventInput.name = 'event';
-    eventInput.value = query;
+    // const form = document.createElement('form');
+    // form.method = 'POST';
+    // form.action = 'related_results.php';
 
-    form.appendChild(eventInput);
+    // const eventInput = document.createElement('input');
+    // eventInput.type = 'hidden';
+    // eventInput.name = 'event';
+    // eventInput.value = query;
 
-    document.body.appendChild(form);
-    form.submit(); // <-- Add parentheses to call the form submission function
+    // form.appendChild(eventInput);
+
+    // document.body.appendChild(form);
+    // form.submit(); // <-- Add parentheses to call the form submission function
     });
 }); 
 

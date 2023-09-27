@@ -20,6 +20,7 @@ var colFilter = document.getElementById('col-filter-md');
 var spFilter = document.getElementById('sp-sidebar');
 var footer = document.getElementById('footer');
 
+
 function scrollFilter(){
 
     let screenWidth =window.innerWidth;
@@ -29,9 +30,9 @@ function scrollFilter(){
         var scrollPosition = window.scrollY;
 
         var rect = footer.getBoundingClientRect();
-        // console.log(rect.top);
+        var windowHeight90 = window.innerHeight*0.92;
 
-        if (rect.top < 720 && pageMode != "first" && scrollPosition > 0 ){
+        if (rect.top < windowHeight90 && pageMode != "first" && scrollPosition > 0 ){
             colFilter.style.position = "relative";
             colFilter.style.alignItems= "end";
             spFilter.style.display = "none";
@@ -251,6 +252,8 @@ function updateOnChecked() {
 function goSearch() {
     const fullURL = window.location.href;
     const segments = fullURL.split('/');
+    sessionStorage.setItem("SpecificType", "none");
+    sessionStorage.setItem("SpecificFilter", "none");
     if(segments[segments.length - 2] == "search" && document.getElementById('query').value == ""){
         window.location.href = configPath + "PHP/home.php/search/ ";
     }else{
@@ -591,13 +594,37 @@ function startupAndSearch() {
             }
             removeAllElements();
             if(sessionStorage.getItem("mode") == "card"){
-                fetchSearchResult();
+                
+                if (sessionStorage.getItem("SpecificType") == "none"){
+                    fetchSearchResult();
+                    console.log("biasa");
+                }else{
+                    
+                    // fetchSearchFilterResult();
+                    var sType = sessionStorage.getItem("SpecificType");
+                    var sFilter = sessionStorage.getItem("SpecificFilter");
+                    console.log(sType+" | "+sFilter);
+                    fetchSearchFilterResult(sType, sFilter);
+                }
+                
             }else if(sessionStorage.getItem("mode") == "list"){
-                fetchSearchResult2();
+                
+                if (sessionStorage.getItem("SpecificType") == null){
+                    fetchSearchResult2();
+                    console.log("biasa");
+                }else{
+                    // fetchSearchFilterResult();
+                    var sType = sessionStorage.getItem("SpecificType");
+                    var sFilter = sessionStorage.getItem("SpecificFilter");
+                    fetchSearchFilterResult2(sType, sFilter);
+                }
+                
             }
         } else {
             pageMode = "first";
             sessionStorage.setItem("mode","card");
+            // sessionStorage.setItem("SpecificType", "none");
+            // sessionStorage.setItem("SpecificFilter", "none");
             document.getElementById('card-filter').style.height = "fit-content";
             selectAll();
             var attempt = 0;
@@ -616,8 +643,10 @@ function startupAndSearch() {
             generateEventLinks();
             generateNarasumberLinks();
         }
+        sessionStorage.setItem("SpecificType", "none");
+        sessionStorage.setItem("SpecificFilter", "none");
     } catch (error){
-        // window.alert(error);
+        window.alert(error);
         location.reload();
     }
 }

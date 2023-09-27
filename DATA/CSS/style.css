@@ -175,10 +175,11 @@ img {
 }
 
 ._cards_item {
-    flex-basis: calc(25% - 1rem);
+    /* flex-basis: calc(25% - 1rem); */
+    flex-basis: calc(25%);
     padding: 1rem;
     box-sizing: border-box;
-    max-width: 400px;
+    /* max-width: 400px; */
     /* margin-right: 16px; */
 }
 
@@ -373,6 +374,7 @@ img {
 
 .clrfilter_btn{
     background-color: goldenrod;
+    max-width: 250px;
 }
 
 .clrfilter_btn:hover{
@@ -397,7 +399,8 @@ img {
 
 @media (max-width: 1200px) {
     ._cards_item {
-        flex-basis: calc(33.3333% - 1rem);
+        /* flex-basis: calc(33.3333% - 1rem); */
+        flex-basis: calc(33.3333%);
     }
 }
 
@@ -475,7 +478,8 @@ img {
 
 @media (max-width: 768px) {
     ._cards_item {
-        flex-basis: calc(50% - 1rem);
+        /* flex-basis: calc(50% - 1rem); */
+        flex-basis: calc(50%);
     }
 }
 
@@ -485,11 +489,14 @@ img {
     }
 }
 
-
-@media (max-width: 480px) {
+@media (max-width: 505px) {
     ._cards_item {
         flex-basis: 100%;
     }
+}
+
+@media (max-width: 480px) {
+
     #narasumberList, #eventList{
         columns: 1;
     }
