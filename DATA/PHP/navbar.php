@@ -1,7 +1,7 @@
 <?php //include '../CONFIG/config.php' ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fix" id="navbar">
   <div class="container-fluid">
-    <div style="height:5px"></div>
+    <div style="height:10px"></div>
     <div class="row" style="width: 100%">
     
       <div class="col col-md-2 col-lg-2 col-sm-3" style="min-width: 100px; left: 0;" id="logo">
@@ -9,7 +9,7 @@
           <img class="hoverable" src="<?php echo $configPath?>img/logo.png" alt="Logo Sabda">
         </a>
       </div>
-      <button class="back-search-btn" id="back-search-icon" style="width: fit-content;" type="button" onclick="toogleNavbar()">
+      <button class="back-search-btn" id="back-search-icon" style="width: fit-content; display:none;" type="button" onclick="toogleNavbar()">
               <img style="width: 28px;" src="<?php echo $configPath?>img\aback.png" alt="Back">
       </button>
 
@@ -56,7 +56,7 @@
 
 
     <div>
-      <div class="collapse navbar-collapse justify-content-end" style="padding-left: 20px;" id="navbarNav">
+      <div class="collapse navbar-collapse justify-content-end" style="padding-left: 20px; padding-right: 20px;" id="navbarNav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link classB" href="<?php echo $configPath?>PHP/home.php">Beranda</a>

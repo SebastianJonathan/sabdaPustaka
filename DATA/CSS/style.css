@@ -402,7 +402,10 @@ img {
     color: #272727; /* Change button color on hover as needed */
 }
 
-
+#card-filter{
+    position: sticky;
+    top: 100px;
+}
 
 @media (max-width: 1200px) {
     ._cards_item {
@@ -432,9 +435,9 @@ img {
         display: none;
     }
 
-    /* .col-filter, .sp-filter{
-        display: unset;
-    } */
+    .col-filter{
+        display: flex;
+    }
 
     #col-filter-sm{
         display: none;
@@ -442,9 +445,9 @@ img {
 }
 
 @media (max-width: 992px){
-    /* .col-filter, .sp-filter{
+    .col-filter{
         display: none;
-    } */
+    }
     .filter-sm-btn{
         display: unset;
     }
@@ -463,6 +466,10 @@ img {
     .details-container {
         flex-basis: 40%;
     }
+}
+
+#contEventNarsum{
+    width: calc(100% - 16px);
 }
 
 /* .col-filter{
