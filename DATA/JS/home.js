@@ -32,7 +32,7 @@ function scrollFilter(){
         var rect = footer.getBoundingClientRect();
         var windowHeight90 = window.innerHeight*0.92;
 
-        if (rect.top < windowHeight90 && pageMode != "first" && scrollPosition > 0 ){
+        if (rect.top < windowHeight90 && pageMode != "first" && scrollPosition > 0 && pageSize == total){
             colFilter.style.position = "relative";
             colFilter.style.alignItems= "end";
             spFilter.style.display = "none";
