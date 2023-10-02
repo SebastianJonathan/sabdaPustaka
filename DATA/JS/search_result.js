@@ -1,4 +1,3 @@
-// window.alert("SEARCH RESULT LOADED");
 const hs_head = document.getElementById("hs-header");
 const FilterOpenCanvas = document.getElementById("ffv-filter");
 const FilterColumnCanvas = document.getElementById("ffc-filter");
@@ -26,8 +25,6 @@ var errorConn = false;
 
 function errorConnHandling(){
     if (!errorConn){
-        // alert("Terjadi Kesalahan dalam Koneksi Data");
-        // location.reload();
         location.href = configPath + "PHP/errorConn.php";
     }
     errorConn = true;
@@ -617,6 +614,8 @@ function fetchSearchFilterResult(sType = null, sFilter = null) {
                     });
                 }
             }
+            sessionStorage.setItem("SpecificType", "none");
+            sessionStorage.setItem("SpecificFilter", "none");
         })
         .catch(error => {
         // Handle any errors
@@ -684,7 +683,6 @@ function fetchNewest() {
                             sessionStorage.setItem("SpecificType", "event");
                             sessionStorage.setItem("SpecificFilter", item.event);
                             window.location.href = configPath+'PHP/home.php/search/'+item.event;
-                            // window.location.href = configPath+'PHP/related_results.php?event='+item.event;
                             event.stopPropagation();
                         }
                         cardEvent.style.textDecoration = 'none';
@@ -714,6 +712,7 @@ function fetchNewest() {
                                 sessionStorage.setItem("SpecificType", "narsum");
                                 sessionStorage.setItem("SpecificFilter", element);
                                 window.location.href = configPath+'PHP/home.php/search/'+element;
+                                
                                 event.stopPropagation();
                             }
                             cardText.style.textDecoration = 'none';
@@ -796,8 +795,6 @@ function fetchNewest() {
 }
 
 function fetchSearchResult() {
-    console.log("WWWWWWWWWWWWWWWWWWWWWWWW");
-    // clrAllFilterCheckbox();
     filterNarasumber.length = 0;
     filterEvent.length = 0;
     filterTanggal.length = 0;
@@ -877,26 +874,9 @@ function fetchSearchResult() {
                     cardEvent.className = '_card_text';
                     cardEvent.textContent = item.event;
                     cardEvent.onclick = function(event){
-                        // filterEvent.push(item.event);
-
-                        // window.location.href = configPath+'PHP/related_results.php?event='+item.event;
                         sessionStorage.setItem("SpecificType", "event");
                         sessionStorage.setItem("SpecificFilter", item.event);
-                        // window.location.href = configPath + 'PHP/home'
                         window.location.href = configPath+'PHP/home.php/search/'+item.event;
-                        // document.getElementById("query").value = item.event;
-                        // if(sessionStorage.getItem("mode") == "card"){
-                        //     fetchSearchFilterResult();
-                        // }else if(sessionStorage.getItem("mode") == "list"){
-                        //     fetchSearchFilterResult2();
-                        // }
-                        // sessionStorage.setItem("SpecificType", null);
-                        // sessionStorage.setItem("SpecificFilter", null);
-                        // window.alert(document.getElementById('ffc-eyy'+item.event).checked);
-
-                        // document.getElementById('ffc-e'+item.event).checked = true;
-                        // window.alert(document.getElementById('ffc-e'+item.event).checked);
-                        // window.alert("EVENT EVENT EVNET");
                         event.stopPropagation();
                     }
                     cardEvent.style.textDecoration = 'none';
@@ -904,11 +884,6 @@ function fetchSearchResult() {
                     const cardTitle = document.createElement('h2');
                     cardTitle.className = '_card_title';
                     cardTitle.textContent = item.judul;
-                    // console.log("title: "+ item.judul);
-                    //  // Create a button to show item.ringkasan
-                    // const showSummaryButton = document.createElement('button');
-                    // showSummaryButton.className = 'show-summary-button';
-                    // showSummaryButton.textContent = 'V';
 
                     card.appendChild(cardImage);
                     card.appendChild(cardContent);
@@ -1011,6 +986,8 @@ function fetchSearchResult() {
                     });
                 }
             }
+            sessionStorage.setItem("SpecificType", "none");
+            sessionStorage.setItem("SpecificFilter", "none");
         })
         .catch(error => {
         // Handle any errors

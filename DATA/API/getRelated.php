@@ -18,9 +18,9 @@ if (isset($_GET['document_id'])) {
                                 '_id' => $documentId
                             ]
                         ],
-                        'min_term_freq' => 1,
-                        'max_query_terms' => 5, // Adjust the number of terms based on your preference
-                        'minimum_should_match' => '50%'
+                        'min_term_freq' => 1
+                        // 'max_query_terms' => 5, // Adjust the number of terms based on your preference
+                        // 'minimum_should_match' => '0%'
                     ]
                 ],
                 'random_score' => [
@@ -39,82 +39,9 @@ if (isset($_GET['document_id'])) {
     if ($response === "E-CONN"){
         echo $response;
     }else{
-
-        // Parse the Elasticsearch response
-        // $result = json_decode($response, true);
-
-        // Extract the related documents
         $relatedDocuments = $response['hits']['hits'];
-
-        if (sizeof($relatedDocuments) > 0 ){
-            // echo '<h3>Materi Terkait</h3>';
-            echo '<div class = "_cards-container">';
-            echo '<div class = "main">';
-            echo '<ul class = "_cards" id="card_result">';
-
-            // Output the related documents
-            foreach ($relatedDocuments as $document) {
-                $event = $document['_source']['event'];
-                $judul = $document['_source']['judul'];
-                $narasumber = $document['_source']['narasumber'];
-                $ringkasan = $document['_source']['deskripsi_pendek'];
-
-                echo '<li class="_cards_item">';
-                echo '<div class="_card" onclick="window.location.href=\'selected_card.php?document_id=' . $document['_id'] . '\'">';
-                echo '<div class="_card_image">';
-                
-                if (isset($document['_source']['url_youtube'])) {
-                    $youtubeUrl = $document['_source']['url_youtube'];
-                    $videoId = getYoutubeVideoId($youtubeUrl);
-                    if ($videoId) {
-                        $thumbnailUrl = 'https://img.youtube.com/vi/' . $videoId . '/hqdefault.jpg';
-                        echo '<img src="' . $thumbnailUrl . '" alt="Card Image">';
-                    }
-                }
-                
-                echo '</div>';
-                echo '<div class="_card_content">';
-                // echo '<p class="_card_text">' . $event . '</p>';
-                echo '<a class="_card_text" href="' . $configPath . 'PHP/related_results.php?event=' . urlencode($event) . '" style="text-decoration: none;">' . $event . '</a>';
-                echo '<h2 class="_card_title">' . $judul . '</h2>';
-                // echo '<p class="_card_text">' . $narasumber . '</p>';
-
-                // narasumber
-                $narasumberArray = explode(', ', $narasumber); // Split values into an array
-                echo '<div style="display: block;" id="divNarsum">';
-                $count = 0;
-                $totalNarasumbers = count($narasumberArray);
-
-                foreach ($narasumberArray as $element) {
-                    echo '<a class="_card_text" href="' . $configPath . 'php/related_results.php?narasumber=' . urlencode($element) . '" style="text-decoration: none;">';
-
-                    echo $element;
-
-                    if ($count < $totalNarasumbers - 1) {
-                        echo ',';
-                    }
-
-                    echo '</a>';
-
-                    $count++;
-                }
-
-                echo '</div>';
-
-                echo '<button class="show-summary-button" data-ringkasan="' . $ringkasan . '">V</button>';
-
-                echo '</div>';
-                echo '</div>';
-                echo '</li>';
-            }
-            echo '</div>';
-            echo '</div>';
-            echo '</div>';
-        }
+        echo json_encode(['result' => $relatedDocuments]);
     }
-
-    
-
 }
 
 function getYoutubeVideoId($url) {

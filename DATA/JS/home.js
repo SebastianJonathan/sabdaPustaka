@@ -21,41 +21,41 @@ var spFilter = document.getElementById('sp-sidebar');
 var footer = document.getElementById('footer');
 
 
-function scrollFilter(){
+// function scrollFilter(){
 
-    let screenWidth =window.innerWidth;
-    if (screenWidth > 992){
-        colFilter.style.display = "flex";
-        // spFilter.style.display = "block";
-        var scrollPosition = window.scrollY;
+//     let screenWidth =window.innerWidth;
+//     if (screenWidth > 992){
+//         colFilter.style.display = "flex";
+//         // spFilter.style.display = "block";
+//         var scrollPosition = window.scrollY;
 
-        var rect = footer.getBoundingClientRect();
-        var windowHeight90 = window.innerHeight*0.92;
+//         var rect = footer.getBoundingClientRect();
+//         var windowHeight90 = window.innerHeight*0.92;
 
-        if (rect.top < windowHeight90 && pageMode != "first" && scrollPosition > 0 && pageSize == total){
-            colFilter.style.position = "relative";
-            colFilter.style.alignItems= "end";
-            spFilter.style.display = "none";
-        }
-        else if (rect.top < windowHeight90 && pageMode != "first" && scrollPosition > 0){
-            colFilter.style.position = "relative";
-            colFilter.style.alignItems = "start";
-            spFilter.style.display = "none";
-        }
-        else if (scrollPosition > 0){
-            spFilter.style.display = "block";
-            colFilter.style.position = "sticky";
-            colFilter.style.position = "sticky";
-        }else{
-            colFilter.style.position = "relative";
-            colFilter.style.alignItems= "start";
-            spFilter.style.display = "none";
-        }
-    } else{
-        spFilter.style.display = "none";
-        colFilter.style.display = "none";
-    }
-}
+//         if (rect.top < windowHeight90 && pageMode != "first" && scrollPosition > 0 && pageSize == total){
+//             colFilter.style.position = "relative";
+//             colFilter.style.alignItems= "end";
+//             spFilter.style.display = "none";
+//         }
+//         else if (rect.top < windowHeight90 && pageMode != "first" && scrollPosition > 0){
+//             colFilter.style.position = "relative";
+//             colFilter.style.alignItems = "start";
+//             spFilter.style.display = "none";
+//         }
+//         else if (scrollPosition > 0){
+//             spFilter.style.display = "block";
+//             colFilter.style.position = "sticky";
+//             colFilter.style.position = "sticky";
+//         }else{
+//             colFilter.style.position = "relative";
+//             colFilter.style.alignItems= "start";
+//             spFilter.style.display = "none";
+//         }
+//     } else{
+//         spFilter.style.display = "none";
+//         colFilter.style.display = "none";
+//     }
+// }
 // scrollFilter();
 // // Add an event listener to the window's scroll event
 // window.addEventListener('scroll', scrollFilter);
@@ -258,8 +258,6 @@ function updateOnChecked() {
 function goSearch() {
     const fullURL = window.location.href;
     const segments = fullURL.split('/');
-    sessionStorage.setItem("SpecificType", "none");
-    sessionStorage.setItem("SpecificFilter", "none");
     if(segments[segments.length - 2] == "search" && document.getElementById('query').value == ""){
         window.location.href = configPath + "PHP/home.php/search/ ";
     }else{
@@ -581,11 +579,14 @@ function getRemValue() {
 // window.addEventListener('resize', isExpandableNarsum);
 
 function startupAndSearch() {
+    console.log("STARTUP");
     const fullURL = window.location.href;
     sessionStorage.setItem("lastUrl", fullURL);
     const segments = fullURL.split('/');
     const buttonScrollUp = document.getElementById('up-button');
     buttonScrollUp.style.display = 'none';
+    var sType = sessionStorage.getItem("SpecificType");
+    var sFilter = sessionStorage.getItem("SpecificFilter");
     try{
         if (segments[segments.length - 2] == "search"){
             pageMode = "search";
@@ -599,28 +600,17 @@ function startupAndSearch() {
             }
             removeAllElements();
             if(sessionStorage.getItem("mode") == "card"){
-                
-                if (sessionStorage.getItem("SpecificType") == "none"){
+                if (sType == "none"){
                     fetchSearchResult();
-                    console.log("biasa");
                 }else{
-                    
-                    // fetchSearchFilterResult();
-                    var sType = sessionStorage.getItem("SpecificType");
-                    var sFilter = sessionStorage.getItem("SpecificFilter");
-                    console.log(sType+" | "+sFilter);
                     fetchSearchFilterResult(sType, sFilter);
                 }
                 
             }else if(sessionStorage.getItem("mode") == "list"){
                 
-                if (sessionStorage.getItem("SpecificType") == null){
+                if (sType == "none"){
                     fetchSearchResult2();
-                    console.log("biasa");
                 }else{
-                    // fetchSearchFilterResult();
-                    var sType = sessionStorage.getItem("SpecificType");
-                    var sFilter = sessionStorage.getItem("SpecificFilter");
                     fetchSearchFilterResult2(sType, sFilter);
                 }
                 
@@ -628,8 +618,6 @@ function startupAndSearch() {
         } else {
             pageMode = "first";
             sessionStorage.setItem("mode","card");
-            // sessionStorage.setItem("SpecificType", "none");
-            // sessionStorage.setItem("SpecificFilter", "none");
             document.getElementById('card-filter').style.height = "fit-content";
             selectAll();
             var attempt = 0;
@@ -648,10 +636,8 @@ function startupAndSearch() {
             generateEventLinks();
             generateNarasumberLinks();
         }
-        sessionStorage.setItem("SpecificType", "none");
-        sessionStorage.setItem("SpecificFilter", "none");
     } catch (error){
-        window.alert(error);
+        // window.alert(error);
         location.reload();
     }
 }
