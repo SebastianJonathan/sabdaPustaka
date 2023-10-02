@@ -169,7 +169,7 @@ function getCard(data, root_div){
 
             const card = document.createElement('div');
             card.className = '_card';
-            card.setAttribute('onclick', `window.location.href='${configPath}PHP/selected_card.php?document_id=${item.id}'`);
+            card.setAttribute('onclick', `window.location.href='${configPath}PHP/selected_card.php?document_id=${item._id}'`);
 
             const cardImage = document.createElement('div');
             cardImage.className = '_card_image';

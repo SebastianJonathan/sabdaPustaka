@@ -244,11 +244,11 @@
             <div class="pertanyaan-container _hidden" id="pertanyaan-container">
               <h5 class="text-center">Pertanyaan Lanjutan</h5>
               <div class="pertanyaan-content" id="pertanyaan-content">
-                <ul>
+                <ul style="list-style: none; padding-left: 5px;">
                   <?php
                   foreach ($pertanyaan as $item) {
                     if (trim($item) !== '') {
-                      echo "<li>" . $item . "?</li>";
+                      echo "<li style=\"margin-bottom: 5px;\">" . $item . "?</li>";
                     }
                   }
                   ?>
