@@ -1531,6 +1531,7 @@ function getYoutubeVideoId(url) {
 }
 
 function addCard(){
+    console.log("hahahaha");
     if(filterEvent.length == 0 && filterNarasumber.length == 0 && filterTanggal == 0){
         if(sessionStorage.getItem("mode") == "card"){
             fetchSearchResult();
@@ -1553,7 +1554,8 @@ function addCard(){
 }
 
 window.addEventListener("scroll", () => {
-    if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
+    // console.log(window.innerHeight +" | "+ window.scrollY +" | "+ document.body.offsetHeight);
+    if (window.innerHeight + window.scrollY >= (document.body.offsetHeight - 2)) {
         console.log("test")
         if((pageSize + loadPage) < total){
             pageSize += loadPage;
