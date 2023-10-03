@@ -54,9 +54,10 @@
       $kata_kunci = $source['kata_kunci'];
       $list_pertanyaan = $source['list_pertanyaan'];
       $list_pertanyaan = str_replace('*', "", $list_pertanyaan);
-      $list_pertanyaan = str_replace(', ', "", $list_pertanyaan);
+      // $list_pertanyaan = str_replace(', ', "", $list_pertanyaan);
 
-      $pertanyaan = explode('?', $list_pertanyaan);
+      // $pertanyaan = explode('?', $list_pertanyaan);
+      $pertanyaan = preg_split('/\d+\./', $list_pertanyaan);
       $katakunci = explode(', ', $kata_kunci);
       $pembicara = $source['narasumber'];
       $pembicara = str_replace(",S.", "|S.", $pembicara);
