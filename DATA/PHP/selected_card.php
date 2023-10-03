@@ -54,7 +54,6 @@
       $kata_kunci = $source['kata_kunci'];
       $list_pertanyaan = $source['list_pertanyaan'];
       $list_pertanyaan = str_replace('*', "", $list_pertanyaan);
-      $list_pertanyaan = str_replace('??', "?", $list_pertanyaan);
       // $list_pertanyaan = str_replace(', ', "", $list_pertanyaan);
 
       // $pertanyaan = explode('?', $list_pertanyaan);
@@ -250,7 +249,7 @@
                   <?php
                   foreach ($pertanyaan as $item) {
                     if (trim($item) !== '') {
-                      echo "<li style=\"margin-bottom: 5px;\">" . $item . "?</li>";
+                      echo "<li style=\"margin-bottom: 5px;\">" . $item . "</li>";
                     }
                   }
                   ?>
