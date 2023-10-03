@@ -249,7 +249,7 @@
                   <?php
                   foreach ($pertanyaan as $item) {
                     if (trim($item) !== '') {
-                      echo "<li style=\"margin-bottom: 5px;\">" . $item . "</li>";
+                      echo "<li style=\"margin-bottom: 5px;\">-" . $item . "</li>";
                     }
                   }
                   ?>
