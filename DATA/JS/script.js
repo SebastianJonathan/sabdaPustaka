@@ -1,46 +1,15 @@
-// $(document).ready(function() {
-//     window.onbeforeunload = function () {
-//         console.log("halo")
-//         window.scrollTo(0, 0);
-//     }
+document.addEventListener('DOMContentLoaded', () => {
+  "use strict";
 
-//     function loadScript(scriptPath) {
-//         return new Promise(function(resolve, reject) {
-//             $.getScript(scriptPath, function() {
-//                 resolve();
-//             }).fail(function() {
-//                 reject(new Error('Failed to load script: ' + scriptPath));
-//             });
-//         });
-//     }
-
-//     loadScript(configPath + "JS/navbar.js")
-//         .then(function() {
-//             if ($("#p1_home").length) {
-//                 loadScript(configPath + "JS/search_result.js")
-//                 .then(function(){
-//                     loadScript(configPath + "JS/home.js");
-//                 })
-
-//             } else if ($("#p2_selectedCard").length) {
-//                 return loadScript(configPath + "JS/selectedCard.js");
-//             } else if ($("#p3_relatedResult").length) {
-//                 loadScript(configPath + "JS/search_result.js")
-//                 .then(function(){
-//                     loadScript(configPath + "JS/relatedSearch.js");
-//                 })
-                
-//             } else if ($("#p4_allList").length) {
-//                 return loadScript(configPath + "JS/getAllList.js");
-//             }
-//         })
-//         .then(function() {
-//             // Code that depends on the loaded scripts can go here
-//         })
-//         .catch(function(error) {
-//             console.error(error);
-//         });
-// });
+  const preloader = document.getElementById('loader-cont');
+  if (preloader) {
+      console.log(preloader);
+      window.addEventListener('load', () => {
+        console.log("Success");
+          preloader.style.display = "none";
+      });
+  }
+});
 
 $(document).ready(function() {
 	window.onbeforeunload = function () {
@@ -73,3 +42,5 @@ $(document).ready(function() {
     }
 	
 });
+
+
