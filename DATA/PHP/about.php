@@ -6,7 +6,7 @@
     <p>
         <strong>Visi :</strong>
         <br>
-        Menjadi sumber untuk arsip materi kekristenan SABDA dengan fitur-fitur yang memudahkan pemahaman dan penelusuran materi, serta membantu individu dalam tumbuh dalam iman dan pelayanan mereka
+        Menjadi sumber untuk arsip materi kekristenan SABDA dengan fitur-fitur yang memudahkan pemahaman dan penelusuran materi, serta membantu individu dalam bertumbuh dalam iman dan pelayanan mereka
     </p>
     <p>
         <strong>Misi :</strong>
@@ -16,7 +16,7 @@
     <p>
         <strong>Tentang Kami :</strong>
         <br>
-        Kami adalah pengikut Kristus yang berkomitmen untuk membantu umat Kristiani dalam mengakses dan mempelajari materi - materi SABDA dengan mudah, maka dari itu kami menyediakan plattform berisi materi - materi SABDA yang menunjang pelayanan serta aplikasi dalam kehidupan sehari - hari dalam berbagai topik aspek kehidupan.
+        Kami adalah pengikut Kristus yang berkomitmen untuk membantu umat kristiani dalam mengakses dan mempelajari materi-materi SABDA dengan mudah. Karena dari itu kami menyediakan plattform berisi materi-materi SABDA yang menunjang pelayanan serta aplikasi dalam kehidupan sehari-hari dalam berbagai topik aspek kehidupan.
     </p>
     <p>
         <strong>Kontak Kami : </strong>
@@ -25,7 +25,7 @@
             <li>Tiktok : sabda_ylsa</li>
             <li>Instagram : sabda_ylsa</li>
             <li>Facebook : Yayasan Lembaga SABDA</li>
-            <li>Youtube : SABDA AlkitabS</li>
+            <li>Youtube : SABDA Alkitab</li>
             <li>Twitter : sabda_ylsa</li>
         </ul>
     </p>
