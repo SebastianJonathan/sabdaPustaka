@@ -4,6 +4,3 @@
     $indexName = "pustaka6";
     $configPath = "http://localhost/UI/sabdaPustaka/DATA/"
 ?>
-<script>
-    var configPath = "http://localhost/UI/sabdaPustaka/DATA/"
-</script>

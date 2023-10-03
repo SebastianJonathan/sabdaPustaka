@@ -115,6 +115,11 @@ function fetchRelatedDocuments() {
         }else{
             errorConnNoMore();
             const relatedResultsContainer = document.getElementById('related-results-container');
+            if(data.result.length > 0){
+                const title = document.createElement('h3');
+                title.textContent = "Materi Terkait"
+                relatedResultsContainer.appendChild(title)
+            }
             getCard(data, relatedResultsContainer);
         }
     })
@@ -135,6 +140,11 @@ function fetchRelatedJudul() {
         }else{
             errorConnNoMore();
             const relatedResultsContainer = document.getElementById('related-judul-container');
+            if(data.result.length > 0){
+                const title = document.createElement('h3');
+                title.textContent = "Kata Kunci Terkait"
+                relatedResultsContainer.appendChild(title)
+            }
             getCard(data, relatedResultsContainer);
             // relatedResultsContainer.innerHTML = data;
 
