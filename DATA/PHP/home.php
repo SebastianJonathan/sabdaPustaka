@@ -2,7 +2,6 @@
 <div id="p1_home">
 
 	<div class="container-fluid">
-		<!-- Penjelasan Website: Silahkan mencari dan menjelajahi materi yang telah disediakan oleh SABDA! -->
 		<div class="row text-center penjelasan-web">
 			<h4><strong>Silahkan Mencari dan Menjelajahi Materi yang telah Disediakan oleh SABDA!</strong></h4>
 		</div>
@@ -13,10 +12,7 @@
 			<div class="col-lg-2 col-md-3 col-filter" id="col-filter-md" style="padding-right: 5px; padding-left:10px; min-width: 213px; max-width:360px">
 				<div id="filter-top-sp"></div>
 				<div class="card sect-cont-sidebar" id="card-filter">
-					<!-- <img src="..." class="card-img-top" alt="..."> -->
 					<div class="card-body card-sidebar">
-						<!-- <h5 class="card-title">Search</h5> -->
-						<!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
 
 						<div class="row">
 							<h5 style="margin-bottom: 10px; font-weight:bold; color:gold;">Dasar Pencarian</h5>
@@ -60,16 +56,12 @@
 				</div>
 			</div><!-- COL Search & Filter  -->
 
-			<!-- <div class="col-lg-2 col-md-3 sp-filter" id="sp-sidebar" style="min-width: 213px; max-width:360px"">
-			</div> -->
-
 			<!-- COL Card -->
 			<div class="col">
 				<div>
 					<div class="offcanvas offcanvas-start sect-cont-sidebar" data-bs-scroll="true" tabindex="-1" id="filter-sm" aria-labelledby="filter-sm-label" style="max-width:300px">
 						<div class="offcanvas-header" style="align-items: end; padding-bottom: 0px;">
 							<div style="height: 40px;"></div>
-							<!-- <h5 class="offcanvas-title" id="filter-sm-label">Search By</h5> -->
 						</div>
 						<div class="offcanvas-body offcvb">
 							<!-- FSV Off-Canvas Search By -->

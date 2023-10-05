@@ -409,7 +409,6 @@ img {
 
 @media (max-width: 1200px) {
     ._cards_item {
-        /* flex-basis: calc(33.3333% - 1rem); */
         flex-basis: calc(33.3333%);
     }
 }
@@ -472,19 +471,6 @@ img {
     width: calc(100% - 16px);
 }
 
-/* .col-filter{
-    position: fixed;
-} */
-
-/* @media (max-width: 768px){
-    .col-filter, .sp-filter{
-        display: none;
-    }
-    .filter-sm-btn{
-        display: unset;
-    }
-} */
-
 #card-filter{
     height: 82vh;
     overflow-y: scroll;
@@ -492,7 +478,6 @@ img {
 
 @media (max-width: 768px) {
     ._cards_item {
-        /* flex-basis: calc(50% - 1rem); */
         flex-basis: calc(50%);
     }
 }

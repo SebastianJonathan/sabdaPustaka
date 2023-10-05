@@ -1,5 +1,4 @@
 1.  p1_home
 2.  p2_selectedCard
 3.  p3_relatedResult
-4.  p4_allList (tidak ada)
-5.  p5_about
+4.  p4_errorConn

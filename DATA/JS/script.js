@@ -12,9 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 $(document).ready(function() {
-  var configPath = "http://localhost/UI/sabdaPustaka/DATA/"
 	window.onbeforeunload = function () {
-		console.log("halo")
 		window.scrollTo(0, 0);
 	}
 	$.getScript(configPath+"JS/navbar.js");

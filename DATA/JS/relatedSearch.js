@@ -5,8 +5,6 @@ let cardHeights = window.innerHeight / 4;
 
 function errorConnHandling(){
     if (!errorConn){
-        // alert("Terjadi Kesalahan dalam Koneksi Data");
-        // location.reload();
         location.href = configPath + "PHP/errorConn.php";
     }
     errorConn = true;
@@ -28,7 +26,6 @@ if (keyword) {
                 showResults(hasil);
             }
             // Display the results
-            
         })
         .catch(error => {
             console.error(error);

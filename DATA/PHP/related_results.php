@@ -29,9 +29,6 @@
                         <div class="_cards-container">
                             <div class="main" id="main">
                                 <div class="row" id="hs-header" style="padding-left: 16px;">
-                                    <!-- <div id="show">
-
-                                    </div> -->
                                 </div> 
                                 <ul class="_cards" id="card_result">
                                 <!-- Card results will be dynamically added here -->
@@ -56,12 +53,5 @@
 	<img src="<?php echo $configPath?>img/wa.png" alt="WhatsApp">
 </a>
     
-
-    </div>
-
-
-
-    <?php include 'footer.php'; ?>
-<!-- </body>
-
-</html> -->
+</div>
+<?php include 'footer.php'; ?>

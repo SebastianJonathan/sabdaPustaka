@@ -37,8 +37,6 @@
       </div>
 
       <div class="col col-lg-2 col-md-2 col-sm-3 tog-nav" id="togNav" style="min-width: 100px; right: 0;"> 
-
-
         <button class="nav-search-btn" id="search-icon" style="padding-right:13px;" type="button" onclick="toogleNavbar()">
           <img style="width: 28px;" src="<?php echo $configPath?>img\search-symbol.png" alt="Search">
         </button>
@@ -46,11 +44,7 @@
         <button class="navbar-toggler" id="toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="height: 40px;">
           <span class="navbar-toggler-icon"></span>
         </button>
-
-
       </div>
-
-
       </div>
     </div>
 

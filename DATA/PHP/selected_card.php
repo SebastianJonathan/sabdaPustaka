@@ -110,7 +110,7 @@
               ?>
               <!-- <div class="error-message" style="padding:7px;">
                 <p class="text-center">Tampilan Presentasi belum tersedia, silahkan pergi ke <a
-                    href="<?php echo $url_slideshare ?>" target="_blank">link ini</a></p>
+                    href="<?php //echo $url_slideshare ?>" target="_blank">link ini</a></p>
               </div> -->
               <div id="pdfViewer">
                 <?php if (!empty($url_youtube)) { ?>

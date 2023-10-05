@@ -20,54 +20,10 @@ var colFilter = document.getElementById('col-filter-md');
 var spFilter = document.getElementById('sp-sidebar');
 var footer = document.getElementById('footer');
 
-
-// function scrollFilter(){
-
-//     let screenWidth =window.innerWidth;
-//     if (screenWidth > 992){
-//         colFilter.style.display = "flex";
-//         // spFilter.style.display = "block";
-//         var scrollPosition = window.scrollY;
-
-//         var rect = footer.getBoundingClientRect();
-//         var windowHeight90 = window.innerHeight*0.92;
-
-//         if (rect.top < windowHeight90 && pageMode != "first" && scrollPosition > 0 && pageSize == total){
-//             colFilter.style.position = "relative";
-//             colFilter.style.alignItems= "end";
-//             spFilter.style.display = "none";
-//         }
-//         else if (rect.top < windowHeight90 && pageMode != "first" && scrollPosition > 0){
-//             colFilter.style.position = "relative";
-//             colFilter.style.alignItems = "start";
-//             spFilter.style.display = "none";
-//         }
-//         else if (scrollPosition > 0){
-//             spFilter.style.display = "block";
-//             colFilter.style.position = "sticky";
-//             colFilter.style.position = "sticky";
-//         }else{
-//             colFilter.style.position = "relative";
-//             colFilter.style.alignItems= "start";
-//             spFilter.style.display = "none";
-//         }
-//     } else{
-//         spFilter.style.display = "none";
-//         colFilter.style.display = "none";
-//     }
-// }
-// scrollFilter();
-// // Add an event listener to the window's scroll event
-// window.addEventListener('scroll', scrollFilter);
-// window.addEventListener('resize', scrollFilter);
-
-
 var errorConn = false;
 
 function errorConnHandling(){
     if (!errorConn){
-        // alert("Terjadi Kesalahan dalam Koneksi Data");
-        // location.reload();
         location.href = configPath + "PHP/errorConn.php";
     }
     errorConn = true;
@@ -105,7 +61,6 @@ function syncCheckbox(id, isChecked) {
         const ffc_cb = document.getElementById(ffc_id);
         ffc_cb.checked = isChecked;
     } else {
-        // clan === ffc
         var ffv_id = "ffv-" + true_id;
         const ffv_cb = document.getElementById(ffv_id);
         ffv_cb.checked = isChecked;
@@ -140,7 +95,7 @@ function onChangeResponsiveJudul(){
     if(document.getElementById('checkbox_judul').checked == false){
         document.getElementById('checkbox_judul').checked = true;
     }else{
-    document.getElementById('checkbox_judul').checked = false;
+        document.getElementById('checkbox_judul').checked = false;
     }
     updateSessionCheckboxFirst();
 }
@@ -148,7 +103,7 @@ function onChangeResponsiveEvent(){
     if(document.getElementById('checkbox_event').checked == false){
         document.getElementById('checkbox_event').checked = true;
     }else{
-    document.getElementById('checkbox_event').checked = false;
+        document.getElementById('checkbox_event').checked = false;
     }
     updateSessionCheckboxFirst();
 }
@@ -156,7 +111,7 @@ function onChangeResponsiveNarasumber(){
     if(document.getElementById('checkbox_narasumber').checked == false){
         document.getElementById('checkbox_narasumber').checked = true;
     }else{
-    document.getElementById('checkbox_narasumber').checked = false;
+        document.getElementById('checkbox_narasumber').checked = false;
     }
     updateSessionCheckboxFirst();
 }
@@ -164,7 +119,7 @@ function onChangeResponsiveRelated(){
     if(document.getElementById('checkbox_related').checked == false){
         document.getElementById('checkbox_related').checked = true;
     }else{
-    document.getElementById('checkbox_related').checked = false;
+        document.getElementById('checkbox_related').checked = false;
     }
     updateSessionCheckboxFirst();
 }
@@ -356,8 +311,6 @@ function genEventNarsumCont(){
 </div>`
 }
 
-
-
 function generateEventLinks(sort = "alphabet") {
     const eventListContainer = document.getElementById('eventList');
     eventListContainer.innerHTML = '';
@@ -402,10 +355,6 @@ function generateEventLinks(sort = "alphabet") {
                 sortEvbtn.textContent = "Jumlah";
             }
             isExpandableEv();
-            // if (Object.keys(data.result).length < 24){
-            //     expandEvent(false, true);
-            //     document.getElementById('ex-event-btn').style.display = "none";
-            // }
         }
     })
     .catch(error => {
@@ -455,10 +404,6 @@ function generateNarasumberLinks(sort="alphabet") {
                 sortNrbtn.textContent = "Jumlah";
             }
             isExpandableNarsum();
-            // if (Object.keys(data.result).length < 24){
-            //     expandEvent(false, true);
-            //     document.getElementById('ex-event-btn').style.display = "none";
-            // }
         }
     })
     .catch(error => {
@@ -552,32 +497,6 @@ function getRemValue() {
     return parseFloat(getComputedStyle(document.documentElement).fontSize);
 }
 
-// function resizeListEN(){
-//     var contEN = document.getElementById('contEventNarsum');
-//     if (contEN != null && pageMode == "first"){
-//         var kontenS = document.getElementById('kontenS');
-//         var colFilter = document.getElementById('col-filter-md');
-//         var sidebarWidth = colFilter.clientWidth;
-
-//         // var card_li = document.getElementsByClassName('_cards_item')[0];
-//         var availSpace = kontenS.clientWidth - sidebarWidth;
-//         var unitL =  availSpace/3.0 - getRemValue();
-        
-//         var totalUnit = Math.floor(availSpace / unitL);
-//         var totalWidth = totalUnit * unitL - 16;
-
-//         var contEvent = document.getElementById('contEvent');
-//         var contNarsum = document.getElementById('contNarsum');
-//         contEN.setAttribute("style","width:"+totalWidth+"px;");
-//         contEvent.setAttribute("style","width:"+totalWidth+"px");
-//         contNarsum.setAttribute("style","width:"+totalWidth+"px");
-//     }
-// }
-// // 
-// window.addEventListener('resize', resizeListEN);
-// window.addEventListener('resize', isExpandableEv);
-// window.addEventListener('resize', isExpandableNarsum);
-
 function startupAndSearch() {
     console.log("STARTUP");
     const fullURL = window.location.href;
@@ -620,19 +539,8 @@ function startupAndSearch() {
             sessionStorage.setItem("mode","card");
             document.getElementById('card-filter').style.height = "fit-content";
             selectAll();
-            var attempt = 0;
-            while (attempt < 10){
-                try{
-                    fetchNewest();
-                    break;
-                }catch (error){
-                    attempt += 1;
-                    // console.log("ULANG FETCH"+error);
-                    // window.alert("WWWW"+error);
-                }
-            }
+            fetchNewest();
             genEventNarsumCont();
-            // resizeListEN();
             generateEventLinks();
             generateNarasumberLinks();
         }

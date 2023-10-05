@@ -23,19 +23,6 @@ a.link-gap {
     /* padding: 20px; */
 }
 
-/* ._hidden {
-  opacity: 0;
-  filter: blur(6px);
-  transform: translateY(40%);
-  transition: all 0.6s;
-}
-
-._show {
-  opacity: 1;
-  filter: blur(0);
-  transform: translateX(0);
-} */
-
 .unduh h6 {
   font-weight: bold;
   font-size: small;
@@ -62,13 +49,9 @@ a.link-gap {
     text-align: center;
 }
 
-
-
 .summary-content {
     background: #FAF9F6;
     padding: 20px;
-    /* margin-right: 10px; */
-    /* border-radius: 20px; */
     font-size: 16px;
     line-height: 1.7;
     border-radius: 10px;
@@ -121,7 +104,6 @@ h3 {
 }
 
 .narsum-tanggal{
-    /* background: #f2f3f0; */
     color: #2F2D2F;
 }
 
