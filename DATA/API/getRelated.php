@@ -18,9 +18,9 @@ if (isset($_GET['document_id'])) {
                                 '_id' => $documentId
                             ]
                         ],
-                        'min_term_freq' => 1
-                        // 'max_query_terms' => 5, // Adjust the number of terms based on your preference
-                        // 'minimum_should_match' => '0%'
+                        'min_term_freq' => 1,
+                        'max_query_terms' => 5, // Adjust the number of terms based on your preference
+                        'minimum_should_match' => '10%'
                     ]
                 ],
                 'random_score' => [

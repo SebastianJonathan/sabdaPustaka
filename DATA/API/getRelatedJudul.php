@@ -19,8 +19,8 @@ if (isset($_GET['document_id'])) {
                     ]
                 ],
                 'min_term_freq' => 1,
-                // 'max_query_terms' => 4, // Adjust the number of terms based on your preference
-                // 'minimum_should_match' => '60%'
+                'max_query_terms' => 4, // Adjust the number of terms based on your preference
+                'minimum_should_match' => '10%'
             ]
         ],
         'size' => 4 // Adjust the number of related documents to retrieve

@@ -1,3 +1,10 @@
+/* .navbar{
+    background: linear-gradient(to right top, #1e0049, #211045, #251c3f, #2a2638, #2f2f2f);
+}
+.nav-link{
+    color: white;
+} */
+
 .penjelasan-web{
     margin-bottom: 0px;
 }
@@ -123,7 +130,7 @@ body {
 }
 
 .navbar-brand img {
-    height: 30px;
+    height: 40px;
     margin-right: 10px;
 }
 

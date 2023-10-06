@@ -119,8 +119,11 @@ function fetchRelatedDocuments() {
                 const title = document.createElement('h3');
                 title.textContent = "Materi Terkait"
                 relatedResultsContainer.appendChild(title)
+                getCard(data, relatedResultsContainer);
+            }else{
+                relatedResultsContainer.style.display = 'none';
             }
-            getCard(data, relatedResultsContainer);
+            
         }
     })
     .catch(error => {
@@ -144,8 +147,11 @@ function fetchRelatedJudul() {
                 const title = document.createElement('h3');
                 title.textContent = "Kata Kunci Terkait"
                 relatedResultsContainer.appendChild(title)
+                getCard(data, relatedResultsContainer);
+            }else{
+                relatedResultsContainer.style.display = 'none';
             }
-            getCard(data, relatedResultsContainer);
+            
             // relatedResultsContainer.innerHTML = data;
 
             

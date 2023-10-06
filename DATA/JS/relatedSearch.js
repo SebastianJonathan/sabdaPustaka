@@ -372,7 +372,9 @@ function generateCard(results){
             cardEvent.className = '_card_text';
             cardEvent.textContent = item.event;
             cardEvent.onclick = function(event){
-                window.location.href = configPath+'PHP/related_results.php?event='+item.event;
+                sessionStorage.setItem("SpecificType", "event");
+                sessionStorage.setItem("SpecificFilter", item.event);
+                window.location.href = configPath+'PHP/home.php/search/'+item.event;
                 event.stopPropagation();
             }
             cardEvent.style.textDecoration = 'none';
@@ -399,7 +401,9 @@ function generateCard(results){
                 }
                 count++;
                 cardText.onclick = function(event){
-                    window.location.href = configPath+'PHP/related_results.php?narasumber='+element;
+                    sessionStorage.setItem("SpecificType", "narsum");
+                    sessionStorage.setItem("SpecificFilter", element);
+                    window.location.href = configPath+'PHP/home.php/search/'+element;
                     event.stopPropagation();
                 }
                 cardText.style.textDecoration = 'none';
@@ -463,15 +467,8 @@ function getYoutubeVideoId(url) {
     }
 }
 
-window.addEventListener('scroll', () => {
-    // Dapatkan posisi scroll dari window
-    const scrolled = window.scrollY;
-
-    // Hitung jumlah baris yang sudah dilewati
-    const passedRows = Math.floor(scrolled / cardHeights);
-
-    // Cek apakah jumlah baris yang sudah dilewati berubah
-    if (passedRows > rowsPasseds) {
+window.addEventListener("scroll", () => {
+    if (window.innerHeight + window.scrollY >= (document.body.offsetHeight - 2)) {
         if((pageSizes + Math.ceil(window.innerWidth / 300)) < totals){
             pageSizes += Math.ceil(window.innerWidth / 300);
             generateCard(paginate(relResult,0))
@@ -481,6 +478,4 @@ window.addEventListener('scroll', () => {
             generateCard(paginate(relResult,beda))
         }
     }
-});
-
-
+  });
