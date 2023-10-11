@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (preloader) {
       console.log(preloader);
       window.addEventListener('load', () => {
-        console.log("Success");
+        // console.log("Success");
           preloader.style.display = "none";
       });
   }
@@ -16,19 +16,21 @@ $(document).ready(function() {
 		window.scrollTo(0, 0);
 	}
 	$.getScript(configPath+"JS/navbar.js");
-    if ($("#p1_home").length) {
-		$.getScript(configPath+"JS/search_result.js")
-        .then(function(){
-            // window.alert("SUCESS SUCESS SUCESS")
-            $.getScript(configPath+"JS/home.js");
-            
-        })
-        .catch(function(){
-            window.alert("Maaf terjadi kesalahan");
-            location.reload();
-        })
-		
-    }
+  const preloader = document.getElementById('loader-cont');
+  preloader.style.display = "none";
+  if ($("#p1_home").length) {
+  $.getScript(configPath+"JS/search_result.js")
+      .then(function(){
+          // window.alert("SUCESS SUCESS SUCESS")
+          $.getScript(configPath+"JS/home.js");
+          
+      })
+      .catch(function(){
+          window.alert("Maaf terjadi kesalahan");
+          location.reload();
+      })
+  
+  }
 	else if($("#p2_selectedCard").length){
 		$.getScript(configPath+"JS/selectedCard.js");
 	}
