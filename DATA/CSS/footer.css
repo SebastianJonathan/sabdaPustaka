@@ -1,5 +1,7 @@
+/*-------------------  
+        Loader 
+-------------------*/
 #loader-cont{
-    /* background-color: violet; */
     height: 150px;
     width: 150px;
     margin-left: 50%;
@@ -11,6 +13,10 @@
     animation: linear infinite;
 }
 
+
+/*-------------------  
+        Footer 
+-------------------*/
 footer {
     margin-top: auto;
     bottom: 0;
@@ -44,7 +50,7 @@ footer {
     }
 }
 
-/* UNTUK MEDIA KECIL */
+/* Pegaturan footer */
 @media screen and (max-width: 768px){
     .colf2{
         width: 100%;
@@ -74,13 +80,14 @@ footer {
     }
 }
 
+/* 3 Tombol di Footer  */
 .donasiButtn{
     background-color: #DF750F;
     border: 2px solid azure;
 }
 
 .donasiButtn .donasiButtna{
-        color: whitesmoke;
+    color: whitesmoke;
 }
 
 .donasiButtn:hover{

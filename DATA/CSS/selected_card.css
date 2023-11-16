@@ -3,11 +3,10 @@
 
 }
 
-a.link-gap {
-    margin-right: 30px;
-    /* Adjust the margin value to your desired gap size */
-}
-
+/*-------------------  
+  Bagian Atas 
+  (PDF/Youtube, Judul, Event, Narasumber, Short Description, Donwload)
+-------------------*/
 .container-atas {
     background-color: #FAF9F6;
     color: #2F2D2F;
@@ -15,12 +14,6 @@ a.link-gap {
     margin-bottom: 30px;
     padding: 20px;
     border-radius: 10px;
-}
-
-.container-bawah {
-    margin-bottom: 30px;
-    border-radius: 10px;
-    /* padding: 20px; */
 }
 
 .unduh h6 {
@@ -32,125 +25,18 @@ a.link-gap {
   margin-top: 10px;
 }
 
-.materi-text h3{
-  margin-top: 10px;
-  color: white;
+.details-container{
+  padding-left: 10px;
 }
 
-.judul-terkait h3{
-  margin-top: 30px;
-}
-
-.materi-terkait{
-  margin-bottom: 20px;
-}
-
-.materi-terkait h3 {
-    text-align: center;
-}
-
-.summary-content {
-    background: #FAF9F6;
-    padding: 20px;
-    font-size: 16px;
-    line-height: 1.7;
-    border-radius: 10px;
-}
-
-.summary-content h2,
-h3 {
-    color: #2F2D2F	;
-    text-align: center;
-    font-weight: bold;
-}
-
-.summary-container {
-    position: relative;
-}
-
-.pertanyaan-container {
-    color: #2F2D2F;
-    background-color: #FAF9F6;
-    padding: 10px;
-    border-radius: 20px;
-    height: 100%;
-    overflow-y: auto;
-    border-radius: 10px;
-}
-
-.pertanyaan-container h5{
-  font-weight: bold;
-}
-
-.container-bawah h3 p li ul{
-    font-size: medium;
-    color: #2F2D2F	;
-}
-
-._cards-container{
-  background-color: #FAF9F6;
-  border-radius: 20px;
-}
-
-.error-message {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-}
-
-.error-message p {
-    text-align: center;
+@media (min-width: 768px) {
+  .details-container {
+      flex-basis: 40%;
+  }
 }
 
 .narsum-tanggal{
-    color: #2F2D2F;
-}
-
-.keyword-content{
-    background: #FAF9F6;
-    padding: 20px;
-    border-radius: 10px;
-    font-size: 16px;
-    line-height: 1.7;
-    margin-bottom: 10px;
-} 
-
-.keyword-content h5{
-    margin-left: 5px;
-    margin-bottom: 20px;
-    font-weight: bold;
-}
-
-.keyword-link{
-    text-decoration: none;
-    margin-right: 10px;
-    color: #1481BA;
-    font-weight:600;
-}
-
-.keyword-link:hover{
   color: #2F2D2F;
-  text-decoration: underline;
-}
-
-.keyword-content h5{
-  text-align: center;
-}
-
-.narsum-link{
-  text-decoration: none;
-  color: #1481BA;
-  font-weight: 600;
-}
-
-.narsum-link:hover{
-  color: #2F2D2F;
-  text-decoration: underline;
-}
-
-.links a{
-  justify-items: center ;
 }
 
 .btn-ln{
@@ -163,7 +49,6 @@ h3 {
   border: 0px;
 }
 
-
 .btn-ln-a{
   text-decoration: none;
   color: white;
@@ -174,12 +59,20 @@ h3 {
   background-color: #2F2D2F;
 }
 
-.ppt-container{
-  padding-right: 10px; 
+
+/*-------------------  
+  Bagian Bawah 
+  (Summary, Keyword, Pertanyaan)
+-------------------*/
+.container-bawah {
+    margin-bottom: 30px;
+    border-radius: 10px;
+    /* padding: 20px; */
 }
 
-.details-container{
-  padding-left: 10px;
+.container-bawah h3 p li ul{
+  font-size: medium;
+  color: #2F2D2F	;
 }
 
 @media (max-width: 992px){
@@ -200,4 +93,85 @@ h3 {
   .q-col{
     padding: 7px;
   }
+}
+
+.summary-content {
+  background: #FAF9F6;
+  padding: 20px;
+  font-size: 16px;
+  line-height: 1.7;
+  border-radius: 10px;
+}
+
+.summary-content h2,
+h3 {
+  color: #2F2D2F	;
+  text-align: center;
+  font-weight: bold;
+}
+
+.keyword-content{
+  background: #FAF9F6;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 10px;
+} 
+
+.keyword-content h5{
+  margin-left: 5px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.keyword-link{
+  text-decoration: none;
+  margin-right: 10px;
+  color: #1481BA;
+  font-weight:600;
+}
+
+.keyword-link:hover{
+color: #2F2D2F;
+text-decoration: underline;
+}
+
+.links a{
+  justify-items: center ;
+}
+
+.pertanyaan-container {
+  color: #2F2D2F;
+  background-color: #FAF9F6;
+  padding: 10px;
+  border-radius: 20px;
+  height: 100%;
+  overflow-y: auto;
+  border-radius: 10px;
+}
+
+.pertanyaan-container h5{
+font-weight: bold;
+}
+
+/*-------------------  
+  Materi & Judul Terkait
+-------------------*/
+.materi-terkait h3 {
+  text-align: center;
+}
+
+.judul-terkait h3{
+  margin-top: 30px;
+}
+
+.materi-terkait{
+  margin-bottom: 20px;
+}
+
+.materi-text h3{
+  margin-top: 10px;
+  color: white;
 }

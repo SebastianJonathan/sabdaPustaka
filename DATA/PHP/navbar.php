@@ -15,20 +15,12 @@
 
       <div class="col search-col">
         <form action="" id="search" class="content sect-search ">
-
-
           <div class="rekomendasi-container">
-
             <div class="col-md-6 InputContainer" style="background-color: #1e0049; ">
-
-
-
               <input placeholder="Cari di SABDA Pustaka" id="query" class="query form-control form-input" name="query" type="text" autocomplete="off">
 
               <button type="button" class="search-button" onclick="goSearch()" style="background-color: #1e0049; color: white;">Cari</button>
             </div>
-            
-
             <div id="rekomendasi">
               <ul id="rekomendasi-list"></ul>
             </div>
@@ -53,16 +45,16 @@
       <div class="collapse navbar-collapse justify-content-end" style="padding-left: 20px; padding-right: 20px;" id="navbarNav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link classB" href="<?php echo $configPath?>PHP/home.php">Beranda</a>
+            <a class="nav-link" style="font-weight: bold;" href="<?php echo $configPath?>PHP/home.php">Beranda</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link classB" href="<?php echo $configPath?>PHP/about.php">Tentang</a>
+            <a class="nav-link" style="font-weight: bold;" href="<?php echo $configPath?>PHP/about.php">Tentang</a>
           </li>
           <!-- <li class="nav-item">
-            <a class="nav-link classB" href="<?php //echo $configPath?>PHP/services.php">Layanan</a>
+            <a class="nav-link" style="font-weight: bold;" href="<?php //echo $configPath?>PHP/services.php">Layanan</a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link classB" href="https://kontak.sabda.org/" target="_blank">Kontak</a>
+            <a class="nav-link" style="font-weight: bold;" href="https://kontak.sabda.org/" target="_blank">Kontak</a>
           </li>
         </ul>
       </div>

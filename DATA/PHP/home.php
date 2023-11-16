@@ -117,7 +117,7 @@
 
 					<div class="_cards-container">
 						<div class="main" id="main">
-							<button class="btn filter-sm-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#filter-sm" aria-controls="filter-sm" style="margin-left: 16px;">Filter</button>
+							<button class="btn filter-sm-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#filter-sm" aria-controls="filter-sm" style="background-color: #1e0049; color:white; margin-left: 16px;">Filter</button>
 
 							<div class="row fltr-blk" id="fltr-blk-row" style="margin-bottom: 10px; display: flex; padding-left: 16px;">
 							<!-- Filter Block will be dynamically added here -->

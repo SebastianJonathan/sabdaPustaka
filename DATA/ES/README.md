@@ -1,20 +1,25 @@
 Folder ini berisi file-file untuk memindahkan data dari SQL ke Elastic Search
 
-1. Folder bulk berisi beberapa text file. File-file ini berisi json yang sudah diformat agar bisa masuk secara bulk ke dalam ES
->>>
-
-2. sqlToES.php merupakan gabungan dari file buatIndex.php, sql_to_txt.php, dan cobaisiESBULK.php
-3. buatIndex.php berisi scipt untuk membuat index pada Elastic Search
-4. sql_to_txt.php berisi script untuk membuat semua data di sql menjadi file text dalam folder bulk agar bisa dipindahkan ke ES
-6. cobaisiESBULK.php berisi script untuk memasukkan semua text file ke ES
->>>
-
-7. mapping_es_nested_completion.json berisi mapping ES yang dipakai
+Langkah-langkah:
+1. Membuat Index dengan mapping
+2. Menarik data SQL & mengubahnya ke dalam bentuk json di text file
+3. Mengubah semua data dalam text file ke ES
 
 ----------------
 
-Catatan :
-- Jika memakai sqlToES.php tidak perlu menjalankan buatIndex.php, sql_to_txt.php, dan cobaisiESBULK.php
-- Dengan folder bulk, hanya perlu file cobaisiESBULK.php untuk memasukkan file-file ke dalam ES.
-- Folder bulk harus terletak pada directory yang sama dengan cobaisiESBULK.php atau sqlToES.php 
-- File mapping harus terletak pada directory yang sama dengan buatIndex.php atau sqlToES.php 
+HALAMAN UTAMA ==> home_.php
+
+Di dalam halaman ini, ada berbagai variabel config untuk ES, SQL, Mapping json, dan text file Directory
+
+Di dalam halaman ini, dapat diatur ingin menjalankan langkah mana saja dengan 3 variabel (true/false)
+- $is_buat_index ==> langkah 1
+- $is_sql_to_txt ==> langkah 2
+- $is_txt_to_es ==> langkah 3
+
+-----------------
+
+Halaman function_main.php berisi 3 fungsi yang diaktifkan dalam halaman utama
+
+Halaman function_helper.php berisi fungsi-fungsi yang akan dipanggil oleh 3 fungsi pada halaman function_main.php
+
+
