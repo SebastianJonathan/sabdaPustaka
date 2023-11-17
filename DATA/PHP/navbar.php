@@ -1,4 +1,3 @@
-<?php //include '../CONFIG/config.php' ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fix" id="navbar">
   <div class="container-fluid">
     <div style="height:10px"></div>
@@ -50,9 +49,6 @@
           <li class="nav-item">
             <a class="nav-link" style="font-weight: bold;" href="<?php echo $configPath?>PHP/about.php">Tentang</a>
           </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" style="font-weight: bold;" href="<?php //echo $configPath?>PHP/services.php">Layanan</a>
-          </li> -->
           <li class="nav-item">
             <a class="nav-link" style="font-weight: bold;" href="https://kontak.sabda.org/" target="_blank">Kontak</a>
           </li>

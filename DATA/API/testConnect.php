@@ -1,4 +1,5 @@
 <?php
+    // Tes Koneksi ES (dipakai errorConn.php)
     function testConnect($configElasticPath, $indexName)
     {
         $header = array(
