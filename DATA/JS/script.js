@@ -3,9 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const preloader = document.getElementById('loader-cont');
   if (preloader) {
-      console.log(preloader);
       window.addEventListener('load', () => {
-        // console.log("Success");
           preloader.style.display = "none";
       });
   }
@@ -21,7 +19,6 @@ $(document).ready(function() {
   if ($("#p1_home").length) {
   $.getScript(configPath+"JS/search_result.js")
       .then(function(){
-          // window.alert("SUCESS SUCESS SUCESS")
           $.getScript(configPath+"JS/home.js");
           
       })

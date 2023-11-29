@@ -498,7 +498,7 @@ function getRemValue() {
 }
 
 function startupAndSearch() {
-    console.log("STARTUP");
+    // console.log("STARTUP");
     const fullURL = window.location.href;
     sessionStorage.setItem("lastUrl", fullURL);
     const segments = fullURL.split('/');

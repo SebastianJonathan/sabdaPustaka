@@ -1,5 +1,5 @@
-<?php include '../API/testConnect.php' ?>
-<?php include 'header.php' ?>
+<?php include '../API/testConnect.php'; ?>
+<?php include 'header.php'; ?>
 <?php
 	$isConnect = testConnect($configElasticPath, $indexName);
 	if($isConnect){

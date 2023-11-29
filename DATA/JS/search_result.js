@@ -178,15 +178,13 @@ function removeItemFromArray(array, item) {
 }
 
 function initFetchSearchFilter(isFilter){
-    // if(isFilter == false){
-        const fullURL = window.location.href;
-        const segments = fullURL.split('/');
-        let query = segments[segments.length - 1];
-        query = query.replace(/%20/g, ' ');
-        document.getElementById("query").value = query;
-    // }
+    const fullURL = window.location.href;
+    const segments = fullURL.split('/');
+    let query = segments[segments.length - 1];
+    query = query.replace(/%20/g, ' ');
+    document.getElementById("query").value = query;
     query = document.getElementById("query").value
-    console.log(query);
+    
     if(query != null){
         let fieldSearch = [];
 
@@ -1386,7 +1384,6 @@ function getYoutubeVideoId(url) {
 }
 
 function addCard(){
-    console.log("hahahaha");
     if(filterEvent.length == 0 && filterNarasumber.length == 0 && filterTanggal == 0){
         if(sessionStorage.getItem("mode") == "card"){
             fetchSearchResult();
@@ -1407,7 +1404,7 @@ window.addEventListener("scroll", () => {
         if((pageSize + loadPage) < total){
             pageSize += loadPage;
             addCard();
-        }else if((pageSize + loadPage) > total && pageSize < total){
+        }else if((pageSize + loadPage) >= total && pageSize < total){
             pageSize = total
             addCard();
         }

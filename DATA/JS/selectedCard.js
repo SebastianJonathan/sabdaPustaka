@@ -51,7 +51,7 @@ eventLinks.forEach(link => {
     link.addEventListener('click', (e) => {
     e.preventDefault();
     const query = link.dataset.keyword;
-    window.alert(query);
+    // window.alert(query);
 
     sessionStorage.setItem("SpecificType", "event");
     sessionStorage.setItem("SpecificFilter", query);

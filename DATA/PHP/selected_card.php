@@ -83,9 +83,9 @@
               $filename_with_slash = strrchr($url_static, '/');
               $filename = ltrim($filename_with_slash, '/');
               $new_filename = str_replace('.pdf', '.png', $filename);
-              $image_url = $configPath . "img/" . $new_filename;
+              $image_url = $configPath . "img/contents/" . $new_filename;
 
-              if (file_exists("../img/" . $new_filename)) {
+              if (file_exists("../img/contents/" . $new_filename)) {
                 ?>
                 <div id="pdfViewer" style="display: none;">
                   <iframe src="<?php echo $url_static; ?>" width="100%" height="400px"></iframe>
@@ -194,7 +194,7 @@
                   if ($url_slideshare) {
                     ?>
                     <button type="button" class="btn-ln">
-                      <a href="<?php echo $url_slideshare ?>" class="btn-ln-a" target="_blank">Slideshare</a>
+                      <a href="<?php echo $url_slideshare ?>" class="btn-ln-a" target="_blank">SlideShare</a>
                     </button>
                     <?php
                   }
